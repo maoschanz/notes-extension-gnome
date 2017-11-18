@@ -13,6 +13,7 @@ const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
 const Gio = imports.gi.Gio;
 const ShellEntry = imports.ui.shellEntry;
+const Meta = imports.gi.Meta;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -25,56 +26,178 @@ const _ = Gettext.gettext;
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 const BOXSTYLE = 'spacing: 10px; margin: 5px;'
 
-/* TODO
+/*
 
-Le "addChrome" renvoie des erreurs du type :
-
-
-(gnome-shell:9174): Clutter-WARNING **: Attempting to add actor of type 'StBoxLayout' to a container of type 'ShellGenericContainer', but the actor has already a parent of type 'StWidget'.
-
-(gnome-shell:9174): Clutter-CRITICAL **: clutter_actor_set_child_below_sibling: assertion 'child->priv->parent == self' failed
-
-
-(à chaque note ; y compris aux rechargements)
-
-Une fois ceci réglé, go faire des vrais paramètres.
-
-Puis traduire.
+TODO
+le notesGroup devrait être limité au simple cas où il sert à quelque chose.
+ 
 
 */
 
-
-
-let aaaaa=2;
-
-
 //-------------------------------------------------
+
 let allNotes;
 
 function init() {
-    Convenience.initTranslations();
-    try {
-    	Util.trySpawnCommandLine("mkdir " + PATH ); //améliorable TODO
-    } catch (e) {
-    	log(e.message);
-    }
+	Convenience.initTranslations();
+	try {
+		Util.trySpawnCommandLine("mkdir " + PATH ); //améliorable TODO
+	} catch (e) {
+		log(e.message);
+	}
 }
 
 //------------------------------------------------
 
+function saveAllNotes() {
+	
+	allNotes.forEach(function(n){
+		if(n.actor != null) {
+			n.saveState();
+			n.saveText();
+		}
+	});
+}
+
 function refreshArray() {
 	let temp = new Array();
-    allNotes.forEach(function(n){
-    	if (n.actor == null) {
-    		//rien
-    	} else {
-    		let nextId = temp.length;
-    		n.id = nextId;
-    		temp.push(n);
-    	}
-    });
-    allNotes = temp;
+	allNotes.forEach(function(n){
+		if (n.actor == null) {
+			//rien
+		} else {
+			let nextId = temp.length;
+			n.id = nextId;
+			temp.push(n);
+		}
+	});
+	allNotes = null;
+	allNotes = temp;
+	
+	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_state');
+	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_text');
 }
+
+//------------------------------------------------
+
+const NoteMenu = new Lang.Class({
+	Name:		'NoteMenu',
+	Extends:	ShellEntry.EntryMenu,
+	
+	_init: function(entry, note) {
+		this.parent(entry);
+		
+		this._note = note;
+		
+		let item;
+		item = new PopupMenu.PopupMenuItem(_("Select All"));
+		item.connect('activate', Lang.bind(this, this._onSelectAll));
+		this.addMenuItem(item);
+		this._selectAllItem = item;
+		
+		item = new PopupMenu.PopupSeparatorMenuItem();
+		this.addMenuItem(item);
+		
+		item = new PopupMenu.PopupMenuItem(_("Bigger font"));
+		item.connect('activate', Lang.bind(this, this._onBig));
+		this.addMenuItem(item);
+		this._bigItem = item;
+		
+		item = new PopupMenu.PopupMenuItem(_("Smaller font"));
+		item.connect('activate', Lang.bind(this, this._onSmall));
+		this.addMenuItem(item);
+		this._smallItem = item;
+		
+//		item = new PopupMenu.PopupSeparatorMenuItem();
+//		this.addMenuItem(item);
+//		
+//		item = new PopupMenu.PopupMenuItem(_("Bold"));
+//		item.connect('activate', Lang.bind(this, this._onBold));
+//		this.addMenuItem(item);
+//		this._boldItem = item;
+//		
+//		item = new PopupMenu.PopupMenuItem(_("Italic"));
+//		item.connect('activate', Lang.bind(this, this._onItalic));
+//		this.addMenuItem(item);
+//		this._italicItem = item;
+//		
+//		item = new PopupMenu.PopupMenuItem(_("Underlined"));
+//		item.connect('activate', Lang.bind(this, this._onUnderlined));
+//		this.addMenuItem(item);
+//		this._underlinedItem = item;
+	},
+	
+	open: function() {
+		this._updateBoldItem();
+		this._updateItalicItem();
+		this._updateUnderlinedItem();
+		this.parent();
+	},
+	
+	_onSelectAll: function() {
+		this._entry.clutter_text.set_selection(0, this._entry.clutter_text.length);
+	},
+	
+	_onBold: function() {
+		
+	},
+	
+	_onItalic: function() {
+		
+	},
+	
+	_onUnderlined: function() {
+		
+	},
+	
+	_onBig: function() {
+		this._note._fontSize = this._note._fontSize + 2;
+		this._entry.style = this._note.noteStyle();
+	},
+	
+	_onSmall: function() {
+		this._note._fontSize = this._note._fontSize - 2;
+		this._entry.style = this._note.noteStyle();
+	},
+	
+	_updateBoldItem: function() {
+		
+	},
+	
+	_updateItalicItem: function() {
+		
+	},
+	
+	_updateUnderlinedItem: function() {
+		
+	},
+});
+
+function addContextMenu(entry, note) {
+	if (entry.menu)
+		return;
+
+//	params = Params.parse (params, { isPassword: false });
+
+	entry.menu = new NoteMenu(entry, note);
+//	entry.menu.isPassword = params.isPassword;
+	entry._menuManager = new PopupMenu.PopupMenuManager({ actor: entry });
+	entry._menuManager.addMenu(entry.menu);
+
+	// Add an event handler to both the entry and its clutter_text; the former
+	// so padding is included in the clickable area, the latter because the
+	// event processing of ClutterText prevents event-bubbling.
+	entry.clutter_text.connect('button-press-event', Lang.bind(null, ShellEntry._onButtonPressEvent, entry));
+	entry.connect('button-press-event', Lang.bind(null, ShellEntry._onButtonPressEvent, entry));
+
+	entry.connect('popup-menu', Lang.bind(null, ShellEntry._onPopup, entry));
+
+	entry.connect('destroy', function() {
+		entry.menu.destroy();
+		entry.menu = null;
+		entry._menuManager = null;
+	});
+}
+
 
 //------------------------------------------------
 
@@ -112,6 +235,9 @@ const NoteBox = new Lang.Class({
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
 		}
+		if(this._fontSize != 0) {
+			temp += 'font-size: ' + this._fontSize + 'px;';
+		}
 		return temp;
 	},
 	
@@ -133,7 +259,8 @@ const NoteBox = new Lang.Class({
 			can_focus: true,
 			track_hover: true,
 			y_expand: false,
-			y_fill: true
+			y_fill: true,
+			style: 'margin: 0px;',
 		});
 
 		box.add(button);
@@ -173,6 +300,8 @@ const NoteBox = new Lang.Class({
 			min_width: 245
 		});
 		
+		this._fontColor = '';
+		this._fontSize = SETTINGS.get_int("font-size");
 		this.loadState();
 		this.actor.style = this.actorStyle();
 		
@@ -274,8 +403,8 @@ const NoteBox = new Lang.Class({
 			y_align: Clutter.ActorAlign.CENTER,
 			text: ''
 		}));
-		this._addTextButton(this.controls_box, 'Move').connect('clicked', Lang.bind(this, this.moveNote));
-		this._addTextButton(this.controls_box, 'Resize').connect('clicked', Lang.bind(this, this.resize));
+		this._addTextButton(this.controls_box, _('Move')).connect('clicked', Lang.bind(this, this.moveNote));
+		this._addTextButton(this.controls_box, _('Resize')).connect('clicked', Lang.bind(this, this.resize));
 		
 		//-------------
 		
@@ -294,30 +423,36 @@ const NoteBox = new Lang.Class({
 			x_fill: true,
 			y_fill: true
 		});
-   //     this._scrollView.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC); //TODO ?
+   //	 this._scrollView.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC); //TODO ?
 		
 		this.actor.add_actor(this._scrollView);
 		
 		this.noteEntry = new St.Entry({
 			name: 'noteEntry',
 			can_focus: true,
-			hint_text: _('Type your note here...'),
+			hint_text: _('Type here...'),
 			track_hover: true,
-			//reactive: true,
+		//?//	reactive: true,
 			x_expand: true,
-			//y_expand: true
+			//y_expand: true,
+//			clutter_text: new Clutter.Text({
+//				single_line_mode: false,
+//				activatable: false,
+//				line_wrap: true,
+//				line_wrap_mode: imports.gi.Pango.WrapMode.WORD_CHAR,
+//				use_markup: true,
+//			}),
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
-        clutterText.set_single_line_mode(false);
-        clutterText.set_activatable(false);
-        clutterText.set_line_wrap(true);
-        clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
-        //clutterText.set_use_markup(true);
-        //clutterText.set_justify(true); //TODO ??
-        
-        this.noteEntry.style = this.noteStyle();
-        this.applyColor();
-        
+		clutterText.set_single_line_mode(false);
+		clutterText.set_activatable(false);
+		clutterText.set_line_wrap(true);
+		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
+		//clutterText.set_font_name("Cantarell Bold");
+		
+		this.noteEntry.style = this.noteStyle();
+		this.applyColor();
+		
 		this.entry_box = new St.BoxLayout({
 			reactive: true,
 			x_expand: true,
@@ -330,17 +465,20 @@ const NoteBox = new Lang.Class({
 		
 		//------------
 		
-		Main.layoutManager.notesGroup.add_actor(this.actor);
-		
-		if(aaaaa == 2) {
+			
+		if(SETTINGS.get_string('layout-position') == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
+		} else {
+			Main.layoutManager.notesGroup.add_actor(this.actor);
 		}
 		
 		this._setNotePosition();
 		
 		this.loadText();
 		
-		ShellEntry.addContextMenu(this.noteEntry); //TODO à étendre ?
+	//	clutterText.set_use_markup(true);
+		
+		addContextMenu(this.noteEntry, this);
 		
 		
 		switch(visible_box) {
@@ -363,8 +501,10 @@ const NoteBox = new Lang.Class({
 		this.saveState();
 		this.saveText();
 		
-		Main.layoutManager.removeChrome(this.actor);
-				
+		if(SETTINGS.get_string('layout-position') == 'above-all') {
+			Main.layoutManager.removeChrome(this.actor);
+		}		
+		
 		this.destroy();	
 	
 		this.build(visible_box);	
@@ -493,17 +633,17 @@ const NoteBox = new Lang.Class({
 	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
-	        GLib.file_set_contents(file2, '');
+			GLib.file_set_contents(file2, '');
 		}
 	
 		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_text');
-        let [result, contents] = file.load_contents(null);
-        if (!result) {
-            log('Could not read file: ' + PATH);
-        }
-        let content = contents.toString();
-        
-        this.noteEntry.set_text(content);
+		let [result, contents] = file.load_contents(null);
+		if (!result) {
+			log('Could not read file: ' + PATH);
+		}
+		let content = contents.toString();
+		
+		this.noteEntry.set_text(content);
 	},
 	
 	saveText: function() {
@@ -519,22 +659,27 @@ const NoteBox = new Lang.Class({
 	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
-	        GLib.file_set_contents(file2, '200;100;255, 255, 100;300;200;');
+			let colorStr = SETTINGS.get_string('default-color').split('(')[1].split(')')[0];
+			GLib.file_set_contents(
+				file2,
+				SETTINGS.get_int('default-x').toString() + ';' + SETTINGS.get_int('default-y').toString() + ';' + colorStr + ';' + SETTINGS.get_int('default-width').toString() + ';' + SETTINGS.get_int('default-height').toString() + ';' + SETTINGS.get_int('font-size').toString() + ';'
+			);
 		}
 	
 		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_state');
-        let [result, contents] = file.load_contents(null);
-        if (!result) {
-            log('Could not read file: ' + PATH);
-        }
-        let content = contents.toString();
-        
-        let state = content.split(';');
-        this._x = Number(state[0]);
-        this._y = Number(state[1]);
-        this.customColor = state[2];
-        this.actor.width = Number(state[3]);
-        this.actor.height = Number(state[4]);
+		let [result, contents] = file.load_contents(null);
+		if (!result) {
+			log('Could not read file: ' + PATH);
+		}
+		let content = contents.toString();
+		
+		let state = content.split(';');
+		this._x = Number(state[0]);
+		this._y = Number(state[1]);
+		this.customColor = state[2];
+		this.actor.width = Number(state[3]);
+		this.actor.height = Number(state[4]);
+		this._fontSize = Number(state[5]);
 	},
 	
 	saveState: function() {
@@ -544,7 +689,8 @@ const NoteBox = new Lang.Class({
 		noteState += this._y.toString() + ';';
 		noteState += this.customColor.toString() + ';'; //ts?
 		noteState += this.actor.width.toString() + ';';
-		noteState += this.actor.height.toString() + ';'; //;?	
+		noteState += this.actor.height.toString() + ';';
+		noteState += this._fontSize.toString() + ';'; //;?	
 		
 		//log('saveState | ' + this.id.toString() + ' | '  + noteState);
 		let file = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
@@ -557,10 +703,9 @@ const NoteBox = new Lang.Class({
 	},
 	
 	deleteNote: function() {
-		Util.trySpawnCommandLine("rm " + PATH + '/' + this.id.toString() + '_state');
-		Util.trySpawnCommandLine("rm " + PATH + '/' + this.id.toString() + '_text');
 		this.destroy();
 		refreshArray();
+		saveAllNotes();
 	},
 	
 	destroy: function() {
@@ -569,13 +714,21 @@ const NoteBox = new Lang.Class({
 		this.actor = null;
 	},
 	
-//	show: function() {
-//		this.actor.visible = true;
-//	},
-//	
-//	hide: function() {
-//		this.actor.visible = false;
-//	},
+	show: function() {
+		this.actor.visible = true;
+		if(SETTINGS.get_string('layout-position') == 'above-all') {
+			Main.layoutManager.trackChrome(this.actor);
+		}
+	},
+	
+	hide: function() {
+		this.actor.visible = false;
+		if(SETTINGS.get_string('layout-position') == 'above-all') {
+			Main.layoutManager.untrackChrome(this.actor);
+		}
+		this.saveState();
+		this.saveText();
+	},
 	
 });
 
@@ -609,13 +762,20 @@ const NotesMenu = new Lang.Class({
 			visible: false
 		});
 			
-		if(aaaaa==0){
+		if(SETTINGS.get_string('layout-position') == 'on-desktop'){
 			Main.layoutManager._backgroundGroup.add_child(Main.layoutManager.notesGroup);
-		}else if(aaaaa==1){
-			Main.layoutManager.overviewGroup.add_child(Main.layoutManager.notesGroup); //?????? non ?
-		}else{
-//			Main.layoutManager.uiGroup.add_actor(Main.layoutManager.notesGroup); //polluent aussi l'overview
-			global.window_group.add_child(Main.layoutManager.notesGroup); //ne polluent pas l'overview
+//		}else if(aaaaa==1){
+//			Main.layoutManager.overviewGroup.add_child(Main.layoutManager.notesGroup); //?????? non ?
+//		}else if(aaaaa==2){
+		} else {
+			Main.layoutManager.uiGroup.add_actor(Main.layoutManager.notesGroup); //polluent aussi l'overview mais moins de bugs de chrome
+								//il reste à virer de force le chrome des acteurs invisibilisé ; ça part en ouvrant l'overview mais hein7
+								//le surplus de chrome semble avoir été réglé par un untrack, mais ça chie dans les logs lors de la création
+								//des notes, et donc par extension lors de leurs rechargements.
+//		}else if(aaaaa==3){
+//			global.window_group.add_child(Main.layoutManager.notesGroup); //ne polluent pas l'overview mais bugs de chrome
+//		} else {
+//			Main.layoutManager.addChrome(Main.layoutManager.notesGroup); //trop de chrome
 		}
 		
 		Main.layoutManager.notesGroup.width = Main.layoutManager.primaryMonitor.width;
@@ -626,9 +786,17 @@ const NotesMenu = new Lang.Class({
 		this.loadAllNotes();		
 		
 		this.actor.connect('button-press-event', Lang.bind(this, this.toggleState));
+		
+		if(Convenience.getSettings().get_boolean('use-shortcut')) {
+			this.USE_SHORTCUT = true;
+			this._bindShortcut();
+		} else {
+			this.USE_SHORTCUT = false;
+		}
 	},
 	
 	toggleState: function() {
+		log('toggleState');
 		if(allNotes.length == 0) {
 			this._createNote();
 			this._showNotes();
@@ -645,7 +813,7 @@ const NotesMenu = new Lang.Class({
 		while(!ended) {
 			let file2 = GLib.build_filenamev([PATH, '/' + i.toString() + '_state']);
 			if (GLib.file_test(file2, GLib.FileTest.EXISTS)) {
-			    this._createNote();
+				this._createNote();
 			} else {
 				ended = true;
 			}
@@ -662,9 +830,9 @@ const NotesMenu = new Lang.Class({
 	_showNotes: function() {
 		Main.layoutManager.notesGroup.visible = true;
 		
-//		allNotes.forEach(function(n){
-//			n.show();
-//		});
+		allNotes.forEach(function(n){
+			n.show();
+		});
 		
 		for(var p = 0; p<Main.ctrlAltTabManager._items.length; p++){	
 			if(Main.ctrlAltTabManager._items[p].name == _('Notes') ) {	
@@ -674,18 +842,48 @@ const NotesMenu = new Lang.Class({
 	},
 	
 	_hideNotes: function() {
-//		allNotes.forEach(function(n){
-//			n.hide();
-//		});
+		allNotes.forEach(function(n){
+			n.hide();
+		});
 		
 		Main.layoutManager.notesGroup.visible = false;
+	},
+	
+	_bindShortcut: function() {
+		var ModeType = Shell.hasOwnProperty('ActionMode') ?
+			Shell.ActionMode : Shell.KeyBindingMode;
+
+		Main.wm.addKeybinding(
+			'keyboard-shortcut',
+			SettingsSchema,
+			Meta.KeyBindingFlags.NONE,
+			ModeType.ALL,
+			Lang.bind(this, this.toggleState)
+		);
 	},
 });
 
 //------------------------------------------------
 
+const SCHEMA_NAME = 'org.gnome.shell.extensions.notes-extension';
+
+const getSchema = function () {
+	let schemaDir = Me.dir.get_child('schemas').get_path();
+	let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
+	let schema = schemaSource.lookup(SCHEMA_NAME, false);
+
+	return new Gio.Settings({ settings_schema: schema });
+}
+
+var SettingsSchema = getSchema();
+
+//------------------------------------------------
+
 let globalButton;
+let SETTINGS;
 function enable() {
+	SETTINGS = Convenience.getSettings();
+	
 	allNotes = new Array();
 	
 	globalButton = new NotesMenu();
@@ -708,6 +906,10 @@ function disable() {
 	Main.layoutManager.notesGroup.destroy_all_children();
 	Main.layoutManager.notesGroup.destroy();
 	Main.layoutManager.notesGroup = null;
+	
+	if(globalButton.USE_SHORTCUT) {
+		Main.wm.removeKeybinding('keyboard-shortcut');
+	}
 	
 	globalButton.destroy();
 }
