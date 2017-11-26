@@ -81,7 +81,7 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 	
 		positionCombobox.append('above-all', _("Above everything"));
-		positionCombobox.append('on-desktop', _("On the desktop"));
+		positionCombobox.append('on-background', _("On the background"));
 	
 		positionCombobox.active_id = SETTINGS.get_string('layout-position');
 		
@@ -103,7 +103,7 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		let keybindingEntry = new Gtk.Entry({
 			sensitive: false,
-			//sensitive: SETTINGS.get_boolean('use-shortcut'),
+			sensitive: SETTINGS.get_boolean('use-shortcut'),
 			hexpand: true
 		});
 		
@@ -111,13 +111,10 @@ const NotesSettingsWidget = new GObject.Class({
 			keybindingEntry.text = SETTINGS.get_strv('keyboard-shortcut')[0];
 		}
 		
-		let keybindingButton = new Gtk.Button({ sensitive: false, label: _("Apply") });
-		//let keybindingButton = new Gtk.Button({ sensitive: SETTINGS.get_boolean('use-keybinding'), label: _("Apply") });
+		let keybindingButton = new Gtk.Button({ sensitive: SETTINGS.get_boolean('use-shortcut'), label: _("Apply") });
 		
-		keybindingButton.connect('activate', Lang.bind(this, function(widget) {
+		keybindingButton.connect('clicked', Lang.bind(this, function(widget) {
 			SETTINGS.set_strv('keyboard-shortcut', [keybindingEntry.text]);
-			
-			
 		}));
 		let keybindingBox1 = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
 		
@@ -130,13 +127,13 @@ const NotesSettingsWidget = new GObject.Class({
 		keybindingSwitch.connect('notify::active', Lang.bind(this, function(widget) {
 			if (widget.active) {
 				SETTINGS.set_boolean('use-shortcut', true);
-	//			keybindingEntry.sensitive = true;
-	//			keybindingButton.sensitive = true;
+				keybindingEntry.sensitive = true;
+				keybindingButton.sensitive = true;
 				
 			} else {
 				SETTINGS.set_boolean('use-shortcut', false);
-	//			keybindingEntry.sensitive = false;
-	//			keybindingButton.sensitive = false;
+				keybindingEntry.sensitive = false;
+				keybindingButton.sensitive = false;
 			}
 		}));
 		
