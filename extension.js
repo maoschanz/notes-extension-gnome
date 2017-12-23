@@ -24,13 +24,14 @@ const _ = Gettext.gettext;
 
 // /home/roschan/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
-const BOXSTYLE = 'spacing: 10px; margin: 5px;'
+//const BOXSTYLE = 'spacing: 10px; margin: 5px;'
 
 /*
 
 TODO
-le notesGroup devrait être limité au simple cas où il sert à quelque chose.
- 
+le notesGroup devrait être limité au simple cas où il sert à quelque chose. (environ fait)
+ne pas avoir de notesGroup du tout puisqu'on peut faire sans
+du coup restaurer le fonctionnement ancien du changement de visibilité des boîtes ?
 
 */
 
@@ -176,10 +177,7 @@ function addContextMenu(entry, note) {
 	if (entry.menu)
 		return;
 
-//	params = Params.parse (params, { isPassword: false });
-
 	entry.menu = new NoteMenu(entry, note);
-//	entry.menu.isPassword = params.isPassword;
 	entry._menuManager = new PopupMenu.PopupMenuManager({ actor: entry });
 	entry._menuManager.addMenu(entry.menu);
 
@@ -276,7 +274,6 @@ const NoteBox = new Lang.Class({
 				x_expand: true,
 				y_expand: true,
 				y_align: Clutter.ActorAlign.CENTER,
-				//style: 'margin: 5px;'
 			}),
 			accessible_name: label,
 			y_align: Clutter.ActorAlign.CENTER,
@@ -310,9 +307,9 @@ const NoteBox = new Lang.Class({
 			visible: false,
 			reactive: true,
 			x_expand: true,
-			y_expand: false
+			y_expand: false,
+			style_class: 'boxstyle',
 		});
-		this.buttons_box.style = BOXSTYLE;
 		
 		this._addButton(this.buttons_box,'list-add-symbolic', 'save').connect('clicked', Lang.bind(this, this.createNote));
 		this._addButton(this.buttons_box,'user-trash-symbolic', 'delete').connect('clicked', Lang.bind(this, this.showDelete));
@@ -330,9 +327,9 @@ const NoteBox = new Lang.Class({
 			visible: false,
 			reactive: true,
 			x_expand: true,
-			y_expand: false
+			y_expand: false,
+			style_class: 'boxstyle',
 		});
-		this.color_box.style = BOXSTYLE;
 		
 		this.colorEntryR = new St.Entry({
 			name: 'colorEntryR',
@@ -374,9 +371,9 @@ const NoteBox = new Lang.Class({
 			visible: false,
 			reactive: true,
 			x_expand: true,
-			y_expand: false
+			y_expand: false,
+			style_class: 'boxstyle',
 		});
-		this.delete_box.style = BOXSTYLE;
 		
 		this._addButton(this.delete_box, 'go-previous-symbolic', 'back').connect('clicked', Lang.bind(this, this.hideDelete));
 		this.delete_box.add_actor(new St.Label({
@@ -392,9 +389,9 @@ const NoteBox = new Lang.Class({
 			visible: false,
 			reactive: true,
 			x_expand: true,
-			y_expand: false
+			y_expand: false,
+			style_class: 'boxstyle',
 		});
-		this.controls_box.style = BOXSTYLE;
 		
 		this._addButton(this.controls_box,'go-previous-symbolic', 'back').connect('clicked', Lang.bind(this, this.hideControls));
 		this.controls_box.add_actor(new St.Label({
@@ -435,13 +432,6 @@ const NoteBox = new Lang.Class({
 		//?//	reactive: true,
 			x_expand: true,
 			//y_expand: true,
-//			clutter_text: new Clutter.Text({
-//				single_line_mode: false,
-//				activatable: false,
-//				line_wrap: true,
-//				line_wrap_mode: imports.gi.Pango.WrapMode.WORD_CHAR,
-//				use_markup: true,
-//			}),
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
 		clutterText.set_single_line_mode(false);
@@ -465,11 +455,11 @@ const NoteBox = new Lang.Class({
 		
 		//------------
 		
-			
-		if(SETTINGS.get_string('layout-position') == 'above-all') {
+		if(Zposition == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
 		} else {
-			Main.layoutManager.notesGroup.add_actor(this.actor);
+			Main.layoutManager._backgroundGroup.add_actor(this.actor);
+//			Main.layoutManager.notesGroup.add_actor(this.actor);
 		}
 		
 		this._setNotePosition();
@@ -751,37 +741,7 @@ const NotesMenu = new Lang.Class({
 		box.add(toplabel);
 		this.actor.add_child(box);
 		
-		Main.layoutManager.notesGroup = new St.Widget({
-			name: 'notesGroup',
-			layout_manager: new Clutter.BinLayout(
-			{
-				x_align: Clutter.BinAlignment.START,
-				y_align: Clutter.BinAlignment.START
-			}
-			),
-			visible: false
-		});
-			
-		if(SETTINGS.get_string('layout-position') == 'on-desktop'){
-			Main.layoutManager._backgroundGroup.add_child(Main.layoutManager.notesGroup);
-//		}else if(aaaaa==1){
-//			Main.layoutManager.overviewGroup.add_child(Main.layoutManager.notesGroup); //?????? non ?
-//		}else if(aaaaa==2){
-		} else {
-			Main.layoutManager.uiGroup.add_actor(Main.layoutManager.notesGroup); //polluent aussi l'overview mais moins de bugs de chrome
-								//il reste à virer de force le chrome des acteurs invisibilisé ; ça part en ouvrant l'overview mais hein7
-								//le surplus de chrome semble avoir été réglé par un untrack, mais ça chie dans les logs lors de la création
-								//des notes, et donc par extension lors de leurs rechargements.
-//		}else if(aaaaa==3){
-//			global.window_group.add_child(Main.layoutManager.notesGroup); //ne polluent pas l'overview mais bugs de chrome
-//		} else {
-//			Main.layoutManager.addChrome(Main.layoutManager.notesGroup); //trop de chrome
-		}
-		
-		Main.layoutManager.notesGroup.width = Main.layoutManager.primaryMonitor.width;
-		Main.layoutManager.notesGroup.height = Main.layoutManager.primaryMonitor.height;
-		
-		Main.ctrlAltTabManager.addGroup(Main.layoutManager.notesGroup, _('Notes'), 'document-edit-symbolic');
+		this._isVisible = false;			
 		
 		this.loadAllNotes();		
 		
@@ -800,7 +760,7 @@ const NotesMenu = new Lang.Class({
 		if(allNotes.length == 0) {
 			this._createNote();
 			this._showNotes();
-		} else if (Main.layoutManager.notesGroup.visible) {
+		} else if (this._isVisible) {
 			this._hideNotes();
 		} else {
 			this._showNotes();
@@ -828,17 +788,11 @@ const NotesMenu = new Lang.Class({
 	},
 	
 	_showNotes: function() {
-		Main.layoutManager.notesGroup.visible = true;
+		this._isVisible = true;
 		
 		allNotes.forEach(function(n){
 			n.show();
 		});
-		
-		for(var p = 0; p<Main.ctrlAltTabManager._items.length; p++){	
-			if(Main.ctrlAltTabManager._items[p].name == _('Notes') ) {	
-				Main.ctrlAltTabManager.focusGroup(Main.ctrlAltTabManager._items[p], 100);
-			}
-		}
 	},
 	
 	_hideNotes: function() {
@@ -846,7 +800,7 @@ const NotesMenu = new Lang.Class({
 			n.hide();
 		});
 		
-		Main.layoutManager.notesGroup.visible = false;
+		this._isVisible = false;
 	},
 	
 	_bindShortcut: function() {
@@ -881,8 +835,10 @@ var SettingsSchema = getSchema();
 
 let globalButton;
 let SETTINGS;
+let ZPosition;
 function enable() {
 	SETTINGS = Convenience.getSettings();
+	Zposition = SETTINGS.get_string('layout-position');
 	
 	allNotes = new Array();
 	
@@ -900,12 +856,6 @@ function disable() {
 		n.saveState();
 		n.destroy();
 	});
-	
-	Main.ctrlAltTabManager.removeGroup(Main.layoutManager.notesGroup);
-	
-	Main.layoutManager.notesGroup.destroy_all_children();
-	Main.layoutManager.notesGroup.destroy();
-	Main.layoutManager.notesGroup = null;
 	
 	if(globalButton.USE_SHORTCUT) {
 		Main.wm.removeKeybinding('keyboard-shortcut');
