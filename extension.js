@@ -22,16 +22,14 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
-// /home/roschan/.local/share/notes@maestroschan.fr
+// ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
-//const BOXSTYLE = 'spacing: 10px; margin: 5px;'
 
 /*
 
 TODO
-le notesGroup devrait être limité au simple cas où il sert à quelque chose. (environ fait)
-ne pas avoir de notesGroup du tout puisqu'on peut faire sans
-du coup restaurer le fonctionnement ancien du changement de visibilité des boîtes ?
+
+Gérer le focus des unes par rapport aux autres.
 
 */
 
@@ -108,46 +106,14 @@ const NoteMenu = new Lang.Class({
 		this.addMenuItem(item);
 		this._smallItem = item;
 		
-//		item = new PopupMenu.PopupSeparatorMenuItem();
-//		this.addMenuItem(item);
-//		
-//		item = new PopupMenu.PopupMenuItem(_("Bold"));
-//		item.connect('activate', Lang.bind(this, this._onBold));
-//		this.addMenuItem(item);
-//		this._boldItem = item;
-//		
-//		item = new PopupMenu.PopupMenuItem(_("Italic"));
-//		item.connect('activate', Lang.bind(this, this._onItalic));
-//		this.addMenuItem(item);
-//		this._italicItem = item;
-//		
-//		item = new PopupMenu.PopupMenuItem(_("Underlined"));
-//		item.connect('activate', Lang.bind(this, this._onUnderlined));
-//		this.addMenuItem(item);
-//		this._underlinedItem = item;
 	},
 	
 	open: function() {
-		this._updateBoldItem();
-		this._updateItalicItem();
-		this._updateUnderlinedItem();
 		this.parent();
 	},
 	
 	_onSelectAll: function() {
 		this._entry.clutter_text.set_selection(0, this._entry.clutter_text.length);
-	},
-	
-	_onBold: function() {
-		
-	},
-	
-	_onItalic: function() {
-		
-	},
-	
-	_onUnderlined: function() {
-		
 	},
 	
 	_onBig: function() {
@@ -160,19 +126,9 @@ const NoteMenu = new Lang.Class({
 		this._entry.style = this._note.noteStyle();
 	},
 	
-	_updateBoldItem: function() {
-		
-	},
-	
-	_updateItalicItem: function() {
-		
-	},
-	
-	_updateUnderlinedItem: function() {
-		
-	},
 });
 
+/* From GNOME Shell code source */
 function addContextMenu(entry, note) {
 	if (entry.menu)
 		return;
@@ -200,13 +156,13 @@ function addContextMenu(entry, note) {
 //------------------------------------------------
 
 const NoteBox = new Lang.Class({
-	Name:		'NoteBox',
+	Name:	'NoteBox',
 	
 	_init: function(id) {
 		
 		this.id = id;
 		
-		this.build('buttons');
+		this.build();
 	},
 	
 	_setNotePosition: function() {
@@ -289,7 +245,7 @@ const NoteBox = new Lang.Class({
 		return button;
 	},
 	
-	build: function(visible_box) {
+	build: function() {
 		this.actor = new St.BoxLayout({
 			reactive: true,
 			vertical: true,
@@ -304,7 +260,7 @@ const NoteBox = new Lang.Class({
 		
 		this.buttons_box = new St.BoxLayout({
 			vertical: false,
-			visible: false,
+			visible: true,
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
@@ -459,7 +415,6 @@ const NoteBox = new Lang.Class({
 			Main.layoutManager.addChrome(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
-//			Main.layoutManager.notesGroup.add_actor(this.actor);
 		}
 		
 		this._setNotePosition();
@@ -470,58 +425,51 @@ const NoteBox = new Lang.Class({
 		
 		addContextMenu(this.noteEntry, this);
 		
-		
-		switch(visible_box) {
-			case 'color':
-				this.color_box.visible = true;			
-				break;
-			case 'controls':
-				this.controls_box.visible = true;
-				break;
-			case 'delete':
-				this.delete_box.visible = true;
-				break;
-			default:
-				this.buttons_box.visible = true;
-				break;
-		}
-	},	
+		this.noteEntry.get_clutter_text().connect('key-focus-in', Lang.bind(this, this.redraw));
+	},
 	
-	fuckingReloadThisWholeShit: function(visible_box) {
-		this.saveState();
-		this.saveText();
-		
-		if(SETTINGS.get_string('layout-position') == 'above-all') {
-			Main.layoutManager.removeChrome(this.actor);
-		}		
-		
-		this.destroy();	
-	
-		this.build(visible_box);	
+	redraw: function() {
+		this.actor.raise_top();
 	},
 	
 	showControls: function() {
-		this.fuckingReloadThisWholeShit('controls');
+		this.saveState();
+		this.saveText();
+		this.redraw();
+		this.buttons_box.visible = false;
+		this.controls_box.visible = true;
 	},
 	
 	hideControls: function() {
-		this.fuckingReloadThisWholeShit('buttons');
+		this.redraw();
+		this.controls_box.visible = false;
+		this.buttons_box.visible = true;
 	},
 	
 	showDelete: function() {
-		this.fuckingReloadThisWholeShit('delete');
+		this.redraw();
+		this.buttons_box.visible = false;
+		this.delete_box.visible = true;
 	},
 	
 	hideDelete: function() {
-		this.fuckingReloadThisWholeShit('buttons');
+		this.redraw();
+		this.delete_box.visible = false;
+		this.buttons_box.visible = true;
 	},
 	
 	showColor: function() {
-		this.fuckingReloadThisWholeShit('color');
+		this.saveState();
+		this.saveText();
+		this.redraw();
+		this.buttons_box.visible = false;
+		this.color_box.visible = true;
 	},
 	
 	hideColor: function() {
-		this.fuckingReloadThisWholeShit('buttons');
+		this.redraw();
+		this.color_box.visible = false;
+		this.buttons_box.visible = true;
 	},
 	
 	blackFontColor: function() {
@@ -756,7 +704,7 @@ const NotesMenu = new Lang.Class({
 	},
 	
 	toggleState: function() {
-		log('toggleState');
+		//log('toggleState');
 		if(allNotes.length == 0) {
 			this._createNote();
 			this._showNotes();
@@ -852,6 +800,7 @@ function enable() {
 
 function disable() {
 	allNotes.forEach(function(n){
+//		n.hide();
 		n.saveText();
 		n.saveState();
 		n.destroy();
