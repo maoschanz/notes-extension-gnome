@@ -41,17 +41,9 @@ msgstr "Plus gros"
 msgid "Smaller font"
 msgstr "Plus petit"
 
-#: extension.js:340
-msgid "Red"
-msgstr "Rouge"
-
-#: extension.js:347
-msgid "Green"
-msgstr "Vert"
-
-#: extension.js:354
-msgid "Blue"
-msgstr "Bleu"
+#: extension.js:
+msgid "Custom color"
+msgstr "Couleur personnalisée"
 
 #: extension.js:386
 msgid "Delete this note ?"
@@ -78,7 +70,7 @@ msgid "Above everything"
 msgstr "Au-dessus de tout"
 
 #: prefs.js:84
-msgid "On the desktop"
+msgid "On the background"
 msgstr "Sur le bureau"
 
 #: prefs.js:101
@@ -99,7 +91,7 @@ msgstr "Apparence"
 
 #: prefs.js:162
 msgid "Default note color:"
-msgstr "Couler par défaut des notes :"
+msgstr "Couleur par défaut des notes :"
 
 #: prefs.js:180
 msgid "Default font size:"
