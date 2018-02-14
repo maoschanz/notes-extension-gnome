@@ -11,6 +11,9 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
+const Gettext = imports.gettext.domain('notes-extension');
+const _ = Gettext.gettext;
+
 const ColorMenu = new Lang.Class({
 	Name: 'ColorMenu',
 	Extends: PopupMenu.PopupMenu,

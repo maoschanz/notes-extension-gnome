@@ -27,8 +27,6 @@ let globalButton;
 let SETTINGS;
 let ZPosition;
 
-let THE_CORRECT_SHIT_TO_RESIZE;
-
 //-------------------------------------------------
 
 let allNotes;
@@ -141,28 +139,28 @@ const NoteBox = new Lang.Class({
 		return button;
 	},
 	
-	_addTextButton: function(box, label) {
+//	_addTextButton: function(box, label) {
 
-		let button = new St.Button({
-			child: new St.Label({
-				text: _(label),
-				x_expand: true,
-				y_expand: true,
-				y_align: Clutter.ActorAlign.CENTER,
-			}),
-			accessible_name: label,
-			y_align: Clutter.ActorAlign.CENTER,
-			style_class: 'button',
-			reactive: true,
-			can_focus: true,
-			track_hover: true,
-			y_expand: false,
-			y_fill: true
-		});
-		box.add(button);
+//		let button = new St.Button({
+//			child: new St.Label({
+//				text: _(label),
+//				x_expand: true,
+//				y_expand: true,
+//				y_align: Clutter.ActorAlign.CENTER,
+//			}),
+//			accessible_name: label,
+//			y_align: Clutter.ActorAlign.CENTER,
+//			style_class: 'button',
+//			reactive: true,
+//			can_focus: true,
+//			track_hover: true,
+//			y_expand: false,
+//			y_fill: true
+//		});
+//		box.add(button);
 
-		return button;
-	},
+//		return button;
+//	},
 	
 	build: function() {
 		this.actor = new St.BoxLayout({
