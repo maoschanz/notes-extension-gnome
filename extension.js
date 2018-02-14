@@ -6,14 +6,13 @@ const Panel = imports.ui.panel;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 const Shell = imports.gi.Shell;
-const MessageList = imports.ui.messageList;
 const Util = imports.misc.util;
-const MessageTray = imports.ui.messageTray;
 const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
 const Gio = imports.gi.Gio;
 const ShellEntry = imports.ui.shellEntry;
 const Meta = imports.gi.Meta;
+const Signals = imports.signals;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -25,13 +24,9 @@ const _ = Gettext.gettext;
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
-/*
-
-TODO
-
-Gérer le focus des unes par rapport aux autres.
-
-*/
+let globalButton;
+let SETTINGS;
+let ZPosition;
 
 //-------------------------------------------------
 
@@ -75,6 +70,290 @@ function refreshArray() {
 	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_state');
 	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_text');
 }
+
+//------------------------------------------------
+
+const ColorMenu = new Lang.Class({
+	Name: 'ColorMenu',
+	Extends: PopupMenu.PopupMenu,
+
+	_init: function(source) {
+		let side = St.Side.LEFT; //FIXME ??
+		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
+			side = St.Side.RIGHT;
+
+		this.parent(source.actor, 0.5, side);
+
+		// We want to keep the item hovered while the menu is up
+		this.blockSourceEvents = true;
+
+		this._source = source;
+
+		this.actor.add_style_class_name('app-well-menu');
+
+		// Chain our visibility and lifecycle to that of the source
+		source.actor.connect('notify::mapped', Lang.bind(this, function () {
+			if (!source.actor.mapped)
+				this.close();
+		}));
+		source.actor.connect('destroy', Lang.bind(this, this.destroy));
+
+		Main.uiGroup.add_actor(this.actor);
+	},
+
+	_redisplay: function() {
+		this.removeAll();
+
+		this.color1_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		this.color2_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		this.addMenuItem(this.color1_item);
+		this.addMenuItem(this.color2_item);
+		
+		let red = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: red;',
+        });
+		let green = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: green;',
+        });
+		let blue = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: blue;',
+        });
+		let black = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: black;',
+        });
+		this.color1_item.actor.add( red );
+		this.color1_item.actor.add( green );
+		this.color1_item.actor.add( blue );
+		this.color1_item.actor.add( black );
+		
+		red.connect('clicked', Lang.bind(this, this._onApply, 'red'));
+		green.connect('clicked', Lang.bind(this, this._onApply, 'green'));
+		blue.connect('clicked', Lang.bind(this, this._onApply, 'blue'));
+		black.connect('clicked', Lang.bind(this, this._onApply, 'black'));
+		
+		let cyan = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: cyan;',
+        });
+		let magenta = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: magenta;',
+        });
+		let yellow = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: yellow;',
+        });
+		let white = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+		    style: 'background-color: white;',
+        });
+		this.color2_item.actor.add( cyan );
+		this.color2_item.actor.add( magenta );
+		this.color2_item.actor.add( yellow );
+		this.color2_item.actor.add( white );
+		
+		cyan.connect('clicked', Lang.bind(this, this._onApply, 'cyan'));
+		magenta.connect('clicked', Lang.bind(this, this._onApply, 'magenta'));
+		yellow.connect('clicked', Lang.bind(this, this._onApply, 'yellow'));
+		white.connect('clicked', Lang.bind(this, this._onApply, 'white'));
+		
+		this._appendSeparator();
+		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
+		
+	},
+	
+	_appendSeparator: function () {
+		let separator = new PopupMenu.PopupSeparatorMenuItem();
+		this.addMenuItem(separator);
+	},
+
+	_appendMenuItem: function(labelText) {
+		let item = new PopupMenu.PopupMenuItem(labelText);
+		this.addMenuItem(item);
+		return item;
+	},
+	
+	_onCustom: function() {
+		this._source._note.showColor();
+	},
+	
+	_onApply(a, b, c) {
+		this._source._note.blackFontColor();
+		let temp;
+		switch(c) {
+			case 'red':
+			temp = '255,0,0';
+			break;
+			case 'magenta':
+			temp = '255,0,255';
+			break;
+			case 'yellow':
+			temp = '255,255,0';
+			break;
+			case 'white':
+			temp = '255,255,255';
+			break;
+			case 'cyan':
+			temp = '0,255,255';
+			break;
+			case 'green':
+			temp = '0,255,0';
+			break;
+			case 'blue':
+			temp = '0,0,250'; // valeur anormale pour conservation par delà les redémarrages
+			this._source._note.whiteFontColor();
+			break;
+			case 'black':
+			default:
+			temp = '0,0,0';
+			this._source._note.whiteFontColor();
+			break;
+		}
+		this._source._note.customColor = temp;
+		this._source._note.noteEntry.style = this._source._note.noteStyle();
+		this._source._note.actor.style = this._source._note.actorStyle();	
+	},
+
+	popup: function(activatingButton) {
+		this._redisplay();
+		this.open();
+	},
+});
+Signals.addSignalMethods(ColorMenu.prototype);
+
+//--------------------
+
+const ControlsMenu = new Lang.Class({
+	Name: 'ControlsMenu',
+	Extends: PopupMenu.PopupMenu,
+
+	_init: function(source) {
+		let side = St.Side.LEFT; //FIXME ??
+		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
+			side = St.Side.RIGHT;
+
+		this.parent(source.actor, 0.5, side);
+
+		// We want to keep the item hovered while the menu is up
+		this.blockSourceEvents = true;
+
+		this._source = source;
+
+		this.actor.add_style_class_name('app-well-menu');
+
+		// Chain our visibility and lifecycle to that of the source
+		source.actor.connect('notify::mapped', Lang.bind(this, function () {
+			if (!source.actor.mapped)
+				this.close();
+		}));
+		source.actor.connect('destroy', Lang.bind(this, this.destroy));
+
+		Main.uiGroup.add_actor(this.actor);
+	},
+
+	_redisplay: function() {
+		this.removeAll();
+		this._appendMenuItem( _("Move") ).connect('activate', Lang.bind(this, this._onMove));
+//		this._appendSeparator();
+		this._appendMenuItem( _("Resize") ).connect('activate', Lang.bind(this, this._onResize));
+	},
+	
+	_onResize: function() {
+		this._source._note.resize();
+	},
+	
+	_onMove: function() {
+		this._source._note.moveNote();
+	},
+	
+	_appendSeparator: function () {
+		let separator = new PopupMenu.PopupSeparatorMenuItem();
+		this.addMenuItem(separator);
+	},
+
+	_appendMenuItem: function(labelText) {
+		let item = new PopupMenu.PopupMenuItem(labelText);
+		this.addMenuItem(item);
+		return item;
+	},
+	
+	popup: function(activatingButton) {
+		this._redisplay();
+		this.open();
+	},
+});
+Signals.addSignalMethods(ControlsMenu.prototype);
+
+//--------------------
+
+const RoundMenuButton = new Lang.Class({
+	Name: 'RoundMenuButton',
+	
+	_init: function( note, bouton, type ){
+		this._note = note;
+		this.actor = bouton;
+		this._type = type;
+		
+		this.actor.connect('button-press-event', Lang.bind(this, this._onButtonPress));
+		
+		this._menu = null;
+		this._menuManager = new PopupMenu.PopupMenuManager(this);
+	},
+	
+	_onMenuPoppedDown: function() {
+		this.actor.sync_hover();
+		this.emit('menu-state-changed', false);
+	},
+	
+	popupMenu: function() {
+		this.actor.fake_release();
+
+		if (!this._menu) {
+			if (this._type == 'color') {
+				this._menu = new ColorMenu(this);
+			} else if (this._type == 'controls') {
+				this._menu = new ControlsMenu(this);
+			}
+			this._menu.connect('open-state-changed', Lang.bind(this, function (menu, isPoppedUp) {
+				if (!isPoppedUp)
+					this._onMenuPoppedDown();
+			}));
+
+			this._menuManager.addMenu(this._menu);
+		}
+
+		this.emit('menu-state-changed', true);
+
+		this.actor.set_hover(true);
+		this._menu.popup();
+		this._menuManager.ignoreRelease();
+
+		return false;
+	},
+	
+	_onButtonPress: function(actor, event) {
+		let button = event.get_button();
+		this.popupMenu();
+		return Clutter.EVENT_STOP;
+	},
+});
+Signals.addSignalMethods(RoundMenuButton.prototype);
 
 //------------------------------------------------
 
@@ -269,14 +548,17 @@ const NoteBox = new Lang.Class({
 		
 		this._addButton(this.buttons_box,'list-add-symbolic', 'save').connect('clicked', Lang.bind(this, this.createNote));
 		this._addButton(this.buttons_box,'user-trash-symbolic', 'delete').connect('clicked', Lang.bind(this, this.showDelete));
-		this._addButton(this.buttons_box,'preferences-color-symbolic', 'color').connect('clicked', Lang.bind(this, this.showColor));
+		
+		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', 'color');
+		this.colorMenuButton = new RoundMenuButton( this, colorButton, 'color' );
 		this.buttons_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: ''
 		}));
-		this._addButton(this.buttons_box,'view-restore-symbolic', 'size').connect('clicked', Lang.bind(this, this.showControls));
+		let controlsButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'size');
+		this.controlMenuButton = new RoundMenuButton( this, controlsButton, 'controls' );
 		
 		this.color_box = new St.BoxLayout({
 			vertical: false,
@@ -340,29 +622,9 @@ const NoteBox = new Lang.Class({
 		}));
 		this._addButton(this.delete_box, 'user-trash-symbolic', 'ok').connect('clicked', Lang.bind(this, this.deleteNote));
 		
-		this.controls_box = new St.BoxLayout({
-			vertical: false,
-			visible: false,
-			reactive: true,
-			x_expand: true,
-			y_expand: false,
-			style_class: 'boxstyle',
-		});
-		
-		this._addButton(this.controls_box,'go-previous-symbolic', 'back').connect('clicked', Lang.bind(this, this.hideControls));
-		this.controls_box.add_actor(new St.Label({
-			x_expand: true,
-			x_align: Clutter.ActorAlign.CENTER,
-			y_align: Clutter.ActorAlign.CENTER,
-			text: ''
-		}));
-		this._addTextButton(this.controls_box, _('Move')).connect('clicked', Lang.bind(this, this.moveNote));
-		this._addTextButton(this.controls_box, _('Resize')).connect('clicked', Lang.bind(this, this.resize));
-		
 		//-------------
 		
 		this.actor.add_actor(this.buttons_box);
-		this.actor.add_actor(this.controls_box);
 		this.actor.add_actor(this.delete_box);
 		this.actor.add_actor(this.color_box);
 		
@@ -432,20 +694,6 @@ const NoteBox = new Lang.Class({
 		this.actor.raise_top();
 	},
 	
-	showControls: function() {
-		this.saveState();
-		this.saveText();
-		this.redraw();
-		this.buttons_box.visible = false;
-		this.controls_box.visible = true;
-	},
-	
-	hideControls: function() {
-		this.redraw();
-		this.controls_box.visible = false;
-		this.buttons_box.visible = true;
-	},
-	
 	showDelete: function() {
 		this.redraw();
 		this.buttons_box.visible = false;
@@ -488,27 +736,27 @@ const NoteBox = new Lang.Class({
 		let temp = '';
 		let total = 0;
 		if(Number(this.colorEntryR.get_text()) < 0){
-			temp += '0, ';
+			temp += '0,';
 			total += 0;
 			this.colorEntryR.set_text('0');
 		} else if(Number(this.colorEntryR.get_text()) > 255){
-			temp += '255, ';
+			temp += '255,';
 			total += 255;
 			this.colorEntryR.set_text('255');
 		} else {
-			temp += Number(this.colorEntryR.get_text()).toString() + ', ';
+			temp += Number(this.colorEntryR.get_text()).toString() + ',';
 			total += Number(this.colorEntryR.get_text());
 		}
 		if(Number(this.colorEntryV.get_text()) < 0){
-			temp += '0, ';
+			temp += '0,';
 			total += 0;
 			this.colorEntryV.set_text('0');
 		} else if(Number(this.colorEntryV.get_text()) > 255){
-			temp += '255, ';
+			temp += '255,';
 			total += 255;
 			this.colorEntryV.set_text('255');
 		} else {
-			temp += Number(this.colorEntryV.get_text()).toString() + ', ';
+			temp += Number(this.colorEntryV.get_text()).toString() + ',';
 			total += Number(this.colorEntryV.get_text());
 		}
 		if(Number(this.colorEntryB.get_text()) < 0){
@@ -537,6 +785,7 @@ const NoteBox = new Lang.Class({
 		let timeoutid = Mainloop.timeout_add(1000, Lang.bind(this, function() {	
 			let [xMouse, yMouse, mask] = global.get_pointer();
 			
+			//FIXME condition sur le moniteur
 			this._x = xMouse;
 			this._y = yMouse;
 			this._setNotePosition();
@@ -552,8 +801,8 @@ const NoteBox = new Lang.Class({
 			let newWidth = xMouse - this._x;
 			let newHeight = yMouse - this._y;
 			
-			if (newWidth < 280) {
-				newWidth = 280;
+			if (newWidth < 250) {
+				newWidth = 250;
 			}
 			
 			if (newHeight < 90) {
@@ -600,6 +849,7 @@ const NoteBox = new Lang.Class({
 			let colorStr = SETTINGS.get_string('default-color').split('(')[1].split(')')[0];
 			GLib.file_set_contents(
 				file2,
+				// FIXME c'est à chier de marcher avec des défaults, il faut du random et du calcul sur les moniteurs et l'espace vide
 				SETTINGS.get_int('default-x').toString() + ';' + SETTINGS.get_int('default-y').toString() + ';' + colorStr + ';' + SETTINGS.get_int('default-width').toString() + ';' + SETTINGS.get_int('default-height').toString() + ';' + SETTINGS.get_int('font-size').toString() + ';'
 			);
 		}
@@ -660,10 +910,18 @@ const NoteBox = new Lang.Class({
 	},
 	
 	hide: function() {
+		this.onlyHide();
+		this.onlySave();
+	},
+	
+	onlyHide: function() {
 		this.actor.visible = false;
 		if(SETTINGS.get_string('layout-position') == 'above-all') {
 			Main.layoutManager.untrackChrome(this.actor);
 		}
+	},
+	
+	onlySave: function() {
 		this.saveState();
 		this.saveText();
 	},
@@ -672,12 +930,12 @@ const NoteBox = new Lang.Class({
 
 //------------------------------------------------
 
-const NotesMenu = new Lang.Class({
-	Name:		'NotesMenu',		// Class Name
+const NotesButton = new Lang.Class({
+	Name:		'NotesButton',		// Class Name
 	Extends:	PanelMenu.Button,	// Parent Class
 
 	_init: function() {
-		this.parent(0.0, 'NotesMenu');
+		this.parent(0.0, 'NotesButton', true);
 		let box = new St.BoxLayout();
 		let icon = new St.Icon({ icon_name: 'document-edit-symbolic', style_class: 'system-status-icon'});
 
@@ -745,7 +1003,10 @@ const NotesMenu = new Lang.Class({
 	
 	_hideNotes: function() {
 		allNotes.forEach(function(n){
-			n.hide();
+			n.onlyHide();
+		});
+		allNotes.forEach(function(n){
+			n.onlySave();
 		});
 		
 		this._isVisible = false;
@@ -781,28 +1042,23 @@ var SettingsSchema = getSchema();
 
 //------------------------------------------------
 
-let globalButton;
-let SETTINGS;
-let ZPosition;
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	Zposition = SETTINGS.get_string('layout-position');
 	
 	allNotes = new Array();
 	
-	globalButton = new NotesMenu();
+	globalButton = new NotesButton();
 //	about addToStatusArea :
 //	- 0 is the position
 //	- `right` is the box where we want our globalButton to be displayed (left/center/right)
-	Main.panel.addToStatusArea('NotesMenu', globalButton, 0, 'right');
+	Main.panel.addToStatusArea('NotesButton', globalButton, 0, 'right');
 }
 
 
 function disable() {
 	allNotes.forEach(function(n){
-//		n.hide();
-		n.saveText();
-		n.saveState();
+		n.onlySave();
 		n.destroy();
 	});
 	
@@ -812,7 +1068,4 @@ function disable() {
 	
 	globalButton.destroy();
 }
-
-
-
 
