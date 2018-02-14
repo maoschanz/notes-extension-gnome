@@ -351,13 +351,13 @@ const NoteBox = new Lang.Class({
 	},
 	
 	_onPress: function(actor, event) {
+		this.redraw();
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		this.grabX = xMouse;
 		this.grabY = yMouse;
 	},
 	
 	_onResizeRelease: function() {
-	
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
 		//FIXME minimaux ?
