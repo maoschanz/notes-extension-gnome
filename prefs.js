@@ -1,11 +1,10 @@
 
-const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Gdk = imports.gi.Gdk;
+const GdkPixbuf = imports.gi.GdkPixbuf;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
@@ -30,8 +29,8 @@ var PrefsPage = new Lang.Class({
 
 	_init: function () {
 		this.parent({
-		    vexpand: true,
-		    can_focus: true
+			vexpand: true,
+			can_focus: true
 		});
 		
 		this.box = new Gtk.Box({
@@ -61,8 +60,8 @@ const NotesSettingsWidget = new GObject.Class({
 		this.parent({transition_type: Gtk.StackTransitionType.SLIDE_LEFT_RIGHT});
 		
 		this.switcher = new Gtk.StackSwitcher({
-		    halign: Gtk.Align.CENTER,
-		    stack: this
+			halign: Gtk.Align.CENTER,
+			stack: this
 		});
 		
 		//---------------------------------------------------------------
@@ -74,10 +73,10 @@ const NotesSettingsWidget = new GObject.Class({
 		let labelPosition = _("Position of notes:");
 	
 		let positionCombobox = new Gtk.ComboBoxText({
-		    visible: true,
-		    can_focus: true,
-		    halign: Gtk.Align.END,
-		    valign: Gtk.Align.CENTER
+			visible: true,
+			can_focus: true,
+			halign: Gtk.Align.END,
+			valign: Gtk.Align.CENTER
 		});
 	
 		positionCombobox.append('above-all', _("Above everything"));
@@ -86,7 +85,7 @@ const NotesSettingsWidget = new GObject.Class({
 		positionCombobox.active_id = SETTINGS.get_string('layout-position');
 		
 		positionCombobox.connect("changed", (widget) => {
-		    SETTINGS.set_string('layout-position', widget.get_active_id());
+			SETTINGS.set_string('layout-position', widget.get_active_id());
 		});
 	
 		let positionBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10});
@@ -152,7 +151,7 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//------------------
 
-		this.appearancePage = this.add_page('appearance', _("Appearance"));
+//		this.appearancePage = this.add_page('appearance', _("Appearance"));
 		
 		//-----------------------------
 		
@@ -164,8 +163,8 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		let rgba = new Gdk.RGBA();
 		let hexString = SETTINGS.get_string("default-color");
-        rgba.parse(hexString);
-        
+		rgba.parse(hexString);
+		
 		this.colorButton.set_rgba(rgba);
 		
 		let colorBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
@@ -173,16 +172,16 @@ const NotesSettingsWidget = new GObject.Class({
 		colorBox.pack_end(this.colorButton, false, false, 0);
 		
 		//-----------------------------
-    	
-    	let labelFontSize = _("Default font size:");
+		
+		let labelFontSize = _("Default font size:");
 		
 		let fontSize = new Gtk.SpinButton();
-        fontSize.set_sensitive(true);
-        fontSize.set_range(0, 40);
+		fontSize.set_sensitive(true);
+		fontSize.set_range(0, 40);
 		fontSize.set_value(13);
-        fontSize.set_value(SETTINGS.get_int('font-size'));
-        fontSize.set_increments(1, 2);
-        
+		fontSize.set_value(SETTINGS.get_int('font-size'));
+		fontSize.set_increments(1, 2);
+		
 		fontSize.connect('value-changed', Lang.bind(this, function(w){
 			var value = w.get_value_as_int();
 			SETTINGS.set_int('font-size', value);
@@ -193,73 +192,76 @@ const NotesSettingsWidget = new GObject.Class({
 		fontSizeBox.pack_end(fontSize, false, false, 0);
 
 		//-----------------------------
-    	
-    	let labelNoteSize = _("Default note size:");
 		
-		let widthSize = new Gtk.SpinButton();
-        widthSize.set_sensitive(true);
-        widthSize.set_range(280, 500);
-		widthSize.set_value(300);
-        widthSize.set_value(SETTINGS.get_int('default-width'));
-        widthSize.set_increments(1, 2);        
-		widthSize.connect('value-changed', Lang.bind(this, function(w){
-			var value = w.get_value_as_int();
-			SETTINGS.set_int('default-width', value);
-		}));
-		
-		let heightSize = new Gtk.SpinButton();
-        heightSize.set_sensitive(true);
-        heightSize.set_range(90, 400);
-		heightSize.set_value(200);
-        heightSize.set_value(SETTINGS.get_int('default-height'));
-        heightSize.set_increments(1, 2);
-		heightSize.connect('value-changed', Lang.bind(this, function(w){
-			var value = w.get_value_as_int();
-			SETTINGS.set_int('default-height', value);
-		}));
-		
-		let noteSizeBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
-		noteSizeBox.pack_start(new Gtk.Label({ label: labelNoteSize, halign: Gtk.Align.START }), false, false, 0);
-		noteSizeBox.pack_end(widthSize, false, false, 0);
-		noteSizeBox.pack_end(heightSize, false, false, 0);
-
-		//-----------------------------
-    	
-    	let labelNotePosition = _("Default note position:");
-		
-		let xPosition = new Gtk.SpinButton();
-        xPosition.set_sensitive(true);
-        xPosition.set_range(50, 800);
-		xPosition.set_value(200);
-        xPosition.set_value(SETTINGS.get_int('default-x'));
-        xPosition.set_increments(1, 10);        
-		xPosition.connect('value-changed', Lang.bind(this, function(w){
-			var value = w.get_value_as_int();
-			SETTINGS.set_int('default-x', value);
-		}));
-		
-		let yPosition = new Gtk.SpinButton();
-        yPosition.set_sensitive(true);
-        yPosition.set_range(50, 600);
-		yPosition.set_value(150);
-        yPosition.set_value(SETTINGS.get_int('default-y'));
-        yPosition.set_increments(1, 10);
-		yPosition.connect('value-changed', Lang.bind(this, function(w){
-			var value = w.get_value_as_int();
-			SETTINGS.set_int('default-y', value);
-		}));
-		
-		let notePositionBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
-		notePositionBox.pack_start(new Gtk.Label({ label: labelNotePosition, halign: Gtk.Align.START }), false, false, 0);
-		notePositionBox.pack_end(xPosition, false, false, 0);
-		notePositionBox.pack_end(yPosition, false, false, 0);
+//		let labelNoteSize = _("Default note size:");
+//		
+//		let widthSize = new Gtk.SpinButton();
+//		widthSize.set_sensitive(true);
+//		widthSize.set_range(280, 500);
+//		widthSize.set_value(300);
+//		widthSize.set_value(SETTINGS.get_int('default-width'));
+//		widthSize.set_increments(1, 2);		
+//		widthSize.connect('value-changed', Lang.bind(this, function(w){
+//			var value = w.get_value_as_int();
+//			SETTINGS.set_int('default-width', value);
+//		}));
+//		
+//		let heightSize = new Gtk.SpinButton();
+//		heightSize.set_sensitive(true);
+//		heightSize.set_range(90, 400);
+//		heightSize.set_value(200);
+//		heightSize.set_value(SETTINGS.get_int('default-height'));
+//		heightSize.set_increments(1, 2);
+//		heightSize.connect('value-changed', Lang.bind(this, function(w){
+//			var value = w.get_value_as_int();
+//			SETTINGS.set_int('default-height', value);
+//		}));
+//		
+//		let noteSizeBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
+//		noteSizeBox.pack_start(new Gtk.Label({ label: labelNoteSize, halign: Gtk.Align.START }), false, false, 0);
+//		noteSizeBox.pack_end(widthSize, false, false, 0);
+//		noteSizeBox.pack_end(heightSize, false, false, 0);
 
 		//-----------------------------
 		
-		this.appearancePage.add_widget(fontSizeBox);
-		this.appearancePage.add_widget(colorBox);
-		this.appearancePage.add_widget(noteSizeBox);
-		this.appearancePage.add_widget(notePositionBox);
+//		let labelNotePosition = _("Default note position:");
+//		
+//		let xPosition = new Gtk.SpinButton();
+//		xPosition.set_sensitive(true);
+//		xPosition.set_range(50, 800);
+//		xPosition.set_value(200);
+//		xPosition.set_value(SETTINGS.get_int('default-x'));
+//		xPosition.set_increments(1, 10);		
+//		xPosition.connect('value-changed', Lang.bind(this, function(w){
+//			var value = w.get_value_as_int();
+//			SETTINGS.set_int('default-x', value);
+//		}));
+//		
+//		let yPosition = new Gtk.SpinButton();
+//		yPosition.set_sensitive(true);
+//		yPosition.set_range(50, 600);
+//		yPosition.set_value(150);
+//		yPosition.set_value(SETTINGS.get_int('default-y'));
+//		yPosition.set_increments(1, 10);
+//		yPosition.connect('value-changed', Lang.bind(this, function(w){
+//			var value = w.get_value_as_int();
+//			SETTINGS.set_int('default-y', value);
+//		}));
+//		
+//		let notePositionBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
+//		notePositionBox.pack_start(new Gtk.Label({ label: labelNotePosition, halign: Gtk.Align.START }), false, false, 0);
+//		notePositionBox.pack_end(xPosition, false, false, 0);
+//		notePositionBox.pack_end(yPosition, false, false, 0);
+
+		//-----------------------------
+		
+//		this.appearancePage.add_widget(fontSizeBox);
+//		this.appearancePage.add_widget(colorBox);
+//		this.appearancePage.add_widget(noteSizeBox);
+//		this.appearancePage.add_widget(notePositionBox);
+		
+		this.generalPage.add_widget(fontSizeBox);
+		this.generalPage.add_widget(colorBox);
 
 		//-------------------------------
 
@@ -271,11 +273,11 @@ const NotesSettingsWidget = new GObject.Class({
 		let a_description = _(Me.metadata.description.toString());
 		
 		let label_name = new Gtk.Label({ label: a_name, use_markup: true, halign: Gtk.Align.CENTER });
-        
-        let url_button = new Gtk.LinkButton({ label: a_uuid, uri: Me.metadata.url.toString() });
-        
-//        let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/icons/about_icon.png', 128, 128) });
-        
+		
+		let url_button = new Gtk.LinkButton({ label: a_uuid, uri: Me.metadata.url.toString() });
+		
+		let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/about_picture.png', 399, 228) });
+		
 		let label_version = new Gtk.Label({ label: a_version, use_markup: true, halign: Gtk.Align.CENTER });
 		let label_description = new Gtk.Label({ label: a_description, wrap: true, halign: Gtk.Align.CENTER });
 		
@@ -288,7 +290,7 @@ const NotesSettingsWidget = new GObject.Class({
 		let about_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10});
 		about_box.pack_start(label_name, false, false, 0);
 		about_box.pack_start(label_version, false, false, 0);
-//		about_box.pack_start(a_image, false, false, 0);
+		about_box.pack_start(a_image, false, false, 0);
 		about_box.pack_start(label_description, false, false, 0);
 //		about_box.pack_start(label_contributors, false, false, 0);
 		about_box.pack_start(url_button, false, false, 0);
