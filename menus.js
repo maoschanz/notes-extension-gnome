@@ -241,7 +241,7 @@ Signals.addSignalMethods(ColorMenu.prototype);
 
 //--------------------
 
-const RoundMenuButton = new Lang.Class({
+var RoundMenuButton = new Lang.Class({
 	Name: 'RoundMenuButton',
 	
 	_init: function( note, bouton, type ){

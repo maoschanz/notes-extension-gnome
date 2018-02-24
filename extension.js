@@ -11,6 +11,8 @@ const Mainloop = imports.mainloop;
 const Gio = imports.gi.Gio;
 const Meta = imports.gi.Meta;
 
+const Tweener = imports.ui.tweener;
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -25,7 +27,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 
 let globalButton;
 let SETTINGS;
-let ZPosition;
+let ZPosition = "";
 
 //-------------------------------------------------
 
@@ -38,6 +40,7 @@ function init() {
 	} catch (e) {
 		log(e.message);
 	}
+	ZPosition = "";
 }
 
 //------------------------------------------------
@@ -139,35 +142,12 @@ const NoteBox = new Lang.Class({
 		return button;
 	},
 	
-//	_addTextButton: function(box, label) {
-
-//		let button = new St.Button({
-//			child: new St.Label({
-//				text: _(label),
-//				x_expand: true,
-//				y_expand: true,
-//				y_align: Clutter.ActorAlign.CENTER,
-//			}),
-//			accessible_name: label,
-//			y_align: Clutter.ActorAlign.CENTER,
-//			style_class: 'button',
-//			reactive: true,
-//			can_focus: true,
-//			track_hover: true,
-//			y_expand: false,
-//			y_fill: true
-//		});
-//		box.add(button);
-
-//		return button;
-//	},
-	
 	build: function() {
 		this.actor = new St.BoxLayout({
 			reactive: true,
 			vertical: true,
 			min_height: 75,
-			min_width: 245
+			min_width: 245,
 		});
 		
 		this._fontColor = '';
@@ -189,12 +169,7 @@ const NoteBox = new Lang.Class({
 		
 		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', 'color');
 		this.colorMenuButton = new Menus.RoundMenuButton( this, colorButton, 'color' );
-//		this.buttons_box.add_actor(new St.Label({
-//			x_expand: true,
-//			x_align: Clutter.ActorAlign.CENTER,
-//			y_align: Clutter.ActorAlign.CENTER,
-//			text: ''
-//		}));
+
 		this.moveBox = new St.Button({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
@@ -295,7 +270,7 @@ const NoteBox = new Lang.Class({
 			x_fill: true,
 			y_fill: true
 		});
-   //	 this._scrollView.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC); //TODO ?
+//		this._scrollView.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC); //TODO ?
 		
 		this.actor.add_actor(this._scrollView);
 		
@@ -373,6 +348,7 @@ const NoteBox = new Lang.Class({
 		this._x = xMouse - (this.grabX - this._x);
 		this._y = yMouse - (this.grabY - this._y);
 		this._setNotePosition();
+		//FIXME animation
 	},
 	
 	redraw: function() {
@@ -499,7 +475,7 @@ const NoteBox = new Lang.Class({
 			x = Math.random() * (Main.layoutManager.primaryMonitor.width - 300);
 			y = Math.random() * (Main.layoutManager.primaryMonitor.height - 100);
 		
-			can = true;
+			let can = true;
 			allNotes.forEach(function(n){
 				if( ( Math.abs(n._x - x) < 230) && ( Math.abs(n._y - y) < 100) ) {
 					can = false;
@@ -562,6 +538,31 @@ const NoteBox = new Lang.Class({
 	},
 	
 	deleteNote: function() {
+//		Tweener.addTween(this.actor, {
+//			time: 0.5,
+//			scale_x: 0.1,
+//			scale_y: 0.1,
+//			translation_x: Main.layoutManager.primaryMonitor.width,
+//			translation_y: Main.layoutManager.primaryMonitor.height,
+//			opacity: 0,
+//			transition: 'easeOutQuad',
+//			onComplete: function() {
+//				this.opacity = 0;
+//			}
+//		});
+
+//		let timeoutId = Mainloop.timeout_add(600,
+//			Lang.bind(this, function() {
+//				
+//				Tweener.removeTweens(this);
+//				this.destroy();
+//				refreshArray();
+//				saveAllNotes();
+
+//				Mainloop.source_remove(timeoutId);
+//			}
+//		));
+		
 		this.destroy();
 		refreshArray();
 		saveAllNotes();
@@ -575,6 +576,7 @@ const NoteBox = new Lang.Class({
 	
 	show: function() {
 		this.actor.visible = true;
+		
 		if(SETTINGS.get_string('layout-position') == 'above-all') {
 			Main.layoutManager.trackChrome(this.actor);
 		}

@@ -36,12 +36,12 @@ var PrefsPage = new Lang.Class({
 		this.box = new Gtk.Box({
 			visible: true,
 			can_focus: false,
-			margin_left: 80,
-			margin_right: 80,
+			margin_left: 60,
+			margin_right: 60,
 			margin_top: 20,
 			margin_bottom: 20,
 			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 20
+			spacing: 25
 		});
 		this.add(this.box);
 	},
@@ -96,7 +96,7 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		let keybindingBox = new Gtk.Box({
 			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 0,
+			spacing: 5,
 			tooltip_text: _("Default value is") + " <Super>n"
 		});
 		
@@ -149,10 +149,6 @@ const NotesSettingsWidget = new GObject.Class({
 		this.generalPage.add_widget(keybindingBox);
 //		this.generalPage.add_widget(); //lien vers les notes
 
-		//------------------
-
-//		this.appearancePage = this.add_page('appearance', _("Appearance"));
-		
 		//-----------------------------
 		
 		let labelColor = _("Default note color:");
@@ -192,73 +188,6 @@ const NotesSettingsWidget = new GObject.Class({
 		fontSizeBox.pack_end(fontSize, false, false, 0);
 
 		//-----------------------------
-		
-//		let labelNoteSize = _("Default note size:");
-//		
-//		let widthSize = new Gtk.SpinButton();
-//		widthSize.set_sensitive(true);
-//		widthSize.set_range(280, 500);
-//		widthSize.set_value(300);
-//		widthSize.set_value(SETTINGS.get_int('default-width'));
-//		widthSize.set_increments(1, 2);		
-//		widthSize.connect('value-changed', Lang.bind(this, function(w){
-//			var value = w.get_value_as_int();
-//			SETTINGS.set_int('default-width', value);
-//		}));
-//		
-//		let heightSize = new Gtk.SpinButton();
-//		heightSize.set_sensitive(true);
-//		heightSize.set_range(90, 400);
-//		heightSize.set_value(200);
-//		heightSize.set_value(SETTINGS.get_int('default-height'));
-//		heightSize.set_increments(1, 2);
-//		heightSize.connect('value-changed', Lang.bind(this, function(w){
-//			var value = w.get_value_as_int();
-//			SETTINGS.set_int('default-height', value);
-//		}));
-//		
-//		let noteSizeBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
-//		noteSizeBox.pack_start(new Gtk.Label({ label: labelNoteSize, halign: Gtk.Align.START }), false, false, 0);
-//		noteSizeBox.pack_end(widthSize, false, false, 0);
-//		noteSizeBox.pack_end(heightSize, false, false, 0);
-
-		//-----------------------------
-		
-//		let labelNotePosition = _("Default note position:");
-//		
-//		let xPosition = new Gtk.SpinButton();
-//		xPosition.set_sensitive(true);
-//		xPosition.set_range(50, 800);
-//		xPosition.set_value(200);
-//		xPosition.set_value(SETTINGS.get_int('default-x'));
-//		xPosition.set_increments(1, 10);		
-//		xPosition.connect('value-changed', Lang.bind(this, function(w){
-//			var value = w.get_value_as_int();
-//			SETTINGS.set_int('default-x', value);
-//		}));
-//		
-//		let yPosition = new Gtk.SpinButton();
-//		yPosition.set_sensitive(true);
-//		yPosition.set_range(50, 600);
-//		yPosition.set_value(150);
-//		yPosition.set_value(SETTINGS.get_int('default-y'));
-//		yPosition.set_increments(1, 10);
-//		yPosition.connect('value-changed', Lang.bind(this, function(w){
-//			var value = w.get_value_as_int();
-//			SETTINGS.set_int('default-y', value);
-//		}));
-//		
-//		let notePositionBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
-//		notePositionBox.pack_start(new Gtk.Label({ label: labelNotePosition, halign: Gtk.Align.START }), false, false, 0);
-//		notePositionBox.pack_end(xPosition, false, false, 0);
-//		notePositionBox.pack_end(yPosition, false, false, 0);
-
-		//-----------------------------
-		
-//		this.appearancePage.add_widget(fontSizeBox);
-//		this.appearancePage.add_widget(colorBox);
-//		this.appearancePage.add_widget(noteSizeBox);
-//		this.appearancePage.add_widget(notePositionBox);
 		
 		this.generalPage.add_widget(fontSizeBox);
 		this.generalPage.add_widget(colorBox);
