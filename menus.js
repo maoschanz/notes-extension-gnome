@@ -64,20 +64,20 @@ const ColorMenu = new Lang.Class({
 		
 		let red = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: red;',
-        });
+			style: 'background-color: red;',
+		});
 		let green = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: green;',
-        });
+			style: 'background-color: green;',
+		});
 		let blue = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: blue;',
-        });
+			style: 'background-color: blue;',
+		});
 		let black = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: black;',
-        });
+			style: 'background-color: black;',
+		});
 		this.color1_item.actor.add( red );
 		this.color1_item.actor.add( green );
 		this.color1_item.actor.add( blue );
@@ -90,20 +90,20 @@ const ColorMenu = new Lang.Class({
 		
 		let cyan = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: cyan;',
-        });
+			style: 'background-color: cyan;',
+		});
 		let magenta = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: magenta;',
-        });
+			style: 'background-color: magenta;',
+		});
 		let yellow = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: yellow;',
-        });
+			style: 'background-color: yellow;',
+		});
 		let white = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
-		    style: 'background-color: white;',
-        });
+			style: 'background-color: white;',
+		});
 		this.color2_item.actor.add( cyan );
 		this.color2_item.actor.add( magenta );
 		this.color2_item.actor.add( yellow );
@@ -180,74 +180,12 @@ Signals.addSignalMethods(ColorMenu.prototype);
 
 //--------------------
 
-//const ControlsMenu = new Lang.Class({
-//	Name: 'ControlsMenu',
-//	Extends: PopupMenu.PopupMenu,
-
-//	_init: function(source) {
-//		let side = St.Side.LEFT; //FIXME ??
-//		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
-//			side = St.Side.RIGHT;
-
-//		this.parent(source.actor, 0.5, side);
-
-//		// We want to keep the item hovered while the menu is up
-//		this.blockSourceEvents = true;
-
-//		this._source = source;
-
-//		this.actor.add_style_class_name('app-well-menu');
-
-//		source.actor.connect('notify::mapped', Lang.bind(this, function () {
-//			if (!source.actor.mapped)
-//				this.close();
-//		}));
-//		source.actor.connect('destroy', Lang.bind(this, this.destroy));
-
-//		Main.uiGroup.add_actor(this.actor);
-//	},
-
-//	_redisplay: function() {
-//		this.removeAll();
-//		this._appendMenuItem( _("Move") ).connect('activate', Lang.bind(this, this._onMove));
-//		this._appendMenuItem( _("Resize") ).connect('activate', Lang.bind(this, this._onResize));
-//	},
-//	
-//	_onResize: function() {
-//		this._source._note.resize();
-//	},
-//	
-//	_onMove: function() {
-//		this._source._note.moveNote();
-//	},
-//	
-//	_appendSeparator: function () {
-//		let separator = new PopupMenu.PopupSeparatorMenuItem();
-//		this.addMenuItem(separator);
-//	},
-
-//	_appendMenuItem: function(labelText) {
-//		let item = new PopupMenu.PopupMenuItem(labelText);
-//		this.addMenuItem(item);
-//		return item;
-//	},
-//	
-//	popup: function(activatingButton) {
-//		this._redisplay();
-//		this.open();
-//	},
-//});
-//Signals.addSignalMethods(ControlsMenu.prototype);
-
-//--------------------
-
 var RoundMenuButton = new Lang.Class({
 	Name: 'RoundMenuButton',
 	
-	_init: function( note, bouton, type ){
+	_init: function( note, bouton ){
 		this._note = note;
 		this.actor = bouton;
-		this._type = type;
 		
 		this.actor.connect('button-press-event', Lang.bind(this, this._onButtonPress));
 		
@@ -264,11 +202,7 @@ var RoundMenuButton = new Lang.Class({
 		this.actor.fake_release();
 
 		if (!this._menu) {
-			if (this._type == 'color') {
-				this._menu = new ColorMenu(this);
-			} else if (this._type == 'controls') {
-//				this._menu = new ControlsMenu(this); //FIXME useless
-			}
+			this._menu = new ColorMenu(this);
 			this._menu.connect('open-state-changed', Lang.bind(this, function (menu, isPoppedUp) {
 				if (!isPoppedUp)
 					this._onMenuPoppedDown();

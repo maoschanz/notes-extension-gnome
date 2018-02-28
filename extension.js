@@ -69,6 +69,7 @@ function refreshArray() {
 	allNotes = null;
 	allNotes = temp;
 	
+	//TODO améliorable, sérieusement...
 	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_state');
 	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_text');
 }
@@ -79,9 +80,7 @@ const NoteBox = new Lang.Class({
 	Name:	'NoteBox',
 	
 	_init: function(id) {
-		
 		this.id = id;
-		
 		this.build();
 	},
 	
@@ -99,8 +98,6 @@ const NoteBox = new Lang.Class({
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
 		}
-		temp += 'border-radius: 8px; padding: 0px 7px 7px 7px;';
-		
 		return temp;
 	},
 	
@@ -148,6 +145,7 @@ const NoteBox = new Lang.Class({
 			vertical: true,
 			min_height: 75,
 			min_width: 245,
+			style_class: 'notestyle',
 		});
 		
 		this._fontColor = '';
@@ -164,11 +162,11 @@ const NoteBox = new Lang.Class({
 			style_class: 'boxstyle',
 		});
 		
-		this._addButton(this.buttons_box,'list-add-symbolic', 'save').connect('clicked', Lang.bind(this, this.createNote));
-		this._addButton(this.buttons_box,'user-trash-symbolic', 'delete').connect('clicked', Lang.bind(this, this.showDelete));
+		this._addButton(this.buttons_box,'list-add-symbolic', 'New').connect('clicked', Lang.bind(this, this.createNote));
+		this._addButton(this.buttons_box,'user-trash-symbolic', 'Delete').connect('clicked', Lang.bind(this, this.showDelete));
 		
-		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', 'color');
-		this.colorMenuButton = new Menus.RoundMenuButton( this, colorButton, 'color' );
+		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', 'Color');
+		this.colorMenuButton = new Menus.RoundMenuButton( this, colorButton );
 
 		this.moveBox = new St.Button({
 			x_expand: true,
@@ -177,14 +175,8 @@ const NoteBox = new Lang.Class({
 			label: ''
 		})
 		this.buttons_box.add_actor(this.moveBox);
-//		let controlsButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'size');
-//		this.controlMenuButton = new Menus.RoundMenuButton( this, controlsButton, 'controls' );
-		
-//		this._addButton(this.buttons_box,'user-trash-symbolic', 'delete').connect('clicked', Lang.bind(this, this._onClick));
 
-		let CtrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'delete');
-//		this._addButton(this.buttons_box,'view-restore-symbolic', 'delete').connect('button-press-event', Lang.bind(this, this._onButtonPress));
-//		this._addButton(this.buttons_box,'view-restore-symbolic', 'delete').connect('button-release-event', Lang.bind(this, this._onButtonRelease));
+		let CtrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'Resize');
 		
 		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
 		this.moveBox.connect('button-press-event', Lang.bind(this, this._onPress));
@@ -204,21 +196,18 @@ const NoteBox = new Lang.Class({
 		this.colorEntryR = new St.Entry({
 			name: 'colorEntryR',
 			can_focus: true,
-//			hint_text: _('Red'),
 			track_hover: true,
 			x_expand: true
 		});
 		this.colorEntryV = new St.Entry({
 			name: 'colorEntryV',
 			can_focus: true,
-//			hint_text: _('Green'),
 			track_hover: true,
 			x_expand: true
 		});
 		this.colorEntryB = new St.Entry({
 			name: 'colorEntryB',
 			can_focus: true,
-//			hint_text: _('Blue'),
 			track_hover: true,
 			x_expand: true
 		});
