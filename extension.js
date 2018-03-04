@@ -27,7 +27,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 
 let globalButton;
 let SETTINGS;
-let ZPosition = "";
+let ZPosition;
 
 //-------------------------------------------------
 
@@ -76,11 +76,28 @@ function refreshArray() {
 
 //------------------------------------------------
 
+/*
+ * This class stands for one note. The note's id corresponds to the name of files where its data
+ * will be stored. The note's state is loaded and the note is built, then the note's text is loaded.
+ * Almost all of the init process is done in the build() method. Then, the other methods are here
+ * for managing note state through buttons:
+ * - The 'create' button, which creates a note with the same color and font size, but with random
+ * 	coordinates, an empty text, and an harcoded size.
+ * - The 'delete' button, which delete the note and will call an exterior method. Requires validation.
+ * - The 'color' button, showing a menu, but it can give access to a more powerful interface, which
+ * 	requires validation too.
+ * - The 'move' button, which isn't drawn as a button, but looks like an empty space. It emulates a
+ * 	kind of wacky bootleg of drag-and-drop.
+ * - The 'resize' button, which uses the same drag-and-drop emulation and resizes the note from its
+ * 	upper-right corner.
+ */
 const NoteBox = new Lang.Class({
 	Name:	'NoteBox',
 	
-	_init: function(id) {
+	_init: function(id, color, size) {
 		this.id = id;
+		this._fontSize = size;
+		this.customColor = color;
 		this.build();
 	},
 	
@@ -149,10 +166,12 @@ const NoteBox = new Lang.Class({
 		});
 		
 		this._fontColor = '';
-		this._fontSize = SETTINGS.get_int("font-size");
 		this.loadState();
 		this.actor.style = this.actorStyle();
 		
+		/*
+		 * This is the regular header, as described above.
+		 */
 		this.buttons_box = new St.BoxLayout({
 			vertical: false,
 			visible: true,
@@ -184,6 +203,10 @@ const NoteBox = new Lang.Class({
 		CtrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
 		CtrlButton.connect('button-press-event', Lang.bind(this, this._onPress));
 		
+		/*
+		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
+		 * default, and will be shown instead of the regular header if the user needs it.
+		 */
 		this.color_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -225,6 +248,10 @@ const NoteBox = new Lang.Class({
 		this.color_box.add_actor(this.colorEntryB);
 		this._addButton(this.color_box, 'object-select-symbolic', 'ok').connect('clicked', Lang.bind(this, this.applyColor));
 		
+		/*
+		 * This is the interface for deletion. The whole box is hidden bydefault, and will
+		 * be shown instead of the regular header if the user needs it.
+		 */
 		this.delete_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -294,8 +321,15 @@ const NoteBox = new Lang.Class({
 		
 		//------------
 		
+		/*
+		 * Each note sets its own actor where it should be. This isn't a problem since the
+		 * related setting isn't directly accessed, but is stored in 'Zposition' instead,
+		 * which prevent inconstistencies.
+		 */
 		if(Zposition == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
+		} else if (Zposition == 'in-overview') {
+			Main.layoutManager.overviewGroup.add_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
 		}
@@ -303,8 +337,6 @@ const NoteBox = new Lang.Class({
 		this._setNotePosition();
 		
 		this.loadText();
-		
-	//	clutterText.set_use_markup(true);
 		
 		Menus.addContextMenu(this.noteEntry, this);
 		
@@ -337,7 +369,7 @@ const NoteBox = new Lang.Class({
 		this._x = xMouse - (this.grabX - this._x);
 		this._y = yMouse - (this.grabY - this._y);
 		this._setNotePosition();
-		//FIXME animation
+		//TODO animation
 	},
 	
 	redraw: function() {
@@ -382,6 +414,11 @@ const NoteBox = new Lang.Class({
 		this.noteEntry.style = this.noteStyle();
 	},
 	
+	/*
+	 * This weird crap applies the custom color from the 3 entries. It requires
+	 * string manipulations since the color is set in a text file in the 'r,g,b'
+	 * format. Also, the text coloration needs to be updated.
+	 */
 	applyColor: function() {
 		let temp = '';
 		let total = 0;
@@ -457,6 +494,11 @@ const NoteBox = new Lang.Class({
 		GLib.file_set_contents(file, noteText);
 	},
 	
+	/*
+	 * This tries to find a random [x,y] which doesn't overlap with an existing note's header
+	 * and which isn't out of the primary monitor. Of course, if there is notes everywhere,
+	 * it just abandons computation, and sets the note in a 100% random position.
+	 */
 	computeRandomPosition: function() {
 		let x;
 		let y;
@@ -483,10 +525,9 @@ const NoteBox = new Lang.Class({
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			let defaultPosition = this.computeRandomPosition();
-			let colorStr = SETTINGS.get_string('default-color').split('(')[1].split(')')[0];
 			GLib.file_set_contents(
 				file2,
-				defaultPosition[0].toString() + ';' + defaultPosition[1].toString() + ';' + colorStr + ';' + SETTINGS.get_int('default-width').toString() + ';' + SETTINGS.get_int('default-height').toString() + ';' + SETTINGS.get_int('font-size').toString() + ';'
+				defaultPosition[0].toString() + ';' + defaultPosition[1].toString() + ';' + this.customColor + ';250;200;' + this._fontSize + ';'
 			);
 		}
 	
@@ -523,7 +564,7 @@ const NoteBox = new Lang.Class({
 	
 	createNote: function() {
 		let nextId = allNotes.length;
-		allNotes.push(new NoteBox(nextId));
+		allNotes.push(new NoteBox(nextId, this.customColor, this._fontSize)); //FIXME
 	},
 	
 	deleteNote: function() {
@@ -592,6 +633,12 @@ const NoteBox = new Lang.Class({
 
 //------------------------------------------------
 
+/*
+ * This is the button in the top bar. It will trigger the showing/hiding of
+ * notes, and if no note exists, it will create the first one.
+ * The button can be hidden by some user settings, but still needs to be built
+ * because it manages the loading.
+ */
 const NotesButton = new Lang.Class({
 	Name:		'NotesButton',		// Class Name
 	Extends:	PanelMenu.Button,	// Parent Class
@@ -610,6 +657,10 @@ const NotesButton = new Lang.Class({
 		this.actor.add_child(box);
 		
 		this._isVisible = false;			
+		
+		if(Convenience.getSettings().get_boolean('always-show') && (Zposition != 'above-all')){
+			this.actor.visible = false;
+		}
 		
 		this.loadAllNotes();		
 		
@@ -647,12 +698,14 @@ const NotesButton = new Lang.Class({
 			}
 			i++;
 		}
-		this._hideNotes();
+		if(!Convenience.getSettings().get_boolean('always-show')){
+			this._onlyHideNotes();
+		}
 	},
 	
 	_createNote: function() {
 		let nextId = allNotes.length;
-		allNotes.push(new NoteBox(nextId));
+		allNotes.push(new NoteBox(nextId, '50,50,50', 16));
 	},
 	
 	_showNotes: function() {
@@ -671,6 +724,13 @@ const NotesButton = new Lang.Class({
 			n.onlySave();
 		});
 		
+		this._isVisible = false;
+	},
+	
+	_onlyHideNotes: function() {
+		allNotes.forEach(function(n){
+			n.onlyHide();
+		});
 		this._isVisible = false;
 	},
 	
@@ -702,11 +762,43 @@ const getSchema = function () {
 
 var SettingsSchema = getSchema();
 
-//------------------------------------------------
+//-------------------------------------------------------
+
+/*
+ * This is used only if the selected Zposition is 'in-overview',
+ * a.k.a. the notes will be shown in the overview if it's empty.
+ */
+
+let SIGNAUX = [];
+
+function updateVisibility() {
+	if (Main.overview.viewSelector._activePage != Main.overview.viewSelector._workspacesPage) {
+		globalButton._onlyHideNotes();
+		return;
+	}
+	if (global.screen.get_workspace_by_index(global.screen.get_active_workspace_index()).list_windows() == '') {
+		globalButton._showNotes();
+	} else {
+		globalButton._onlyHideNotes();
+	}
+}
+
+//-------------------------------------------------
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	Zposition = SETTINGS.get_string('layout-position');
+	
+	SIGNAUX = [];
+	
+	if(Zposition == 'in-overview'){
+		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
+		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
+		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
+		SIGNAUX[3] = Main.overview.viewSelector._showAppsButton.connect('notify::checked', Lang.bind(this, updateVisibility));
+		SIGNAUX[4] = Main.overview.viewSelector._text.connect('text-changed', Lang.bind(this, updateVisibility));
+		SIGNAUX[5] = global.screen.connect('restacked', Lang.bind(this, updateVisibility));
+	}
 	
 	allNotes = new Array();
 	
@@ -717,6 +809,7 @@ function enable() {
 	Main.panel.addToStatusArea('NotesButton', globalButton, 0, 'right');
 }
 
+//--------------------------------
 
 function disable() {
 	allNotes.forEach(function(n){
@@ -726,6 +819,15 @@ function disable() {
 	
 	if(globalButton.USE_SHORTCUT) {
 		Main.wm.removeKeybinding('keyboard-shortcut');
+	}
+	
+	if (SIGNAUX != []) {
+		Main.overview.disconnect(SIGNAUX[0]);
+		global.screen.disconnect(SIGNAUX[1]);
+		global.window_manager.disconnect(SIGNAUX[2]);
+		Main.overview.viewSelector._showAppsButton.disconnect(SIGNAUX[3]);
+		Main.overview.viewSelector._text.disconnect(SIGNAUX[4]);
+		global.screen.disconnect(SIGNAUX[5]);
 	}
 	
 	globalButton.destroy();
