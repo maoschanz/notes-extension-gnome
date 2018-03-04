@@ -22,8 +22,16 @@ msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Post-its pour le bureau GNOME Shell."
 
 #: extension.js
-msgid "Move"
-msgstr "Déplacer"
+msgid "New"
+msgstr "Nouveau"
+
+#: extension.js
+msgid "Delete"
+msgstr "Supprimer"
+
+#: extension.js
+msgid "Color"
+msgstr "Couleur"
 
 #: extension.js
 msgid "Resize"
@@ -58,8 +66,12 @@ msgid "Notes"
 msgstr "Notes"
 
 #: prefs.js:70
-msgid "General"
-msgstr "Général"
+msgid "Settings"
+msgstr "Paramètres"
+
+#: prefs.js:74
+msgid "Always show notes"
+msgstr "Toujours afficher les notes"
 
 #: prefs.js:74
 msgid "Position of notes:"
@@ -73,6 +85,10 @@ msgstr "Au-dessus de tout"
 msgid "On the background"
 msgstr "Sur le bureau"
 
+#: prefs.js:85
+msgid "Empty Overview"
+msgstr "Vue d'ensemble vide"
+
 #: prefs.js:101
 msgid "Default value is"
 msgstr "La valeur par défaut est"
@@ -85,25 +101,13 @@ msgstr "Appliquer"
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
 
-#: prefs.js:158
-msgid "Appearance"
-msgstr "Apparence"
+#: prefs.js:1
+msgid "Display"
+msgstr "Affichage"
 
-#: prefs.js:162
-msgid "Default note color:"
-msgstr "Couleur par défaut des notes :"
-
-#: prefs.js:180
-msgid "Default font size:"
-msgstr "Taille d'écriture par défaut :"
-
-#: prefs.js:200
-msgid "Default note size:"
-msgstr "Taille par défaut des notes :"
-
-#: prefs.js:231
-msgid "Default note position:"
-msgstr "Position par défaut des notes :"
+#: prefs.js:1
+msgid "Keybinding"
+msgstr "Raccourci clavier"
 
 #: prefs.js:269
 msgid "About"
