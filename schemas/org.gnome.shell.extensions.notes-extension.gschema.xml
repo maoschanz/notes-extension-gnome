@@ -1,48 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="notes-extension">
 	<schema id="org.gnome.shell.extensions.notes-extension" path="/org/gnome/shell/extensions/notes-extension/">
-    <key type="i" name="default-width">
-      <default>300</default>
-      <summary>Default width of a note.</summary>
-      <description></description>
-    </key>
-    <key type="i" name="default-height">
-      <default>200</default>
-      <summary>Default height of a note</summary>
-      <description></description>
-    </key>
-    <key type="i" name="default-x">
-      <default>200</default>
-      <summary>Default x position of a note</summary>
-      <description></description>
-    </key>
-    <key type="i" name="default-y">
-      <default>150</default>
-      <summary>Default y position of a note</summary>
-      <description></description>
-    </key>
-    <key type="s" name="default-color">
-      <default>"255,255,100"</default>
-      <summary>R, G, B</summary>
-      <description></description>
-    </key>
-    <key type="i" name="font-size">
-      <default>16</default>
-      <summary>Default font size</summary>
-      <description></description>
-    </key>
     <key type="b" name="use-shortcut">
       <default>true</default>
       <summary>Keyboard shortcut</summary>
       <description></description>
     </key>
+    <key type="b" name="always-show">
+      <default>false</default>
+      <summary>If notes shall always be shown.</summary>
+      <description>This removes icon in the top panel, and isn't compatible with the "above-all" value of "layout-position".</description>
+    </key>
     <key type="s" name="layout-position">
       <default>"above-all"</default>
       <summary></summary>
-      <description>Possible values are "above-all" and "on-desktop"</description>
+      <description>Possible values are "above-all", "in-overview", and "on-background"</description>
     </key>
     <key name="keyboard-shortcut" type="as">
-      <default><![CDATA[['<Super>n']]]></default>
+      <default><![CDATA[['<Super>n','']]]></default>
       <summary>Keyboard shortcut.</summary>
       <description>Keyboard shortcut which shows notes.</description>
     </key>
