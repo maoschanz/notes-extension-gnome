@@ -33,7 +33,7 @@ let ZPosition;
 
 let allNotes;
 
-function init() {
+function init () {
 	Convenience.initTranslations();
 	try {
 		Util.trySpawnCommandLine("mkdir " + PATH ); //améliorable TODO
@@ -45,9 +45,9 @@ function init() {
 
 //------------------------------------------------
 
-function saveAllNotes() {
+function saveAllNotes () {
 	
-	allNotes.forEach(function(n){
+	allNotes.forEach(function (n) {
 		if(n.actor != null) {
 			n.saveState();
 			n.saveText();
@@ -55,9 +55,9 @@ function saveAllNotes() {
 	});
 }
 
-function refreshArray() {
+function refreshArray () {
 	let temp = new Array();
-	allNotes.forEach(function(n){
+	allNotes.forEach(function (n) {
 		if (n.actor == null) {
 			//rien
 		} else {
@@ -94,14 +94,14 @@ function refreshArray() {
 const NoteBox = new Lang.Class({
 	Name:	'NoteBox',
 	
-	_init: function(id, color, size) {
+	_init: function (id, color, size) {
 		this.id = id;
 		this._fontSize = size;
 		this.customColor = color;
 		this.build();
 	},
 	
-	_setNotePosition: function() {
+	_setNotePosition: function () {
 		let monitor = Main.layoutManager.primaryMonitor;
 		
 		this.actor.set_position(
@@ -110,7 +110,7 @@ const NoteBox = new Lang.Class({
 		);
 	},
 	
-	actorStyle: function() {
+	actorStyle: function () {
 		let temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -118,7 +118,7 @@ const NoteBox = new Lang.Class({
 		return temp;
 	},
 	
-	noteStyle: function() {
+	noteStyle: function () {
 		let temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -129,7 +129,7 @@ const NoteBox = new Lang.Class({
 		return temp;
 	},
 	
-	_addButton: function(box, icon, accessibleName) {
+	_addButton: function (box, icon, accessibleName) {
 
 		let button = new St.Button({
 			child: new St.Icon({
@@ -140,7 +140,7 @@ const NoteBox = new Lang.Class({
 				style: 'margin: 5px;',
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
-			accessible_name: accessibleName,
+			accessible_name: _( accessibleName ),
 			y_align: Clutter.ActorAlign.CENTER,
 			style_class: 'calendar-today calendar-day-base',
 			reactive: true,
@@ -156,7 +156,7 @@ const NoteBox = new Lang.Class({
 		return button;
 	},
 	
-	build: function() {
+	build: function () {
 		this.actor = new St.BoxLayout({
 			reactive: true,
 			vertical: true,
@@ -195,13 +195,13 @@ const NoteBox = new Lang.Class({
 		})
 		this.buttons_box.add_actor(this.moveBox);
 
-		let CtrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'Resize');
+		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'Resize');
 		
 		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
 		this.moveBox.connect('button-press-event', Lang.bind(this, this._onPress));
 		
-		CtrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
-		CtrlButton.connect('button-press-event', Lang.bind(this, this._onPress));
+		ctrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
+		ctrlButton.connect('button-press-event', Lang.bind(this, this._onPress));
 		
 		/*
 		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
@@ -249,7 +249,7 @@ const NoteBox = new Lang.Class({
 		this._addButton(this.color_box, 'object-select-symbolic', 'ok').connect('clicked', Lang.bind(this, this.applyColor));
 		
 		/*
-		 * This is the interface for deletion. The whole box is hidden bydefault, and will
+		 * This is the interface for deletion. The whole box is hidden by default, and will
 		 * be shown instead of the regular header if the user needs it.
 		 */
 		this.delete_box = new St.BoxLayout({
@@ -279,7 +279,7 @@ const NoteBox = new Lang.Class({
 		//-------------
 		
 		this._scrollView = new St.ScrollView({
-	//		style_class: 'vfade',
+	//		style_class: 'vfade', //does a glitch ?
 			overlay_scrollbars: true, //si true la barre de défilment est dans l'entrée, sinon elle est à coté
 			x_expand: true,
 			y_expand: true,
@@ -346,14 +346,14 @@ const NoteBox = new Lang.Class({
 		this.grabY = this._y + 10;
 	},
 	
-	_onPress: function(actor, event) {
+	_onPress: function (actor, event) {
 		this.redraw();
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		this.grabX = xMouse;
 		this.grabY = yMouse;
 	},
 	
-	_onResizeRelease: function() {
+	_onResizeRelease: function () {
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
 		//FIXME minimaux ?
@@ -361,54 +361,56 @@ const NoteBox = new Lang.Class({
 		this.actor.height = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
 		this._y = yMouse - (this.grabY - this._y);
 		this._setNotePosition();
+		//TODO minimaux
+		this.onlySave();
 	},
 	
-	_onMoveRelease: function(actor, event) {
+	_onMoveRelease: function (actor, event) {
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
 		this._x = xMouse - (this.grabX - this._x);
 		this._y = yMouse - (this.grabY - this._y);
 		this._setNotePosition();
 		//TODO animation
+		this.onlySave();
 	},
 	
-	redraw: function() {
+	redraw: function () {
 		this.actor.raise_top();
+		this.onlySave();
 	},
 	
-	showDelete: function() {
+	showDelete: function () {
 		this.redraw();
 		this.buttons_box.visible = false;
 		this.delete_box.visible = true;
 	},
 	
-	hideDelete: function() {
+	hideDelete: function () {
 		this.redraw();
 		this.delete_box.visible = false;
 		this.buttons_box.visible = true;
 	},
 	
-	showColor: function() {
-		this.saveState();
-		this.saveText();
+	showColor: function () {
 		this.redraw();
 		this.buttons_box.visible = false;
 		this.color_box.visible = true;
 	},
 	
-	hideColor: function() {
+	hideColor: function () {
 		this.redraw();
 		this.color_box.visible = false;
 		this.buttons_box.visible = true;
 	},
 	
-	blackFontColor: function() {
+	blackFontColor: function () {
 		this._fontColor = '#000000';
 		this.actor.style = this.actorStyle();
 		this.noteEntry.style = this.noteStyle();
 	},
 	
-	whiteFontColor: function() {
+	whiteFontColor: function () {
 		this._fontColor = '#ffffff';
 		this.actor.style = this.actorStyle();
 		this.noteEntry.style = this.noteStyle();
@@ -419,14 +421,14 @@ const NoteBox = new Lang.Class({
 	 * string manipulations since the color is set in a text file in the 'r,g,b'
 	 * format. Also, the text coloration needs to be updated.
 	 */
-	applyColor: function() {
+	applyColor: function () {
 		let temp = '';
 		let total = 0;
-		if(Number(this.colorEntryR.get_text()) < 0){
+		if(Number(this.colorEntryR.get_text()) < 0) {
 			temp += '0,';
 			total += 0;
 			this.colorEntryR.set_text('0');
-		} else if(Number(this.colorEntryR.get_text()) > 255){
+		} else if(Number(this.colorEntryR.get_text()) > 255) {
 			temp += '255,';
 			total += 255;
 			this.colorEntryR.set_text('255');
@@ -434,11 +436,11 @@ const NoteBox = new Lang.Class({
 			temp += Number(this.colorEntryR.get_text()).toString() + ',';
 			total += Number(this.colorEntryR.get_text());
 		}
-		if(Number(this.colorEntryV.get_text()) < 0){
+		if(Number(this.colorEntryV.get_text()) < 0) {
 			temp += '0,';
 			total += 0;
 			this.colorEntryV.set_text('0');
-		} else if(Number(this.colorEntryV.get_text()) > 255){
+		} else if(Number(this.colorEntryV.get_text()) > 255) {
 			temp += '255,';
 			total += 255;
 			this.colorEntryV.set_text('255');
@@ -446,11 +448,11 @@ const NoteBox = new Lang.Class({
 			temp += Number(this.colorEntryV.get_text()).toString() + ',';
 			total += Number(this.colorEntryV.get_text());
 		}
-		if(Number(this.colorEntryB.get_text()) < 0){
+		if(Number(this.colorEntryB.get_text()) < 0) {
 			temp += '0';
 			total += 0;
 			this.colorEntryB.set_text('0');
-		} else if(Number(this.colorEntryB.get_text()) > 255){
+		} else if(Number(this.colorEntryB.get_text()) > 255) {
 			temp += '255';
 			total += 255;
 			this.colorEntryR.set_text('255');
@@ -468,7 +470,7 @@ const NoteBox = new Lang.Class({
 		this.actor.style = this.actorStyle();
 	},
 	
-	loadText: function() {
+	loadText: function () {
 	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
@@ -485,7 +487,7 @@ const NoteBox = new Lang.Class({
 		this.noteEntry.set_text(content);
 	},
 	
-	saveText: function() {
+	saveText: function () {
 		let noteText = this.noteEntry.get_text();
 		if (noteText == null) {
 			noteText = '';
@@ -499,7 +501,7 @@ const NoteBox = new Lang.Class({
 	 * and which isn't out of the primary monitor. Of course, if there is notes everywhere,
 	 * it just abandons computation, and sets the note in a 100% random position.
 	 */
-	computeRandomPosition: function() {
+	computeRandomPosition: function () {
 		let x;
 		let y;
 		for(var i = 0; i < 15; i++) {
@@ -507,7 +509,7 @@ const NoteBox = new Lang.Class({
 			y = Math.random() * (Main.layoutManager.primaryMonitor.height - 100);
 		
 			let can = true;
-			allNotes.forEach(function(n){
+			allNotes.forEach(function (n) {
 				if( ( Math.abs(n._x - x) < 230) && ( Math.abs(n._y - y) < 100) ) {
 					can = false;
 				}
@@ -520,7 +522,7 @@ const NoteBox = new Lang.Class({
 		return [x, y];
 	},
 	
-	loadState: function() {
+	loadState: function () {
 	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
@@ -547,7 +549,7 @@ const NoteBox = new Lang.Class({
 		this._fontSize = Number(state[5]);
 	},
 	
-	saveState: function() {
+	saveState: function () {
 		let noteState = '';
 		
 		noteState += this._x.toString() + ';';
@@ -562,12 +564,14 @@ const NoteBox = new Lang.Class({
 		GLib.file_set_contents(file, noteState);
 	},
 	
-	createNote: function() {
+	createNote: function () {
 		let nextId = allNotes.length;
 		allNotes.push(new NoteBox(nextId, this.customColor, this._fontSize)); //FIXME
 	},
 	
-	deleteNote: function() {
+	deleteNote: function () {
+		/* the animation works but since logs are unreadable */
+		/* i can't know if it's good enough and errorless. */
 //		Tweener.addTween(this.actor, {
 //			time: 0.5,
 //			scale_x: 0.1,
@@ -576,13 +580,13 @@ const NoteBox = new Lang.Class({
 //			translation_y: Main.layoutManager.primaryMonitor.height,
 //			opacity: 0,
 //			transition: 'easeOutQuad',
-//			onComplete: function() {
+//			onComplete: function () {
 //				this.opacity = 0;
 //			}
 //		});
 
 //		let timeoutId = Mainloop.timeout_add(600,
-//			Lang.bind(this, function() {
+//			Lang.bind(this, function () {
 //				
 //				Tweener.removeTweens(this);
 //				this.destroy();
@@ -598,13 +602,13 @@ const NoteBox = new Lang.Class({
 		saveAllNotes();
 	},
 	
-	destroy: function() {
+	destroy: function () {
 		this.actor.destroy_all_children();
 		this.actor.destroy();
 		this.actor = null;
 	},
 	
-	show: function() {
+	show: function () {
 		this.actor.visible = true;
 		
 		if(SETTINGS.get_string('layout-position') == 'above-all') {
@@ -612,19 +616,19 @@ const NoteBox = new Lang.Class({
 		}
 	},
 	
-	hide: function() {
+	hide: function () {
 		this.onlyHide();
 		this.onlySave();
 	},
 	
-	onlyHide: function() {
+	onlyHide: function () {
 		this.actor.visible = false;
 		if(SETTINGS.get_string('layout-position') == 'above-all') {
 			Main.layoutManager.untrackChrome(this.actor);
 		}
 	},
 	
-	onlySave: function() {
+	onlySave: function () {
 		this.saveState();
 		this.saveText();
 	},
@@ -643,7 +647,7 @@ const NotesButton = new Lang.Class({
 	Name:		'NotesButton',		// Class Name
 	Extends:	PanelMenu.Button,	// Parent Class
 
-	_init: function() {
+	_init: function () {
 		this.parent(0.0, 'NotesButton', true);
 		let box = new St.BoxLayout();
 		let icon = new St.Icon({ icon_name: 'document-edit-symbolic', style_class: 'system-status-icon'});
@@ -658,10 +662,10 @@ const NotesButton = new Lang.Class({
 		
 		this._isVisible = false;			
 		
-		if(Convenience.getSettings().get_boolean('always-show') && (Zposition != 'above-all')){
+		if(Convenience.getSettings().get_boolean('always-show') && (Zposition != 'above-all')) {
 			this.actor.visible = false;
 		}
-		
+	
 		this.loadAllNotes();		
 		
 		this.actor.connect('button-press-event', Lang.bind(this, this.toggleState));
@@ -674,7 +678,7 @@ const NotesButton = new Lang.Class({
 		}
 	},
 	
-	toggleState: function() {
+	toggleState: function () {
 		//log('toggleState');
 		if(allNotes.length == 0) {
 			this._createNote();
@@ -686,7 +690,7 @@ const NotesButton = new Lang.Class({
 		}
 	},
 	
-	loadAllNotes: function() {
+	loadAllNotes: function () {
 		let i = 0;
 		let ended = false;
 		while(!ended) {
@@ -698,43 +702,43 @@ const NotesButton = new Lang.Class({
 			}
 			i++;
 		}
-		if(!Convenience.getSettings().get_boolean('always-show')){
+		if(!Convenience.getSettings().get_boolean('always-show')) {
 			this._onlyHideNotes();
 		}
 	},
 	
-	_createNote: function() {
+	_createNote: function () {
 		let nextId = allNotes.length;
 		allNotes.push(new NoteBox(nextId, '50,50,50', 16));
 	},
 	
-	_showNotes: function() {
+	_showNotes: function () {
 		this._isVisible = true;
 		
-		allNotes.forEach(function(n){
+		allNotes.forEach(function (n) {
 			n.show();
 		});
 	},
 	
-	_hideNotes: function() {
-		allNotes.forEach(function(n){
+	_hideNotes: function () {
+		allNotes.forEach(function (n) {
 			n.onlyHide();
 		});
-		allNotes.forEach(function(n){
+		allNotes.forEach(function (n) {
 			n.onlySave();
 		});
 		
 		this._isVisible = false;
 	},
 	
-	_onlyHideNotes: function() {
-		allNotes.forEach(function(n){
+	_onlyHideNotes: function () {
+		allNotes.forEach(function (n) {
 			n.onlyHide();
 		});
 		this._isVisible = false;
 	},
 	
-	_bindShortcut: function() {
+	_bindShortcut: function () {
 		var ModeType = Shell.hasOwnProperty('ActionMode') ?
 			Shell.ActionMode : Shell.KeyBindingMode;
 
@@ -791,7 +795,7 @@ function enable() {
 	
 	SIGNAUX = [];
 	
-	if(Zposition == 'in-overview'){
+	if(Zposition == 'in-overview') {
 		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
 		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
 		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
@@ -812,7 +816,7 @@ function enable() {
 //--------------------------------
 
 function disable() {
-	allNotes.forEach(function(n){
+	allNotes.forEach(function (n) {
 		n.onlySave();
 		n.destroy();
 	});
@@ -821,7 +825,7 @@ function disable() {
 		Main.wm.removeKeybinding('keyboard-shortcut');
 	}
 	
-	if (SIGNAUX != []) {
+	if (SIGNAUX.length != 0) {
 		Main.overview.disconnect(SIGNAUX[0]);
 		global.screen.disconnect(SIGNAUX[1]);
 		global.window_manager.disconnect(SIGNAUX[2]);
