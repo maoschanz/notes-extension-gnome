@@ -30,7 +30,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 
 let globalButton;
 let SETTINGS;
-let ZPosition;
+let Z_POSITION;
 
 //-------------------------------------------------
 
@@ -39,11 +39,14 @@ let allNotes;
 function init () {
 	Convenience.initTranslations();
 	try {
-		Util.trySpawnCommandLine("mkdir " + PATH ); //améliorable TODO
+		let a = Gio.file_new_for_path(PATH);
+		if (!a.query_exists(null)) {
+			a.make_directory(null);
+		}
 	} catch (e) {
 		log(e.message);
 	}
-	ZPosition = "";
+	Z_POSITION = "";
 }
 
 //------------------------------------------------
@@ -72,9 +75,10 @@ function refreshArray () {
 	allNotes = null;
 	allNotes = temp;
 	
-	//TODO améliorable, sérieusement...
-	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_state');
-	Util.trySpawnCommandLine("rm " + PATH + '/' + allNotes.length.toString() + '_text');
+	let textfile = Gio.file_new_for_path(PATH + '/' + allNotes.length.toString() + '_text');
+	let statefile = Gio.file_new_for_path(PATH + '/' + allNotes.length.toString() + '_state');
+	textfile.delete(null);
+	statefile.delete(null);
 }
 
 //------------------------------------------------
@@ -326,12 +330,12 @@ const NoteBox = new Lang.Class({
 		
 		/*
 		 * Each note sets its own actor where it should be. This isn't a problem since the
-		 * related setting isn't directly accessed, but is stored in 'Zposition' instead,
+		 * related setting isn't directly accessed, but is stored in 'Z_POSITION' instead,
 		 * which prevent inconstistencies.
 		 */
-		if(Zposition == 'above-all') {
+		if(Z_POSITION == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
-		} else if (Zposition == 'in-overview') {
+		} else if (Z_POSITION == 'in-overview') {
 			Main.layoutManager.overviewGroup.add_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
@@ -360,9 +364,9 @@ const NoteBox = new Lang.Class({
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
 		//FIXME TODO minimaux ?
-		newWidth = Math.abs(this.actor.width + (xMouse - this.grabX));
-		newHeight = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
-		newY = yMouse - (this.grabY - this._y);
+		let newWidth = Math.abs(this.actor.width + (xMouse - this.grabX));
+		let newHeight = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
+		let newY = yMouse - (this.grabY - this._y);
 		
 		Tweener.addTween(this, {
 			positionWidth: newWidth,
@@ -724,7 +728,7 @@ const NotesButton = new Lang.Class({
 		
 		this._isVisible = false;			
 		
-		if(Convenience.getSettings().get_boolean('always-show') && (Zposition != 'above-all')) {
+		if(Convenience.getSettings().get_boolean('always-show') && (Z_POSITION != 'above-all')) {
 			this.actor.visible = false;
 		}
 	
@@ -831,7 +835,7 @@ var SettingsSchema = getSchema();
 //-------------------------------------------------------
 
 /*
- * This is used only if the selected Zposition is 'in-overview',
+ * This is used only if the selected Z_POSITION is 'in-overview',
  * a.k.a. the notes will be shown in the overview if it's empty.
  */
 
@@ -853,11 +857,11 @@ function updateVisibility() {
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
-	Zposition = SETTINGS.get_string('layout-position');
+	Z_POSITION = SETTINGS.get_string('layout-position');
 	
 	SIGNAUX = [];
 	
-	if(Zposition == 'in-overview') {
+	if(Z_POSITION == 'in-overview') {
 		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
 		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
 		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
