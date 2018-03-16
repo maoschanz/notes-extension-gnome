@@ -22,6 +22,9 @@ const Menus = Me.imports.menus;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
+const MOVE_ANIMATION_TIME = 0.4;
+const RESIZE_ANIMATION_TIME = 0.2;
+
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
@@ -356,22 +359,108 @@ const NoteBox = new Lang.Class({
 	_onResizeRelease: function () {
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
-		//FIXME minimaux ?
-		this.actor.width = Math.abs(this.actor.width + (xMouse - this.grabX));
-		this.actor.height = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
-		this._y = yMouse - (this.grabY - this._y);
-		this._setNotePosition();
-		//TODO minimaux
+		//FIXME TODO minimaux ?
+		newWidth = Math.abs(this.actor.width + (xMouse - this.grabX));
+		newHeight = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
+		newY = yMouse - (this.grabY - this._y);
+		
+		Tweener.addTween(this, {
+			positionWidth: newWidth,
+			time: RESIZE_ANIMATION_TIME,
+			transition: 'easeOutQuad',
+			onComplete: function () {
+				this.actor.width = newWidth;
+			}
+		});
+		
+		Tweener.addTween(this, {
+			positionHeight: newHeight,
+			time: RESIZE_ANIMATION_TIME,
+			transition: 'easeOutQuad',
+			onComplete: function () {
+				this.actor.height = newHeight;
+			}
+		});
+		
+		Tweener.addTween(this, {
+			positionY: newY,
+			time: RESIZE_ANIMATION_TIME,
+			transition: 'easeOutQuad',
+			onComplete: function () {
+				this._y = newY;
+				this._setNotePosition();
+			}
+		});
+		
 		this.onlySave();
 	},
+	
+	//--------------------
+	
+	/* These getters and setters are here only for Tweener's animations */
+	
+	get positionWidth() {
+		return this.actor.width;
+	},
+	
+	set positionWidth(value){
+		this.actor.width = value;
+	},
+	
+	get positionHeight() {
+		return this.actor.height;
+	},
+	
+	set positionHeight(value){
+		this.actor.height = value;
+	},
+	
+	get positionX() {
+		return this._x;
+	},
+	
+	set positionX(value){
+		this._x = value;
+		this._setNotePosition();
+	},
+	
+	get positionY() {
+		return this._y;
+	},
+	
+	set positionY(value){
+		this._y = value;
+		this._setNotePosition();
+	},
+	
+	//--------------------
 	
 	_onMoveRelease: function (actor, event) {
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		
-		this._x = xMouse - (this.grabX - this._x);
-		this._y = yMouse - (this.grabY - this._y);
-		this._setNotePosition();
-		//TODO animation
+		let newX = xMouse - (this.grabX - this._x);
+		let newY = yMouse - (this.grabY - this._y);
+		
+		Tweener.addTween(this, {
+			positionY: newY,
+			time: MOVE_ANIMATION_TIME,
+			transition: 'easeOutQuad',
+			onComplete: function () {
+				this._y = newY;
+				this._setNotePosition();
+			}
+		});
+		
+		Tweener.addTween(this, {
+			positionX: newX,
+			time: MOVE_ANIMATION_TIME,
+			transition: 'easeOutQuad',
+			onComplete: function () {
+				this._x = newX;
+				this._setNotePosition();
+			}
+		});
+		
 		this.onlySave();
 	},
 	
@@ -570,33 +659,6 @@ const NoteBox = new Lang.Class({
 	},
 	
 	deleteNote: function () {
-		/* the animation works but since logs are unreadable */
-		/* i can't know if it's good enough and errorless. */
-//		Tweener.addTween(this.actor, {
-//			time: 0.5,
-//			scale_x: 0.1,
-//			scale_y: 0.1,
-//			translation_x: Main.layoutManager.primaryMonitor.width,
-//			translation_y: Main.layoutManager.primaryMonitor.height,
-//			opacity: 0,
-//			transition: 'easeOutQuad',
-//			onComplete: function () {
-//				this.opacity = 0;
-//			}
-//		});
-
-//		let timeoutId = Mainloop.timeout_add(600,
-//			Lang.bind(this, function () {
-//				
-//				Tweener.removeTweens(this);
-//				this.destroy();
-//				refreshArray();
-//				saveAllNotes();
-
-//				Mainloop.source_remove(timeoutId);
-//			}
-//		));
-		
 		this.destroy();
 		refreshArray();
 		saveAllNotes();
