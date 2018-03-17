@@ -16,3 +16,7 @@ cd ~/.local/share/gnome-shell/extensions
 git clone https://github.com/Maestroschan/notes-extension-gnome.git
 mv notes-extension-gnome-master notes@maestroschan.fr
 ```
+
+## Storage
+
+Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`

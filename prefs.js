@@ -234,7 +234,7 @@ const NotesSettingsWidget = new GObject.Class({
 		//-----------------------------
 		
 		this.settingsPage.add_row(positionBox, displaySection);
-		this.settingsPage.add_row(showBox, displaySection);
+//		this.settingsPage.add_row(showBox, displaySection);
 		this.settingsPage.add_row(keybindingBox, keybindingSection);
 
 		//-------------------------------

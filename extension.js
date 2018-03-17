@@ -32,6 +32,14 @@ let globalButton;
 let SETTINGS;
 let Z_POSITION;
 
+/*
+ * This is used only if the selected Z_POSITION is 'in-overview',
+ * a.k.a. the notes will be shown in the overview if it's empty.
+ */
+let SIGNAUX = [];
+
+let SIGNAL_LAYOUT;
+
 //-------------------------------------------------
 
 let allNotes;
@@ -333,13 +341,7 @@ const NoteBox = new Lang.Class({
 		 * related setting isn't directly accessed, but is stored in 'Z_POSITION' instead,
 		 * which prevent inconstistencies.
 		 */
-		if(Z_POSITION == 'above-all') {
-			Main.layoutManager.addChrome(this.actor);
-		} else if (Z_POSITION == 'in-overview') {
-			Main.layoutManager.overviewGroup.add_actor(this.actor);
-		} else {
-			Main.layoutManager._backgroundGroup.add_actor(this.actor);
-		}
+		this.load_in_the_right_actor();
 		
 		this._setNotePosition();
 		
@@ -351,6 +353,27 @@ const NoteBox = new Lang.Class({
 		
 		this.grabX = this._x + 100;
 		this.grabY = this._y + 10;
+	},
+	
+	load_in_the_right_actor: function () {
+		if(Z_POSITION == 'above-all') {
+			Main.layoutManager.addChrome(this.actor);
+		} else if (Z_POSITION == 'in-overview') {
+			Main.layoutManager.overviewGroup.add_actor(this.actor);
+		} else {
+			Main.layoutManager._backgroundGroup.add_actor(this.actor);
+		}
+	},
+	
+	remove_from_the_right_actor: function () {
+		if(Z_POSITION == 'above-all') {
+//			Main.layoutManager.untrackChrome(this.actor);
+			Main.layoutManager.removeChrome(this.actor);
+		} else if (Z_POSITION == 'in-overview') {
+			Main.layoutManager.overviewGroup.remove_actor(this.actor);
+		} else {
+			Main.layoutManager._backgroundGroup.remove_actor(this.actor);
+		}
 	},
 	
 	_onPress: function (actor, event) {
@@ -834,13 +857,6 @@ var SettingsSchema = getSchema();
 
 //-------------------------------------------------------
 
-/*
- * This is used only if the selected Z_POSITION is 'in-overview',
- * a.k.a. the notes will be shown in the overview if it's empty.
- */
-
-let SIGNAUX = [];
-
 function updateVisibility() {
 	if (Main.overview.viewSelector._activePage != Main.overview.viewSelector._workspacesPage) {
 		globalButton._onlyHideNotes();
@@ -853,11 +869,45 @@ function updateVisibility() {
 	}
 }
 
+function updateLayoutSetting() {
+	allNotes.forEach(function (n) {
+		n.remove_from_the_right_actor();
+	});
+	
+	if (SIGNAUX.length != 0) {
+		Main.overview.disconnect(SIGNAUX[0]);
+		global.screen.disconnect(SIGNAUX[1]);
+		global.window_manager.disconnect(SIGNAUX[2]);
+		Main.overview.viewSelector._showAppsButton.disconnect(SIGNAUX[3]);
+		Main.overview.viewSelector._text.disconnect(SIGNAUX[4]);
+		global.screen.disconnect(SIGNAUX[5]);
+	}
+	
+	SIGNAUX = [];
+	
+	Z_POSITION = SETTINGS.get_string('layout-position');
+	
+	if(Z_POSITION == 'in-overview') {
+		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
+		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
+		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
+		SIGNAUX[3] = Main.overview.viewSelector._showAppsButton.connect('notify::checked', Lang.bind(this, updateVisibility));
+		SIGNAUX[4] = Main.overview.viewSelector._text.connect('text-changed', Lang.bind(this, updateVisibility));
+		SIGNAUX[5] = global.screen.connect('restacked', Lang.bind(this, updateVisibility));
+	}
+	
+	allNotes.forEach(function (n) {
+		n.load_in_the_right_actor();
+	});
+}
+
 //-------------------------------------------------
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	Z_POSITION = SETTINGS.get_string('layout-position');
+	
+	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', Lang.bind(this, updateLayoutSetting));
 	
 	SIGNAUX = [];
 	
@@ -899,6 +949,8 @@ function disable() {
 		Main.overview.viewSelector._text.disconnect(SIGNAUX[4]);
 		global.screen.disconnect(SIGNAUX[5]);
 	}
+	
+	this.disconnect(SIGNAL_LAYOUT);
 	
 	globalButton.destroy();
 }
