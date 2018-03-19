@@ -845,7 +845,7 @@ const NotesButton = new Lang.Class({
 
 const SCHEMA_NAME = 'org.gnome.shell.extensions.notes-extension';
 
-const getSchema = function () {
+const getSchema = function () { //FIXME à virer
 	let schemaDir = Me.dir.get_child('schemas').get_path();
 	let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
 	let schema = schemaSource.lookup(SCHEMA_NAME, false);
@@ -950,7 +950,7 @@ function disable() {
 		global.screen.disconnect(SIGNAUX[5]);
 	}
 	
-	this.disconnect(SIGNAL_LAYOUT);
+	SETTINGS.disconnect(SIGNAL_LAYOUT);
 	
 	globalButton.destroy();
 }

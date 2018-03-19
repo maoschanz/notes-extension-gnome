@@ -179,7 +179,7 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 		
 		let keybindingEntry = new Gtk.Entry({
-			sensitive: false,
+//			sensitive: false,
 			sensitive: SETTINGS.get_boolean('use-shortcut'),
 			hexpand: true
 		});
