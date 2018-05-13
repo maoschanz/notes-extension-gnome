@@ -39,6 +39,7 @@ let Z_POSITION;
 let SIGNAUX = [];
 
 let SIGNAL_LAYOUT;
+let SIGNAL_BRING_BACK;
 
 //-------------------------------------------------
 
@@ -125,8 +126,18 @@ const NoteBox = new Lang.Class({
 		);
 	},
 	
-	actorStyle: function () {
-		let temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
+	actorStyle: function (){
+		var is_hovered = this.actor.hover;
+		let temp;
+		if (is_hovered) {
+			temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
+//			if(this._fontColor != '') {
+//				temp += 'color: ' + this._fontColor + ';';
+//			}
+		} else {
+			temp = 'background-color: rgba(' + this.customColor + ', 0.4);';
+//			temp += 'color: rgba(' + this.customColor + ', 0.7);';
+		}
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
 		}
@@ -178,12 +189,17 @@ const NoteBox = new Lang.Class({
 			min_height: 75,
 			min_width: 245,
 			style_class: 'notestyle',
+			track_hover: true,
 		});
 		
 		this._fontColor = '';
 		this.loadState();
 		this.actor.style = this.actorStyle();
 		
+		this.actor.connect('notify::hover', Lang.bind(this, function(a, b) {
+			this.actor.style = this.actorStyle();
+		}));
+			
 		/*
 		 * This is the regular header, as described above.
 		 */
@@ -857,6 +873,18 @@ var SettingsSchema = getSchema();
 
 //-------------------------------------------------------
 
+function bringToPrimaryMonitorOnly() {
+	allNotes.forEach(function (n) {
+		if (
+			(n._x < 0 || n._x > Main.layoutManager.primaryMonitor.width-20) ||
+			(n._y < 0 || n._y > Main.layoutManager.primaryMonitor.height-20)
+		) {
+			[n._x, n._y] = n.computeRandomPosition();
+			n._setNotePosition();
+		}
+	});
+}
+
 function updateVisibility() {
 	if (Main.overview.viewSelector._activePage != Main.overview.viewSelector._workspacesPage) {
 		globalButton._onlyHideNotes();
@@ -927,6 +955,8 @@ function enable() {
 //	- 0 is the position
 //	- `right` is the box where we want our globalButton to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', globalButton, 0, 'right');
+	
+	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', Lang.bind(this, bringToPrimaryMonitorOnly));
 }
 
 //--------------------------------
@@ -951,6 +981,7 @@ function disable() {
 	}
 	
 	SETTINGS.disconnect(SIGNAL_LAYOUT);
+	SETTINGS.disconnect(SIGNAL_BRING_BACK);
 	
 	globalButton.destroy();
 }

@@ -6,6 +6,11 @@
       <summary>Keyboard shortcut</summary>
       <description></description>
     </key>
+    <key type="b" name="ugly-hack">
+      <default>true</default>
+      <summary>This has no actual meaning</summary>
+      <description>This setting is used to call an extension.js function from prefs.js</description>
+    </key>
     <key type="b" name="always-show">
       <default>false</default>
       <summary>If notes shall always be shown.</summary>

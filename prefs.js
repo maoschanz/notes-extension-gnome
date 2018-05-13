@@ -5,6 +5,8 @@ const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Gdk = imports.gi.Gdk;
 const GdkPixbuf = imports.gi.GdkPixbuf;
+//const Util = imports.misc.util;
+const GLib = imports.gi.GLib;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
@@ -239,6 +241,23 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//-------------------------------
 
+		this.helpPage = this.add_page('help', _("Help"));
+
+		reset_button = new Gtk.Button({ label: _("Bring back all notes to the primary monitor") });
+		reset_button.connect('clicked', Lang.bind(this, function(widget) {
+			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
+		}));
+		this.helpPage.stackpageMainBox.add(reset_button);
+		
+		data_button = new Gtk.Button({ label: _("Open the storage directory") });
+		data_button.connect('clicked', Lang.bind(this, function(widget) {
+			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
+//			Util.trySpawnCommandLine('xdg-open ~/.local/share/notes@maestroschan.fr');
+		}));
+		this.helpPage.stackpageMainBox.add(data_button);
+		
+		//-------------------------------
+
 		this.aboutPage = this.add_page('about', _("About"));
 
 		let a_name = '<b>' + Me.metadata.name.toString() + '</b>';
@@ -287,11 +306,6 @@ const NotesSettingsWidget = new GObject.Class({
 		let page = new PrefsPage();
 		this.add_titled(page, id, title);
 		return page;
-	},
-	
-	_onColorChanged: function() {
-		let rgb = this.colorButton.get_rgba().to_string(); //'rgb(r,g,b)'
-		SETTINGS.set_string("default-color", rgb);
 	},
 });
 
