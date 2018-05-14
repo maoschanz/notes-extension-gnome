@@ -228,11 +228,11 @@ const NoteBox = new Lang.Class({
 
 		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'Resize');
 		
-		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
 		this.moveBox.connect('button-press-event', Lang.bind(this, this._onPress));
+		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
 		
-		ctrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
 		ctrlButton.connect('button-press-event', Lang.bind(this, this._onPress));
+		ctrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
 		
 		/*
 		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
@@ -343,7 +343,8 @@ const NoteBox = new Lang.Class({
 		this.entry_box = new St.BoxLayout({
 			reactive: true,
 			x_expand: true,
-			y_expand: true
+			y_expand: true,
+			visible: this.entry_is_visible,
 		});
 		
 		this.entry_box.add_actor(this.noteEntry);
@@ -394,6 +395,11 @@ const NoteBox = new Lang.Class({
 	
 	_onPress: function (actor, event) {
 		this.redraw();
+		let mouseButton = event.get_button();
+		if (mouseButton == 3) {
+			this.entry_box.visible = !this.entry_box.visible;
+			this.entry_is_visible = this.entry_box.visible;
+		}
 		let [xMouse, yMouse, mask] = global.get_pointer();
 		this.grabX = xMouse;
 		this.grabY = yMouse;
@@ -661,7 +667,7 @@ const NoteBox = new Lang.Class({
 			let defaultPosition = this.computeRandomPosition();
 			GLib.file_set_contents(
 				file2,
-				defaultPosition[0].toString() + ';' + defaultPosition[1].toString() + ';' + this.customColor + ';250;200;' + this._fontSize + ';'
+				defaultPosition[0].toString() + ';' + defaultPosition[1].toString() + ';' + this.customColor + ';250;200;' + this._fontSize + ';true;'
 			);
 		}
 	
@@ -679,6 +685,7 @@ const NoteBox = new Lang.Class({
 		this.actor.width = Number(state[3]);
 		this.actor.height = Number(state[4]);
 		this._fontSize = Number(state[5]);
+		this.entry_is_visible = (state[6] == 'true');
 	},
 	
 	saveState: function () {
@@ -686,10 +693,11 @@ const NoteBox = new Lang.Class({
 		
 		noteState += this._x.toString() + ';';
 		noteState += this._y.toString() + ';';
-		noteState += this.customColor.toString() + ';'; //ts?
+		noteState += this.customColor.toString() + ';';
 		noteState += this.actor.width.toString() + ';';
 		noteState += this.actor.height.toString() + ';';
-		noteState += this._fontSize.toString() + ';'; //;?	
+		noteState += this._fontSize.toString() + ';';
+		noteState += this.entry_is_visible.toString() + ';';
 		
 		//log('saveState | ' + this.id.toString() + ' | '  + noteState);
 		let file = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
