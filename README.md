@@ -14,7 +14,7 @@ Or like that:
 ```
 cd ~/.local/share/gnome-shell/extensions
 git clone https://github.com/Maestroschan/notes-extension-gnome.git
-mv notes-extension-gnome-master notes@maestroschan.fr
+mv notes-extension-gnome notes@maestroschan.fr
 ```
 
 ## Storage
