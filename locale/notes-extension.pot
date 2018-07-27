@@ -54,11 +54,11 @@ msgid "Custom color"
 msgstr ""
 
 #: extension.js:386
-msgid "Delete this note ?"
+msgid "Delete this note?"
 msgstr ""
 
 #: extension.js:433
-msgid "Type here..."
+msgid "Type here…"
 msgstr ""
 
 #: extension.js:784 extension.js:838
