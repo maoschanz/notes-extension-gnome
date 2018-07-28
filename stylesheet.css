@@ -7,5 +7,27 @@
 .notestyle
 {
 	border-radius: 8px;
-	padding: 0px 7px 7px 7px;
+	padding: 0;
+	margin: 0;
+}
+
+.notestyle:hover
+{
+	border-radius: 8px;
+	padding: 0;
+	margin: 0;
+	box-shadow: 0px 0px 10px #000;
+}
+
+.textfield
+{
+  border-width: 0px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: none;
+}
+
+.textfield:hover
+{
+  border-width: 0px;
+  border-radius: 0 0 8px 8px;
 }

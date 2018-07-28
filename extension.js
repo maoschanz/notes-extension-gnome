@@ -128,16 +128,7 @@ const NoteBox = new Lang.Class({
 	
 	actorStyle: function (){
 		var is_hovered = this.actor.hover;
-		let temp;
-		if (is_hovered) {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
-//			if(this._fontColor != '') {
-//				temp += 'color: ' + this._fontColor + ';';
-//			}
-		} else {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.4);';
-//			temp += 'color: rgba(' + this.customColor + ', 0.7);';
-		}
+		let temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
 		}
@@ -297,7 +288,7 @@ const NoteBox = new Lang.Class({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
-			text: _("Delete this note ?")
+			text: _('Delete this note?')
 		}));
 		this._addButton(this.delete_box, 'user-trash-symbolic', 'ok').connect('clicked', Lang.bind(this, this.deleteNote));
 		
@@ -329,6 +320,7 @@ const NoteBox = new Lang.Class({
 		//?//	reactive: true,
 			x_expand: true,
 			//y_expand: true,
+			style_class: 'textfield',
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
 		clutterText.set_single_line_mode(false);
