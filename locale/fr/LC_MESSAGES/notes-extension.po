@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-18 20:43+0100\n"
+"POT-Creation-Date: 2018-07-29 01:44+0200\n"
 "PO-Revision-Date: 2017-11-18 20:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,99 +16,122 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: metadata.json
-msgid "Sticky notes for the GNOME Shell desktop."
-msgstr "Post-its pour le bureau GNOME Shell."
-
-#: extension.js
+#: extension.js:215
 msgid "New"
 msgstr "Nouveau"
 
-#: extension.js
+#: extension.js:216
 msgid "Delete"
 msgstr "Supprimer"
 
-#: extension.js
+#: extension.js:218
 msgid "Color"
 msgstr "Couleur"
 
-#: extension.js
+#: extension.js:229
 msgid "Resize"
 msgstr "Redimensionner"
 
-#: extension.js:92
-msgid "Select All"
-msgstr "Sélectionner tout"
+#: extension.js:275 extension.js:295
+msgid "Back"
+msgstr "Retour"
 
-#: extension.js:100
-msgid "Bigger font"
-msgstr "Plus gros"
+#: extension.js:280 extension.js:302
+msgid "OK"
+msgstr "Ok"
 
-#: extension.js:105
-msgid "Smaller font"
-msgstr "Plus petit"
-
-#: extension.js:
-msgid "Custom color"
-msgstr "Couleur personnalisée"
-
-#: extension.js:386
+#: extension.js:300
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
 
-#: extension.js:433
+#: extension.js:327
 msgid "Type here…"
 msgstr "Tapez ici…"
 
-#: extension.js:784 extension.js:838
-msgid "Notes"
-msgstr "Notes"
+#: menus.js:118
+msgid "Custom color"
+msgstr "Couleur personnalisée"
 
-#: prefs.js:70
+#: menus.js:243
+msgid "Select All"
+msgstr "Sélectionner tout"
+
+#: menus.js:251
+msgid "Bigger font"
+msgstr "Plus gros"
+
+#: menus.js:256
+msgid "Smaller font"
+msgstr "Plus petit"
+
+#: prefs.js:112
 msgid "Settings"
 msgstr "Paramètres"
 
-#: prefs.js:74
-msgid "Always show notes"
-msgstr "Toujours afficher les notes"
-
-#: prefs.js:74
-msgid "Position of notes:"
-msgstr "Position des notes :"
-
-#: prefs.js:83
-msgid "Above everything"
-msgstr "Au-dessus de tout"
-
-#: prefs.js:84
-msgid "On the background"
-msgstr "Sur le bureau"
-
-#: prefs.js:85
-msgid "Empty Overview"
-msgstr "Vue d'ensemble vide"
-
-#: prefs.js:101
-msgid "Default value is"
-msgstr "La valeur par défaut est"
-
 #: prefs.js:114
-msgid "Apply"
-msgstr "Appliquer"
-
-#: prefs.js:124
-msgid "Use a keyboard shortcut to toggle notes"
-msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
-
-#: prefs.js:1
 msgid "Display"
 msgstr "Affichage"
 
-#: prefs.js:1
+#: prefs.js:115
 msgid "Keybinding"
 msgstr "Raccourci clavier"
 
-#: prefs.js:269
+#: prefs.js:119
+msgid "Position of notes:"
+msgstr "Position des notes :"
+
+#: prefs.js:128
+msgid "Above everything"
+msgstr "Au-dessus de tout"
+
+#: prefs.js:129
+msgid "On the background"
+msgstr "Sur le bureau"
+
+#: prefs.js:130
+msgid "Empty Overview"
+msgstr "Vue d'ensemble vide"
+
+#: prefs.js:153
+msgid "Always show notes"
+msgstr "Toujours afficher les notes"
+
+#: prefs.js:180
+msgid "Default value is"
+msgstr "La valeur par défaut est"
+
+#: prefs.js:193
+msgid "Apply"
+msgstr "Appliquer"
+
+#: prefs.js:204
+msgid "Use a keyboard shortcut to toggle notes"
+msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
+
+#: prefs.js:244
+msgid "Help"
+msgstr "Aide"
+
+#: prefs.js:246
+msgid "Bring back all notes to the primary monitor"
+msgstr "Ramener toutes les notes sur le moniteur principal"
+
+#: prefs.js:252
+msgid "Open the storage directory"
+msgstr "Ouvrir le dossier de stockage des notes"
+
+#: prefs.js:261
 msgid "About"
 msgstr "À propos"
 
+#: prefs.js:291
+msgid "Report bugs or ideas"
+msgstr "Rapporter des bugs ou des idées"
+
+#: other-strings.js:1
+msgid "Notes"
+msgstr "Notes"
+
+#: other-strings.js:2
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr "Post-its pour le bureau GNOME Shell."
