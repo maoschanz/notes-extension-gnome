@@ -163,10 +163,10 @@ const NoteBox = new Lang.Class({
 				style_class: 'system-status-icon',
 				x_expand: true,
 				y_expand: true,
-				style: 'width: 12px; height: 12px;',
+				style: 'margin: 5px;',
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
-			accessible_name: _( accessibleName ),
+			accessible_name: accessibleName,
 			y_align: Clutter.ActorAlign.CENTER,
 			style_class: 'calendar-today calendar-day-base',
 			reactive: true,
@@ -174,7 +174,7 @@ const NoteBox = new Lang.Class({
 			track_hover: true,
 			y_expand: false,
 			y_fill: true,
-			style: '',
+			style: 'margin: 0px;',
 		});
 
 		box.add(button);
@@ -212,10 +212,10 @@ const NoteBox = new Lang.Class({
 			style_class: 'boxstyle',
 		});
 		
-		this._addButton(this.buttons_box,'list-add-symbolic', 'New').connect('clicked', Lang.bind(this, this.createNote));
-		this._addButton(this.buttons_box,'user-trash-symbolic', 'Delete').connect('clicked', Lang.bind(this, this.showDelete));
+		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', Lang.bind(this, this.createNote));
+		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', Lang.bind(this, this.showDelete));
 		
-		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', 'Color');
+		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', _("Color"));
 		this.colorMenuButton = new Menus.RoundMenuButton( this, colorButton );
 
 		this.moveBox = new St.Button({
@@ -226,7 +226,7 @@ const NoteBox = new Lang.Class({
 		})
 		this.buttons_box.add_actor(this.moveBox);
 
-		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', 'Resize');
+		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', _("Resize"));
 		
 		this.moveBox.connect('button-press-event', Lang.bind(this, this._onPress));
 		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
@@ -272,12 +272,12 @@ const NoteBox = new Lang.Class({
 		this.colorEntryV.style = 'background-color: #22BB33; color: #FFFFFF';
 		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
 		
-		this._addButton(this.color_box, 'go-previous-symbolic', 'back').connect('clicked', Lang.bind(this, this.hideColor));
+		this._addButton(this.color_box, 'go-previous-symbolic', _("Back")).connect('clicked', Lang.bind(this, this.hideColor));
 
 		this.color_box.add_actor(this.colorEntryR);
 		this.color_box.add_actor(this.colorEntryV);
 		this.color_box.add_actor(this.colorEntryB);
-		this._addButton(this.color_box, 'object-select-symbolic', 'ok').connect('clicked', Lang.bind(this, this.applyColor));
+		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', Lang.bind(this, this.applyColor));
 		
 		/*
 		 * This is the interface for deletion. The whole box is hidden by default, and will
@@ -292,14 +292,14 @@ const NoteBox = new Lang.Class({
 			style_class: 'boxstyle',
 		});
 		
-		this._addButton(this.delete_box, 'go-previous-symbolic', 'back').connect('clicked', Lang.bind(this, this.hideDelete));
+		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', Lang.bind(this, this.hideDelete));
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: _("Delete this note?")
 		}));
-		this._addButton(this.delete_box, 'user-trash-symbolic', 'ok').connect('clicked', Lang.bind(this, this.deleteNote));
+		this._addButton(this.delete_box, 'user-trash-symbolic', _("OK")).connect('clicked', Lang.bind(this, this.deleteNote));
 		
 		//-------------
 		
@@ -311,7 +311,7 @@ const NoteBox = new Lang.Class({
 		
 		this._scrollView = new St.ScrollView({
 	//		style_class: 'vfade', //does a glitch ?
-			overlay_scrollbars: true, //si true la barre de défilment est dans l'entrée, sinon elle est à coté
+			overlay_scrollbars: true, //if true, the scrollbar is inside the textfield, else it's outside
 			x_expand: true,
 			y_expand: true,
 			x_fill: true,
@@ -326,7 +326,7 @@ const NoteBox = new Lang.Class({
 			can_focus: true,
 			hint_text: _("Type here…"),
 			track_hover: true,
-		//?//	reactive: true,
+			//reactive: true,
 			x_expand: true,
 			//y_expand: true,
 			style_class: 'textfield',
@@ -336,7 +336,6 @@ const NoteBox = new Lang.Class({
 		clutterText.set_activatable(false);
 		clutterText.set_line_wrap(true);
 		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
-
 		//clutterText.set_font_name("Cantarell Bold");
 		
 		this.noteEntry.style = this.noteStyle();
@@ -701,7 +700,7 @@ const NoteBox = new Lang.Class({
 		noteState += this._fontSize.toString() + ';';
 		noteState += this.entry_is_visible.toString() + ';';
 		
-		//log('saveState | ' + this.id.toString() + ' | '	+ noteState);
+		//log('saveState | ' + this.id.toString() + ' | ' + noteState);
 		let file = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		GLib.file_set_contents(file, noteState);
 	},

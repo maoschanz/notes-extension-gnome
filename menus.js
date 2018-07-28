@@ -157,7 +157,7 @@ const ColorMenu = new Lang.Class({
 			temp = '0,255,0';
 			break;
 			case 'blue':
-			temp = '0,0,255'; // valeur anormale pour conservation par delà les redémarrages
+			temp = '0,0,255';
 			this._source._note.whiteFontColor();
 			break;
 			case 'black':
