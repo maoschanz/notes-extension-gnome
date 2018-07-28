@@ -1,7 +1,24 @@
 #!/bin/bash
 
+#####
+
+if ! [ -x "$(command -v jq)" ]; then
+	echo '`jq` is not installed, aborting.' >&2
+	exit 1
+fi
+
+#####
+
 echo "Generating .pot file..."
-xgettext --files-from=files-list --output=locale/notes-extension.pot
+
+name=`cat metadata.json | jq -r '.name'`
+description=`cat metadata.json | jq -r '.description'`
+echo "_(\"$name\")" > other-strings.js
+echo "_(\"$description\")" >> other-strings.js
+
+xgettext --files-from=POTFILES.in --from-code=UTF-8 --output=locale/notes-extension.pot
+
+#####
 
 IFS='
 '
@@ -17,5 +34,10 @@ do
 		msgfmt ./locale/$dossier/LC_MESSAGES/notes-extension.po -o ./locale/$dossier/LC_MESSAGES/notes-extension.mo
 	fi
 done
+
+#####
+
+echo "Deleting temporary files"
+rm other-strings.js
 
 exit 0
