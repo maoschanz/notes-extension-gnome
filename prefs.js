@@ -125,7 +125,7 @@ const NotesSettingsWidget = new GObject.Class({
 			valign: Gtk.Align.CENTER
 		});
 	
-		positionCombobox.append('special-layer', _("Above all"));
+		positionCombobox.append('special-layer', _("Above everything"));
 		positionCombobox.append('on-background', _("On the background"));
 		positionCombobox.append('in-overview', _("Empty Overview"));
 		positionCombobox.append('above-all', _("Above all, without mask"));
@@ -184,7 +184,6 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 		
 		let keybindingEntry = new Gtk.Entry({
-//			sensitive: false,
 			sensitive: SETTINGS.get_boolean('use-shortcut'),
 			hexpand: true
 		});
@@ -200,7 +199,6 @@ const NotesSettingsWidget = new GObject.Class({
 		}));
 		let keybindingBox1 = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
-//			spacing: 15,
 			margin: 6,
 		});
 		keybindingBox1.get_style_context().add_class('linked');
@@ -353,10 +351,6 @@ function buildPrefsWidget() {
 
 	return widget;
 }
-
-
-
-
 
 
 
