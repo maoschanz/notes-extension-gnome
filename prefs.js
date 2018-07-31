@@ -125,15 +125,16 @@ const NotesSettingsWidget = new GObject.Class({
 			valign: Gtk.Align.CENTER
 		});
 	
-		positionCombobox.append('above-all', _("Above everything"));
+		positionCombobox.append('special-layer', _("Above all"));
 		positionCombobox.append('on-background', _("On the background"));
 		positionCombobox.append('in-overview', _("Empty Overview"));
+		positionCombobox.append('above-all', _("Above all, without mask"));
 	
 		positionCombobox.active_id = SETTINGS.get_string('layout-position');
 		
 		positionCombobox.connect("changed", (widget) => {
 			SETTINGS.set_string('layout-position', widget.get_active_id());
-			if( widget.get_active_id() == 'above-all') {
+			if( (widget.get_active_id() == 'above-all') || (widget.get_active_id() == 'special-layer') ) {
 				showSwitch.set_sensitive(false);
 			} else {
 				showSwitch.set_sensitive(true);
@@ -144,6 +145,8 @@ const NotesSettingsWidget = new GObject.Class({
 			orientation: Gtk.Orientation.HORIZONTAL,
 			spacing: 15,
 			margin: 6,
+			tooltip_text: _("The value \"On the background\" is incompatible with the \"nautilus"+
+			"-desktop\" Ubuntu component.\nThe value \"Above all, without mask\" is discouraged.")
 		});
 		positionBox.pack_start(new Gtk.Label({ label: labelPosition, halign: Gtk.Align.START }), false, false, 0);
 		positionBox.pack_end(positionCombobox, false, false, 0);
@@ -197,9 +200,10 @@ const NotesSettingsWidget = new GObject.Class({
 		}));
 		let keybindingBox1 = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
-			spacing: 15,
+//			spacing: 15,
 			margin: 6,
 		});
+		keybindingBox1.get_style_context().add_class('linked');
 		
 		let labelKeybinding = _("Use a keyboard shortcut to toggle notes");
 		
@@ -243,18 +247,43 @@ const NotesSettingsWidget = new GObject.Class({
 
 		this.helpPage = this.add_page('help', _("Help"));
 
+		let main_help_label = new Gtk.Label({ label: _(
+			"<b>Show/hide notes:</b> click on the icon in the top bar.\n"+
+			"<b>Move a note:</b> drag the blank space in the note's header.\n"+
+			"<b>Resize a note:</b> drag the resize button in the note's header.\n"+
+			"<b>Change a note's font size:</b> right-click and change the font size."
+		), halign: Gtk.Align.START, wrap: true, use_markup: true });
+		this.helpPage.stackpageMainBox.add(main_help_label);
+		
+		this.helpPage.stackpageMainBox.add(new Gtk.Separator());
+		
+		let data_label = new Gtk.Label({ label: _(
+			"Your notes are saved to the disk on various occasions (mainly when you hide them). "+
+			"If you want to <b>get a copy of your notes</b>, this button opens the folder where they are.\n"+
+			"<i>Files ending with \"_state\" contain the color and position of your notes</i>\n"+
+			"<i>Files ending with \"_text\" contain the text written in your notes</i>"
+		), halign: Gtk.Align.START, wrap: true, use_markup: true });
+		this.helpPage.stackpageMainBox.add(data_label);
+		
+		data_button = new Gtk.Button({ label: _("Open the storage directory") });
+		data_button.connect('clicked', Lang.bind(this, function(widget) {
+			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
+		}));
+		this.helpPage.stackpageMainBox.add(data_button);
+		data_button.get_style_context().add_class('suggested-action');
+		
+		this.helpPage.stackpageMainBox.add(new Gtk.Separator());
+
+		let reset_label = new Gtk.Label({ label: _(
+			"Click on this button if you accidentally moved a note out of your primary monitor\n"+
+			"(example: if you had notes on a secondary monitor and unplugged it)."
+		), halign: Gtk.Align.START, wrap: true, use_markup: true });
+		this.helpPage.stackpageMainBox.add(reset_label);
 		reset_button = new Gtk.Button({ label: _("Bring back all notes to the primary monitor") });
 		reset_button.connect('clicked', Lang.bind(this, function(widget) {
 			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
 		}));
 		this.helpPage.stackpageMainBox.add(reset_button);
-		
-		data_button = new Gtk.Button({ label: _("Open the storage directory") });
-		data_button.connect('clicked', Lang.bind(this, function(widget) {
-			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
-//			Util.trySpawnCommandLine('xdg-open ~/.local/share/notes@maestroschan.fr');
-		}));
-		this.helpPage.stackpageMainBox.add(data_button);
 		
 		//-------------------------------
 
@@ -281,8 +310,6 @@ const NotesSettingsWidget = new GObject.Class({
 //		about_box.pack_start(label_contributors, false, false, 0);
 
 		this.aboutPage.add_widget(about_box);
-		
-//		this.aboutPage.add_widget(); //TODO lien vers les notes ??
 
 		let LinkBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
 		let a_version = ' (v' + Me.metadata.version.toString() + ') ';

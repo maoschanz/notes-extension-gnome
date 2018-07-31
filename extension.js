@@ -1,18 +1,18 @@
-const Clutter = imports.gi.Clutter;
 const Lang = imports.lang;
-const St = imports.gi.St;
-const PanelMenu = imports.ui.panelMenu;
-const Panel = imports.ui.panel;
-const Main = imports.ui.main;
-const Shell = imports.gi.Shell;
-const Util = imports.misc.util;
-const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
+const Clutter = imports.gi.Clutter;
+const St = imports.gi.St;
+const Shell = imports.gi.Shell;
+const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const Meta = imports.gi.Meta;
 
+const PanelMenu = imports.ui.panelMenu;
+const Panel = imports.ui.panel;
+const Main = imports.ui.main;
 const Tweener = imports.ui.tweener;
 
+const Util = imports.misc.util;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -31,6 +31,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 let globalButton;
 let SETTINGS;
 let Z_POSITION;
+let GLOBAL_ARE_VISIBLE;
 
 /*
  * This is used only if the selected Z_POSITION is 'in-overview',
@@ -188,7 +189,7 @@ const NoteBox = new Lang.Class({
 			vertical: true,
 			min_height: 75,
 			min_width: 245,
-			style_class: 'notestyle',
+			style_class: 'noteStyle',
 			track_hover: true,
 		});
 		
@@ -209,7 +210,7 @@ const NoteBox = new Lang.Class({
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
-			style_class: 'boxstyle',
+			style_class: 'boxStyle',
 		});
 		
 		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', Lang.bind(this, this.createNote));
@@ -244,7 +245,7 @@ const NoteBox = new Lang.Class({
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
-			style_class: 'boxstyle',
+			style_class: 'boxStyle',
 		});
 		
 		this.colorEntryR = new St.Entry({
@@ -289,7 +290,7 @@ const NoteBox = new Lang.Class({
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
-			style_class: 'boxstyle',
+			style_class: 'boxStyle',
 		});
 		
 		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', Lang.bind(this, this.hideDelete));
@@ -376,6 +377,8 @@ const NoteBox = new Lang.Class({
 	load_in_the_right_actor: function () {
 		if(Z_POSITION == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
+		} else if (Z_POSITION == 'special-layer') {
+			Main.layoutManager.notesGroup.add_actor(this.actor);
 		} else if (Z_POSITION == 'in-overview') {
 			Main.layoutManager.overviewGroup.add_actor(this.actor);
 		} else {
@@ -387,6 +390,8 @@ const NoteBox = new Lang.Class({
 		if(Z_POSITION == 'above-all') {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
+		} else if (Z_POSITION == 'special-layer') {
+			Main.layoutManager.notesGroup.remove_actor(this.actor);
 		} else if (Z_POSITION == 'in-overview') {
 			Main.layoutManager.overviewGroup.remove_actor(this.actor);
 		} else {
@@ -725,7 +730,7 @@ const NoteBox = new Lang.Class({
 	show: function () {
 		this.actor.visible = true;
 		
-		if(SETTINGS.get_string('layout-position') == 'above-all') {
+		if (Z_POSITION == 'above-all') {
 			Main.layoutManager.trackChrome(this.actor);
 		}
 	},
@@ -737,7 +742,7 @@ const NoteBox = new Lang.Class({
 	
 	onlyHide: function () {
 		this.actor.visible = false;
-		if(SETTINGS.get_string('layout-position') == 'above-all') {
+		if (Z_POSITION == 'above-all') {
 			Main.layoutManager.untrackChrome(this.actor);
 		}
 	},
@@ -766,17 +771,12 @@ const NotesButton = new Lang.Class({
 		let box = new St.BoxLayout();
 		let icon = new St.Icon({ icon_name: 'document-edit-symbolic', style_class: 'system-status-icon'});
 
-		let toplabel = new St.Label({
-			y_align: Clutter.ActorAlign.CENTER
-		});
-
 		box.add(icon);
-		box.add(toplabel);
 		this.actor.add_child(box);
 		
-		this._isVisible = false;			
+		GLOBAL_ARE_VISIBLE = false;			
 		
-		if(Convenience.getSettings().get_boolean('always-show') && (Z_POSITION != 'above-all')) {
+		if(Convenience.getSettings().get_boolean('always-show') && (Z_POSITION != 'above-all') && (Z_POSITION != 'special-layer')) {
 			this.actor.visible = false;
 		}
 	
@@ -797,7 +797,7 @@ const NotesButton = new Lang.Class({
 		if(allNotes.length == 0) {
 			this._createNote();
 			this._showNotes();
-		} else if (this._isVisible) {
+		} else if (GLOBAL_ARE_VISIBLE) {
 			this._hideNotes();
 		} else {
 			this._showNotes();
@@ -827,7 +827,11 @@ const NotesButton = new Lang.Class({
 	},
 	
 	_showNotes: function () {
-		this._isVisible = true;
+		GLOBAL_ARE_VISIBLE = true;
+		
+		if (Z_POSITION == 'special-layer') {
+			Main.layoutManager.notesGroup.show();
+		}
 		
 		allNotes.forEach(function (n) {
 			n.show();
@@ -835,6 +839,10 @@ const NotesButton = new Lang.Class({
 	},
 	
 	_hideNotes: function () {
+		if (Z_POSITION == 'special-layer') {
+			Main.layoutManager.notesGroup.hide();
+		}
+		
 		allNotes.forEach(function (n) {
 			n.onlyHide();
 		});
@@ -842,14 +850,14 @@ const NotesButton = new Lang.Class({
 			n.onlySave();
 		});
 		
-		this._isVisible = false;
+		GLOBAL_ARE_VISIBLE = false;
 	},
 	
 	_onlyHideNotes: function () {
 		allNotes.forEach(function (n) {
 			n.onlyHide();
 		});
-		this._isVisible = false;
+		GLOBAL_ARE_VISIBLE = false;
 	},
 	
 	_bindShortcut: function () {
@@ -938,6 +946,13 @@ function updateLayoutSetting() {
 	});
 }
 
+function hideNotesFromSpecialLayer(group, event) {
+	// Don't close notes if the user is just hiding a note content
+	if (event.get_button() != 3) {
+		globalButton._hideNotes();
+	}
+}
+
 //-------------------------------------------------
 
 function enable() {
@@ -958,12 +973,23 @@ function enable() {
 	}
 	
 	allNotes = new Array();
+	Main.layoutManager.notesGroup = new St.Widget({
+		name: 'overviewGroup',
+		visible: false,
+		reactive: true,
+		width: Main.layoutManager.primaryMonitor.width,
+		height: Main.layoutManager.primaryMonitor.height,
+		style_class: 'notesBackground'
+	});
+	Main.layoutManager.addChrome(Main.layoutManager.notesGroup);
 	
 	globalButton = new NotesButton();
 //	about addToStatusArea :
 //	- 0 is the position
 //	- `right` is the box where we want our globalButton to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', globalButton, 0, 'right');
+	
+	Main.layoutManager.notesGroup.connect('button-press-event', Lang.bind(this, hideNotesFromSpecialLayer));
 	
 	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', Lang.bind(this, bringToPrimaryMonitorOnly));
 }
