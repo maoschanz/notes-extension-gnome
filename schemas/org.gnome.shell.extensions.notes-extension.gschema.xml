@@ -4,7 +4,7 @@
     <key type="b" name="use-shortcut">
       <default>true</default>
       <summary>Keyboard shortcut</summary>
-      <description></description>
+      <description>If the keyboard shortcut should be active</description>
     </key>
     <key type="b" name="ugly-hack">
       <default>true</default>
@@ -13,17 +13,17 @@
     </key>
     <key type="b" name="always-show">
       <default>false</default>
-      <summary>If notes shall always be shown.</summary>
+      <summary>If notes should always be shown.</summary>
       <description>This removes icon in the top panel, and isn't compatible with the "above-all" value of "layout-position".</description>
     </key>
     <key type="s" name="layout-position">
-      <default>"above-all"</default>
-      <summary></summary>
-      <description>Possible values are "above-all", "in-overview", and "on-background"</description>
+      <default>"special-layer"</default>
+      <summary>Layer on which the notes are displayed</summary>
+      <description>Possible values are "above-all", "special-layer", "in-overview", and "on-background"</description>
     </key>
     <key name="keyboard-shortcut" type="as">
       <default><![CDATA[['<Super>n','']]]></default>
-      <summary>Keyboard shortcut.</summary>
+      <summary>Keyboard shortcut</summary>
       <description>Keyboard shortcut which shows notes.</description>
     </key>
 	</schema>
