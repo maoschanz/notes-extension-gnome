@@ -204,8 +204,8 @@ const OptionsMenu = new Lang.Class({
 			break;
 		}
 		this._source._note.customColor = temp;
-		this._source._note.noteEntry.style = this._source._note.noteStyle();
-		this._source._note.actor.style = this._source._note.actorStyle();	
+		this._source._note.applyNoteStyle();
+		this._source._note.applyActorStyle();	
 	},
 
 	popup: function(activatingButton) {

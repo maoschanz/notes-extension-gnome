@@ -127,7 +127,7 @@ const NoteBox = new Lang.Class({
 		);
 	},
 	
-	actorStyle: function (){
+	applyActorStyle: function (){
 		var is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
@@ -142,7 +142,7 @@ const NoteBox = new Lang.Class({
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
 		}
-		return temp;
+		this.actor.style = temp;
 	},
 	
 	applyNoteStyle: function () {
@@ -195,10 +195,10 @@ const NoteBox = new Lang.Class({
 		
 		this._fontColor = '';
 		this.loadState();
-		this.actor.style = this.actorStyle();
+		this.applyActorStyle();
 		
 		this.actor.connect('notify::hover', Lang.bind(this, function(a, b) {
-			this.actor.style = this.actorStyle();
+			this.applyActorStyle();
 		}));
 			
 		/*
@@ -551,13 +551,13 @@ const NoteBox = new Lang.Class({
 	
 	blackFontColor: function () {
 		this._fontColor = '#000000';
-		this.actor.style = this.actorStyle();
+		this.applyActorStyle();
 		this.applyNoteStyle();
 	},
 	
 	whiteFontColor: function () {
 		this._fontColor = '#ffffff';
-		this.actor.style = this.actorStyle();
+		this.applyActorStyle();
 		this.applyNoteStyle();
 	},
 	
@@ -612,7 +612,7 @@ const NoteBox = new Lang.Class({
 			this.whiteFontColor();
 		}
 		this.applyNoteStyle();
-		this.actor.style = this.actorStyle();
+		this.applyActorStyle();
 	},
 	
 	loadText: function () {
