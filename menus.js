@@ -14,8 +14,8 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
-const ColorMenu = new Lang.Class({
-	Name: 'ColorMenu',
+const OptionsMenu = new Lang.Class({
+	Name: 'OptionsMenu',
 	Extends: PopupMenu.PopupMenu,
 
 	_init: function(source) {
@@ -114,9 +114,46 @@ const ColorMenu = new Lang.Class({
 		yellow.connect('clicked', Lang.bind(this, this._onApply, 'yellow'));
 		white.connect('clicked', Lang.bind(this, this._onApply, 'white'));
 		
-		this._appendSeparator();
-		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
+		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));		
+//		this._appendSeparator();
 		
+		this.size_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		this.addMenuItem(this.size_item);
+		
+		let bigger = new St.Button({
+			style_class: 'button',
+			child: new St.Icon({
+				icon_name: 'zoom-in-symbolic',
+				icon_size: 16,
+				style_class: 'system-status-icon',
+				x_expand: true,
+				y_expand: true,
+				y_align: Clutter.ActorAlign.CENTER,
+			}),
+		});
+		let smaller = new St.Button({
+			style_class: 'button',
+			child: new St.Icon({
+				icon_name: 'zoom-out-symbolic',
+				icon_size: 16,
+				style_class: 'system-status-icon',
+				x_expand: true,
+				y_expand: true,
+				y_align: Clutter.ActorAlign.CENTER,
+			}),
+		});
+		
+		smaller.connect('clicked', Lang.bind(this, this._onSmaller));
+		bigger.connect('clicked', Lang.bind(this, this._onBigger));
+		
+		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
+		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
 	},
 	
 	_appendSeparator: function () {
@@ -134,7 +171,7 @@ const ColorMenu = new Lang.Class({
 		this._source._note.showColor();
 	},
 	
-	_onApply(a, b, c) {
+	_onApply: function(a, b, c) {
 		this._source._note.blackFontColor();
 		let temp;
 		switch(c) {
@@ -175,8 +212,18 @@ const ColorMenu = new Lang.Class({
 		this._redisplay();
 		this.open();
 	},
+	
+	_onBigger: function() {
+		this._source._note._fontSize = this._source._note._fontSize + 2;
+		this._source._note.applyNoteStyle();
+	},
+	
+	_onSmaller: function() {
+		this._source._note._fontSize = this._source._note._fontSize - 2;
+		this._source._note.applyNoteStyle();
+	},
 });
-Signals.addSignalMethods(ColorMenu.prototype);
+Signals.addSignalMethods(OptionsMenu.prototype);
 
 //--------------------
 
@@ -202,7 +249,7 @@ var RoundMenuButton = new Lang.Class({
 		this.actor.fake_release();
 
 		if (!this._menu) {
-			this._menu = new ColorMenu(this);
+			this._menu = new OptionsMenu(this);
 			this._menu.connect('open-state-changed', Lang.bind(this, function (menu, isPoppedUp) {
 				if (!isPoppedUp)
 					this._onMenuPoppedDown();
@@ -244,20 +291,6 @@ const NoteMenu = new Lang.Class({
 		item.connect('activate', Lang.bind(this, this._onSelectAll));
 		this.addMenuItem(item);
 		this._selectAllItem = item;
-		
-		item = new PopupMenu.PopupSeparatorMenuItem();
-		this.addMenuItem(item);
-		
-		item = new PopupMenu.PopupMenuItem(_("Bigger font"));
-		item.connect('activate', Lang.bind(this, this._onBig));
-		this.addMenuItem(item);
-		this._bigItem = item;
-		
-		item = new PopupMenu.PopupMenuItem(_("Smaller font"));
-		item.connect('activate', Lang.bind(this, this._onSmall));
-		this.addMenuItem(item);
-		this._smallItem = item;
-		
 	},
 	
 	open: function() {
@@ -266,18 +299,7 @@ const NoteMenu = new Lang.Class({
 	
 	_onSelectAll: function() {
 		this._entry.clutter_text.set_selection(0, this._entry.clutter_text.length);
-	},
-	
-	_onBig: function() {
-		this._note._fontSize = this._note._fontSize + 2;
-		this._entry.style = this._note.noteStyle();
-	},
-	
-	_onSmall: function() {
-		this._note._fontSize = this._note._fontSize - 2;
-		this._entry.style = this._note.noteStyle();
-	},
-	
+	},	
 });
 
 /* From GNOME Shell code source */

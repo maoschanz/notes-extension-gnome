@@ -249,7 +249,7 @@ const NotesSettingsWidget = new GObject.Class({
 			"<b>Show/hide notes:</b> click on the icon in the top bar.\n"+
 			"<b>Move a note:</b> drag the blank space in the note's header.\n"+
 			"<b>Resize a note:</b> drag the resize button in the note's header.\n"+
-			"<b>Change a note's font size:</b> right-click and change the font size."
+			"<b>Change color or font size:</b> click on the \"3 dots\" button."
 		), halign: Gtk.Align.START, wrap: true, use_markup: true });
 		this.helpPage.stackpageMainBox.add(main_help_label);
 		

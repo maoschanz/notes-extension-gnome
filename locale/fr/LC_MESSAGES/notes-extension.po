@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-29 01:44+0200\n"
+"POT-Creation-Date: 2018-08-28 02:02+0200\n"
 "PO-Revision-Date: 2017-11-18 20:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,53 +16,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:215
+#: extension.js:216
 msgid "New"
 msgstr "Nouveau"
 
-#: extension.js:216
+#: extension.js:217
 msgid "Delete"
 msgstr "Supprimer"
 
-#: extension.js:218
-msgid "Color"
-msgstr "Couleur"
+#: extension.js:220
+msgid "Note options"
+msgstr "Options de la note"
 
-#: extension.js:229
+#: extension.js:231
 msgid "Resize"
 msgstr "Redimensionner"
 
-#: extension.js:275 extension.js:295
+#: extension.js:277 extension.js:297
 msgid "Back"
 msgstr "Retour"
 
-#: extension.js:280 extension.js:302
+#: extension.js:282 extension.js:304
 msgid "OK"
 msgstr "Ok"
 
-#: extension.js:300
+#: extension.js:302
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
 
-#: extension.js:327
+#: extension.js:329
 msgid "Type here…"
 msgstr "Tapez ici…"
 
-#: menus.js:118
+#: menus.js:117
 msgid "Custom color"
 msgstr "Couleur personnalisée"
 
-#: menus.js:243
+#: menus.js:290
 msgid "Select All"
 msgstr "Sélectionner tout"
-
-#: menus.js:251
-msgid "Bigger font"
-msgstr "Plus gros"
-
-#: menus.js:256
-msgid "Smaller font"
-msgstr "Plus petit"
 
 #: prefs.js:112
 msgid "Settings"
@@ -92,39 +84,75 @@ msgstr "Sur le bureau"
 msgid "Empty Overview"
 msgstr "Vue d'ensemble vide"
 
-#: prefs.js:153
+#: prefs.js:131
+msgid "Above all, without mask"
+msgstr "Au-dessus, sans masque"
+
+#: prefs.js:148
+msgid ""
+"The value \"On the background\" is incompatible with the \"nautilus-desktop"
+"\" Ubuntu component.\n"
+"The value \"Above all, without mask\" is discouraged."
+msgstr ""
+
+#: prefs.js:156
 msgid "Always show notes"
 msgstr "Toujours afficher les notes"
 
-#: prefs.js:180
+#: prefs.js:183
 msgid "Default value is"
 msgstr "La valeur par défaut est"
 
-#: prefs.js:193
+#: prefs.js:195
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prefs.js:204
+#: prefs.js:206
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
 
-#: prefs.js:244
+#: prefs.js:246
 msgid "Help"
 msgstr "Aide"
 
-#: prefs.js:246
-msgid "Bring back all notes to the primary monitor"
-msgstr "Ramener toutes les notes sur le moniteur principal"
+#: prefs.js:249
+msgid ""
+"<b>Show/hide notes:</b> click on the icon in the top bar.\n"
+"<b>Move a note:</b> drag the blank space in the note's header.\n"
+"<b>Resize a note:</b> drag the resize button in the note's header.\n"
+"<b>Change color or font size:</b> click on the \"3 dots\" button."
+msgstr ""
 
-#: prefs.js:252
+#: prefs.js:259
+msgid ""
+"Your notes are saved to the disk on various occasions (mainly when you hide "
+"them). If you want to <b>get a copy of your notes</b>, this button opens the "
+"folder where they are.\n"
+"<i>Files ending with \"_state\" contain the color and position of your "
+"notes</i>\n"
+"<i>Files ending with \"_text\" contain the text written in your notes</i>"
+msgstr ""
+
+#: prefs.js:266
 msgid "Open the storage directory"
 msgstr "Ouvrir le dossier de stockage des notes"
 
-#: prefs.js:261
+#: prefs.js:276
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor\n"
+"(example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+
+#: prefs.js:280
+msgid "Bring back all notes to the primary monitor"
+msgstr "Ramener toutes les notes sur le moniteur principal"
+
+#: prefs.js:288
 msgid "About"
 msgstr "À propos"
 
-#: prefs.js:291
+#: prefs.js:316
 msgid "Report bugs or ideas"
 msgstr "Rapporter des bugs ou des idées"
 

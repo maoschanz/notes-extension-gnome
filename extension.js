@@ -145,7 +145,7 @@ const NoteBox = new Lang.Class({
 		return temp;
 	},
 	
-	noteStyle: function () {
+	applyNoteStyle: function () {
 		let temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -153,7 +153,7 @@ const NoteBox = new Lang.Class({
 		if(this._fontSize != 0) {
 			temp += 'font-size: ' + this._fontSize + 'px;';
 		}
-		return temp;
+		this.noteEntry.style = temp;
 	},
 	
 	_addButton: function (box, icon, accessibleName) {
@@ -161,10 +161,10 @@ const NoteBox = new Lang.Class({
 		let button = new St.Button({
 			child: new St.Icon({
 				icon_name: icon,
+				icon_size: 16,
 				style_class: 'system-status-icon',
 				x_expand: true,
 				y_expand: true,
-				style: 'margin: 5px;',
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
 			accessible_name: accessibleName,
@@ -216,8 +216,9 @@ const NoteBox = new Lang.Class({
 		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', Lang.bind(this, this.createNote));
 		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', Lang.bind(this, this.showDelete));
 		
-		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', _("Color"));
-		this.colorMenuButton = new Menus.RoundMenuButton( this, colorButton );
+//		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', _("Color"));
+		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
+		this.optionsMenuButton = new Menus.RoundMenuButton( this, optionsButton );
 
 		this.moveBox = new St.Button({
 			x_expand: true,
@@ -339,7 +340,7 @@ const NoteBox = new Lang.Class({
 		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
 		//clutterText.set_font_name("Cantarell Bold");
 		
-		this.noteEntry.style = this.noteStyle();
+		this.applyNoteStyle();
 		this.applyColor();
 		
 		this.entry_box = new St.BoxLayout({
@@ -551,13 +552,13 @@ const NoteBox = new Lang.Class({
 	blackFontColor: function () {
 		this._fontColor = '#000000';
 		this.actor.style = this.actorStyle();
-		this.noteEntry.style = this.noteStyle();
+		this.applyNoteStyle();
 	},
 	
 	whiteFontColor: function () {
 		this._fontColor = '#ffffff';
 		this.actor.style = this.actorStyle();
-		this.noteEntry.style = this.noteStyle();
+		this.applyNoteStyle();
 	},
 	
 	/*
@@ -610,7 +611,7 @@ const NoteBox = new Lang.Class({
 		} else {
 			this.whiteFontColor();
 		}
-		this.noteEntry.style = this.noteStyle();
+		this.applyNoteStyle();
 		this.actor.style = this.actorStyle();
 	},
 	
