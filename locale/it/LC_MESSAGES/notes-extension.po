@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-28 02:02+0200\n"
+"POT-Creation-Date: 2018-11-06 21:55+0100\n"
 "PO-Revision-Date: 2018-07-29 09:23+0200\n"
 "Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
 "Language-Team: \n"
@@ -18,35 +18,35 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: extension.js:216
+#: extension.js:224
 msgid "New"
 msgstr "Nuova"
 
-#: extension.js:217
+#: extension.js:225
 msgid "Delete"
 msgstr "Elimina"
 
-#: extension.js:220
+#: extension.js:228
 msgid "Note options"
 msgstr ""
 
-#: extension.js:231
+#: extension.js:239
 msgid "Resize"
 msgstr "Ridimensiona"
 
-#: extension.js:277 extension.js:297
+#: extension.js:285 extension.js:305
 msgid "Back"
 msgstr "Indietro"
 
-#: extension.js:282 extension.js:304
+#: extension.js:290 extension.js:312
 msgid "OK"
 msgstr "OK"
 
-#: extension.js:302
+#: extension.js:310
 msgid "Delete this note?"
 msgstr "Eliminare questa nota?"
 
-#: extension.js:329
+#: extension.js:337
 msgid "Type here…"
 msgstr "Scrivi qui…"
 
@@ -54,108 +54,155 @@ msgstr "Scrivi qui…"
 msgid "Custom color"
 msgstr "Colore personalizzato"
 
-#: menus.js:290
+#: menus.js:289
 msgid "Select All"
 msgstr "Seleziona tutto"
 
-#: prefs.js:112
+#: prefs.js:113
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: prefs.js:114
+#: prefs.js:115
 msgid "Display"
 msgstr "Visualizzazione"
 
-#: prefs.js:115
+#: prefs.js:116
 msgid "Keybinding"
 msgstr "Scorciatoie da tastiera"
 
-#: prefs.js:119
+#: prefs.js:120
 msgid "Position of notes:"
 msgstr "Posizione delle note:"
 
-#: prefs.js:128
+#: prefs.js:129
 msgid "Above everything"
 msgstr "In primo piano"
 
-#: prefs.js:129
+#: prefs.js:130
 msgid "On the background"
 msgstr "Sullo sfondo"
 
-#: prefs.js:130
+#: prefs.js:131
 msgid "Empty Overview"
 msgstr "Anteprima vuota"
 
-#: prefs.js:131
+#: prefs.js:132
 msgid "Above all, without mask"
 msgstr ""
 
-#: prefs.js:148
+#: prefs.js:158
 msgid ""
-"The value \"On the background\" is incompatible with the \"nautilus-desktop"
-"\" Ubuntu component.\n"
-"The value \"Above all, without mask\" is discouraged."
+"\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
+"component.\n"
+"\"Above all, without mask\" is discouraged, since it makes it harder to "
+"resize or move your sticky notes."
 msgstr ""
 
-#: prefs.js:156
+#: prefs.js:171
 msgid "Always show notes"
 msgstr "Mostra sempre le note"
 
-#: prefs.js:183
+#: prefs.js:198
 msgid "Default value is"
 msgstr "Il valore di default è"
 
-#: prefs.js:195
+#: prefs.js:210
 msgid "Apply"
 msgstr "Applica"
 
-#: prefs.js:206
+#: prefs.js:221
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr ""
 "Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
 
-#: prefs.js:246
+#: prefs.js:261
 msgid "Help"
 msgstr "Aiuto"
 
-#: prefs.js:249
+#: prefs.js:274
 msgid ""
-"<b>Show/hide notes:</b> click on the icon in the top bar.\n"
-"<b>Move a note:</b> drag the blank space in the note's header.\n"
-"<b>Resize a note:</b> drag the resize button in the note's header.\n"
-"<b>Change color or font size:</b> click on the \"3 dots\" button."
+"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
 
-#: prefs.js:259
+#: prefs.js:277
+msgid ""
+"<b>Create a note:</b> click on the \"+\" button at the left of a note "
+"header, it will create a new note, with the same color and the same font "
+"size as the note you clicked on."
+msgstr ""
+
+#: prefs.js:282
+msgid ""
+"<b>Move a note:</b> drag the blank space in the center of the note header."
+msgstr ""
+
+#: prefs.js:285
+msgid ""
+"<b>Resize a note:</b> drag the resize button at the right of the note header."
+msgstr ""
+
+#: prefs.js:288
+msgid "<b>Change color:</b> click on the menu button, and select a color."
+msgstr ""
+
+#: prefs.js:291
+msgid ""
+"<b>Change font size:</b> click on the menu button, and increase or decrease "
+"the font size with \"+\" and \"-\" buttons."
+msgstr ""
+
+#: prefs.js:295
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr ""
+
+#: prefs.js:316
+msgid "Using the extension"
+msgstr ""
+
+#: prefs.js:325
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
-"folder where they are.\n"
+"folder where they are."
+msgstr ""
+
+#: prefs.js:332
+msgid ""
 "<i>Files ending with \"_state\" contain the color and position of your "
 "notes</i>\n"
+"\n"
 "<i>Files ending with \"_text\" contain the text written in your notes</i>"
 msgstr ""
 
-#: prefs.js:266
+#: prefs.js:339
 msgid "Open the storage directory"
 msgstr "Apri la cartella di salvataggio"
 
-#: prefs.js:276
+#: prefs.js:348
+msgid "Backup your notes"
+msgstr ""
+
+#: prefs.js:357
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 
-#: prefs.js:280
+#: prefs.js:360
 msgid "Bring back all notes to the primary monitor"
 msgstr "Riporta tutte le note sullo schermo primario"
 
-#: prefs.js:288
+#: prefs.js:366
+#, fuzzy
+msgid "Lost some notes?"
+msgstr "Posizione delle note:"
+
+#: prefs.js:370
 msgid "About"
 msgstr "Informazioni"
 
-#: prefs.js:316
+#: prefs.js:398
 msgid "Report bugs or ideas"
 msgstr "Segnala errori o invia idee"
 

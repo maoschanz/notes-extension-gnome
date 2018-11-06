@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-28 02:02+0200\n"
+"POT-Creation-Date: 2018-11-06 21:55+0100\n"
 "PO-Revision-Date: 2017-11-18 20:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,35 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:216
+#: extension.js:224
 msgid "New"
 msgstr "Nouveau"
 
-#: extension.js:217
+#: extension.js:225
 msgid "Delete"
 msgstr "Supprimer"
 
-#: extension.js:220
+#: extension.js:228
 msgid "Note options"
 msgstr "Options de la note"
 
-#: extension.js:231
+#: extension.js:239
 msgid "Resize"
 msgstr "Redimensionner"
 
-#: extension.js:277 extension.js:297
+#: extension.js:285 extension.js:305
 msgid "Back"
 msgstr "Retour"
 
-#: extension.js:282 extension.js:304
+#: extension.js:290 extension.js:312
 msgid "OK"
 msgstr "Ok"
 
-#: extension.js:302
+#: extension.js:310
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
 
-#: extension.js:329
+#: extension.js:337
 msgid "Type here…"
 msgstr "Tapez ici…"
 
@@ -52,107 +52,161 @@ msgstr "Tapez ici…"
 msgid "Custom color"
 msgstr "Couleur personnalisée"
 
-#: menus.js:290
+#: menus.js:289
 msgid "Select All"
 msgstr "Sélectionner tout"
 
-#: prefs.js:112
+#: prefs.js:113
 msgid "Settings"
 msgstr "Paramètres"
 
-#: prefs.js:114
+#: prefs.js:115
 msgid "Display"
 msgstr "Affichage"
 
-#: prefs.js:115
+#: prefs.js:116
 msgid "Keybinding"
 msgstr "Raccourci clavier"
 
-#: prefs.js:119
+#: prefs.js:120
 msgid "Position of notes:"
 msgstr "Position des notes :"
 
-#: prefs.js:128
+#: prefs.js:129
 msgid "Above everything"
 msgstr "Au-dessus de tout"
 
-#: prefs.js:129
+#: prefs.js:130
 msgid "On the background"
 msgstr "Sur le bureau"
 
-#: prefs.js:130
+#: prefs.js:131
 msgid "Empty Overview"
 msgstr "Vue d'ensemble vide"
 
-#: prefs.js:131
+#: prefs.js:132
 msgid "Above all, without mask"
 msgstr "Au-dessus, sans masque"
 
-#: prefs.js:148
+#: prefs.js:158
 msgid ""
-"The value \"On the background\" is incompatible with the \"nautilus-desktop"
-"\" Ubuntu component.\n"
-"The value \"Above all, without mask\" is discouraged."
+"\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
+"component.\n"
+"\"Above all, without mask\" is discouraged, since it makes it harder to "
+"resize or move your sticky notes."
 msgstr ""
+"\"Sur le bureau\" est incompatible avec le composant 'nautilus-desktop' d'Ubuntu.\n"
+"\"Au-dessus, sans masque\" est déconseillé, car il rend difficile de redimensionner "
+"ou déplacer vos notes."
 
-#: prefs.js:156
+#: prefs.js:171
 msgid "Always show notes"
 msgstr "Toujours afficher les notes"
 
-#: prefs.js:183
+#: prefs.js:198
 msgid "Default value is"
 msgstr "La valeur par défaut est"
 
-#: prefs.js:195
+#: prefs.js:210
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prefs.js:206
+#: prefs.js:221
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
 
-#: prefs.js:246
+#: prefs.js:261
 msgid "Help"
 msgstr "Aide"
 
-#: prefs.js:249
+#: prefs.js:274
 msgid ""
-"<b>Show/hide notes:</b> click on the icon in the top bar.\n"
-"<b>Move a note:</b> drag the blank space in the note's header.\n"
-"<b>Resize a note:</b> drag the resize button in the note's header.\n"
-"<b>Change color or font size:</b> click on the \"3 dots\" button."
+"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
+msgstr ""
+"<b>Montrer/cacher toutes les notes :</b> cliquer sur l'icône dans la barre "
+"supérieure de GNOME Shell."
+
+#: prefs.js:277
+msgid ""
+"<b>Create a note:</b> click on the \"+\" button at the left of a note "
+"header, it will create a new note, with the same color and the same font "
+"size as the note you clicked on."
 msgstr ""
 
-#: prefs.js:259
+#: prefs.js:282
+msgid ""
+"<b>Move a note:</b> drag the blank space in the center of the note header."
+msgstr "<b>Déplacer une note :</b> agripper et déplacer l'espace vide dans "
+"l'en-tête de la note."
+
+#: prefs.js:285
+msgid ""
+"<b>Resize a note:</b> drag the resize button at the right of the note header."
+msgstr "<b>Redimensionner une note :</b> agripper et déplacer le bouton de "
+"redimensionnement sur la doite de l'en-tête de la note."
+
+#: prefs.js:288
+msgid "<b>Change color:</b> click on the menu button, and select a color."
+msgstr "<b>Changer la couleur :</b> cliquer sur le bouton du menu, et "
+"sélectionner une couleur."
+
+#: prefs.js:291
+msgid ""
+"<b>Change font size:</b> click on the menu button, and increase or decrease "
+"the font size with \"+\" and \"-\" buttons."
+msgstr ""
+
+#: prefs.js:295
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr "<b>Supprimer une note :</b> click on the wastebasket icon and confirm."
+
+#: prefs.js:316
+msgid "Using the extension"
+msgstr "Utilisation"
+
+#: prefs.js:325
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
-"folder where they are.\n"
+"folder where they are."
+msgstr ""
+
+#: prefs.js:332
+msgid ""
 "<i>Files ending with \"_state\" contain the color and position of your "
 "notes</i>\n"
+"\n"
 "<i>Files ending with \"_text\" contain the text written in your notes</i>"
 msgstr ""
 
-#: prefs.js:266
+#: prefs.js:339
 msgid "Open the storage directory"
 msgstr "Ouvrir le dossier de stockage des notes"
 
-#: prefs.js:276
+#: prefs.js:348
+msgid "Backup your notes"
+msgstr "Sauvegarder vos notes"
+
+#: prefs.js:357
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 
-#: prefs.js:280
+#: prefs.js:360
 msgid "Bring back all notes to the primary monitor"
 msgstr "Ramener toutes les notes sur le moniteur principal"
 
-#: prefs.js:288
+#: prefs.js:366
+msgid "Lost some notes?"
+msgstr "Notes perdues ?"
+
+#: prefs.js:370
 msgid "About"
 msgstr "À propos"
 
-#: prefs.js:316
+#: prefs.js:398
 msgid "Report bugs or ideas"
 msgstr "Rapporter des bugs ou des idées"
 

@@ -9,9 +9,10 @@
     "3.22",
     "3.24",
     "3.26",
-    "3.28"
+    "3.28",
+    "3.30"
   ], 
-  "url": "https://github.com/Maestroschan/notes-extension-gnome", 
+  "url": "https://github.com/maoschanz/notes-extension-gnome", 
   "uuid": "notes@maestroschan.fr", 
   "settings-schema": "org.gnome.shell.extensions.notes-extension",
   "version": 0

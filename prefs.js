@@ -68,7 +68,9 @@ const PrefsPage = new Lang.Class({
 			has_default: false,
 			selection_mode: Gtk.SelectionMode.NONE,
 		});
-		section.add(a);
+		let frame = new Gtk.Frame();
+		frame.add(a)
+		section.add(frame);
 		this.stackpageMainBox.add(section);
 		return a;
 	},
@@ -79,8 +81,7 @@ const PrefsPage = new Lang.Class({
 			has_focus: false,
 			is_focus: false,
 			has_default: false,
-//			activatable: false,
-			selectable: false,	
+			selectable: false,
 		});
 		a.add(filledbox);
 		section.add(a);
@@ -109,10 +110,10 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		//---------------------------------------------------------------
 		
-		this.settingsPage = this.add_page('settings', _("Settings"));
-
-		let displaySection = this.settingsPage.add_section(_("Display"));
-		let keybindingSection = this.settingsPage.add_section(_("Keybinding"));
+		let settingsPage = this.add_page('settings', _("Settings"), true);
+		
+		let displaySection = settingsPage.add_section(_("Display"));
+		let keybindingSection = settingsPage.add_section(_("Keybinding"));
 		
 		//---------------------------------------------------------------
 		
@@ -142,14 +143,28 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 	
 		let positionBox = new Gtk.Box({
-			orientation: Gtk.Orientation.HORIZONTAL,
+			orientation: Gtk.Orientation.VERTICAL,
 			spacing: 15,
 			margin: 6,
-			tooltip_text: _("The value \"On the background\" is incompatible with the \"nautilus"+
-			"-desktop\" Ubuntu component.\nThe value \"Above all, without mask\" is discouraged.")
 		});
-		positionBox.pack_start(new Gtk.Label({ label: labelPosition, halign: Gtk.Align.START }), false, false, 0);
-		positionBox.pack_end(positionCombobox, false, false, 0);
+		let positionBoxH = new Gtk.Box({
+			orientation: Gtk.Orientation.HORIZONTAL,
+			spacing: 15,
+		});
+		positionBoxH.pack_start(new Gtk.Label({ label: labelPosition, halign: Gtk.Align.START }), false, false, 0);
+		positionBoxH.pack_end(positionCombobox, false, false, 0);
+		
+		let warning_label = new Gtk.Label({
+			label: _("\"On the background\" is incompatible with the \'nautilus"+
+			"-desktop\' Ubuntu component.\n\"Above all, without mask\" is "+
+			"discouraged, since it makes it harder to resize or move your sticky notes."),
+			halign: Gtk.Align.START,
+			wrap: true,
+		})
+		warning_label.get_style_context().add_class('dim-label');
+		
+		positionBox.pack_start(positionBoxH, false, false, 0);
+		positionBox.pack_end(warning_label, false, false, 0);
 		
 		//---------------------------------------------------------------
 		
@@ -161,7 +176,7 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		showSwitch.connect('notify::active', Lang.bind(this, function(widget) {
 			if (widget.active) {
-				SETTINGS.set_boolean('always-show', true);				
+				SETTINGS.set_boolean('always-show', true);
 			} else {
 				SETTINGS.set_boolean('always-show', false);
 			}
@@ -237,77 +252,144 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//-----------------------------
 		
-		this.settingsPage.add_row(positionBox, displaySection);
-//		this.settingsPage.add_row(showBox, displaySection);
-		this.settingsPage.add_row(keybindingBox, keybindingSection);
+		settingsPage.add_row(positionBox, displaySection);
+//		settingsPage.add_row(showBox, displaySection);
+		settingsPage.add_row(keybindingBox, keybindingSection);
 
 		//-------------------------------
 
-		this.helpPage = this.add_page('help', _("Help"));
+		let helpPage = this.add_page('help', _("Help"), false);
+		let tabs = new Gtk.Notebook({ tab_pos: Gtk.PositionType.LEFT, expand: true, });
+		helpPage.add(tabs);
+		
+		//-----------------------------
 
-		let main_help_label = new Gtk.Label({ label: _(
-			"<b>Show/hide notes:</b> click on the icon in the top bar.\n"+
-			"<b>Move a note:</b> drag the blank space in the note's header.\n"+
-			"<b>Resize a note:</b> drag the resize button in the note's header.\n"+
-			"<b>Change color or font size:</b> click on the \"3 dots\" button."
-		), halign: Gtk.Align.START, wrap: true, use_markup: true });
-		this.helpPage.stackpageMainBox.add(main_help_label);
+		let main_help_box = new Gtk.Box({
+			orientation: Gtk.Orientation.VERTICAL,
+			expand: true,
+			margin: 15,
+			spacing: 10
+		});
+		let main_help_label_1 = new Gtk.Label({ label:
+			_("<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_2 = new Gtk.Label({ label:
+			_("<b>Create a note:</b> click on the \"+\" button at the left of a " +
+			"note header, it will create a new note, with the same color and the " +
+			"same font size as the note you clicked on."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_3 = new Gtk.Label({ label:
+			_("<b>Move a note:</b> drag the blank space in the center of the note header."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_4 = new Gtk.Label({ label:
+			_("<b>Resize a note:</b> drag the resize button at the right of the note header."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_5 = new Gtk.Label({ label:
+			_("<b>Change color:</b> click on the menu button, and select a color."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_6 = new Gtk.Label({ label:
+			_("<b>Change font size:</b> click on the menu button, and increase " +
+			"or decrease the font size with \"+\" and \"-\" buttons."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
+		let main_help_label_7 = new Gtk.Label({ label:
+			_("<b>Delete a note:</b> click on the wastebasket icon and confirm."),
+			halign: Gtk.Align.START, wrap: true, use_markup: true });
 		
-		this.helpPage.stackpageMainBox.add(new Gtk.Separator());
+		let help_image_1 = new Gtk.Image({
+			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/help_picture_1.png', 265, 164)
+		});
+		let help_image_2 = new Gtk.Image({
+			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/help_picture_2.png', 383, 233)
+		});
 		
-		let data_label = new Gtk.Label({ label: _(
-			"Your notes are saved to the disk on various occasions (mainly when you hide them). "+
-			"If you want to <b>get a copy of your notes</b>, this button opens the folder where they are.\n"+
-			"<i>Files ending with \"_state\" contain the color and position of your notes</i>\n"+
-			"<i>Files ending with \"_text\" contain the text written in your notes</i>"
-		), halign: Gtk.Align.START, wrap: true, use_markup: true });
-		this.helpPage.stackpageMainBox.add(data_label);
+		main_help_box.add(main_help_label_1);
+		main_help_box.add(main_help_label_2);
+		main_help_box.add(help_image_1);
+		main_help_box.add(main_help_label_3);
+		main_help_box.add(main_help_label_4);
+		main_help_box.add(main_help_label_5);
+		main_help_box.add(help_image_2);
+		main_help_box.add(main_help_label_6);
+		main_help_box.add(main_help_label_7);
+		let scrolled = new Gtk.ScrolledWindow();
+		scrolled.add(main_help_box);
+		tabs.append_page(scrolled, new Gtk.Label({ label: _("Using the extension"), }))
 		
-		data_button = new Gtk.Button({ label: _("Open the storage directory") });
+		let data_box = new Gtk.Box({
+			orientation: Gtk.Orientation.VERTICAL,
+			expand: true,
+			margin: 20,
+			spacing: 18
+		});
+		let data_label_1 = new Gtk.Label({
+			label: _("Your notes are saved to the disk on various occasions (mainly when you hide them). "+
+			"If you want to <b>get a copy of your notes</b>, this button opens the folder where they are."),
+			halign: Gtk.Align.START,
+			wrap: true,
+			use_markup: true,
+		});
+		let data_label_2 = new Gtk.Label({
+			label: _("<i>Files ending with \"_state\" contain the color and position of your notes</i>\n\n"+
+			"<i>Files ending with \"_text\" contain the text written in your notes</i>"),
+			halign: Gtk.Align.START,
+			wrap: true,
+			use_markup: true,
+		});
+		
+		let data_button = new Gtk.Button({ label: _("Open the storage directory") });
 		data_button.connect('clicked', Lang.bind(this, function(widget) {
 			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
 		}));
-		this.helpPage.stackpageMainBox.add(data_button);
 		data_button.get_style_context().add_class('suggested-action');
 		
-		this.helpPage.stackpageMainBox.add(new Gtk.Separator());
-
+		data_box.add(data_label_1);
+		data_box.add(data_button);
+		data_box.add(data_label_2);
+		tabs.append_page(data_box, new Gtk.Label({ label: _("Backup your notes"), }))
+		
+		let reset_box = new Gtk.Box({
+			orientation: Gtk.Orientation.VERTICAL,
+			expand: true,
+			margin: 20,
+			spacing: 18
+		});
 		let reset_label = new Gtk.Label({ label: _(
 			"Click on this button if you accidentally moved a note out of your primary monitor\n"+
 			"(example: if you had notes on a secondary monitor and unplugged it)."
 		), halign: Gtk.Align.START, wrap: true, use_markup: true });
-		this.helpPage.stackpageMainBox.add(reset_label);
-		reset_button = new Gtk.Button({ label: _("Bring back all notes to the primary monitor") });
+		let reset_button = new Gtk.Button({ label: _("Bring back all notes to the primary monitor") });
 		reset_button.connect('clicked', Lang.bind(this, function(widget) {
 			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
 		}));
-		this.helpPage.stackpageMainBox.add(reset_button);
+		reset_box.add(reset_label);
+		reset_box.add(reset_button);
+		tabs.append_page(reset_box, new Gtk.Label({ label: _("Lost some notes?"), }))
 		
 		//-------------------------------
 
-		this.aboutPage = this.add_page('about', _("About"));
+		let aboutPage = this.add_page('about', _("About"), true);
 
 		let a_name = '<b>' + Me.metadata.name.toString() + '</b>';
 		let a_uuid = Me.metadata.uuid.toString();
 		let a_description = _(Me.metadata.description.toString());
 		
 		let label_name = new Gtk.Label({ label: a_name, use_markup: true, halign: Gtk.Align.CENTER });
-		let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/about_picture.png', 399, 228) });
+		let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/about_picture.png', 326, 228) });
 		let label_description = new Gtk.Label({ label: a_description, wrap: true, halign: Gtk.Align.CENTER });
 		
-//		let label_contributors = new Gtk.Label({
-//			label: "Author: roschan.",
-//			wrap: true,
-//			halign: Gtk.Align.CENTER
-//		});
+		let label_contributors = new Gtk.Label({
+			label: "Author: Romain F.T.",
+			wrap: true,
+			halign: Gtk.Align.CENTER
+		});
 		
 		let about_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10});
 		about_box.pack_start(label_name, false, false, 0);
 		about_box.pack_start(a_image, false, false, 0);
 		about_box.pack_start(label_description, false, false, 0);
-//		about_box.pack_start(label_contributors, false, false, 0);
+		about_box.pack_start(label_contributors, false, false, 0);
 
-		this.aboutPage.add_widget(about_box);
+		aboutPage.add_widget(about_box);
 
 		let LinkBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
 		let a_version = ' (v' + Me.metadata.version.toString() + ') ';
@@ -320,15 +402,20 @@ const NotesSettingsWidget = new GObject.Class({
 		LinkBox.pack_start(url_button, false, false, 0);
 		LinkBox.pack_end(new Gtk.Label({ label: a_version, halign: Gtk.Align.START }), false, false, 0);
 		
-		this.aboutPage.stackpageMainBox.pack_end(LinkBox, false, false, 0);
+		aboutPage.stackpageMainBox.pack_end(LinkBox, false, false, 0);
 		
 		//-------------------------------
-
+		
 		this.switcher.show_all();
 	},
 
-	add_page: function (id, title) {
-		let page = new PrefsPage();
+	add_page: function (id, title, will_use_classic_layout) {
+		let page;
+		if (will_use_classic_layout){
+			page = new PrefsPage();
+		} else {
+			page = new Gtk.Box();
+		}
 		this.add_titled(page, id, title);
 		return page;
 	},
@@ -340,17 +427,13 @@ const NotesSettingsWidget = new GObject.Class({
 //time he user try to access the settings' window
 function buildPrefsWidget() {
 	let widget = new NotesSettingsWidget();
-
 	Mainloop.timeout_add(0, () => {
 		let headerBar = widget.get_toplevel().get_titlebar();
 		headerBar.custom_title = widget.switcher;
 		return false;
 	});
-
 	widget.show_all();
-
 	return widget;
 }
 
-
-
+//-----------------------------------------------

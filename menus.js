@@ -114,7 +114,7 @@ const OptionsMenu = new Lang.Class({
 		yellow.connect('clicked', Lang.bind(this, this._onApply, 'yellow'));
 		white.connect('clicked', Lang.bind(this, this._onApply, 'white'));
 		
-		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));		
+		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
 //		this._appendSeparator();
 		
 		this.size_item = new PopupMenu.PopupBaseMenuItem({
@@ -157,8 +157,7 @@ const OptionsMenu = new Lang.Class({
 	},
 	
 	_appendSeparator: function () {
-		let separator = new PopupMenu.PopupSeparatorMenuItem();
-		this.addMenuItem(separator);
+		this.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 	},
 
 	_appendMenuItem: function(labelText) {

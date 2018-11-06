@@ -61,6 +61,14 @@ function init () {
 
 //------------------------------------------------
 
+function stringFromArray(data){
+	if (data instanceof Uint8Array) {
+		return imports.byteArray.toString(data);
+	} else {
+		return data.toString();
+	}
+}
+
 function saveAllNotes () {
 	
 	allNotes.forEach(function (n) {
@@ -627,7 +635,7 @@ const NoteBox = new Lang.Class({
 		if (!result) {
 			log('Could not read file: ' + PATH);
 		}
-		let content = contents.toString();
+		let content = stringFromArray(contents);
 		
 		this.noteEntry.set_text(content);
 	},
@@ -683,7 +691,7 @@ const NoteBox = new Lang.Class({
 		if (!result) {
 			log('Could not read file: ' + PATH);
 		}
-		let content = contents.toString();
+		let content = stringFromArray(contents);
 		
 		let state = content.split(';');
 		this._x = Number(state[0]);
@@ -775,13 +783,13 @@ const NotesButton = new Lang.Class({
 		box.add(icon);
 		this.actor.add_child(box);
 		
-		GLOBAL_ARE_VISIBLE = false;			
+		GLOBAL_ARE_VISIBLE = false;
 		
 		if(Convenience.getSettings().get_boolean('always-show') && (Z_POSITION != 'above-all') && (Z_POSITION != 'special-layer')) {
 			this.actor.visible = false;
 		}
 	
-		this.loadAllNotes();		
+		this.loadAllNotes();
 		
 		this.actor.connect('button-press-event', Lang.bind(this, this.toggleState));
 		
@@ -879,7 +887,7 @@ const NotesButton = new Lang.Class({
 
 const SCHEMA_NAME = 'org.gnome.shell.extensions.notes-extension';
 
-const getSchema = function () { //FIXME à virer
+const getSchema = function () { // XXX à virer
 	let schemaDir = Me.dir.get_child('schemas').get_path();
 	let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
 	let schema = schemaSource.lookup(SCHEMA_NAME, false);
