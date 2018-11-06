@@ -11,10 +11,10 @@
       <summary>This has no actual meaning</summary>
       <description>This setting is used to call an extension.js function from prefs.js</description>
     </key>
-    <key type="b" name="always-show">
+    <key type="b" name="hide-icon">
       <default>false</default>
-      <summary>If notes should always be shown.</summary>
-      <description>This removes icon in the top panel, and isn't compatible with the "above-all" value of "layout-position".</description>
+      <summary>Hide the icon</summary>
+      <description>Should be true only if there is shortcut</description>
     </key>
     <key type="s" name="layout-position">
       <default>"special-layer"</default>

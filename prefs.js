@@ -32,6 +32,7 @@ const PrefsPage = new Lang.Class({
 	_init: function () {
 		this.parent({
 			vexpand: true,
+			hscrollbar_policy: Gtk.PolicyType.NEVER,
 			can_focus: true
 		});
 		
@@ -168,27 +169,27 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		//---------------------------------------------------------------
 		
-		let labelShow = _("Always show notes");
+		let labelHide = _("Hide the icon");
 		
-		let showSwitch = new Gtk.Switch();
-		showSwitch.set_state(false);
-		showSwitch.set_state(SETTINGS.get_boolean('always-show'));
+		let hideSwitch = new Gtk.Switch();
+		hideSwitch.set_state(false);
+		hideSwitch.set_state(SETTINGS.get_boolean('hide-icon'));
 		
-		showSwitch.connect('notify::active', Lang.bind(this, function(widget) {
+		hideSwitch.connect('notify::active', Lang.bind(this, function(widget) {
 			if (widget.active) {
-				SETTINGS.set_boolean('always-show', true);
+				SETTINGS.set_boolean('hide-icon', true);
 			} else {
-				SETTINGS.set_boolean('always-show', false);
+				SETTINGS.set_boolean('hide-icon', false);
 			}
 		}));
 		
-		let showBox = new Gtk.Box({
+		let hideBox = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
 			spacing: 15,
 			margin: 6,
 		});
-		showBox.pack_start(new Gtk.Label({ label: labelShow, halign: Gtk.Align.START }), false, false, 0);
-		showBox.pack_end(showSwitch, false, false, 0);
+		hideBox.pack_start(new Gtk.Label({ label: labelHide, halign: Gtk.Align.START }), false, false, 0);
+		hideBox.pack_end(hideSwitch, false, false, 0);
 		
 		//---------------------------------------------------------------
 		
@@ -229,11 +230,12 @@ const NotesSettingsWidget = new GObject.Class({
 				SETTINGS.set_boolean('use-shortcut', true);
 				keybindingEntry.sensitive = true;
 				keybindingButton.sensitive = true;
-				
+				hideBox.sensitive = true;
 			} else {
 				SETTINGS.set_boolean('use-shortcut', false);
 				keybindingEntry.sensitive = false;
 				keybindingButton.sensitive = false;
+				hideBox.sensitive = false;
 			}
 		}));
 		
@@ -253,8 +255,8 @@ const NotesSettingsWidget = new GObject.Class({
 		//-----------------------------
 		
 		settingsPage.add_row(positionBox, displaySection);
-//		settingsPage.add_row(showBox, displaySection);
 		settingsPage.add_row(keybindingBox, keybindingSection);
+		settingsPage.add_row(hideBox, keybindingSection);
 
 		//-------------------------------
 

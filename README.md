@@ -1,7 +1,7 @@
 # Sticky notes extension
 A GNOME Shell extension providing customizable sticky notes.
 
-![](./screenshot-14-02-2k18.png)
+![](./screenshots/screenshot-14-02-2k18.png)
 
 ----
 
@@ -13,7 +13,7 @@ Or like that:
 
 ```
 cd ~/.local/share/gnome-shell/extensions
-git clone https://github.com/Maestroschan/notes-extension-gnome.git
+git clone https://github.com/maoschanz/notes-extension-gnome.git
 mv notes-extension-gnome notes@maestroschan.fr
 ```
 

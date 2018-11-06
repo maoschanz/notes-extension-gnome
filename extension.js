@@ -782,12 +782,9 @@ const NotesButton = new Lang.Class({
 
 		box.add(icon);
 		this.actor.add_child(box);
+		this.update_icon_visibility();
 		
 		GLOBAL_ARE_VISIBLE = false;
-		
-		if(Convenience.getSettings().get_boolean('always-show') && (Z_POSITION != 'above-all') && (Z_POSITION != 'special-layer')) {
-			this.actor.visible = false;
-		}
 	
 		this.loadAllNotes();
 		
@@ -798,6 +795,14 @@ const NotesButton = new Lang.Class({
 			this._bindShortcut();
 		} else {
 			this.USE_SHORTCUT = false;
+		}
+	},
+	
+	update_icon_visibility: function () {
+		if (Convenience.getSettings().get_boolean('hide-icon')) {
+			this.actor.visible = false;
+		} else {
+			this.actor.visible = true;
 		}
 	},
 	
@@ -825,9 +830,7 @@ const NotesButton = new Lang.Class({
 			}
 			i++;
 		}
-		if(!Convenience.getSettings().get_boolean('always-show')) {
-			this._onlyHideNotes();
-		}
+		this._onlyHideNotes();
 	},
 	
 	_createNote: function () {
@@ -967,9 +970,7 @@ function hideNotesFromSpecialLayer(group, event) {
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	Z_POSITION = SETTINGS.get_string('layout-position');
-	
 	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', Lang.bind(this, updateLayoutSetting));
-	
 	SIGNAUX = [];
 	
 	if(Z_POSITION == 'in-overview') {
@@ -1001,6 +1002,7 @@ function enable() {
 	Main.layoutManager.notesGroup.connect('button-press-event', Lang.bind(this, hideNotesFromSpecialLayer));
 	
 	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', Lang.bind(this, bringToPrimaryMonitorOnly));
+	SIGNAL_ICON = SETTINGS.connect('changed::hide-icon', Lang.bind(this, globalButton.update_icon_visibility));
 }
 
 //--------------------------------
@@ -1026,6 +1028,7 @@ function disable() {
 	
 	SETTINGS.disconnect(SIGNAL_LAYOUT);
 	SETTINGS.disconnect(SIGNAL_BRING_BACK);
+	SETTINGS.disconnect(SIGNAL_ICON);
 	
 	globalButton.destroy();
 }
