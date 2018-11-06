@@ -102,7 +102,7 @@ msgstr ""
 
 #: prefs.js:172
 msgid "Hide the icon"
-msgstr ""
+msgstr "Masquer l'icône"
 
 #: prefs.js:199
 msgid "Default value is"
@@ -124,7 +124,7 @@ msgstr "Aide"
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
-"<b>Montrer/cacher toutes les notes :</b> cliquer sur l'icône dans la barre "
+"<b>Montrer/masquer toutes les notes :</b> cliquer sur l'icône dans la barre "
 "supérieure de GNOME Shell."
 
 #: prefs.js:279
@@ -133,6 +133,9 @@ msgid ""
 "header, it will create a new note, with the same color and the same font "
 "size as the note you clicked on."
 msgstr ""
+"<b>Créer une note :</b> cliquer sur le bouton \"+\" à gauche de l'en-tête "
+"d'une note, ça créera une nouvelle note, avec la même couleur et la même "
+"taille de police que celle sur laquelle vous avez cliqué."
 
 #: prefs.js:284
 msgid ""
@@ -159,6 +162,8 @@ msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
+"<b>Changer la taille de police :</b> cliquer sur le bouton du menu, et augmenter "
+"ou diminuer la taille de la police avec les boutons \"+\" et \"-\"."
 
 #: prefs.js:297
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
@@ -175,6 +180,9 @@ msgid ""
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
+"Vos notes sont enregistrées sur le disque en diverses occasions (principalement "
+" quand vous les masquez. Si vous voulez <b>faire une copie de vos notes</b>, "
+"ce bouton ouvre le dossier où elles se trouvent."
 
 #: prefs.js:334
 msgid ""
@@ -183,6 +191,10 @@ msgid ""
 "\n"
 "<i>Files ending with \"_text\" contain the text written in your notes</i>"
 msgstr ""
+"<i>Les fichiers aux noms terminant par \"_state\" contiennent la couleur et "
+"la position de vos notes</i>\n"
+"\n"
+"<i>Les fichiers aux noms terminant par \"_text\" contiennent le texte écrit dans vos notes</i>"
 
 #: prefs.js:341
 msgid "Open the storage directory"
@@ -198,6 +210,9 @@ msgid ""
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
+"Cliquez sur ce bouton si vous avez accidentellement déplacé une note hors "
+"de votre écran principal\n"
+"(exemple : si vous aviez des notes sur un écran secondaire maintenant débranché)."
 
 #: prefs.js:362
 msgid "Bring back all notes to the primary monitor"
@@ -222,6 +237,3 @@ msgstr "Notes"
 #: other-strings.js:2
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Post-its pour le bureau GNOME Shell."
-
-#~ msgid "Always show notes"
-#~ msgstr "Toujours afficher les notes"
