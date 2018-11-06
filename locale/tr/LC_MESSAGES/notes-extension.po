@@ -1,0 +1,179 @@
+# Gnome Shell Notlar Eklentisi Çeviri
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Serdar Sağlam <teknomobil@yandex.com>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-30 00:52+0200\n"
+"PO-Revision-Date: 2018-09-08 00:52+0200\n"
+"Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
+"Language-Team: Türkçe <teknomobil@yandex.com>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:216
+msgid "New"
+msgstr "Yeni"
+
+#: extension.js:217
+msgid "Delete"
+msgstr "Sil"
+
+#: extension.js:220
+msgid "Note options"
+msgstr "Not seçenekleri"
+
+#: extension.js:231
+msgid "Resize"
+msgstr "Boyutlandır"
+
+#: extension.js:277 extension.js:297
+msgid "Back"
+msgstr "Geri"
+
+#: extension.js:282 extension.js:304
+msgid "OK"
+msgstr "Tamam"
+
+#: extension.js:302
+msgid "Delete this note?"
+msgstr "Not silinsin mi ?"
+
+#: extension.js:329
+msgid "Type here…"
+msgstr "Not yazın…"
+
+#: menus.js:117
+msgid "Custom color"
+msgstr "Özel renk"
+
+#: menus.js:290
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: prefs.js:112
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: prefs.js:114
+msgid "Display"
+msgstr "Görüntüle"
+
+#: prefs.js:115
+msgid "Keybinding"
+msgstr "Kısayol Tuşu"
+
+#: prefs.js:119
+msgid "Position of notes:"
+msgstr "Notların konumu:"
+
+#: prefs.js:128
+msgid "Above everything"
+msgstr "Herşeyin üstünde"
+
+#: prefs.js:129
+msgid "On the background"
+msgstr "Arka planda"
+
+#: prefs.js:130
+msgid "Empty Overview"
+msgstr "Boş bakış"
+
+#: prefs.js:131
+msgid "Above all, without mask"
+msgstr "Herşeyin üstünde maskesiz"
+
+#: prefs.js:148
+msgid ""
+"The value \"On the background\" is incompatible with the \"nautilus-desktop"
+"\" Ubuntu component.\n"
+"The value \"Above all, without mask\" is discouraged."
+msgstr ""
+
+#: prefs.js:156
+msgid "Always show notes"
+msgstr "Notları hep göster"
+
+#: prefs.js:183
+msgid "Default value is"
+msgstr "Varsayılan değer"
+
+#: prefs.js:195
+msgid "Apply"
+msgstr "Uygula"
+
+#: prefs.js:206
+msgid "Use a keyboard shortcut to toggle notes"
+msgstr "Notları değiştirmek için klavye kısayolu kullan"
+
+#: prefs.js:246
+msgid "Help"
+msgstr "Yardım"
+
+#: prefs.js:249
+msgid ""
+"<b>Show/hide notes:</b> click on the icon in the top bar.\n"
+"<b>Move a note:</b> drag the blank space in the note's header.\n"
+"<b>Resize a note:</b> drag the resize button in the note's header.\n"
+"<b>Change color or font size:</b> click on the \"3 dots\" button."
+msgstr ""
+"<b>Notları göster/gizle:</b> üst çubuktaki simgeye tıklayın.\n"
+"<b>Notu taşıma:</b> başlığı tutup isteğiniz yere sürükleyin.\n"
+"<b>Notu boyutlandır:</b> başlığın boyutlandırma düğmesini sürükleyin.\n"
+"<b>Renk ve yazı tipi boyutu:</b> Başlıktaki \"3 noktaya\" tıklayın."
+
+#: prefs.js:259
+msgid ""
+"Your notes are saved to the disk on various occasions (mainly when you hide "
+"them). If you want to <b>get a copy of your notes</b>, this button opens the "
+"folder where they are.\n"
+"<i>Files ending with \"_state\" contain the color and position of your "
+"notes</i>\n"
+"<i>Files ending with \"_text\" contain the text written in your notes</i>"
+msgstr ""
+"Notlarınız çeşitli durumlarda diske kaydedilir (notlarınız yedeklenir  "
+"gibi). Eğer istersen <b>notların bir kopyasını al</b>, buraya tıklayıp "
+"açılan klasörde görebilirsin.\n"
+"<i> \"_state\" İle biten dosyalar sizin renk ve konumunuzu içerir. "
+"notların</i>\n"
+"<i> \"_text\" İle biten dosyalar notlarınızdaki yazılı metni içerir.</i>"
+
+#: prefs.js:266
+msgid "Open the storage directory"
+msgstr "Notların depolama dizinini aç"
+
+#: prefs.js:276
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor\n"
+"(example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+"Bir notu yanlışlıkla birincil öğenizden çıkardıysanız bu düğmeyi tıklayın "
+"ekran\n"
+"(örnek: eğer ikinci bir ekranda notlarınız varsa ve fişini taktıysanız)."
+
+#: prefs.js:280
+msgid "Bring back all notes to the primary monitor"
+msgstr "Tüm notları ana ekrana geri getir"
+
+#: prefs.js:288
+msgid "About"
+msgstr "Hakkında"
+
+#: prefs.js:316
+msgid "Report bugs or ideas"
+msgstr "Hata veya öneri gönder"
+
+#: other-strings.js:1
+msgid "Notes"
+msgstr "Notlar"
+
+#: other-strings.js:2
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr "Gnome Shell masaüstü için yapışkan notlar."
