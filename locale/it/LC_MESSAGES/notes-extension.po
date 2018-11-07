@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-06 22:30+0100\n"
-"PO-Revision-Date: 2018-07-29 09:23+0200\n"
+"POT-Creation-Date: 2018-11-07 17:33+0100\n"
+"PO-Revision-Date: 2018-11-07 14:42+0100\n"
 "Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -28,7 +28,7 @@ msgstr "Elimina"
 
 #: extension.js:228
 msgid "Note options"
-msgstr ""
+msgstr "Opzioni note"
 
 #: extension.js:239
 msgid "Resize"
@@ -88,7 +88,7 @@ msgstr "Anteprima vuota"
 
 #: prefs.js:133
 msgid "Above all, without mask"
-msgstr ""
+msgstr "Sulle finestre, senza trasparenza"
 
 #: prefs.js:159
 msgid ""
@@ -97,10 +97,13 @@ msgid ""
 "\"Above all, without mask\" is discouraged, since it makes it harder to "
 "resize or move your sticky notes."
 msgstr ""
+"\"Sullo sfondo\" è incompatibile col componente Ubuntu 'nautilus-desktop'.\n"
+"\"Sulle finestre, senza trasparenza\" è sconsigliato, perché rende più "
+"difficile ridimensionare e spostare le tue note."
 
 #: prefs.js:172
 msgid "Hide the icon"
-msgstr ""
+msgstr "Nascondi l'icona"
 
 #: prefs.js:199
 msgid "Default value is"
@@ -123,6 +126,8 @@ msgstr "Aiuto"
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
+"<b>Mostra/nascondi tutte le note:</b> click sull'icona nel pannello di GNOME "
+"Shell."
 
 #: prefs.js:279
 msgid ""
@@ -130,34 +135,44 @@ msgid ""
 "header, it will create a new note, with the same color and the same font "
 "size as the note you clicked on."
 msgstr ""
+"<b>Crea una nota:</b> click sul pulsante \"+\" a sinistra sulla barra della "
+"nota, così creerai una nuova nota dello stesso colore e con la stessa "
+"dimensione del testo di quella selezionata."
 
 #: prefs.js:284
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
+"<b>Muovi una nota:</b> tieni premuto sullo spazio vuoto nel barra della nota "
+"e trascina.à"
 
 #: prefs.js:287
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
+"<b>Ridimensiona una nota:</b> tieni premuto il pulsante di ridimensionamento "
+"sulla destra della barra della nota e trascina."
 
 #: prefs.js:290
 msgid "<b>Change color:</b> click on the menu button, and select a color."
 msgstr ""
+"<b>Cambia colore:</b> click sul pulsante del menu e seleziona un colore."
 
 #: prefs.js:293
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
+"<b>Cambia dimensione del testo:</b> click sul pulsante del menu e aumenta o "
+"diminuisci la dimensione del testo usando i pulsanti \"+\" e \"-\"."
 
 #: prefs.js:297
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
-msgstr ""
+msgstr "<b>Elimina una nota:</b> click sul pulsante del cestino e conferma."
 
 #: prefs.js:318
 msgid "Using the extension"
-msgstr ""
+msgstr "Guida all'utilizzo"
 
 #: prefs.js:327
 msgid ""
@@ -165,6 +180,9 @@ msgid ""
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
+"Le tue note vengono salvate nel computer in varie occasioni (principalmente "
+"quando le nascondi). Se vuoi una <b>copia delle tue note</b>, questo "
+"pulsante apre la cartella in cui si trovano."
 
 #: prefs.js:334
 msgid ""
@@ -173,6 +191,11 @@ msgid ""
 "\n"
 "<i>Files ending with \"_text\" contain the text written in your notes</i>"
 msgstr ""
+"<i>I file che terminano in \"_state\" contengono il colore e la posizione "
+"delle tue note</i>\n"
+"\n"
+"<i>I file che terminano in \"_text\" contengono il testo contenuto nelle tue "
+"note</i>"
 
 #: prefs.js:341
 msgid "Open the storage directory"
@@ -180,7 +203,7 @@ msgstr "Apri la cartella di salvataggio"
 
 #: prefs.js:350
 msgid "Backup your notes"
-msgstr ""
+msgstr "Backup delle tue note"
 
 #: prefs.js:359
 msgid ""
@@ -188,15 +211,17 @@ msgid ""
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
+"Click su questo pulsante se hai spostato per errore le tue note all'esterno "
+"dello schermo primario\n"
+"(esempio: se avevi delle note su uno schermo secondario che hai disconnesso)."
 
 #: prefs.js:362
 msgid "Bring back all notes to the primary monitor"
 msgstr "Riporta tutte le note sullo schermo primario"
 
 #: prefs.js:368
-#, fuzzy
 msgid "Lost some notes?"
-msgstr "Posizione delle note:"
+msgstr "Hai perso delle note?"
 
 #: prefs.js:372
 msgid "About"

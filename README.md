@@ -1,7 +1,7 @@
 # Sticky notes extension
 A GNOME Shell extension providing customizable sticky notes.
 
-![](./screenshots/screenshot-14-02-2k18.png)
+![](./screenshots/about_picture.png)
 
 ----
 
