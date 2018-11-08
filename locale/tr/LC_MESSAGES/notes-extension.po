@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 00:52+0200\n"
-"PO-Revision-Date: 2018-09-08 00:52+0200\n"
+"POT-Creation-Date: 2018-11-07 22:30+0100\n"
+"PO-Revision-Date: 2018-11-08 00:52+0200\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
 "Language: tr\n"
@@ -17,35 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:216
+#: extension.js:224
 msgid "New"
 msgstr "Yeni"
 
-#: extension.js:217
+#: extension.js:225
 msgid "Delete"
 msgstr "Sil"
 
-#: extension.js:220
+#: extension.js:228
 msgid "Note options"
 msgstr "Not seçenekleri"
 
-#: extension.js:231
+#: extension.js:239
 msgid "Resize"
 msgstr "Boyutlandır"
 
-#: extension.js:277 extension.js:297
+#: extension.js:285 extension.js:305
 msgid "Back"
 msgstr "Geri"
 
-#: extension.js:282 extension.js:304
+#: extension.js:290 extension.js:312
 msgid "OK"
 msgstr "Tamam"
 
-#: extension.js:302
+#: extension.js:310
 msgid "Delete this note?"
 msgstr "Not silinsin mi ?"
 
-#: extension.js:329
+#: extension.js:337
 msgid "Type here…"
 msgstr "Not yazın…"
 
@@ -53,122 +53,178 @@ msgstr "Not yazın…"
 msgid "Custom color"
 msgstr "Özel renk"
 
-#: menus.js:290
+#: menus.js:289
 msgid "Select All"
 msgstr "Tümünü Seç"
 
-#: prefs.js:112
+#: prefs.js:114
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: prefs.js:114
+#: prefs.js:116
 msgid "Display"
 msgstr "Görüntüle"
 
-#: prefs.js:115
+#: prefs.js:117
 msgid "Keybinding"
 msgstr "Kısayol Tuşu"
 
-#: prefs.js:119
+#: prefs.js:121
 msgid "Position of notes:"
 msgstr "Notların konumu:"
 
-#: prefs.js:128
+#: prefs.js:130
 msgid "Above everything"
 msgstr "Herşeyin üstünde"
 
-#: prefs.js:129
-msgid "On the background"
-msgstr "Arka planda"
-
-#: prefs.js:130
-msgid "Empty Overview"
-msgstr "Boş bakış"
-
 #: prefs.js:131
+msgid "On the background"
+msgstr "Arkaplanda hep açık"
+
+#: prefs.js:132
+msgid "Empty Overview"
+msgstr "Boş genel bakış"
+
+#: prefs.js:133
 msgid "Above all, without mask"
-msgstr "Herşeyin üstünde maskesiz"
+msgstr "Herşeyin üstünde şeffaf"
 
-#: prefs.js:148
+#: prefs.js:159
 msgid ""
-"The value \"On the background\" is incompatible with the \"nautilus-desktop"
-"\" Ubuntu component.\n"
-"The value \"Above all, without mask\" is discouraged."
+"\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
+"component.\n"
+"\"Above all, without mask\" is discouraged, since it makes it harder to "
+"resize or move your sticky notes."
 msgstr ""
+"\"Arkaplanda hep açık\" 'nautilus-desktop' bazen Ubuntu ile uyumsuz "
+"eklenti veya bileşen içerebilir, çalışıyorsa sorun yoktur.\n"
+"\n"
+"\"Herşeyin üstünde şeffaf\" kullanımı bazen zor olabilir "
+"opaklık olmadığı için yapışkan notlarınızı yeniden boyutlandırma "
+"ve taşıma zorlaşabilir."
 
-#: prefs.js:156
-msgid "Always show notes"
-msgstr "Notları hep göster"
+#: prefs.js:172
+msgid "Hide the icon"
+msgstr "Simgeyi gizle"
 
-#: prefs.js:183
+#: prefs.js:199
 msgid "Default value is"
 msgstr "Varsayılan değer"
 
-#: prefs.js:195
+#: prefs.js:211
 msgid "Apply"
 msgstr "Uygula"
 
-#: prefs.js:206
+#: prefs.js:222
 msgid "Use a keyboard shortcut to toggle notes"
-msgstr "Notları değiştirmek için klavye kısayolu kullan"
+msgstr "Notları açmak için klavye kısayolu kullan"
 
-#: prefs.js:246
+#: prefs.js:263
 msgid "Help"
 msgstr "Yardım"
 
-#: prefs.js:249
+#: prefs.js:276
 msgid ""
-"<b>Show/hide notes:</b> click on the icon in the top bar.\n"
-"<b>Move a note:</b> drag the blank space in the note's header.\n"
-"<b>Resize a note:</b> drag the resize button in the note's header.\n"
-"<b>Change color or font size:</b> click on the \"3 dots\" button."
+"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
-"<b>Notları göster/gizle:</b> üst çubuktaki simgeye tıklayın.\n"
-"<b>Notu taşıma:</b> başlığı tutup isteğiniz yere sürükleyin.\n"
-"<b>Notu boyutlandır:</b> başlığın boyutlandırma düğmesini sürükleyin.\n"
-"<b>Renk ve yazı tipi boyutu:</b> Başlıktaki \"3 noktaya\" tıklayın."
+"<b>Tüm notları göster/gizle:</b> Gnome Shell üst çubuğundaki simgeye tıklayın."
 
-#: prefs.js:259
+#: prefs.js:279
+msgid ""
+"<b>Create a note:</b> click on the \"+\" button at the left of a note "
+"header, it will create a new note, with the same color and the same font "
+"size as the note you clicked on."
+msgstr ""
+"<b>Not ekleme:</b> bir notun solundaki \"+\" düğmesine tıklayın "
+"üstbilgi: tıklattığınız notla aynı renk ve aynı yazı tipi boyutunda "
+"yeni bir not oluşturur."
+
+#: prefs.js:284
+msgid ""
+"<b>Move a note:</b> drag the blank space in the center of the note header."
+msgstr ""
+"<b>Not Taşıma:</b> çubuğun ortasındaki boşluğa basıp istediğiniz yere sürükleyin."
+
+#: prefs.js:287
+msgid ""
+"<b>Resize a note:</b> drag the resize button at the right of the note header."
+msgstr ""
+"<b>Boyutlandırma:</b> çubuğun en sağındaki boyutlandırma düğmesine basıp sürükleyin."
+
+#: prefs.js:290
+msgid "<b>Change color:</b> click on the menu button, and select a color."
+msgstr "<b>Renk değiştirme:</b> menü düğmesine tıklayın ve bir renk seçin."
+
+#: prefs.js:293
+msgid ""
+"<b>Change font size:</b> click on the menu button, and increase or decrease "
+"the font size with \"+\" and \"-\" buttons."
+msgstr ""
+"<b>Yazıtipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu "
+"\"+\" ve \"-\" düğmeleriyle artırın veya azaltın."
+
+#: prefs.js:297
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr "<b>Not silme:</b> çöp kutusu simgesine tıklayın ve onay verin."
+
+#: prefs.js:318
+msgid "Using the extension"
+msgstr "Eklenti kullanımı"
+
+#: prefs.js:327
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
-"folder where they are.\n"
+"folder where they are."
+msgstr ""
+"Notlarınız çeşitli durumlarda diske kaydedilir (notlarınız otomatik yedeklenir) "
+"Gerekirse <b>notların bir kopyasını alabilirsiniz</b>, eklenen notlara "
+"aşağıdan ulaşabilirsiniz."
+
+#: prefs.js:334
+msgid ""
 "<i>Files ending with \"_state\" contain the color and position of your "
 "notes</i>\n"
+"\n"
 "<i>Files ending with \"_text\" contain the text written in your notes</i>"
 msgstr ""
-"Notlarınız çeşitli durumlarda diske kaydedilir (notlarınız yedeklenir  "
-"gibi). Eğer istersen <b>notların bir kopyasını al</b>, buraya tıklayıp "
-"açılan klasörde görebilirsin.\n"
-"<i> \"_state\" İle biten dosyalar sizin renk ve konumunuzu içerir. "
-"notların</i>\n"
-"<i> \"_text\" İle biten dosyalar notlarınızdaki yazılı metni içerir.</i>"
+"<i> \"_state\" İle biten dosyalar notlardaki renk ve konumunuzu içerir.</i>\n"
+"\n"
+"<i> \"_text\" İle biten dosyalar notlardaki yazılı metni içerir.</i>"
 
-#: prefs.js:266
+#: prefs.js:341
 msgid "Open the storage directory"
-msgstr "Notların depolama dizinini aç"
+msgstr "Notların depolandığı dizini aç"
 
-#: prefs.js:276
+#: prefs.js:350
+msgid "Backup your notes"
+msgstr "Notları yedekleme"
+
+#: prefs.js:359
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
-"Bir notu yanlışlıkla birincil öğenizden çıkardıysanız bu düğmeyi tıklayın "
-"ekran\n"
-"(örnek: eğer ikinci bir ekranda notlarınız varsa ve fişini taktıysanız)."
+"Birincil ekranınız dışında başka yerde not eklediyseniz bu düğmeye tıklayın "
+"\n"
+"(örnek: Eğer ikinci bir monitörde notlarınız varsa ve fişten çekmişseniz)."
 
-#: prefs.js:280
+#: prefs.js:362
 msgid "Bring back all notes to the primary monitor"
-msgstr "Tüm notları ana ekrana geri getir"
+msgstr "Tüm notları birincil ana ekrana geri getir"
 
-#: prefs.js:288
+#: prefs.js:368
+msgid "Lost some notes?"
+msgstr "Notların konumu"
+
+#: prefs.js:372
 msgid "About"
 msgstr "Hakkında"
 
-#: prefs.js:316
+#: prefs.js:400
 msgid "Report bugs or ideas"
-msgstr "Hata veya öneri gönder"
+msgstr "Hata raporla veya öneri gönder"
 
 #: other-strings.js:1
 msgid "Notes"
