@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 17:33+0100\n"
+"POT-Creation-Date: 2018-11-30 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,11 +49,11 @@ msgstr ""
 msgid "Type here…"
 msgstr ""
 
-#: menus.js:117
+#: menus.js:74
 msgid "Custom color"
 msgstr ""
 
-#: menus.js:289
+#: menus.js:253
 msgid "Select All"
 msgstr ""
 
