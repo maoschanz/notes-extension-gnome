@@ -3,7 +3,6 @@ const Lang = imports.lang;
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
-const Mainloop = imports.mainloop;
 const ShellEntry = imports.ui.shellEntry;
 const Signals = imports.signals;
 
@@ -62,57 +61,15 @@ const OptionsMenu = new Lang.Class({
 		this.addMenuItem(this.color1_item);
 		this.addMenuItem(this.color2_item);
 		
-		let red = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: red;',
-		});
-		let green = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: green;',
-		});
-		let blue = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: blue;',
-		});
-		let black = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: black;',
-		});
-		this.color1_item.actor.add( red );
-		this.color1_item.actor.add( green );
-		this.color1_item.actor.add( blue );
-		this.color1_item.actor.add( black );
+		this._addColorButton('red', 1);
+		this._addColorButton('green', 1);
+		this._addColorButton('blue', 1);
+		this._addColorButton('black', 1);
 		
-		red.connect('clicked', Lang.bind(this, this._onApply, 'red'));
-		green.connect('clicked', Lang.bind(this, this._onApply, 'green'));
-		blue.connect('clicked', Lang.bind(this, this._onApply, 'blue'));
-		black.connect('clicked', Lang.bind(this, this._onApply, 'black'));
-		
-		let cyan = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: cyan;',
-		});
-		let magenta = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: magenta;',
-		});
-		let yellow = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: yellow;',
-		});
-		let white = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
-			style: 'background-color: white;',
-		});
-		this.color2_item.actor.add( cyan );
-		this.color2_item.actor.add( magenta );
-		this.color2_item.actor.add( yellow );
-		this.color2_item.actor.add( white );
-		
-		cyan.connect('clicked', Lang.bind(this, this._onApply, 'cyan'));
-		magenta.connect('clicked', Lang.bind(this, this._onApply, 'magenta'));
-		yellow.connect('clicked', Lang.bind(this, this._onApply, 'yellow'));
-		white.connect('clicked', Lang.bind(this, this._onApply, 'white'));
+		this._addColorButton('cyan', 2);
+		this._addColorButton('magenta', 2);
+		this._addColorButton('yellow', 2);
+		this._addColorButton('white', 2);
 		
 		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
 //		this._appendSeparator();
@@ -156,6 +113,19 @@ const OptionsMenu = new Lang.Class({
 		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
 	},
 	
+	_addColorButton: function(color, line) {
+		let btn = new St.Button({
+			style_class: 'calendar-today calendar-day-base',
+			style: 'background-color: ' + color + ';',
+		});
+		if (line == 1) {
+			this.color1_item.actor.add( btn );
+		} else {
+			this.color2_item.actor.add( btn );
+		}
+		btn.connect('clicked', Lang.bind(this, this._onApply, color));
+	},
+	
 	_appendSeparator: function () {
 		this.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 	},
@@ -175,7 +145,8 @@ const OptionsMenu = new Lang.Class({
 		let temp;
 		switch(c) {
 			case 'red':
-			temp = '255,0,0';
+			temp = '250,0,0';
+			this._source._note.whiteFontColor();
 			break;
 			case 'magenta':
 			temp = '255,0,255';
@@ -184,7 +155,7 @@ const OptionsMenu = new Lang.Class({
 			temp = '255,255,0';
 			break;
 			case 'white':
-			temp = '230,230,230';
+			temp = '255,255,255';
 			break;
 			case 'cyan':
 			temp = '0,255,255';
@@ -193,7 +164,7 @@ const OptionsMenu = new Lang.Class({
 			temp = '0,255,0';
 			break;
 			case 'blue':
-			temp = '0,0,255';
+			temp = '0,0,250';
 			this._source._note.whiteFontColor();
 			break;
 			case 'black':
@@ -204,7 +175,7 @@ const OptionsMenu = new Lang.Class({
 		}
 		this._source._note.customColor = temp;
 		this._source._note.applyNoteStyle();
-		this._source._note.applyActorStyle();	
+		this._source._note.applyActorStyle();
 	},
 
 	popup: function(activatingButton) {
@@ -246,23 +217,18 @@ var RoundMenuButton = new Lang.Class({
 	
 	popupMenu: function() {
 		this.actor.fake_release();
-
 		if (!this._menu) {
 			this._menu = new OptionsMenu(this);
 			this._menu.connect('open-state-changed', Lang.bind(this, function (menu, isPoppedUp) {
 				if (!isPoppedUp)
 					this._onMenuPoppedDown();
 			}));
-
 			this._menuManager.addMenu(this._menu);
 		}
-
 		this.emit('menu-state-changed', true);
-
 		this.actor.set_hover(true);
 		this._menu.popup();
 		this._menuManager.ignoreRelease();
-
 		return false;
 	},
 	
@@ -282,9 +248,7 @@ const NoteMenu = new Lang.Class({
 	
 	_init: function(entry, note) {
 		this.parent(entry);
-		
 		this._note = note;
-		
 		let item;
 		item = new PopupMenu.PopupMenuItem(_("Select All"));
 		item.connect('activate', Lang.bind(this, this._onSelectAll));
