@@ -41,6 +41,7 @@ let SIGNAUX = [];
 
 let SIGNAL_LAYOUT;
 let SIGNAL_BRING_BACK;
+let SIGNAL_ICON;
 
 //-------------------------------------------------
 
@@ -109,8 +110,7 @@ function refreshArray () {
  * - The 'create' button, which creates a note with the same color and font size, but with random
  * 	coordinates, an empty text, and an harcoded size.
  * - The 'delete' button, which delete the note and will call an exterior method. Requires validation.
- * - The 'color' button, showing a menu, but it can give access to a more powerful interface, which
- * 	requires validation too.
+ * - The 'options' button, showing a menu defined in menus.js
  * - The 'move' button, which isn't drawn as a button, but looks like an empty space. It emulates a
  * 	kind of wacky bootleg of drag-and-drop.
  * - The 'resize' button, which uses the same drag-and-drop emulation and resizes the note from its
@@ -205,10 +205,11 @@ const NoteBox = new Lang.Class({
 		this.loadState();
 		this.applyActorStyle();
 		
+		this.actor.connect('enter-event', Lang.bind(this, this.getKeyFocus));
 		this.actor.connect('notify::hover', Lang.bind(this, function(a, b) {
 			this.applyActorStyle();
 		}));
-			
+		
 		/*
 		 * This is the regular header, as described above.
 		 */
@@ -224,7 +225,6 @@ const NoteBox = new Lang.Class({
 		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', Lang.bind(this, this.createNote));
 		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', Lang.bind(this, this.showDelete));
 		
-//		let colorButton = this._addButton(this.buttons_box,'preferences-color-symbolic', _("Color"));
 		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
 		this.optionsMenuButton = new Menus.RoundMenuButton( this, optionsButton );
 
@@ -320,7 +320,6 @@ const NoteBox = new Lang.Class({
 		//-------------
 		
 		this._scrollView = new St.ScrollView({
-	//		style_class: 'vfade', //does a glitch ?
 			overlay_scrollbars: true, //if true, the scrollbar is inside the textfield, else it's outside
 			x_expand: true,
 			y_expand: true,
@@ -336,17 +335,14 @@ const NoteBox = new Lang.Class({
 			can_focus: true,
 			hint_text: _("Type here…"),
 			track_hover: true,
-			//reactive: true,
 			x_expand: true,
-			//y_expand: true,
 			style_class: 'textfield',
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
 		clutterText.set_single_line_mode(false);
-		clutterText.set_activatable(false);
+		clutterText.set_activatable(false); // we can press Enter
 		clutterText.set_line_wrap(true);
 		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
-		//clutterText.set_font_name("Cantarell Bold");
 		
 		this.applyNoteStyle();
 		this.applyColor();
@@ -359,7 +355,6 @@ const NoteBox = new Lang.Class({
 		});
 		
 		this.entry_box.add_actor(this.noteEntry);
-		
 		this._scrollView.add_actor(this.entry_box);
 		
 		//------------
@@ -377,10 +372,15 @@ const NoteBox = new Lang.Class({
 		
 		Menus.addContextMenu(this.noteEntry, this);
 		
-		this.noteEntry.get_clutter_text().connect('key-focus-in', Lang.bind(this, this.redraw));
-		
 		this.grabX = this._x + 100;
 		this.grabY = this._y + 10;
+	},
+	
+	getKeyFocus: function() {
+		if (this.entry_is_visible) {
+			this.noteEntry.grab_key_focus();
+		}
+		this.redraw();
 	},
 	
 	load_in_the_right_actor: function () {
@@ -415,18 +415,15 @@ const NoteBox = new Lang.Class({
 			this.entry_box.visible = !this.entry_box.visible;
 			this.entry_is_visible = this.entry_box.visible;
 		}
-		let [xMouse, yMouse, mask] = global.get_pointer();
-		this.grabX = xMouse;
-		this.grabY = yMouse;
+		this.grabX = Math.floor(event.get_coords()[0]);
+		this.grabY = Math.floor(event.get_coords()[1]);
 	},
 	
-	_onResizeRelease: function () {
-		let [xMouse, yMouse, mask] = global.get_pointer();
-		
+	_onResizeRelease: function (actor, event) {
 		//FIXME TODO minimaux ?
-		let newWidth = Math.abs(this.actor.width + (xMouse - this.grabX));
-		let newHeight = Math.abs(this._y + this.actor.height - yMouse + (this.grabY - this._y));
-		let newY = yMouse - (this.grabY - this._y);
+		let newWidth = Math.abs(this.actor.width + (Math.floor(event.get_coords()[0]) - this.grabX));
+		let newHeight = Math.abs(this._y + this.actor.height - Math.floor(event.get_coords()[1]) + (this.grabY - this._y));
+		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
 		Tweener.addTween(this, {
 			positionWidth: newWidth,
@@ -500,10 +497,8 @@ const NoteBox = new Lang.Class({
 	//--------------------
 	
 	_onMoveRelease: function (actor, event) {
-		let [xMouse, yMouse, mask] = global.get_pointer();
-		
-		let newX = xMouse - (this.grabX - this._x);
-		let newY = yMouse - (this.grabY - this._y);
+		let newX = Math.floor(event.get_coords()[0]) - (this.grabX - this._x);
+		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
 		Tweener.addTween(this, {
 			positionY: newY,
@@ -890,11 +885,10 @@ const NotesButton = new Lang.Class({
 
 const SCHEMA_NAME = 'org.gnome.shell.extensions.notes-extension';
 
-const getSchema = function () { // XXX à virer
+const getSchema = function () { // XXX à virer, utilisé juste pour le raccourci dégueulasse
 	let schemaDir = Me.dir.get_child('schemas').get_path();
 	let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
 	let schema = schemaSource.lookup(SCHEMA_NAME, false);
-
 	return new Gio.Settings({ settings_schema: schema });
 }
 
