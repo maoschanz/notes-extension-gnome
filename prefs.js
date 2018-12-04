@@ -5,7 +5,6 @@ const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Gdk = imports.gi.Gdk;
 const GdkPixbuf = imports.gi.GdkPixbuf;
-//const Util = imports.misc.util;
 const GLib = imports.gi.GLib;
 
 const Gettext = imports.gettext.domain('notes-extension');
@@ -25,8 +24,8 @@ let SETTINGS = Convenience.getSettings();
 
 //-----------------------------------------------
 
-const PrefsPage = new Lang.Class({
-	Name: "PrefsPage",
+const NotesPrefsPage = new Lang.Class({
+	Name: "NotesPrefsPage",
 	Extends: Gtk.ScrolledWindow,
 
 	_init: function () {
@@ -39,12 +38,12 @@ const PrefsPage = new Lang.Class({
 		this.stackpageMainBox = new Gtk.Box({
 			visible: true,
 			can_focus: false,
-			margin_left: 50,
-			margin_right: 50,
-			margin_top: 20,
-			margin_bottom: 20,
+			margin_left: 40,
+			margin_right: 40,
+			margin_top: 12,
+			margin_bottom: 12,
 			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 18
+			spacing: 12
 		});
 		this.add(this.stackpageMainBox);
 	},
@@ -259,7 +258,27 @@ const NotesSettingsWidget = new GObject.Class({
 		settingsPage.add_row(hideBox, keybindingSection);
 
 		//-------------------------------
+		
+		this.build_help_page();
+		this.build_about_page();
+		
+		//-------------------------------
+		
+		this.switcher.show_all();
+	},
 
+	add_page: function (id, title, will_use_classic_layout) {
+		let page;
+		if (will_use_classic_layout){
+			page = new NotesPrefsPage();
+		} else {
+			page = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL});
+		}
+		this.add_titled(page, id, title);
+		return page;
+	},
+	
+	build_help_page: function() {
 		let helpPage = this.add_page('help', _("Help"), false);
 		let tabs = new Gtk.Notebook({ tab_pos: Gtk.PositionType.LEFT, expand: true, });
 		helpPage.add(tabs);
@@ -366,60 +385,45 @@ const NotesSettingsWidget = new GObject.Class({
 		reset_box.add(reset_label);
 		reset_box.add(reset_button);
 		tabs.append_page(reset_box, new Gtk.Label({ label: _("Lost some notes?"), }))
-		
-		//-------------------------------
+	},
+	
+	build_about_page: function() {
+		let aboutPage = this.add_page('about', _("About"), false);
+		aboutPage.set_border_width(20);
+		aboutPage.set_spacing(8);
 
-		let aboutPage = this.add_page('about', _("About"), true);
-
-		let a_name = '<b>' + Me.metadata.name.toString() + '</b>';
+		let a_name = '<b>' + Me.metadata.name.toString() + '</b> (v' + Me.metadata.version.toString() + '.0)';
 		let a_uuid = Me.metadata.uuid.toString();
 		let a_description = _(Me.metadata.description.toString());
 		
-		let label_name = new Gtk.Label({ label: a_name, use_markup: true, halign: Gtk.Align.CENTER });
+		let label_name = new Gtk.Label({
+			label: a_name,
+			use_markup: true,
+			halign: Gtk.Align.CENTER
+		});
 		let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/about_picture.png', 326, 228) });
 		let label_description = new Gtk.Label({ label: a_description, wrap: true, halign: Gtk.Align.CENTER });
 		
+		let contrib_string = _("Author:") + ' ' + 'Romain F.T.';
+		if (_("translator-credits") != "translator-credits") {
+			contrib_string += '\n' + _("Translator:") + ' ' + _("translator-credits");
+		}
 		let label_contributors = new Gtk.Label({
-			label: "Author: Romain F.T.",
+			label: contrib_string,
 			wrap: true,
 			halign: Gtk.Align.CENTER
 		});
-		
-		let about_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10});
-		about_box.pack_start(label_name, false, false, 0);
-		about_box.pack_start(a_image, false, false, 0);
-		about_box.pack_start(label_description, false, false, 0);
-		about_box.pack_start(label_contributors, false, false, 0);
-
-		aboutPage.add_widget(about_box);
-
-		let LinkBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 });
-		let a_version = ' (v' + Me.metadata.version.toString() + ') ';
 		
 		let url_button = new Gtk.LinkButton({
 			label: _("Report bugs or ideas"),
 			uri: Me.metadata.url.toString()
 		});
 		
-		LinkBox.pack_start(url_button, false, false, 0);
-		LinkBox.pack_end(new Gtk.Label({ label: a_version, halign: Gtk.Align.START }), false, false, 0);
-		
-		aboutPage.stackpageMainBox.pack_end(LinkBox, false, false, 0);
-		
-		//-------------------------------
-		
-		this.switcher.show_all();
-	},
-
-	add_page: function (id, title, will_use_classic_layout) {
-		let page;
-		if (will_use_classic_layout){
-			page = new PrefsPage();
-		} else {
-			page = new Gtk.Box();
-		}
-		this.add_titled(page, id, title);
-		return page;
+		aboutPage.pack_start(label_name, false, false, 0);
+		aboutPage.pack_start(a_image, false, false, 0);
+		aboutPage.pack_start(label_description, false, false, 0);
+		aboutPage.pack_start(label_contributors, false, false, 0);
+		aboutPage.pack_start(url_button, false, false, 0);
 	},
 });
 

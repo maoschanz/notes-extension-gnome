@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-30 14:48+0100\n"
+"POT-Creation-Date: 2018-12-04 17:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:224
+#: extension.js:225
 msgid "New"
 msgstr ""
 
-#: extension.js:225
+#: extension.js:226
 msgid "Delete"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Delete this note?"
 msgstr ""
 
-#: extension.js:337
+#: extension.js:336
 msgid "Type here…"
 msgstr ""
 
@@ -199,7 +199,19 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: prefs.js:400
+#: prefs.js:382
+msgid "Author:"
+msgstr ""
+
+#: prefs.js:383 prefs.js:384
+msgid "translator-credits"
+msgstr ""
+
+#: prefs.js:384
+msgid "Translator:"
+msgstr ""
+
+#: prefs.js:404
 msgid "Report bugs or ideas"
 msgstr ""
 

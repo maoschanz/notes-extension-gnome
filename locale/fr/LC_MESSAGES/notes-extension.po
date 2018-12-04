@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-06 22:53+0100\n"
+"POT-Creation-Date: 2018-12-04 17:20+0100\n"
 "PO-Revision-Date: 2017-11-18 20:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:224
+#: extension.js:225
 msgid "New"
 msgstr "Nouveau"
 
-#: extension.js:225
+#: extension.js:226
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -44,15 +44,15 @@ msgstr "Ok"
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
 
-#: extension.js:337
+#: extension.js:336
 msgid "Type here…"
 msgstr "Tapez ici…"
 
-#: menus.js:117
+#: menus.js:74
 msgid "Custom color"
 msgstr "Couleur personnalisée"
 
-#: menus.js:289
+#: menus.js:253
 msgid "Select All"
 msgstr "Sélectionner tout"
 
@@ -149,7 +149,7 @@ msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
 "<b>Redimensionner une note :</b> agripper et déplacer le bouton de "
-"redimensionnement sur la doite de l'en-tête de la note."
+"redimensionnement sur la droite de l'en-tête de la note."
 
 #: prefs.js:290
 msgid "<b>Change color:</b> click on the menu button, and select a color."
@@ -228,7 +228,19 @@ msgstr "Notes perdues ?"
 msgid "About"
 msgstr "À propos"
 
-#: prefs.js:400
+#: prefs.js:382
+msgid "Author:"
+msgstr "Auteur :"
+
+#: prefs.js:383 prefs.js:384
+msgid "translator-credits"
+msgstr "Romain F. T."
+
+#: prefs.js:384
+msgid "Translator:"
+msgstr "Traducteur :"
+
+#: prefs.js:404
 msgid "Report bugs or ideas"
 msgstr "Rapporter des bugs ou des idées"
 
