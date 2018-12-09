@@ -873,26 +873,13 @@ const NotesButton = new Lang.Class({
 
 		Main.wm.addKeybinding(
 			'keyboard-shortcut',
-			SettingsSchema,
+			Convenience.getSettings(),
 			Meta.KeyBindingFlags.NONE,
 			ModeType.ALL,
 			Lang.bind(this, this.toggleState)
 		);
 	},
 });
-
-//------------------------------------------------
-
-const SCHEMA_NAME = 'org.gnome.shell.extensions.notes-extension';
-
-const getSchema = function () { // XXX à virer, utilisé juste pour le raccourci dégueulasse
-	let schemaDir = Me.dir.get_child('schemas').get_path();
-	let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
-	let schema = schemaSource.lookup(SCHEMA_NAME, false);
-	return new Gio.Settings({ settings_schema: schema });
-}
-
-var SettingsSchema = getSchema();
 
 //-------------------------------------------------------
 
