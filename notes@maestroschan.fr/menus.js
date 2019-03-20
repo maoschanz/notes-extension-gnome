@@ -5,6 +5,7 @@ const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 const ShellEntry = imports.ui.shellEntry;
 const Signals = imports.signals;
+const Util = imports.misc.util;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -43,6 +44,14 @@ const OptionsMenu = new Lang.Class({
 
 	_redisplay: function() {
 		this.removeAll();
+		
+		this.size_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
 
 		this.color1_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
@@ -58,8 +67,16 @@ const OptionsMenu = new Lang.Class({
 			style_class: null,
 			can_focus: false
 		});
+		
+		this.addMenuItem(this.size_item);
+		this._appendSeparator();
 		this.addMenuItem(this.color1_item);
 		this.addMenuItem(this.color2_item);
+		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
+		this._appendSeparator();
+		this._appendMenuItem( _("Settings") ).connect('activate', Lang.bind(this, this._onSettings));
+		
+		//----------------------------------------------------------------------
 		
 		this._addColorButton('red', 1);
 		this._addColorButton('green', 1);
@@ -71,20 +88,18 @@ const OptionsMenu = new Lang.Class({
 		this._addColorButton('yellow', 2);
 		this._addColorButton('white', 2);
 		
-		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
-//		this._appendSeparator();
-		
-		this.size_item = new PopupMenu.PopupBaseMenuItem({
-			reactive: false,
-			activate: false,
-			hover: false,
-			style_class: null,
-			can_focus: false
+		this._buildSizeItem();
+	},
+	
+	_buildSizeItem: function() {
+		let sizeLabel = new St.Label({
+			text: _("Font size"),
+			y_align: Clutter.ActorAlign.CENTER,
 		});
-		this.addMenuItem(this.size_item);
 		
 		let bigger = new St.Button({
 			style_class: 'button',
+			style: 'margin: 0px; padding-left: 8px; padding-right: 8px;',
 			child: new St.Icon({
 				icon_name: 'zoom-in-symbolic',
 				icon_size: 16,
@@ -96,6 +111,7 @@ const OptionsMenu = new Lang.Class({
 		});
 		let smaller = new St.Button({
 			style_class: 'button',
+			style: 'margin: 0px; padding-left: 8px; padding-right: 8px;',
 			child: new St.Icon({
 				icon_name: 'zoom-out-symbolic',
 				icon_size: 16,
@@ -109,6 +125,7 @@ const OptionsMenu = new Lang.Class({
 		smaller.connect('clicked', Lang.bind(this, this._onSmaller));
 		bigger.connect('clicked', Lang.bind(this, this._onBigger));
 		
+		this.size_item.actor.add( sizeLabel, { expand: true, x_fill: true } );
 		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
 		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
 	},
@@ -140,38 +157,42 @@ const OptionsMenu = new Lang.Class({
 		this._source._note.showColor();
 	},
 	
-	_onApply: function(a, b, c) {
+	_onSettings: function() {
+		Util.spawn(["gnome-shell-extension-prefs", "notes@maestroschan.fr"]);
+	},
+	
+	_onApply: function(a, b, color) {
 		this._source._note.blackFontColor();
 		let temp;
-		switch(c) {
+		switch(color) {
 			case 'red':
-			temp = '250,0,0';
-			this._source._note.whiteFontColor();
-			break;
+				temp = '250,0,0';
+				this._source._note.whiteFontColor();
+				break;
 			case 'magenta':
-			temp = '255,0,255';
-			break;
+				temp = '255,0,255';
+				break;
 			case 'yellow':
-			temp = '255,255,0';
-			break;
+				temp = '255,255,0';
+				break;
 			case 'white':
-			temp = '255,255,255';
-			break;
+				temp = '255,255,255';
+				break;
 			case 'cyan':
-			temp = '0,255,255';
-			break;
+				temp = '0,255,255';
+				break;
 			case 'green':
-			temp = '0,255,0';
-			break;
+				temp = '0,255,0';
+				break;
 			case 'blue':
-			temp = '0,0,250';
-			this._source._note.whiteFontColor();
-			break;
+				temp = '0,0,250';
+				this._source._note.whiteFontColor();
+				break;
 			case 'black':
 			default:
-			temp = '10,10,10';
-			this._source._note.whiteFontColor();
-			break;
+				temp = '10,10,10';
+				this._source._note.whiteFontColor();
+				break;
 		}
 		this._source._note.customColor = temp;
 		this._source._note.applyNoteStyle();
