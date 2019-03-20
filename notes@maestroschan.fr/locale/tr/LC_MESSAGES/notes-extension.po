@@ -1,94 +1,101 @@
 # Gnome Shell Notlar Eklentisi Çeviri
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Serdar Sağlam <teknomobil@yandex.com>, 2018.
+# Serdar Sağlam <teknomobil@yandex.com>, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-30 14:48+0100\n"
-"PO-Revision-Date: 2018-11-08 00:52+0200\n"
+"POT-Creation-Date: 2019-03-21 00:04+0100\n"
+"PO-Revision-Date: 2019-03-18 00:45+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
 
-#: extension.js:224
+#: notes@maestroschan.fr/extension.js:225
 msgid "New"
 msgstr "Yeni"
 
-#: extension.js:225
+#: notes@maestroschan.fr/extension.js:226
 msgid "Delete"
 msgstr "Sil"
 
-#: extension.js:228
+#: notes@maestroschan.fr/extension.js:228
 msgid "Note options"
 msgstr "Not seçenekleri"
 
-#: extension.js:239
+#: notes@maestroschan.fr/extension.js:239
 msgid "Resize"
 msgstr "Boyutlandır"
 
-#: extension.js:285 extension.js:305
+#: notes@maestroschan.fr/extension.js:285
+#: notes@maestroschan.fr/extension.js:305
 msgid "Back"
 msgstr "Geri"
 
-#: extension.js:290 extension.js:312
+#: notes@maestroschan.fr/extension.js:290
+#: notes@maestroschan.fr/extension.js:312
 msgid "OK"
 msgstr "Tamam"
 
-#: extension.js:310
+#: notes@maestroschan.fr/extension.js:310
 msgid "Delete this note?"
 msgstr "Not silinsin mi ?"
 
-#: extension.js:337
+#: notes@maestroschan.fr/extension.js:336
 msgid "Type here…"
-msgstr "Not yazın…"
+msgstr "Notu buraya yaz…"
 
-#: menus.js:74
+#: notes@maestroschan.fr/menus.js:75
 msgid "Custom color"
 msgstr "Özel renk"
 
-#: menus.js:253
-msgid "Select All"
-msgstr "Tümünü Seç"
-
-#: prefs.js:114
+#: notes@maestroschan.fr/menus.js:77 notes@maestroschan.fr/prefs.js:113
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: prefs.js:116
+#: notes@maestroschan.fr/menus.js:96
+msgid "Font size"
+msgstr ""
+
+#: notes@maestroschan.fr/menus.js:274
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: notes@maestroschan.fr/prefs.js:115
 msgid "Display"
 msgstr "Görüntüle"
 
-#: prefs.js:117
+#: notes@maestroschan.fr/prefs.js:116
 msgid "Keybinding"
 msgstr "Kısayol Tuşu"
 
-#: prefs.js:121
+#: notes@maestroschan.fr/prefs.js:120
 msgid "Position of notes:"
 msgstr "Notların konumu:"
 
-#: prefs.js:130
+#: notes@maestroschan.fr/prefs.js:129
 msgid "Above everything"
 msgstr "Herşeyin üstünde"
 
-#: prefs.js:131
+#: notes@maestroschan.fr/prefs.js:130
 msgid "On the background"
 msgstr "Arkaplanda hep açık"
 
-#: prefs.js:132
+#: notes@maestroschan.fr/prefs.js:131
 msgid "Empty Overview"
 msgstr "Boş genel bakış"
 
-#: prefs.js:133
+#: notes@maestroschan.fr/prefs.js:132
 msgid "Above all, without mask"
 msgstr "Herşeyin üstünde şeffaf"
 
-#: prefs.js:159
+#: notes@maestroschan.fr/prefs.js:158
 msgid ""
 "\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
 "component.\n"
@@ -101,34 +108,34 @@ msgstr ""
 "\"Herşeyin üstünde şeffaf\" kullanımı bazen zor olabilir opaklık olmadığı "
 "için yapışkan notlarınızı yeniden boyutlandırma ve taşıma zorlaşabilir."
 
-#: prefs.js:172
+#: notes@maestroschan.fr/prefs.js:171
 msgid "Hide the icon"
 msgstr "Simgeyi gizle"
 
-#: prefs.js:199
+#: notes@maestroschan.fr/prefs.js:198
 msgid "Default value is"
-msgstr "Varsayılan değer"
+msgstr "Öntanımlı değer"
 
-#: prefs.js:211
+#: notes@maestroschan.fr/prefs.js:210
 msgid "Apply"
 msgstr "Uygula"
 
-#: prefs.js:222
+#: notes@maestroschan.fr/prefs.js:221
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Notları açmak için klavye kısayolu kullan"
 
-#: prefs.js:263
+#: notes@maestroschan.fr/prefs.js:282
 msgid "Help"
 msgstr "Yardım"
 
-#: prefs.js:276
+#: notes@maestroschan.fr/prefs.js:295
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
 "<b>Tüm notları göster/gizle:</b> Gnome Shell üst çubuğundaki simgeye "
 "tıklayın."
 
-#: prefs.js:279
+#: notes@maestroschan.fr/prefs.js:298
 msgid ""
 "<b>Create a note:</b> click on the \"+\" button at the left of a note "
 "header, it will create a new note, with the same color and the same font "
@@ -138,25 +145,25 @@ msgstr ""
 "tıklattığınız notla aynı renk ve aynı yazı tipi boyutunda yeni bir not "
 "oluşturur."
 
-#: prefs.js:284
+#: notes@maestroschan.fr/prefs.js:303
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
 "<b>Not Taşıma:</b> çubuğun ortasındaki boşluğa basıp istediğiniz yere "
 "sürükleyin."
 
-#: prefs.js:287
+#: notes@maestroschan.fr/prefs.js:306
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
 "<b>Boyutlandırma:</b> çubuğun en sağındaki boyutlandırma düğmesine basıp "
 "sürükleyin."
 
-#: prefs.js:290
+#: notes@maestroschan.fr/prefs.js:309
 msgid "<b>Change color:</b> click on the menu button, and select a color."
 msgstr "<b>Renk değiştirme:</b> menü düğmesine tıklayın ve bir renk seçin."
 
-#: prefs.js:293
+#: notes@maestroschan.fr/prefs.js:312
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
@@ -164,15 +171,15 @@ msgstr ""
 "<b>Yazıtipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu \"+\" "
 "ve \"-\" düğmeleriyle artırın veya azaltın."
 
-#: prefs.js:297
+#: notes@maestroschan.fr/prefs.js:316
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
 msgstr "<b>Not silme:</b> çöp kutusu simgesine tıklayın ve onay verin."
 
-#: prefs.js:318
+#: notes@maestroschan.fr/prefs.js:337
 msgid "Using the extension"
 msgstr "Eklenti kullanımı"
 
-#: prefs.js:327
+#: notes@maestroschan.fr/prefs.js:346
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
@@ -182,7 +189,7 @@ msgstr ""
 "yedeklenir) Gerekirse <b>notların bir kopyasını alabilirsiniz</b>, eklenen "
 "notlara aşağıdan ulaşabilirsiniz."
 
-#: prefs.js:334
+#: notes@maestroschan.fr/prefs.js:353
 msgid ""
 "<i>Files ending with \"_state\" contain the color and position of your "
 "notes</i>\n"
@@ -193,15 +200,15 @@ msgstr ""
 "\n"
 "<i> \"_text\" İle biten dosyalar notlardaki yazılı metni içerir.</i>"
 
-#: prefs.js:341
+#: notes@maestroschan.fr/prefs.js:360
 msgid "Open the storage directory"
 msgstr "Notların depolandığı dizini aç"
 
-#: prefs.js:350
+#: notes@maestroschan.fr/prefs.js:369
 msgid "Backup your notes"
-msgstr "Notları yedekleme"
+msgstr "Notlarınızı yedekleyin"
 
-#: prefs.js:359
+#: notes@maestroschan.fr/prefs.js:378
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
@@ -211,26 +218,36 @@ msgstr ""
 "tıklayın \n"
 "(örnek: Eğer ikinci bir monitörde notlarınız varsa ve fişten çekmişseniz)."
 
-#: prefs.js:362
+#: notes@maestroschan.fr/prefs.js:381
 msgid "Bring back all notes to the primary monitor"
 msgstr "Tüm notları birincil ana ekrana geri getir"
 
-#: prefs.js:368
+#: notes@maestroschan.fr/prefs.js:387
 msgid "Lost some notes?"
-msgstr "Notların konumu"
+msgstr "Notlarını mı kaybettin?"
 
-#: prefs.js:372
+#: notes@maestroschan.fr/prefs.js:391
 msgid "About"
 msgstr "Hakkında"
 
-#: prefs.js:400
+#: notes@maestroschan.fr/prefs.js:407
+msgid "Author:"
+msgstr "Yazar:"
+
+#: notes@maestroschan.fr/prefs.js:408 notes@maestroschan.fr/prefs.js:409
+msgid "translator-credits"
+msgstr "Serdar Sağlam <teknomobil@yandex.com>"
+
+#: notes@maestroschan.fr/prefs.js:409
+msgid "Translator:"
+msgstr "Çeviren:"
+
+#: notes@maestroschan.fr/prefs.js:418
 msgid "Report bugs or ideas"
 msgstr "Hata raporla veya öneri gönder"
 
-#: other-strings.js:1
-msgid "Notes"
-msgstr "Notlar"
+#~ msgid "Notes"
+#~ msgstr "Notlar"
 
-#: other-strings.js:2
-msgid "Sticky notes for the GNOME Shell desktop."
-msgstr "Gnome Shell masaüstü için yapışkan notlar."
+#~ msgid "Sticky notes for the GNOME Shell desktop."
+#~ msgstr "GNOME Kabuğu için masaüstü yapışkan notlar."

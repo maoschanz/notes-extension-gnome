@@ -4,7 +4,7 @@
 
 echo "Generating .pot file..."
 
-xgettext --files-from=POTFILES.in --from-code=UTF-8 --output=notes@maestroschan.fr/locale/notes.pot
+xgettext --files-from=POTFILES.in --from-code=UTF-8 --output=notes@maestroschan.fr/locale/notes-extension.pot
 
 #####
 
@@ -15,12 +15,12 @@ prefix="./notes@maestroschan.fr/locale"
 
 for dossier in $liste
 do
-	if [ "$dossier" != "notes.pot" ]; then
+	if [ "$dossier" != "notes-extension.pot" ]; then
 		echo "Updating translation for: $dossier"
-		msgmerge -N $prefix/$dossier/LC_MESSAGES/notes.po $prefix/notes.pot > $prefix/$dossier/LC_MESSAGES/notes.temp.po
-		mv $prefix/$dossier/LC_MESSAGES/notes.temp.po $prefix/$dossier/LC_MESSAGES/notes.po
+		msgmerge -N $prefix/$dossier/LC_MESSAGES/notes-extension.po $prefix/notes-extension.pot > $prefix/$dossier/LC_MESSAGES/notes-extension.temp.po
+		mv $prefix/$dossier/LC_MESSAGES/notes-extension.temp.po $prefix/$dossier/LC_MESSAGES/notes-extension.po
 		echo "Compiling translation for: $dossier"
-		msgfmt $prefix/$dossier/LC_MESSAGES/notes.po -o $prefix/$dossier/LC_MESSAGES/notes.mo
+		msgfmt $prefix/$dossier/LC_MESSAGES/notes-extension.po -o $prefix/$dossier/LC_MESSAGES/notes-extension.mo
 	fi
 done
 
