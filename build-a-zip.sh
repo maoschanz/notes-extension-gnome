@@ -1,8 +1,20 @@
 #!/bin/bash
 
-#./update-and-compile-translations.sh --all
+./update-and-compile-translations.sh
+
+cd notes@maestroschan.fr
 
 glib-compile-schemas ./schemas
 
-zip notes@maestroschan.fr.zip convenience.js extension.js menus.js metadata.json prefs.js stylesheet.css screenshots/about_picture.png screenshots/help_picture_1.png screenshots/help_picture_2.png
-zip -r notes@maestroschan.fr.zip schemas locale
+zip ../notes@maestroschan.fr.zip convenience.js
+zip ../notes@maestroschan.fr.zip menus.js
+zip ../notes@maestroschan.fr.zip extension.js
+zip ../notes@maestroschan.fr.zip metadata.json
+zip ../notes@maestroschan.fr.zip prefs.js
+zip ../notes@maestroschan.fr.zip stylesheet.css
+
+zip -r ../notes@maestroschan.fr.zip schemas
+zip -r ../notes@maestroschan.fr.zip locale
+zip -r ../notes@maestroschan.fr.zip screenshots
+
+
