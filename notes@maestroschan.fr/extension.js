@@ -205,7 +205,7 @@ const NoteBox = new Lang.Class({
 		this.loadState();
 		this.applyActorStyle();
 		
-		this.actor.connect('enter-event', Lang.bind(this, this.getKeyFocus));
+		this.actor.connect('enter-event', this.getKeyFocus.bind(this));
 		this.actor.connect('notify::hover', Lang.bind(this, function(a, b) {
 			this.applyActorStyle();
 		}));
@@ -222,8 +222,8 @@ const NoteBox = new Lang.Class({
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', Lang.bind(this, this.createNote));
-		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', Lang.bind(this, this.showDelete));
+		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', this.createNote.bind(this));
+		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', this.showDelete.bind(this));
 		
 		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
 		this.optionsMenuButton = new Menus.RoundMenuButton( this, optionsButton );
@@ -238,11 +238,11 @@ const NoteBox = new Lang.Class({
 
 		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', _("Resize"));
 		
-		this.moveBox.connect('button-press-event', Lang.bind(this, this._onPress));
-		this.moveBox.connect('button-release-event', Lang.bind(this, this._onMoveRelease));
+		this.moveBox.connect('button-press-event', this._onPress.bind(this));
+		this.moveBox.connect('button-release-event', this._onMoveRelease.bind(this));
 		
-		ctrlButton.connect('button-press-event', Lang.bind(this, this._onPress));
-		ctrlButton.connect('button-release-event', Lang.bind(this, this._onResizeRelease));
+		ctrlButton.connect('button-press-event', this._onPress.bind(this));
+		ctrlButton.connect('button-release-event', this._onResizeRelease.bind(this));
 		
 		/*
 		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
@@ -282,12 +282,12 @@ const NoteBox = new Lang.Class({
 		this.colorEntryV.style = 'background-color: #22BB33; color: #FFFFFF';
 		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
 		
-		this._addButton(this.color_box, 'go-previous-symbolic', _("Back")).connect('clicked', Lang.bind(this, this.hideColor));
+		this._addButton(this.color_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideColor.bind(this));
 
 		this.color_box.add_actor(this.colorEntryR);
 		this.color_box.add_actor(this.colorEntryV);
 		this.color_box.add_actor(this.colorEntryB);
-		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', Lang.bind(this, this.applyColor));
+		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', this.applyColor.bind(this));
 		
 		/*
 		 * This is the interface for deletion. The whole box is hidden by default, and will
@@ -302,14 +302,14 @@ const NoteBox = new Lang.Class({
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', Lang.bind(this, this.hideDelete));
+		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideDelete.bind(this));
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: _("Delete this note?")
 		}));
-		this._addButton(this.delete_box, 'user-trash-symbolic', _("OK")).connect('clicked', Lang.bind(this, this.deleteNote));
+		this._addButton(this.delete_box, 'user-trash-symbolic', _("OK")).connect('clicked', this.deleteNote.bind(this));
 		
 		//-------------
 		
@@ -783,7 +783,7 @@ const NotesButton = new Lang.Class({
 	
 		this.loadAllNotes();
 		
-		this.actor.connect('button-press-event', Lang.bind(this, this.toggleState));
+		this.actor.connect('button-press-event', this.toggleState.bind(this));
 		
 		if(Convenience.getSettings().get_boolean('use-shortcut')) {
 			this.USE_SHORTCUT = true;
@@ -876,7 +876,7 @@ const NotesButton = new Lang.Class({
 			Convenience.getSettings(),
 			Meta.KeyBindingFlags.NONE,
 			ModeType.ALL,
-			Lang.bind(this, this.toggleState)
+			this.toggleState.bind(this)
 		);
 	},
 });
@@ -926,12 +926,12 @@ function updateLayoutSetting() {
 	Z_POSITION = SETTINGS.get_string('layout-position');
 	
 	if(Z_POSITION == 'in-overview') {
-		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
-		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
-		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
-		SIGNAUX[3] = Main.overview.viewSelector._showAppsButton.connect('notify::checked', Lang.bind(this, updateVisibility));
-		SIGNAUX[4] = Main.overview.viewSelector._text.connect('text-changed', Lang.bind(this, updateVisibility));
-		SIGNAUX[5] = global.screen.connect('restacked', Lang.bind(this, updateVisibility));
+		SIGNAUX[0] = Main.overview.connect('showing', updateVisibility.bind(this));
+		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', updateVisibility.bind(this));
+		SIGNAUX[2] = global.window_manager.connect('switch-workspace', updateVisibility.bind(this));
+		SIGNAUX[3] = Main.overview.viewSelector._showAppsButton.connect('notify::checked', updateVisibility.bind(this));
+		SIGNAUX[4] = Main.overview.viewSelector._text.connect('text-changed', updateVisibility.bind(this));
+		SIGNAUX[5] = global.screen.connect('restacked', updateVisibility.bind(this));
 	}
 	
 	allNotes.forEach(function (n) {
@@ -950,20 +950,12 @@ function hideNotesFromSpecialLayer(group, event) {
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
-	Z_POSITION = SETTINGS.get_string('layout-position');
-	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', Lang.bind(this, updateLayoutSetting));
+	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', updateLayoutSetting.bind(this));
 	SIGNAUX = [];
-	
-	if(Z_POSITION == 'in-overview') {
-		SIGNAUX[0] = Main.overview.connect('showing', Lang.bind(this, updateVisibility));
-		SIGNAUX[1] = global.screen.connect('notify::n-workspaces', Lang.bind(this, updateVisibility));
-		SIGNAUX[2] = global.window_manager.connect('switch-workspace', Lang.bind(this, updateVisibility));
-		SIGNAUX[3] = Main.overview.viewSelector._showAppsButton.connect('notify::checked', Lang.bind(this, updateVisibility));
-		SIGNAUX[4] = Main.overview.viewSelector._text.connect('text-changed', Lang.bind(this, updateVisibility));
-		SIGNAUX[5] = global.screen.connect('restacked', Lang.bind(this, updateVisibility));
-	}
-	
 	allNotes = new Array();
+	
+	updateLayoutSetting()
+	
 	Main.layoutManager.notesGroup = new St.Widget({
 		name: 'overviewGroup',
 		visible: false,
@@ -980,10 +972,10 @@ function enable() {
 //	- `right` is the box where we want our globalButton to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', globalButton, 0, 'right');
 	
-	Main.layoutManager.notesGroup.connect('button-press-event', Lang.bind(this, hideNotesFromSpecialLayer));
+	Main.layoutManager.notesGroup.connect('button-press-event', hideNotesFromSpecialLayer.bind(this));
 	
-	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', Lang.bind(this, bringToPrimaryMonitorOnly));
-	SIGNAL_ICON = SETTINGS.connect('changed::hide-icon', Lang.bind(this, globalButton.update_icon_visibility));
+	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', bringToPrimaryMonitorOnly.bind(this));
+	SIGNAL_ICON = SETTINGS.connect('changed::hide-icon', globalButton.update_icon_visibility.bind(this));
 }
 
 //--------------------------------

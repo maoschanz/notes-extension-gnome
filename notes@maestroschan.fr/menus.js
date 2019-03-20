@@ -37,7 +37,7 @@ const OptionsMenu = new Lang.Class({
 			if (!source.actor.mapped)
 				this.close();
 		}));
-		source.actor.connect('destroy', Lang.bind(this, this.destroy));
+		source.actor.connect('destroy', this.destroy.bind(this));
 
 		Main.uiGroup.add_actor(this.actor);
 	},
@@ -72,9 +72,9 @@ const OptionsMenu = new Lang.Class({
 		this._appendSeparator();
 		this.addMenuItem(this.color1_item);
 		this.addMenuItem(this.color2_item);
-		this._appendMenuItem( _("Custom color") ).connect('activate', Lang.bind(this, this._onCustom));
+		this._appendMenuItem( _("Custom color") ).connect('activate', this._onCustom.bind(this));
 		this._appendSeparator();
-		this._appendMenuItem( _("Settings") ).connect('activate', Lang.bind(this, this._onSettings));
+		this._appendMenuItem( _("Settings") ).connect('activate', this._onSettings.bind(this));
 		
 		//----------------------------------------------------------------------
 		
@@ -122,8 +122,8 @@ const OptionsMenu = new Lang.Class({
 			}),
 		});
 		
-		smaller.connect('clicked', Lang.bind(this, this._onSmaller));
-		bigger.connect('clicked', Lang.bind(this, this._onBigger));
+		smaller.connect('clicked', this._onSmaller.bind(this));
+		bigger.connect('clicked', this._onBigger.bind(this));
 		
 		this.size_item.actor.add( sizeLabel, { expand: true, x_fill: true } );
 		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
@@ -140,7 +140,7 @@ const OptionsMenu = new Lang.Class({
 		} else {
 			this.color2_item.actor.add( btn );
 		}
-		btn.connect('clicked', Lang.bind(this, this._onApply, color));
+		btn.connect('clicked', this._onApply.bind(this, color));
 	},
 	
 	_appendSeparator: function () {
@@ -161,7 +161,7 @@ const OptionsMenu = new Lang.Class({
 		Util.spawn(["gnome-shell-extension-prefs", "notes@maestroschan.fr"]);
 	},
 	
-	_onApply: function(a, b, color) {
+	_onApply: function(color, button) {
 		this._source._note.blackFontColor();
 		let temp;
 		switch(color) {
@@ -225,7 +225,7 @@ var RoundMenuButton = new Lang.Class({
 		this._note = note;
 		this.actor = bouton;
 		
-		this.actor.connect('button-press-event', Lang.bind(this, this._onButtonPress));
+		this.actor.connect('button-press-event', this._onButtonPress.bind(this));
 		
 		this._menu = null;
 		this._menuManager = new PopupMenu.PopupMenuManager(this);
@@ -272,7 +272,7 @@ const NoteMenu = new Lang.Class({
 		this._note = note;
 		let item;
 		item = new PopupMenu.PopupMenuItem(_("Select All"));
-		item.connect('activate', Lang.bind(this, this._onSelectAll));
+		item.connect('activate', this._onSelectAll.bind(this));
 		this.addMenuItem(item);
 		this._selectAllItem = item;
 	},
