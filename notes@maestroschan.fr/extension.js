@@ -206,13 +206,10 @@ const NoteBox = new Lang.Class({
 		this.applyActorStyle();
 		
 		this.actor.connect('enter-event', this.getKeyFocus.bind(this));
-		this.actor.connect('notify::hover', Lang.bind(this, function(a, b) {
-			this.applyActorStyle();
-		}));
+		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
+//		this.actor.connect('notify::hover', (a, b) => { this.applyActorStyle(); });
 		
-		/*
-		 * This is the regular header, as described above.
-		 */
+		// This is the regular header, as described above.
 		this.buttons_box = new St.BoxLayout({
 			vertical: false,
 			visible: true,

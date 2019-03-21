@@ -19,11 +19,12 @@ const OptionsMenu = new Lang.Class({
 	Extends: PopupMenu.PopupMenu,
 
 	_init: function(source) {
-		let side = St.Side.LEFT; //FIXME ??
-		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
+		let side = St.Side.LEFT;
+		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL) {
 			side = St.Side.RIGHT;
-
-		this.parent(source.actor, 0.5, side);
+		}
+		
+		this.parent(source.actor, 0.2, side);
 
 		// We want to keep the item hovered while the menu is up
 		this.blockSourceEvents = true;
@@ -33,10 +34,11 @@ const OptionsMenu = new Lang.Class({
 		this.actor.add_style_class_name('app-well-menu');
 
 		// Chain our visibility and lifecycle to that of the source
-		source.actor.connect('notify::mapped', Lang.bind(this, function () {
-			if (!source.actor.mapped)
+		source.actor.connect('notify::mapped', () => {
+			if (!source.actor.mapped) {
 				this.close();
-		}));
+			}
+		});
 		source.actor.connect('destroy', this.destroy.bind(this));
 
 		Main.uiGroup.add_actor(this.actor);
@@ -240,10 +242,11 @@ var RoundMenuButton = new Lang.Class({
 		this.actor.fake_release();
 		if (!this._menu) {
 			this._menu = new OptionsMenu(this);
-			this._menu.connect('open-state-changed', Lang.bind(this, function (menu, isPoppedUp) {
-				if (!isPoppedUp)
+			this._menu.connect('open-state-changed', (menu, isPoppedUp) => {
+				if (!isPoppedUp) {
 					this._onMenuPoppedDown();
-			}));
+				}
+			});
 			this._menuManager.addMenu(this._menu);
 		}
 		this.emit('menu-state-changed', true);
