@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-21 00:04+0100\n"
+"POT-Creation-Date: 2019-03-25 17:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,53 +17,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: notes@maestroschan.fr/extension.js:225
+#: notes@maestroschan.fr/extension.js:222
 msgid "New"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:226
+#: notes@maestroschan.fr/extension.js:223
 msgid "Delete"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:228
+#: notes@maestroschan.fr/extension.js:225
 msgid "Note options"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:239
+#: notes@maestroschan.fr/extension.js:236
 msgid "Resize"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:285
-#: notes@maestroschan.fr/extension.js:305
+#: notes@maestroschan.fr/extension.js:282
+#: notes@maestroschan.fr/extension.js:302
 msgid "Back"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:290
-#: notes@maestroschan.fr/extension.js:312
+#: notes@maestroschan.fr/extension.js:287
+#: notes@maestroschan.fr/extension.js:309
 msgid "OK"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:310
+#: notes@maestroschan.fr/extension.js:307
 msgid "Delete this note?"
 msgstr ""
 
-#: notes@maestroschan.fr/extension.js:336
+#: notes@maestroschan.fr/extension.js:333
 msgid "Type here…"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js:75
+#: notes@maestroschan.fr/menus.js:77
 msgid "Custom color"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js:77 notes@maestroschan.fr/prefs.js:113
+#: notes@maestroschan.fr/menus.js:79 notes@maestroschan.fr/prefs.js:113
 msgid "Settings"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js:96
+#: notes@maestroschan.fr/menus.js:98
 msgid "Font size"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js:274
+#: notes@maestroschan.fr/menus.js:277
 msgid "Select All"
 msgstr ""
 

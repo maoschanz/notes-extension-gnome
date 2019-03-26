@@ -117,7 +117,8 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		//---------------------------------------------------------------
 		
-		let labelPosition = _("Position of notes:");
+		let labelPosition = new Gtk.Label({ label: _("Position of notes:"),
+		                                             halign: Gtk.Align.START });
 	
 		let positionCombobox = new Gtk.ComboBoxText({
 			visible: true,
@@ -128,7 +129,6 @@ const NotesSettingsWidget = new GObject.Class({
 	
 		positionCombobox.append('special-layer', _("Above everything"));
 		positionCombobox.append('on-background', _("On the background"));
-		positionCombobox.append('in-overview', _("Empty Overview"));
 		positionCombobox.append('above-all', _("Above all, without mask"));
 	
 		positionCombobox.active_id = SETTINGS.get_string('layout-position');
@@ -151,7 +151,7 @@ const NotesSettingsWidget = new GObject.Class({
 			orientation: Gtk.Orientation.HORIZONTAL,
 			spacing: 15,
 		});
-		positionBoxH.pack_start(new Gtk.Label({ label: labelPosition, halign: Gtk.Align.START }), false, false, 0);
+		positionBoxH.pack_start(labelPosition, false, false, 0);
 		positionBoxH.pack_end(positionCombobox, false, false, 0);
 		
 		let warning_label = new Gtk.Label({
@@ -168,7 +168,7 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		//---------------------------------------------------------------
 		
-		let labelHide = _("Hide the icon");
+		let labelHide = new Gtk.Label({ label: _("Hide the icon"), halign: Gtk.Align.START });
 		
 		let hideSwitch = new Gtk.Switch();
 		hideSwitch.set_state(false);
@@ -187,7 +187,7 @@ const NotesSettingsWidget = new GObject.Class({
 			spacing: 15,
 			margin: 6,
 		});
-		hideBox.pack_start(new Gtk.Label({ label: labelHide, halign: Gtk.Align.START }), false, false, 0);
+		hideBox.pack_start(labelHide, false, false, 0);
 		hideBox.pack_end(hideSwitch, false, false, 0);
 		
 		//---------------------------------------------------------------
@@ -207,7 +207,10 @@ const NotesSettingsWidget = new GObject.Class({
 			keybindingEntry.text = SETTINGS.get_strv('keyboard-shortcut')[0];
 		}
 		
-		let keybindingButton = new Gtk.Button({ sensitive: SETTINGS.get_boolean('use-shortcut'), label: _("Apply") });
+		let keybindingButton = new Gtk.Button({
+			sensitive: SETTINGS.get_boolean('use-shortcut'),
+			label: _("Apply")
+		});
 		
 		keybindingButton.connect('clicked', Lang.bind(this, function(widget) {
 			SETTINGS.set_strv('keyboard-shortcut', [keybindingEntry.text]);
@@ -218,7 +221,10 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 		keybindingBox1.get_style_context().add_class('linked');
 		
-		let labelKeybinding = _("Use a keyboard shortcut to toggle notes");
+		let labelKeybinding = new Gtk.Label({
+			label: _("Use a keyboard shortcut to toggle notes"),
+			halign: Gtk.Align.START
+		});
 		
 		let keybindingSwitch = new Gtk.Switch();
 		keybindingSwitch.set_state(true);
@@ -243,7 +249,7 @@ const NotesSettingsWidget = new GObject.Class({
 			spacing: 15,
 			margin: 6,
 		});
-		keybindingBox2.pack_start(new Gtk.Label({ label: labelKeybinding, halign: Gtk.Align.START }), false, false, 0);
+		keybindingBox2.pack_start(labelKeybinding, false, false, 0);
 		keybindingBox2.pack_end(keybindingSwitch, false, false, 0);
 		
 		keybindingBox.pack_start(keybindingBox2, false, false, 0);
@@ -317,10 +323,12 @@ const NotesSettingsWidget = new GObject.Class({
 			halign: Gtk.Align.START, wrap: true, use_markup: true });
 		
 		let help_image_1 = new Gtk.Image({
-			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/help_picture_1.png', 265, 164)
+			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(
+			                Me.path+'/screenshots/help_picture_1.png', 265, 164)
 		});
 		let help_image_2 = new Gtk.Image({
-			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/help_picture_2.png', 383, 233)
+			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(
+			                Me.path+'/screenshots/help_picture_2.png', 383, 233)
 		});
 		
 		main_help_box.add(main_help_label_1);
@@ -392,7 +400,8 @@ const NotesSettingsWidget = new GObject.Class({
 		aboutPage.set_border_width(20);
 		aboutPage.set_spacing(8);
 
-		let a_name = '<b>' + Me.metadata.name.toString() + '</b> (v' + Me.metadata.version.toString() + '.0)';
+		let a_name = '<b>' + Me.metadata.name.toString() + '</b> (v';
+		a_name = a_name +  + Me.metadata.version.toString() + ')';
 		let a_uuid = Me.metadata.uuid.toString();
 		let a_description = _(Me.metadata.description.toString());
 		
@@ -401,8 +410,12 @@ const NotesSettingsWidget = new GObject.Class({
 			use_markup: true,
 			halign: Gtk.Align.CENTER
 		});
-		let a_image = new Gtk.Image({ pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path+'/screenshots/about_picture.png', 326, 228) });
-		let label_description = new Gtk.Label({ label: a_description, wrap: true, halign: Gtk.Align.CENTER });
+		let a_image = new Gtk.Image({
+			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(
+			                 Me.path+'/screenshots/about_picture.png', 326, 228)
+		});
+		let label_description = new Gtk.Label({ label: a_description, wrap: true,
+		                                            halign: Gtk.Align.CENTER });
 		
 		let contrib_string = _("Author:") + ' ' + 'Romain F.T.';
 		if (_("translator-credits") != "translator-credits") {

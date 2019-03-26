@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-21 00:04+0100\n"
+"POT-Creation-Date: 2019-03-25 17:24+0100\n"
 "PO-Revision-Date: 2019-03-21 00:03+0100\n"
 "Last-Translator: Romain F. T. <rrroschan@gmail.com>\n"
 "Language-Team: French <none>\n"
@@ -19,53 +19,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-Generator: Gtranslator 3.32.0\n"
 
-#: notes@maestroschan.fr/extension.js:225
+#: notes@maestroschan.fr/extension.js:222
 msgid "New"
 msgstr "Nouveau"
 
-#: notes@maestroschan.fr/extension.js:226
+#: notes@maestroschan.fr/extension.js:223
 msgid "Delete"
 msgstr "Supprimer"
 
-#: notes@maestroschan.fr/extension.js:228
+#: notes@maestroschan.fr/extension.js:225
 msgid "Note options"
 msgstr "Options de la note"
 
-#: notes@maestroschan.fr/extension.js:239
+#: notes@maestroschan.fr/extension.js:236
 msgid "Resize"
 msgstr "Redimensionner"
 
-#: notes@maestroschan.fr/extension.js:285
-#: notes@maestroschan.fr/extension.js:305
+#: notes@maestroschan.fr/extension.js:282
+#: notes@maestroschan.fr/extension.js:302
 msgid "Back"
 msgstr "Retour"
 
-#: notes@maestroschan.fr/extension.js:290
-#: notes@maestroschan.fr/extension.js:312
+#: notes@maestroschan.fr/extension.js:287
+#: notes@maestroschan.fr/extension.js:309
 msgid "OK"
 msgstr "Ok"
 
-#: notes@maestroschan.fr/extension.js:310
+#: notes@maestroschan.fr/extension.js:307
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
 
-#: notes@maestroschan.fr/extension.js:336
+#: notes@maestroschan.fr/extension.js:333
 msgid "Type here…"
 msgstr "Tapez ici…"
 
-#: notes@maestroschan.fr/menus.js:75
+#: notes@maestroschan.fr/menus.js:77
 msgid "Custom color"
 msgstr "Couleur personnalisée"
 
-#: notes@maestroschan.fr/menus.js:77 notes@maestroschan.fr/prefs.js:113
+#: notes@maestroschan.fr/menus.js:79 notes@maestroschan.fr/prefs.js:113
 msgid "Settings"
 msgstr "Paramètres"
 
-#: notes@maestroschan.fr/menus.js:96
+#: notes@maestroschan.fr/menus.js:98
 msgid "Font size"
-msgstr "Taille de police"
+msgstr "Taille"
 
-#: notes@maestroschan.fr/menus.js:274
+#: notes@maestroschan.fr/menus.js:277
 msgid "Select All"
 msgstr "Sélectionner tout"
 
