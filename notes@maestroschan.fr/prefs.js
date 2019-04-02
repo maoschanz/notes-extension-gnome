@@ -13,7 +13,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
-//-----------------------------------------------
+//------------------------------------------------------------------------------
 
 function init() {
 	Convenience.initTranslations();
@@ -21,264 +21,120 @@ function init() {
 
 let SETTINGS = Convenience.getSettings();
 
-//-----------------------------------------------
-
-class NotesPrefsPage extends Gtk.ScrolledWindow {
-	constructor () {
-		super({
-			vexpand: true,
-			hscrollbar_policy: Gtk.PolicyType.NEVER,
-			can_focus: true
-		});
-		
-		this.stackpageMainBox = new Gtk.Box({
-			visible: true,
-			can_focus: false,
-			margin_left: 40,
-			margin_right: 40,
-			margin_top: 12,
-			margin_bottom: 12,
-			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 12
-		});
-		this.add(this.stackpageMainBox);
-	}
-
-	add_section (titre) {
-		let section = new Gtk.Box({
-			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 6,
-		});
-		if (titre != "") {
-			section.add(new Gtk.Label({
-				label: '<b>' + titre + '</b>',
-				halign: Gtk.Align.START,
-				use_markup: true,
-			}));
-		}
-		let a = new Gtk.ListBox({
-			can_focus: false,
-			has_focus: false,
-			is_focus: false,
-			has_default: false,
-			selection_mode: Gtk.SelectionMode.NONE,
-		});
-		let frame = new Gtk.Frame();
-		frame.add(a)
-		section.add(frame);
-		this.stackpageMainBox.add(section);
-		return a;
-	}
-
-	add_row (filledbox, section) {
-		let a = new Gtk.ListBoxRow({
-			can_focus: false,
-			has_focus: false,
-			is_focus: false,
-			has_default: false,
-			selectable: false,
-		});
-		a.add(filledbox);
-		section.add(a);
-		return a;
-	}
-
-	add_widget (filledbox) {
-		this.stackpageMainBox.add(filledbox);
-	}
-};
-
-//-----------------------------------------------
+//------------------------------------------------------------------------------
 
 const NotesSettingsWidget = new GObject.Class({
 	Name: 'NotesSettingsWidget',
 	GTypeName: 'NotesSettingsWidget',
-	Extends: Gtk.Stack,
 
-	_init: function () {
-		this.parent({transition_type: Gtk.StackTransitionType.SLIDE_LEFT_RIGHT});
+	_init: function() {
+		let builder = new Gtk.Builder();
+		builder.add_from_file(Me.path+'/prefs.ui');
+		this.prefs_stack = builder.get_object('prefs_stack');
 		
 		this.switcher = new Gtk.StackSwitcher({
 			halign: Gtk.Align.CENTER,
-			stack: this
-		});
-		
-		//---------------------------------------------------------------
-		
-		let settingsPage = this.add_page('settings', _("Settings"), true);
-		
-		let displaySection = settingsPage.add_section(_("Display"));
-		let keybindingSection = settingsPage.add_section(_("Keybinding"));
-		
-		//---------------------------------------------------------------
-		
-		let labelPosition = new Gtk.Label({ label: _("Position of notes:"),
-		                                             halign: Gtk.Align.START });
-	
-		let positionCombobox = new Gtk.ComboBoxText({
 			visible: true,
-			can_focus: true,
-			halign: Gtk.Align.END,
-			valign: Gtk.Align.CENTER
+			stack: this.prefs_stack
 		});
-	
-		positionCombobox.append('special-layer', _("Above everything"));
-		positionCombobox.append('on-background', _("On the background"));
-		positionCombobox.append('above-all', _("Above all, without mask"));
-	
-		positionCombobox.active_id = SETTINGS.get_string('layout-position');
 		
-		positionCombobox.connect("changed", (widget) => {
+		//----------------------------------------------------------------------
+		
+		let position_combobox = builder.get_object('position_combobox');
+		
+		position_combobox.append('special-layer', _("Above everything"));
+		position_combobox.append('on-background', _("On the background"));
+		position_combobox.append('above-all', _("Above all, without mask"));
+	
+		position_combobox.active_id = SETTINGS.get_string('layout-position');
+		
+		position_combobox.connect("changed", (widget) => {
 			SETTINGS.set_string('layout-position', widget.get_active_id());
 			if( (widget.get_active_id() == 'above-all') || (widget.get_active_id() == 'special-layer') ) {
-				showSwitch.set_sensitive(false);
+				hide_switch.set_sensitive(false);
 			} else {
-				showSwitch.set_sensitive(true);
+				hide_switch.set_sensitive(true);
 			}
 		});
-	
-		let positionBox = new Gtk.Box({
-			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 15,
-			margin: 6,
-		});
-		let positionBoxH = new Gtk.Box({
-			orientation: Gtk.Orientation.HORIZONTAL,
-			spacing: 15,
-		});
-		positionBoxH.pack_start(labelPosition, false, false, 0);
-		positionBoxH.pack_end(positionCombobox, false, false, 0);
-		
-		let warning_label = new Gtk.Label({
-			label: _("\"On the background\" is incompatible with the \'nautilus"+
-			"-desktop\' Ubuntu component.\n\"Above all, without mask\" is "+
-			"discouraged, since it makes it harder to resize or move your sticky notes."),
-			halign: Gtk.Align.START,
-			wrap: true,
-		})
-		warning_label.get_style_context().add_class('dim-label');
-		
-		positionBox.pack_start(positionBoxH, false, false, 0);
-		positionBox.pack_end(warning_label, false, false, 0);
-		
-		//---------------------------------------------------------------
-		
-		let labelHide = new Gtk.Label({ label: _("Hide the icon"), halign: Gtk.Align.START });
-		
-		let hideSwitch = new Gtk.Switch();
-		hideSwitch.set_state(false);
-		hideSwitch.set_state(SETTINGS.get_boolean('hide-icon'));
-		
-		hideSwitch.connect('notify::active', (widget) => {
+
+		//----------------------------------------------------------------------
+
+		let hide_switch = builder.get_object('hide_switch');
+		hide_switch.set_state(SETTINGS.get_boolean('hide-icon'));
+		hide_switch.connect('notify::active', (widget) => {
 			if (widget.active) {
 				SETTINGS.set_boolean('hide-icon', true);
 			} else {
 				SETTINGS.set_boolean('hide-icon', false);
 			}
 		});
-		
-		let hideBox = new Gtk.Box({
-			orientation: Gtk.Orientation.HORIZONTAL,
-			spacing: 15,
-			margin: 6,
-		});
-		hideBox.pack_start(labelHide, false, false, 0);
-		hideBox.pack_end(hideSwitch, false, false, 0);
-		
-		//---------------------------------------------------------------
-		
-		let keybindingBox = new Gtk.Box({
-			orientation: Gtk.Orientation.VERTICAL,
-			spacing: 5,
-			tooltip_text: _("Default value is") + " <Super>n"
-		});
-		
-		let keybindingEntry = new Gtk.Entry({
-			sensitive: SETTINGS.get_boolean('use-shortcut'),
-			hexpand: true
-		});
-		
+
+		//----------------------------------------------------------------------
+
+		let keybinding_entry = builder.get_object('keybinding_entry');
+		keybinding_entry.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
+
 		if (SETTINGS.get_strv('keyboard-shortcut') != '') {
-			keybindingEntry.text = SETTINGS.get_strv('keyboard-shortcut')[0];
+			keybinding_entry.text = SETTINGS.get_strv('keyboard-shortcut')[0];
 		}
-		
-		let keybindingButton = new Gtk.Button({
-			sensitive: SETTINGS.get_boolean('use-shortcut'),
-			label: _("Apply")
+
+		let keybinding_button = builder.get_object('keybinding_button');
+		keybinding_button.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
+
+		keybinding_button.connect('clicked', (widget) => {
+			SETTINGS.set_strv('keyboard-shortcut', [keybinding_entry.text]);
 		});
-		
-		keybindingButton.connect('clicked', (widget) => {
-			SETTINGS.set_strv('keyboard-shortcut', [keybindingEntry.text]);
-		});
-		let keybindingBox1 = new Gtk.Box({
-			orientation: Gtk.Orientation.HORIZONTAL,
-			margin: 6,
-		});
-		keybindingBox1.get_style_context().add_class('linked');
-		
-		let labelKeybinding = new Gtk.Label({
-			label: _("Use a keyboard shortcut to toggle notes"),
-			halign: Gtk.Align.START
-		});
-		
-		let keybindingSwitch = new Gtk.Switch();
-		keybindingSwitch.set_state(true);
-		keybindingSwitch.set_state(SETTINGS.get_boolean('use-shortcut'));
-		
-		keybindingSwitch.connect('notify::active', (widget) => {
+
+		let keybinding_switch = builder.get_object('keybinding_switch');
+		keybinding_switch.set_state(SETTINGS.get_boolean('use-shortcut'));
+
+		keybinding_switch.connect('notify::active', (widget) => {
 			if (widget.active) {
 				SETTINGS.set_boolean('use-shortcut', true);
-				keybindingEntry.sensitive = true;
-				keybindingButton.sensitive = true;
-				hideBox.sensitive = true;
+				keybinding_entry.sensitive = true;
+				keybinding_button.sensitive = true;
+				hide_switch.sensitive = true;
 			} else {
 				SETTINGS.set_boolean('use-shortcut', false);
-				keybindingEntry.sensitive = false;
-				keybindingButton.sensitive = false;
-				hideBox.sensitive = false;
+				keybinding_entry.sensitive = false;
+				keybinding_button.sensitive = false;
+				hide_switch.sensitive = false;
 			}
 		});
+
+//		//----------------------------------------------------------------------
+//		
+//		this.build_help_page();
+
+		//----------------------------------------------------------------------
 		
-		let keybindingBox2 = new Gtk.Box({
-			orientation: Gtk.Orientation.HORIZONTAL,
-			spacing: 15,
-			margin: 6,
+		builder.get_object('about_icon').set_from_pixbuf(
+			GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path +
+			                         '/screenshots/about_picture.png', 326, 228)
+		);
+		
+		let translation_credits = builder.get_object('translation_credits').get_label();
+		if (translation_credits == 'translator-credits') {
+			builder.get_object('translation_label').set_label('');
+			builder.get_object('translation_credits').set_label('');
+		}
+		
+		let linkBox = builder.get_object('link_box')// FIXME padding ???
+		let a_version = ' (v' + Me.metadata.version.toString() + ') ';
+		
+		let url_button = new Gtk.LinkButton({
+			label: _("Report bugs or ideas"),
+			uri: Me.metadata.url.toString()
 		});
-		keybindingBox2.pack_start(labelKeybinding, false, false, 0);
-		keybindingBox2.pack_end(keybindingSwitch, false, false, 0);
 		
-		keybindingBox.pack_start(keybindingBox2, false, false, 0);
-		keybindingBox1.pack_start(keybindingEntry, true, true, 0);
-		keybindingBox1.pack_end(keybindingButton, false, false, 0);
-		keybindingBox.pack_end(keybindingBox1, false, false, 0);
-
-		//-----------------------------
+		linkBox.pack_start(url_button, false, false, 0);
+		linkBox.pack_end(new Gtk.Label({ label: a_version, halign: Gtk.Align.START }), false, false, 0);
 		
-		settingsPage.add_row(positionBox, displaySection);
-		settingsPage.add_row(keybindingBox, keybindingSection);
-		settingsPage.add_row(hideBox, keybindingSection);
-
-		//-------------------------------
-		
-		this.build_help_page();
-		this.build_about_page();
-		
-		//-------------------------------
+		//----------------------------------------------------------------------
 		
 		this.switcher.show_all();
 	},
 
-	add_page: function (id, title, will_use_classic_layout) {
-		let page;
-		if (will_use_classic_layout) {
-			page = new NotesPrefsPage();
-		} else {
-			page = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL});
-		}
-		this.add_titled(page, id, title);
-		return page;
-	},
-	
 	build_help_page: function() {
 		let helpPage = this.add_page('help', _("Help"), false);
 		let tabs = new Gtk.Notebook({ tab_pos: Gtk.PositionType.LEFT, expand: true, });
@@ -389,50 +245,6 @@ const NotesSettingsWidget = new GObject.Class({
 		reset_box.add(reset_button);
 		tabs.append_page(reset_box, new Gtk.Label({ label: _("Lost some notes?"), }))
 	},
-	
-	build_about_page: function() {
-		let aboutPage = this.add_page('about', _("About"), false);
-		aboutPage.set_border_width(20);
-		aboutPage.set_spacing(8);
-
-		let a_name = '<b>' + Me.metadata.name.toString() + '</b> (v';
-		a_name = a_name +  + Me.metadata.version.toString() + ')';
-		let a_uuid = Me.metadata.uuid.toString();
-		let a_description = _(Me.metadata.description.toString());
-		
-		let label_name = new Gtk.Label({
-			label: a_name,
-			use_markup: true,
-			halign: Gtk.Align.CENTER
-		});
-		let a_image = new Gtk.Image({
-			pixbuf: GdkPixbuf.Pixbuf.new_from_file_at_size(
-			                 Me.path+'/screenshots/about_picture.png', 326, 228)
-		});
-		let label_description = new Gtk.Label({ label: a_description, wrap: true,
-		                                            halign: Gtk.Align.CENTER });
-		
-		let contrib_string = _("Author:") + ' ' + 'Romain F.T.';
-		if (_("translator-credits") != "translator-credits") {
-			contrib_string += '\n' + _("Translator:") + ' ' + _("translator-credits");
-		}
-		let label_contributors = new Gtk.Label({
-			label: contrib_string,
-			wrap: true,
-			halign: Gtk.Align.CENTER
-		});
-		
-		let url_button = new Gtk.LinkButton({
-			label: _("Report bugs or ideas"),
-			uri: Me.metadata.url.toString()
-		});
-		
-		aboutPage.pack_start(label_name, false, false, 0);
-		aboutPage.pack_start(a_image, false, false, 0);
-		aboutPage.pack_start(label_description, false, false, 0);
-		aboutPage.pack_start(label_contributors, false, false, 0);
-		aboutPage.pack_start(url_button, false, false, 0);
-	},
 });
 
 //-----------------------------------------------
@@ -442,12 +254,12 @@ const NotesSettingsWidget = new GObject.Class({
 function buildPrefsWidget() {
 	let widget = new NotesSettingsWidget();
 	Mainloop.timeout_add(0, () => {
-		let headerBar = widget.get_toplevel().get_titlebar();
+		let headerBar = widget.prefs_stack.get_toplevel().get_titlebar();
 		headerBar.custom_title = widget.switcher;
 		return false;
 	});
-	widget.show_all();
-	return widget;
+	widget.prefs_stack.show_all();
+	return widget.prefs_stack;
 }
 
 //-----------------------------------------------

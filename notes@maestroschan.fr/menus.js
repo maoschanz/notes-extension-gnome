@@ -1,4 +1,5 @@
 const Clutter = imports.gi.Clutter;
+const Gtk = imports.gi.Gtk;
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
@@ -14,13 +15,11 @@ const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
 class OptionsMenu {
-
 	constructor (source) {
 		let side = St.Side.LEFT;
 		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL) {
 			side = St.Side.RIGHT;
 		}
-		
 		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, side);
 
 		// We want to keep the item hovered while the menu is up
@@ -160,42 +159,8 @@ class OptionsMenu {
 		Util.spawn(["gnome-shell-extension-prefs", "notes@maestroschan.fr"]);
 	}
 
-	_onApply (color, button) { // FIXME évidemment pas dans la bonne classe
-		this.super_menu._source._note.blackFontColor();
-		let temp;
-		switch(color) {
-			case 'red':
-				temp = '250,0,0';
-				this.super_menu._source._note.whiteFontColor();
-				break;
-			case 'magenta':
-				temp = '255,0,255';
-				break;
-			case 'yellow':
-				temp = '255,255,0';
-				break;
-			case 'white':
-				temp = '255,255,255';
-				break;
-			case 'cyan':
-				temp = '0,255,255';
-				break;
-			case 'green':
-				temp = '0,255,0';
-				break;
-			case 'blue':
-				temp = '0,0,250';
-				this.super_menu._source._note.whiteFontColor();
-				break;
-			case 'black':
-			default:
-				temp = '10,10,10';
-				this.super_menu._source._note.whiteFontColor();
-				break;
-		}
-		this.super_menu._source._note.customColor = temp;
-		this.super_menu._source._note.applyNoteStyle();
-		this.super_menu._source._note.applyActorStyle();
+	_onApply (color, button) {
+		this.super_menu._source._note.applyPresetColor(color);
 	}
 
 	popup (activatingButton) {
@@ -203,14 +168,12 @@ class OptionsMenu {
 		this.super_menu.open();
 	}
 
-	_onBigger () { // FIXME évidemment pas dans la bonne classe
-		this.super_menu._source._note._fontSize = this.super_menu._source._note._fontSize + 2;
-		this.super_menu._source._note.applyNoteStyle();
+	_onBigger () {
+		this.super_menu._source._note.crementFontSize(1);
 	}
 
-	_onSmaller () { // FIXME évidemment pas dans la bonne classe
-		this.super_menu._source._note._fontSize = this.super_menu._source._note._fontSize - 2;
-		this.super_menu._source._note.applyNoteStyle();
+	_onSmaller () {
+		this.super_menu._source._note.crementFontSize(-1);
 	}
 };
 Signals.addSignalMethods(OptionsMenu.prototype);

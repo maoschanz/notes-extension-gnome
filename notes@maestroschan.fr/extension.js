@@ -110,11 +110,8 @@ class NotesButton {
 	}
 
 	update_icon_visibility () {
-		if (Convenience.getSettings().get_boolean('hide-icon')) {
-			this.super_btn.actor.visible = false;
-		} else {
-			this.super_btn.actor.visible = true;
-		}
+		// XXX ??????????????? unexplained bug
+		this.super_btn.actor.visible = !Convenience.getSettings().get_boolean('hide-icon');
 	}
 
 	toggleState () {

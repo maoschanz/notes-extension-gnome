@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="notes-extension">
+
+	<object class="GtkStack" id="prefs_stack">
+		<property name="transition-type">slide-left-right</property>
+		
+		<child>
+			<object class="GtkScrolledWindow" id="settings_page">
+				<child>
+					<object class="GtkGrid">
+						<property name="expand">True</property>
+						<property name="row-spacing">12</property>
+						<property name="column-spacing">36</property>
+						<property name="halign">center</property>
+						<property name="margin">24</property>
+
+						<child>
+							<object class="GtkLabel">
+								<property name="halign">end</property>
+								<property name="expand">False</property>
+								<property name="label" translatable="yes">Position of notes</property>
+							</object>
+							<packing>
+								<property name="left-attach">0</property>
+								<property name="top-attach">0</property>
+							</packing>
+						</child>
+						<child>
+							<object class="GtkComboBoxText" id="position_combobox">
+								<property name="expand">False</property>
+							</object>
+							<packing>
+								<property name="left-attach">1</property>
+								<property name="top-attach">0</property>
+							</packing>
+						</child>
+
+						<child>
+							<object class="GtkLabel">
+								<property name="expand">False</property>
+								<property name="wrap">True</property>
+								<property name="halign">center</property>
+								<property name="label" translatable="yes">"On the background" is incompatible with desktop icons.
+"Above all, without mask" is discouraged, since it makes
+it harder to resize or move your sticky notes.</property>
+								<style>
+									<class name="dim-label"/>
+								</style>
+							</object>
+							<packing>
+								<property name="width">2</property>
+								<property name="left-attach">0</property>
+								<property name="top-attach">1</property>
+							</packing>
+						</child>
+
+						<child>
+							<object class="GtkLabel">
+								<property name="halign">end</property>
+								<property name="expand">False</property>
+								<property name="label" translatable="yes">Hide the icon</property>
+							</object>
+							<packing>
+								<property name="left-attach">0</property>
+								<property name="top-attach">2</property>
+							</packing>
+						</child>
+						<child>
+							<object class="GtkSwitch" id="hide_switch">
+								<property name="expand">False</property>
+								<property name="halign">start</property>
+							</object>
+							<packing>
+								<property name="left-attach">1</property>
+								<property name="top-attach">2</property>
+							</packing>
+						</child>
+						
+						<child>
+							<object class="GtkSeparator">
+								<property name="expand">False</property>
+							</object>
+							<packing>
+								<property name="left-attach">0</property>
+								<property name="top-attach">3</property>
+								<property name="width">2</property>
+							</packing>
+						</child>
+
+						<child>
+							<object class="GtkLabel">
+								<property name="expand">False</property>
+								<property name="halign">end</property>
+								<property name="label" translatable="yes">Use a keyboard shortcut</property>
+								<property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes</property>
+							</object>
+							<packing>
+								<property name="left-attach">0</property>
+								<property name="top-attach">7</property>
+							</packing>
+						</child>
+						<child>
+							<object class="GtkSwitch" id="keybinding_switch">
+								<property name="expand">False</property>
+								<property name="halign">start</property>
+							</object>
+							<packing>
+								<property name="left-attach">1</property>
+								<property name="top-attach">7</property>
+							</packing>
+						</child>
+
+						<child>
+							<object class="GtkEntry" id="keybinding_entry">
+								<property name="expand">False</property>
+								<property name="halign">end</property>
+								<property name="tooltip_text" translatable="yes">Default value is &lt;Super&gt;n</property>
+							</object>
+							<packing>
+								<property name="left-attach">0</property>
+								<property name="top-attach">8</property>
+							</packing>
+						</child>
+						<child>
+							<object class="GtkButton" id="keybinding_button">
+								<property name="expand">False</property>
+								<property name="halign">start</property>
+								<property name="label" translatable="yes">Apply</property>
+							</object>
+							<packing>
+								<property name="left-attach">1</property>
+								<property name="top-attach">8</property>
+							</packing>
+						</child>
+
+					</object>
+				</child>
+			</object>
+			<packing>
+				<property name="name">settings_page</property>
+				<property name="title" translatable="yes">Settings</property>
+			</packing>
+		</child>
+
+		<child>
+			<object class="GtkScrolledWindow" id="help_page">
+				<child>
+					<object class="GtkBox">
+						<property name="expand">True</property>
+						<property name="orientation">horizontal</property>
+						<child>
+							<object class="GtkStackSidebar">
+<!--								<property name="stack">TODO</property>-->
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+			<packing>
+				<property name="name">help_page</property>
+				<property name="title" translatable="yes">Help</property>
+			</packing>
+		</child>
+
+		<child>
+			<object class="GtkScrolledWindow">
+				<child>
+					<object class="GtkBox">
+						<property name="spacing">12</property>
+						<property name="margin">24</property>
+						<property name="orientation">vertical</property>
+						<child>
+							<object class="GtkLabel">
+								<property name="halign">center</property>
+								<property name="label" translatable="yes">Notes</property>
+								<attributes>
+									<attribute name="weight" value="bold"/>
+<!--									<attribute name="scale" value="2"/>-->
+								</attributes>
+							</object>
+						</child>
+						<child>
+							<object class="GtkImage" id="about_icon"></object>
+						</child>
+						<child>
+							<object class="GtkLabel" id="label_description">
+								<property name="label" translatable="yes">Sticky notes for the GNOME Shell desktop.</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkBox" id="link_box">
+								<property name="spacing">12</property>
+							</object>
+							<packing>
+								<property name="pack-type">end</property>
+							</packing>
+						</child>
+						<child>
+							<object class="GtkBox">
+								<property name="spacing">12</property>
+								<child>
+									<object class="GtkBox">
+										<property name="spacing">12</property>
+										<child>
+											<object class="GtkLabel">
+												<property name="label" translatable="yes">Author:</property>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel">
+												<property name="label">Romain F. T.</property>
+											</object>
+										</child>
+									</object>
+								</child>
+								<child>
+									<object class="GtkBox">
+									<property name="spacing">12</property>
+										<child>
+											<object class="GtkLabel" id="translation_label">
+												<property name="label" translatable="yes">Tranlators:</property>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel" id="translation_credits">
+												<property name="label" translatable="yes">translator-credits</property>
+											</object>
+										</child>
+									</object>
+									<packing>
+										<property name="pack-type">end</property>
+									</packing>
+								</child>
+							</object>
+							<packing>
+								<property name="pack-type">end</property>
+							</packing>
+						</child>
+					</object>
+				</child>
+			</object>
+			<packing>
+				<property name="name">about_page</property>
+				<property name="title" translatable="yes">About</property>
+			</packing>
+		</child>
+	</object>
+</interface>
+

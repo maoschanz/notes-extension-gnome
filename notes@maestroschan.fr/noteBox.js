@@ -73,12 +73,8 @@ var NoteBox = class NoteBox {
 		let temp;
 		if (is_hovered) {
 			temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
-//			if(this._fontColor != '') {
-//				temp += 'color: ' + this._fontColor + ';';
-//			}
 		} else {
 			temp = 'background-color: rgba(' + this.customColor + ', 0.4);';
-//			temp += 'color: rgba(' + this.customColor + ', 0.7);';
 		}
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -98,7 +94,6 @@ var NoteBox = class NoteBox {
 	}
 
 	_addButton (box, icon, accessibleName) {
-
 		let button = new St.Button({
 			child: new St.Icon({
 				icon_name: icon,
@@ -118,9 +113,7 @@ var NoteBox = class NoteBox {
 			y_fill: true,
 			style: 'margin: 0px;',
 		});
-
 		box.add(button);
-
 		return button;
 	}
 
@@ -156,7 +149,7 @@ var NoteBox = class NoteBox {
 		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', this.showDelete.bind(this));
 		
 		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
-		this.optionsMenuButton = new Menus.RoundMenuButton( this, optionsButton );
+		this.optionsMenuButton = new Menus.RoundMenuButton(this, optionsButton);
 
 		this.moveBox = new St.Button({
 			x_expand: true,
@@ -219,10 +212,8 @@ var NoteBox = class NoteBox {
 		this.color_box.add_actor(this.colorEntryB);
 		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', this.applyColor.bind(this));
 		
-		/*
-		 * This is the interface for deletion. The whole box is hidden by default, and will
-		 * be shown instead of the regular header if the user needs it.
-		 */
+		// This is the UI for deletion. The whole box is hidden by default, and will
+		// be shown instead of the regular header if the user needs it.
 		this.delete_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -490,11 +481,16 @@ var NoteBox = class NoteBox {
 		this.applyNoteStyle();
 	}
 
-	/*
-	 * This weird crap applies the custom color from the 3 entries. It requires
-	 * string manipulations since the color is set in a text file in the 'r,g,b'
-	 * format. Also, the text coloration needs to be updated.
-	 */
+	crementFontSize (delta) {
+		if (this._fontSize + delta > 1) {
+			this._fontSize += delta;
+			this.applyNoteStyle();
+		}
+	}
+
+	// This weird crap applies the custom color from the 3 entries. It requires
+	// string manipulations since the color is set in a text file in the 'r,g,b'
+	// format. Also, the text coloration needs to be updated.
 	applyColor () {
 		let temp = '';
 		let total = 0;
@@ -544,8 +540,45 @@ var NoteBox = class NoteBox {
 		this.applyActorStyle();
 	}
 
+	applyPresetColor (color) {
+		this.blackFontColor();
+		let temp;
+		switch(color) {
+			case 'red':
+				temp = '250,0,0';
+				this.whiteFontColor();
+				break;
+			case 'magenta':
+				temp = '255,0,255';
+				break;
+			case 'yellow':
+				temp = '255,255,0';
+				break;
+			case 'white':
+				temp = '255,255,255';
+				break;
+			case 'cyan':
+				temp = '0,255,255';
+				break;
+			case 'green':
+				temp = '0,255,0';
+				break;
+			case 'blue':
+				temp = '0,0,250';
+				this.whiteFontColor();
+				break;
+			case 'black':
+			default:
+				temp = '10,10,10';
+				this.whiteFontColor();
+				break;
+		}
+		this.customColor = temp;
+		this.applyNoteStyle();
+		this.applyActorStyle();
+	}
+
 	loadText () {
-	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			GLib.file_set_contents(file2, '');
@@ -597,16 +630,16 @@ var NoteBox = class NoteBox {
 	}
 
 	loadState () {
-	
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			let defaultPosition = this.computeRandomPosition();
 			GLib.file_set_contents(
 				file2,
-				defaultPosition[0].toString() + ';' + defaultPosition[1].toString() + ';' + this.customColor + ';250;200;' + this._fontSize + ';true;'
+				defaultPosition[0].toString() + ';' + defaultPosition[1].toString()
+				+ ';' + this.customColor + ';250;200;' + this._fontSize + ';true;'
 			);
 		}
-	
+
 		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_state');
 		let [result, contents] = file.load_contents(null);
 		if (!result) {
