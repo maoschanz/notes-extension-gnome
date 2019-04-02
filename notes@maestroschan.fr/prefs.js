@@ -1,7 +1,6 @@
 
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
-const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Gdk = imports.gi.Gdk;
 const GdkPixbuf = imports.gi.GdkPixbuf;
@@ -24,12 +23,9 @@ let SETTINGS = Convenience.getSettings();
 
 //-----------------------------------------------
 
-const NotesPrefsPage = new Lang.Class({
-	Name: "NotesPrefsPage",
-	Extends: Gtk.ScrolledWindow,
-
-	_init: function () {
-		this.parent({
+class NotesPrefsPage extends Gtk.ScrolledWindow {
+	constructor () {
+		super({
 			vexpand: true,
 			hscrollbar_policy: Gtk.PolicyType.NEVER,
 			can_focus: true
@@ -46,9 +42,9 @@ const NotesPrefsPage = new Lang.Class({
 			spacing: 12
 		});
 		this.add(this.stackpageMainBox);
-	},
-	
-	add_section: function(titre) {
+	}
+
+	add_section (titre) {
 		let section = new Gtk.Box({
 			orientation: Gtk.Orientation.VERTICAL,
 			spacing: 6,
@@ -60,7 +56,6 @@ const NotesPrefsPage = new Lang.Class({
 				use_markup: true,
 			}));
 		}
-	
 		let a = new Gtk.ListBox({
 			can_focus: false,
 			has_focus: false,
@@ -73,9 +68,9 @@ const NotesPrefsPage = new Lang.Class({
 		section.add(frame);
 		this.stackpageMainBox.add(section);
 		return a;
-	},
+	}
 
-	add_row: function(filledbox, section) {
+	add_row (filledbox, section) {
 		let a = new Gtk.ListBoxRow({
 			can_focus: false,
 			has_focus: false,
@@ -86,12 +81,12 @@ const NotesPrefsPage = new Lang.Class({
 		a.add(filledbox);
 		section.add(a);
 		return a;
-	},
-	
-	add_widget: function(filledbox) {
+	}
+
+	add_widget (filledbox) {
 		this.stackpageMainBox.add(filledbox);
-	},
-});
+	}
+};
 
 //-----------------------------------------------
 
@@ -174,13 +169,13 @@ const NotesSettingsWidget = new GObject.Class({
 		hideSwitch.set_state(false);
 		hideSwitch.set_state(SETTINGS.get_boolean('hide-icon'));
 		
-		hideSwitch.connect('notify::active', Lang.bind(this, function(widget) {
+		hideSwitch.connect('notify::active', (widget) => {
 			if (widget.active) {
 				SETTINGS.set_boolean('hide-icon', true);
 			} else {
 				SETTINGS.set_boolean('hide-icon', false);
 			}
-		}));
+		});
 		
 		let hideBox = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
@@ -212,9 +207,9 @@ const NotesSettingsWidget = new GObject.Class({
 			label: _("Apply")
 		});
 		
-		keybindingButton.connect('clicked', Lang.bind(this, function(widget) {
+		keybindingButton.connect('clicked', (widget) => {
 			SETTINGS.set_strv('keyboard-shortcut', [keybindingEntry.text]);
-		}));
+		});
 		let keybindingBox1 = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
 			margin: 6,
@@ -230,7 +225,7 @@ const NotesSettingsWidget = new GObject.Class({
 		keybindingSwitch.set_state(true);
 		keybindingSwitch.set_state(SETTINGS.get_boolean('use-shortcut'));
 		
-		keybindingSwitch.connect('notify::active', Lang.bind(this, function(widget) {
+		keybindingSwitch.connect('notify::active', (widget) => {
 			if (widget.active) {
 				SETTINGS.set_boolean('use-shortcut', true);
 				keybindingEntry.sensitive = true;
@@ -242,7 +237,7 @@ const NotesSettingsWidget = new GObject.Class({
 				keybindingButton.sensitive = false;
 				hideBox.sensitive = false;
 			}
-		}));
+		});
 		
 		let keybindingBox2 = new Gtk.Box({
 			orientation: Gtk.Orientation.HORIZONTAL,
@@ -275,7 +270,7 @@ const NotesSettingsWidget = new GObject.Class({
 
 	add_page: function (id, title, will_use_classic_layout) {
 		let page;
-		if (will_use_classic_layout){
+		if (will_use_classic_layout) {
 			page = new NotesPrefsPage();
 		} else {
 			page = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL});
@@ -366,9 +361,9 @@ const NotesSettingsWidget = new GObject.Class({
 		});
 		
 		let data_button = new Gtk.Button({ label: _("Open the storage directory") });
-		data_button.connect('clicked', Lang.bind(this, function(widget) {
+		data_button.connect('clicked', (widget) => {
 			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
-		}));
+		});
 		data_button.get_style_context().add_class('suggested-action');
 		
 		data_box.add(data_label_1);
@@ -387,9 +382,9 @@ const NotesSettingsWidget = new GObject.Class({
 			"(example: if you had notes on a secondary monitor and unplugged it)."
 		), halign: Gtk.Align.START, wrap: true, use_markup: true });
 		let reset_button = new Gtk.Button({ label: _("Bring back all notes to the primary monitor") });
-		reset_button.connect('clicked', Lang.bind(this, function(widget) {
+		reset_button.connect('clicked', (widget) => {
 			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
-		}));
+		});
 		reset_box.add(reset_label);
 		reset_box.add(reset_button);
 		tabs.append_page(reset_box, new Gtk.Label({ label: _("Lost some notes?"), }))

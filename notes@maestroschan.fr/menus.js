@@ -1,5 +1,4 @@
 const Clutter = imports.gi.Clutter;
-const Lang = imports.lang;
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
@@ -14,38 +13,35 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
-const OptionsMenu = new Lang.Class({
-	Name: 'OptionsMenu',
-	Extends: PopupMenu.PopupMenu,
+class OptionsMenu {
 
-	_init: function(source) {
+	constructor (source) {
 		let side = St.Side.LEFT;
 		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL) {
 			side = St.Side.RIGHT;
 		}
 		
-		this.parent(source.actor, 0.2, side);
+		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, side);
 
 		// We want to keep the item hovered while the menu is up
 		this.blockSourceEvents = true;
 
-		this._source = source;
-
-		this.actor.add_style_class_name('app-well-menu');
+		this.super_menu._source = source;
+		this.super_menu.actor.add_style_class_name('app-well-menu');
 
 		// Chain our visibility and lifecycle to that of the source
 		source.actor.connect('notify::mapped', () => {
 			if (!source.actor.mapped) {
-				this.close();
+				this.super_menu.close();
 			}
 		});
-		source.actor.connect('destroy', this.destroy.bind(this));
+		source.actor.connect('destroy', this.super_menu.destroy.bind(this));
 
-		Main.uiGroup.add_actor(this.actor);
-	},
+		Main.uiGroup.add_actor(this.super_menu.actor);
+	}
 
-	_redisplay: function() {
-		this.removeAll();
+	_redisplay () {
+		this.super_menu.removeAll();
 		
 		this.size_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
@@ -70,10 +66,10 @@ const OptionsMenu = new Lang.Class({
 			can_focus: false
 		});
 		
-		this.addMenuItem(this.size_item);
+		this.super_menu.addMenuItem(this.size_item);
 		this._appendSeparator();
-		this.addMenuItem(this.color1_item);
-		this.addMenuItem(this.color2_item);
+		this.super_menu.addMenuItem(this.color1_item);
+		this.super_menu.addMenuItem(this.color2_item);
 		this._appendMenuItem( _("Custom color") ).connect('activate', this._onCustom.bind(this));
 		this._appendSeparator();
 		this._appendMenuItem( _("Settings") ).connect('activate', this._onSettings.bind(this));
@@ -91,10 +87,11 @@ const OptionsMenu = new Lang.Class({
 		this._addColorButton('white', 2);
 		
 		this._buildSizeItem();
-	},
-	
-	_buildSizeItem: function() {
+	}
+
+	_buildSizeItem () {
 		let sizeLabel = new St.Label({
+			// Have to be a very short string
 			text: _("Font size"),
 			y_align: Clutter.ActorAlign.CENTER,
 		});
@@ -130,9 +127,9 @@ const OptionsMenu = new Lang.Class({
 		this.size_item.actor.add( sizeLabel, { expand: true, x_fill: true } );
 		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
 		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
-	},
-	
-	_addColorButton: function(color, line) {
+	}
+
+	_addColorButton (color, line) {
 		let btn = new St.Button({
 			style_class: 'calendar-today calendar-day-base',
 			style: 'background-color: ' + color + ';',
@@ -143,33 +140,33 @@ const OptionsMenu = new Lang.Class({
 			this.color2_item.actor.add( btn );
 		}
 		btn.connect('clicked', this._onApply.bind(this, color));
-	},
-	
-	_appendSeparator: function () {
-		this.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-	},
+	}
 
-	_appendMenuItem: function(labelText) {
+	_appendSeparator () {
+		this.super_menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+	}
+
+	_appendMenuItem (labelText) {
 		let item = new PopupMenu.PopupMenuItem(labelText);
-		this.addMenuItem(item);
+		this.super_menu.addMenuItem(item);
 		return item;
-	},
-	
-	_onCustom: function() {
-		this._source._note.showColor();
-	},
-	
-	_onSettings: function() {
+	}
+
+	_onCustom () {
+		this.super_menu._source._note.showColor();
+	}
+
+	_onSettings () {
 		Util.spawn(["gnome-shell-extension-prefs", "notes@maestroschan.fr"]);
-	},
-	
-	_onApply: function(color, button) {
-		this._source._note.blackFontColor();
+	}
+
+	_onApply (color, button) { // FIXME évidemment pas dans la bonne classe
+		this.super_menu._source._note.blackFontColor();
 		let temp;
 		switch(color) {
 			case 'red':
 				temp = '250,0,0';
-				this._source._note.whiteFontColor();
+				this.super_menu._source._note.whiteFontColor();
 				break;
 			case 'magenta':
 				temp = '255,0,255';
@@ -188,57 +185,53 @@ const OptionsMenu = new Lang.Class({
 				break;
 			case 'blue':
 				temp = '0,0,250';
-				this._source._note.whiteFontColor();
+				this.super_menu._source._note.whiteFontColor();
 				break;
 			case 'black':
 			default:
 				temp = '10,10,10';
-				this._source._note.whiteFontColor();
+				this.super_menu._source._note.whiteFontColor();
 				break;
 		}
-		this._source._note.customColor = temp;
-		this._source._note.applyNoteStyle();
-		this._source._note.applyActorStyle();
-	},
+		this.super_menu._source._note.customColor = temp;
+		this.super_menu._source._note.applyNoteStyle();
+		this.super_menu._source._note.applyActorStyle();
+	}
 
-	popup: function(activatingButton) {
+	popup (activatingButton) {
 		this._redisplay();
-		this.open();
-	},
-	
-	_onBigger: function() {
-		this._source._note._fontSize = this._source._note._fontSize + 2;
-		this._source._note.applyNoteStyle();
-	},
-	
-	_onSmaller: function() {
-		this._source._note._fontSize = this._source._note._fontSize - 2;
-		this._source._note.applyNoteStyle();
-	},
-});
+		this.super_menu.open();
+	}
+
+	_onBigger () { // FIXME évidemment pas dans la bonne classe
+		this.super_menu._source._note._fontSize = this.super_menu._source._note._fontSize + 2;
+		this.super_menu._source._note.applyNoteStyle();
+	}
+
+	_onSmaller () { // FIXME évidemment pas dans la bonne classe
+		this.super_menu._source._note._fontSize = this.super_menu._source._note._fontSize - 2;
+		this.super_menu._source._note.applyNoteStyle();
+	}
+};
 Signals.addSignalMethods(OptionsMenu.prototype);
 
 //--------------------
 
-var RoundMenuButton = new Lang.Class({
-	Name: 'RoundMenuButton',
-	
-	_init: function( note, bouton ){
+var RoundMenuButton = class RoundMenuButton {
+	constructor (note, bouton) {
 		this._note = note;
 		this.actor = bouton;
-		
 		this.actor.connect('button-press-event', this._onButtonPress.bind(this));
-		
 		this._menu = null;
 		this._menuManager = new PopupMenu.PopupMenuManager(this);
-	},
-	
-	_onMenuPoppedDown: function() {
+	}
+
+	_onMenuPoppedDown () {
 		this.actor.sync_hover();
 		this.emit('menu-state-changed', false);
-	},
-	
-	popupMenu: function() {
+	}
+
+	popupMenu () {
 		this.actor.fake_release();
 		if (!this._menu) {
 			this._menu = new OptionsMenu(this);
@@ -254,59 +247,61 @@ var RoundMenuButton = new Lang.Class({
 		this._menu.popup();
 		this._menuManager.ignoreRelease();
 		return false;
-	},
-	
-	_onButtonPress: function(actor, event) {
+	}
+
+	_onButtonPress (actor, event) {
 		let button = event.get_button();
 		this.popupMenu();
 		return Clutter.EVENT_STOP;
-	},
-});
+	}
+};
 Signals.addSignalMethods(RoundMenuButton.prototype);
 
 //------------------------------------------------
 
-const NoteMenu = new Lang.Class({
-	Name:		'NoteMenu',
-	Extends:	ShellEntry.EntryMenu,
-	
-	_init: function(entry, note) {
-		this.parent(entry);
+class NoteMenu {
+	constructor (entry, note) {
+		this.super_menu = new ShellEntry.EntryMenu(entry);
 		this._note = note;
 		let item;
 		item = new PopupMenu.PopupMenuItem(_("Select All"));
 		item.connect('activate', this._onSelectAll.bind(this));
-		this.addMenuItem(item);
+		this.super_menu.addMenuItem(item);
 		this._selectAllItem = item;
-	},
-	
-	open: function() {
-		this.parent();
-	},
-	
-	_onSelectAll: function() {
-		this._entry.clutter_text.set_selection(0, this._entry.clutter_text.length);
-	},	
-});
+	}
+
+	open () {
+		this.super_menu.open();
+	}
+
+	_onSelectAll () {
+		this.super_menu._entry.clutter_text.set_selection(0, this.super_menu._entry.clutter_text.length);
+	}
+};
 
 /* From GNOME Shell code source */
 function addContextMenu(entry, note) {
 	if (entry.menu)
 		return;
 
-	entry.menu = new NoteMenu(entry, note);
+	let wrapperClass = new NoteMenu(entry, note);
+	entry.menu = wrapperClass.super_menu;
 	entry._menuManager = new PopupMenu.PopupMenuManager({ actor: entry });
 	entry._menuManager.addMenu(entry.menu);
 
 	// Add an event handler to both the entry and its clutter_text; the former
 	// so padding is included in the clickable area, the latter because the
 	// event processing of ClutterText prevents event-bubbling.
-	entry.clutter_text.connect('button-press-event', Lang.bind(null, ShellEntry._onButtonPressEvent, entry));
-	entry.connect('button-press-event', Lang.bind(null, ShellEntry._onButtonPressEvent, entry));
+	entry.clutter_text.connect('button-press-event', (actor, event) => {
+		ShellEntry._onButtonPressEvent(actor, event, entry);
+	});
+	entry.connect('button-press-event', (actor, event) => {
+		ShellEntry._onButtonPressEvent(actor, event, entry);
+	});
 
-	entry.connect('popup-menu', Lang.bind(null, ShellEntry._onPopup, entry));
+	entry.connect('popup-menu', actor => { ShellEntry._onPopup(actor, entry); });
 
-	entry.connect('destroy', function() {
+	entry.connect('destroy', () => {
 		entry.menu.destroy();
 		entry.menu = null;
 		entry._menuManager = null;
