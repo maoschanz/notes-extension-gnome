@@ -16,6 +16,11 @@
       <summary>Hide the icon</summary>
       <description>Should be true only if there is shortcut</description>
     </key>
+    <key type="b" name="auto-focus">
+      <default>false</default>
+      <summary>Automatic focus</summary>
+      <description>If notes should automatically take the keyboard focus when hovered by the cursor</description>
+    </key>
     <key type="s" name="layout-position">
       <default>"special-layer"</default>
       <summary>Layer on which the notes are displayed</summary>

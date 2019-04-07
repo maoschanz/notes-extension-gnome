@@ -131,9 +131,10 @@ var NoteBox = class NoteBox {
 		this.loadState();
 		this.applyActorStyle();
 		
-		this.actor.connect('enter-event', this.getKeyFocus.bind(this));
+		if (Extension.AUTO_FOCUS) {
+			this.actor.connect('enter-event', this.getKeyFocus.bind(this));
+		}
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
-//		this.actor.connect('notify::hover', (a, b) => { this.applyActorStyle(); });
 		
 		// This is the regular header, as described above.
 		this.buttons_box = new St.BoxLayout({
@@ -278,19 +279,14 @@ var NoteBox = class NoteBox {
 		this.entry_box.add_actor(this.noteEntry);
 		this._scrollView.add_actor(this.entry_box);
 		
-		//------------
+		//----------------------------------------------------------------------
 		
-		/*
-		 * Each note sets its own actor where it should be. This isn't a problem since the
-		 * related setting isn't directly accessed, but is stored in 'Extension.Z_POSITION' instead,
-		 * which prevent inconstistencies.
-		 */
+		// Each note sets its own actor where it should be. This isn't a problem
+		// since the related setting isn't directly accessed, but is stored in
+		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
 		this.load_in_the_right_actor();
-		
 		this._setNotePosition();
-		
 		this.loadText();
-		
 		Menus.addContextMenu(this.noteEntry, this);
 		
 		this.grabX = this._x + 100;
@@ -680,19 +676,18 @@ var NoteBox = class NoteBox {
 
 	deleteNote () {
 		this.destroy();
-		refreshArray();
-		saveAllNotes();
+		Extension.refreshArray();
+		Extension.saveAllNotes();
 	}
 
 	destroy () {
-		this.actor.destroy_all_children();
-		this.actor.destroy();
+//		this.actor.destroy_all_children(); // ??? XXX FIXME ?
+//		this.actor.destroy(); // ??? XXX FIXME ?
 		this.actor = null;
 	}
 
 	show () {
 		this.actor.visible = true;
-		
 		if (Extension.Z_POSITION == 'above-all') {
 			Main.layoutManager.trackChrome(this.actor);
 		}

@@ -24,14 +24,15 @@ let GLOBAL_BUTTON;
 let GLOBAL_ARE_VISIBLE;
 let SETTINGS;
 var Z_POSITION;
+var AUTO_FOCUS;
 
 let SIGNAL_LAYOUT;
 let SIGNAL_BRING_BACK;
 let SIGNAL_ICON;
 
-//-------------------------------------------------
+//------------------------------------------------------------------------------
 
-let ALL_NOTES;
+var ALL_NOTES;
 
 function init () {
 	Convenience.initTranslations();
@@ -46,7 +47,7 @@ function init () {
 	Z_POSITION = '';
 }
 
-//------------------------------------------------
+//------------------------------------------------------------------------------
 
 function saveAllNotes () {
 	ALL_NOTES.forEach(function (n) {
@@ -77,7 +78,7 @@ function refreshArray () {
 	statefile.delete(null);
 }
 
-//------------------------------------------------
+//------------------------------------------------------------------------------
 
 /*
  * This is the button in the top bar. It will trigger the showing/hiding of
@@ -247,6 +248,7 @@ function hideNotesFromSpecialLayer(group, event) {
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
+	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus');
 	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', updateLayoutSetting.bind(this));
 	ALL_NOTES = new Array();
 	

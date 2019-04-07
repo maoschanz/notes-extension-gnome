@@ -1,5 +1,5 @@
+
 const Clutter = imports.gi.Clutter;
-const Gtk = imports.gi.Gtk;
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
@@ -23,9 +23,8 @@ class OptionsMenu {
 		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, side);
 
 		// We want to keep the item hovered while the menu is up
-		this.blockSourceEvents = true;
-
-		this.super_menu._source = source;
+		this.super_menu.blockSourceEvents = true;
+		this._source = source;
 		this.super_menu.actor.add_style_class_name('app-well-menu');
 
 		// Chain our visibility and lifecycle to that of the source
@@ -49,7 +48,6 @@ class OptionsMenu {
 			style_class: null,
 			can_focus: false
 		});
-
 		this.color1_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -152,28 +150,28 @@ class OptionsMenu {
 	}
 
 	_onCustom () {
-		this.super_menu._source._note.showColor();
+		this._source._note.showColor();
 	}
 
 	_onSettings () {
-		Util.spawn(["gnome-shell-extension-prefs", "notes@maestroschan.fr"]);
+		Util.spawn(['gnome-shell-extension-prefs', 'notes@maestroschan.fr']);
 	}
 
 	_onApply (color, button) {
-		this.super_menu._source._note.applyPresetColor(color);
+		this._source._note.applyPresetColor(color);
 	}
 
 	popup (activatingButton) {
 		this._redisplay();
-		this.super_menu.open();
+		this.super_menu.toggle();//.open();
 	}
 
 	_onBigger () {
-		this.super_menu._source._note.crementFontSize(1);
+		this._source._note.crementFontSize(1);
 	}
 
 	_onSmaller () {
-		this.super_menu._source._note.crementFontSize(-1);
+		this._source._note.crementFontSize(-1);
 	}
 };
 Signals.addSignalMethods(OptionsMenu.prototype);

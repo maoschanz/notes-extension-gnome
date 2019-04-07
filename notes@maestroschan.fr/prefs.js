@@ -59,14 +59,18 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//----------------------------------------------------------------------
 
+		let focus_switch = builder.get_object('focus_switch');
+		focus_switch.set_state(SETTINGS.get_boolean('auto-focus'));
+		focus_switch.connect('notify::active', (widget) => {
+			SETTINGS.set_boolean('auto-focus', widget.active);
+		}); // TODO dynamically update the setting in extension.js
+
+		//----------------------------------------------------------------------
+
 		let hide_switch = builder.get_object('hide_switch');
 		hide_switch.set_state(SETTINGS.get_boolean('hide-icon'));
 		hide_switch.connect('notify::active', (widget) => {
-			if (widget.active) {
-				SETTINGS.set_boolean('hide-icon', true);
-			} else {
-				SETTINGS.set_boolean('hide-icon', false);
-			}
+			SETTINGS.set_boolean('hide-icon', widget.active);
 		});
 
 		//----------------------------------------------------------------------
