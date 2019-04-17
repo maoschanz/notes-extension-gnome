@@ -55,7 +55,11 @@ var NoteBox = class NoteBox {
 	constructor (id, color, size) {
 		this.id = id;
 		this._fontSize = size;
-		this.customColor = color;
+		if (color.split(',').length == 3) {
+			this.customColor = color;
+		} else {
+			this.customColor = '255,255,0';
+		}
 		this.build();
 	}
 
@@ -69,6 +73,7 @@ var NoteBox = class NoteBox {
 	}
 
 	applyActorStyle () {
+		if (this.actor == null) { return; } //XXX shouldn't exist
 		var is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
@@ -91,30 +96,6 @@ var NoteBox = class NoteBox {
 			temp += 'font-size: ' + this._fontSize + 'px;';
 		}
 		this.noteEntry.style = temp;
-	}
-
-	_addButton (box, icon, accessibleName) {
-		let button = new St.Button({
-			child: new St.Icon({
-				icon_name: icon,
-				icon_size: 16,
-				style_class: 'system-status-icon',
-				x_expand: true,
-				y_expand: true,
-				y_align: Clutter.ActorAlign.CENTER,
-			}),
-			accessible_name: accessibleName,
-			y_align: Clutter.ActorAlign.CENTER,
-			style_class: 'calendar-today calendar-day-base',
-			reactive: true,
-			can_focus: true,
-			track_hover: true,
-			y_expand: false,
-			y_fill: true,
-			style: 'margin: 0px;',
-		});
-		box.add(button);
-		return button;
 	}
 
 	build () {
@@ -146,11 +127,17 @@ var NoteBox = class NoteBox {
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', this.createNote.bind(this));
-		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', this.showDelete.bind(this));
+		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
+		btnNew.actor.connect('clicked', this.createNote.bind(this));
+		this.buttons_box.add(btnNew.actor);
 		
-		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
-		this.optionsMenuButton = new Menus.RoundMenuButton(this, optionsButton);
+		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
+		btnDelete.actor.connect('clicked', this.showDelete.bind(this));
+		this.buttons_box.add(btnDelete.actor);
+		
+		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
+		btnOptions.addMenu();
+		this.buttons_box.add(btnOptions.actor);
 
 		this.moveBox = new St.Button({
 			x_expand: true,
@@ -160,13 +147,14 @@ var NoteBox = class NoteBox {
 		})
 		this.buttons_box.add_actor(this.moveBox);
 
-		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', _("Resize"));
+		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
+		this.buttons_box.add(ctrlButton.actor);
 		
 		this.moveBox.connect('button-press-event', this._onPress.bind(this));
 		this.moveBox.connect('button-release-event', this._onMoveRelease.bind(this));
 		
-		ctrlButton.connect('button-press-event', this._onPress.bind(this));
-		ctrlButton.connect('button-release-event', this._onResizeRelease.bind(this));
+		ctrlButton.actor.connect('button-press-event', this._onPress.bind(this)); //XXX wtf is "this"
+		ctrlButton.actor.connect('button-release-event', this._onResizeRelease.bind(this)); //XXX wtf is "this"
 		
 		/*
 		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
@@ -206,12 +194,16 @@ var NoteBox = class NoteBox {
 		this.colorEntryV.style = 'background-color: #22BB33; color: #FFFFFF';
 		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
 		
-		this._addButton(this.color_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideColor.bind(this));
+		let btnBack1 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack1.actor.connect('clicked', this.hideColor.bind(this));
+		this.color_box.add(btnBack1.actor);
 
 		this.color_box.add_actor(this.colorEntryR);
 		this.color_box.add_actor(this.colorEntryV);
 		this.color_box.add_actor(this.colorEntryB);
-		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', this.applyColor.bind(this));
+		let btnApply = new Menus.RoundButton(this, 'object-select-symbolic', _("Apply"));
+		btnApply.actor.connect('clicked', this.applyColor.bind(this));
+		this.color_box.add(btnApply.actor);
 		
 		// This is the UI for deletion. The whole box is hidden by default, and will
 		// be shown instead of the regular header if the user needs it.
@@ -224,14 +216,18 @@ var NoteBox = class NoteBox {
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideDelete.bind(this));
+		let btnBack2 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack2.actor.connect('clicked', this.hideDelete.bind(this));
+		this.delete_box.add(btnBack2.actor);
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: _("Delete this note?")
 		}));
-		this._addButton(this.delete_box, 'user-trash-symbolic', _("OK")).connect('clicked', this.deleteNote.bind(this));
+		let btnConfirm = new Menus.RoundButton(this, 'user-trash-symbolic', _("Confirm"));
+		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
+		this.delete_box.add(btnConfirm.actor);
 		
 		//-------------
 		
@@ -294,6 +290,7 @@ var NoteBox = class NoteBox {
 	}
 
 	getKeyFocus() {
+		if (this.actor == null) { return; } //XXX shouldn't exist
 		if (this.entry_is_visible) {
 			this.noteEntry.grab_key_focus();
 		}
@@ -681,8 +678,8 @@ var NoteBox = class NoteBox {
 	}
 
 	destroy () {
-//		this.actor.destroy_all_children(); // ??? XXX FIXME ?
-//		this.actor.destroy(); // ??? XXX FIXME ?
+		this.actor.destroy_all_children();
+		this.actor.destroy();
 		this.actor = null;
 	}
 
