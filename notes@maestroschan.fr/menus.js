@@ -202,31 +202,26 @@ var RoundButton = class RoundButton {
 
 	addMenu () {
 		this._menu = null;
-		this._menuManager = new PopupMenu.PopupMenuManager({ actor: this.actor });
+		this._menuManager = new PopupMenu.PopupMenuManager(this); // uses this.actor
 		this.actor.connect('button-press-event', this.popupMenu.bind(this));
-	}
-
-	_onMenuPoppedDown () {
-		this.actor.sync_hover();
-		this.emit('menu-state-changed', false);
 	}
 
 	popupMenu () {
 		this.actor.fake_release();
 		if (!this._menu) {
 			this._menu = new OptionsMenu(this);
-			this._menu.connect('open-state-changed', (menu, isPoppedUp) => {
+			this._menu.super_menu.connect('open-state-changed', (menu, isPoppedUp) => {
 				if (!isPoppedUp) {
-					this._onMenuPoppedDown();
+					this.actor.sync_hover();
 				}
 			});
-			this._menuManager.addMenu(this._menu);
+			this._menuManager.addMenu(this._menu.super_menu);
 		}
 		this.emit('menu-state-changed', true);
 		this.actor.set_hover(true);
 		this._menu.popup();
 		this._menuManager.ignoreRelease();
-		return false; //Clutter.EVENT_STOP; ??
+		return false;
 	}
 };
 Signals.addSignalMethods(RoundButton.prototype);
