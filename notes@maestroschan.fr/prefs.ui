@@ -39,9 +39,7 @@
 								<property name="expand">False</property>
 								<property name="wrap">True</property>
 								<property name="halign">center</property>
-								<property name="label" translatable="yes">"On the background" is incompatible with desktop icons.
-"Above all, without mask" is discouraged, since it makes
-it harder to resize or move your sticky notes.</property>
+								<property name="label" translatable="yes">"On the background" is incompatible with desktop icons.</property>
 								<style>
 									<class name="dim-label"/>
 								</style>
