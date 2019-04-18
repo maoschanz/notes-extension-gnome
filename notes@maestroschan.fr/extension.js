@@ -111,7 +111,7 @@ class NotesButton {
 	}
 
 	update_icon_visibility () {
-		// XXX ??????????????? unexplained bug
+		// XXX ??????? unexplained bug
 		this.super_btn.actor.visible = !Convenience.getSettings().get_boolean('hide-icon');
 	}
 
@@ -149,28 +149,18 @@ class NotesButton {
 
 	_showNotes () {
 		GLOBAL_ARE_VISIBLE = true;
-		
-		if (Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.show();
-		}
-		
 		ALL_NOTES.forEach(function (n) {
 			n.show();
 		});
 	}
 
 	_hideNotes () {
-		if (Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.hide();
-		}
-		
 		ALL_NOTES.forEach(function (n) {
 			n.onlyHide();
 		});
 		ALL_NOTES.forEach(function (n) {
 			n.onlySave();
 		});
-		
 		GLOBAL_ARE_VISIBLE = false;
 	}
 
@@ -237,13 +227,6 @@ function updateLayoutSetting() {
 	});
 }
 
-function hideNotesFromSpecialLayer(group, event) {
-	// Don't close notes if the user is just hiding a note content
-	if (event.get_button() != 3) {
-		GLOBAL_BUTTON._hideNotes();
-	}
-}
-
 //-------------------------------------------------
 
 function enable() {
@@ -254,21 +237,10 @@ function enable() {
 	
 	updateLayoutSetting()
 	
-	Main.layoutManager.notesGroup = new St.Widget({
-		name: 'overviewGroup',
-		visible: false,
-		reactive: true,
-		width: Main.layoutManager.primaryMonitor.width,
-		height: Main.layoutManager.primaryMonitor.height,
-		style_class: 'notesBackground'
-	});
-	Main.layoutManager.addChrome(Main.layoutManager.notesGroup);
-	Main.layoutManager.notesGroup.connect('button-press-event', hideNotesFromSpecialLayer.bind(this));
-
 	GLOBAL_BUTTON = new NotesButton();
-//	about addToStatusArea :
-//	- 0 is the position
-//	- `right` is the box where we want our GLOBAL_BUTTON to be displayed (left/center/right)
+	//	about addToStatusArea :
+	//	- 0 is the position
+	//	- `right` is the box where we want GLOBAL_BUTTON to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.super_btn, 0, 'right');
 
 	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', bringToPrimaryMonitorOnly.bind(this));

@@ -5,7 +5,6 @@ const St = imports.gi.St;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const Main = imports.ui.main;
-const Tweener = imports.ui.tweener;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -26,6 +25,9 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 let SIGNAL_LAYOUT;
 let SIGNAL_BRING_BACK;
 let SIGNAL_ICON;
+
+const MIN_HEIGHT = 50;
+const MIN_WIDTH = 180;
 
 //------------------------------------------------------------------------------
 
@@ -77,9 +79,9 @@ var NoteBox = class NoteBox {
 		var is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
+			temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
 		} else {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.4);';
+			temp = 'background-color: rgba(' + this.customColor + ', 0.6);';
 		}
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -150,16 +152,16 @@ var NoteBox = class NoteBox {
 		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
 		this.buttons_box.add(ctrlButton.actor);
 		
-		this.moveBox.connect('button-press-event', this._onPress.bind(this));
-		this.moveBox.connect('button-release-event', this._onMoveRelease.bind(this));
+		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
+		this.moveBox.connect('motion-event', this._onMoveMotion.bind(this));
+		this.moveBox.connect('button-release-event', this._onRelease.bind(this));
 		
-		ctrlButton.actor.connect('button-press-event', this._onPress.bind(this)); //XXX wtf is "this"
-		ctrlButton.actor.connect('button-release-event', this._onResizeRelease.bind(this)); //XXX wtf is "this"
+		ctrlButton.actor.connect('button-press-event', this._onResizePress.bind(this));
+		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
+		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 		
-		/*
-		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
-		 * default, and will be shown instead of the regular header if the user needs it.
-		 */
+		// This is the interface for custom color. It is mainly useless. The whole box is hidden by
+		// default, and will be shown instead of the regular header if the user needs it.
 		this.color_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -298,140 +300,87 @@ var NoteBox = class NoteBox {
 	}
 
 	load_in_the_right_actor () {
-		if(Extension.Z_POSITION == 'above-all') {
+		if (Extension.Z_POSITION == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
-		} else if (Extension.Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.add_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
 		}
 	}
 
 	remove_from_the_right_actor () {
-		if(Extension.Z_POSITION == 'above-all') {
+		if (Extension.Z_POSITION == 'above-all') {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
-		} else if (Extension.Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.remove_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.remove_actor(this.actor);
 		}
 	}
 
-	_onPress (actor, event) {
-		this.redraw();
+	//--------------------------------------------------------------------------
+
+	_onMovePress (actor, event) {
 		let mouseButton = event.get_button();
 		if (mouseButton == 3) {
 			this.entry_box.visible = !this.entry_box.visible;
 			this.entry_is_visible = this.entry_box.visible;
 		}
+		this.onPress(event);
+		this._isMoving = true;
+		this._isResizing = false;
+	}
+
+	_onResizePress (actor, event) {
+		this.onPress(event);
+		this._isResizing = true;
+		this._isMoving = false;
+	}
+
+	onPress (event) {
+		this.redraw();
 		this.grabX = Math.floor(event.get_coords()[0]);
 		this.grabY = Math.floor(event.get_coords()[1]);
 	}
 
-	_onResizeRelease (actor, event) {
-		//FIXME TODO minimaux ?
+	_onRelease (actor, event) {
+		this._isResizing = false;
+		this._isMoving = false;
+		this.onlySave();
+	}
+
+	_onResizeMotion (actor, event) {
+		if (!this._isResizing) { return; }
+		
 		let newWidth = Math.abs(this.actor.width + (Math.floor(event.get_coords()[0]) - this.grabX));
 		let newHeight = Math.abs(this._y + this.actor.height - Math.floor(event.get_coords()[1]) + (this.grabY - this._y));
 		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
-		Tweener.addTween(this, {
-			positionWidth: newWidth,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this.actor.width = newWidth;
-			}
-		});
+		newWidth = Math.max(newWidth, MIN_WIDTH);
+		newHeight = Math.max(newHeight, MIN_HEIGHT);
 		
-		Tweener.addTween(this, {
-			positionHeight: newHeight,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this.actor.height = newHeight;
-			}
-		});
-		
-		Tweener.addTween(this, {
-			positionY: newY,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._y = newY;
-				this._setNotePosition();
-			}
-		});
-		
-		this.onlySave();
-	}
-
-	//--------------------
-	
-	/* These getters and setters are here only for Tweener's animations */
-	
-	get positionWidth () {
-		return this.actor.width;
-	}
-
-	set positionWidth (value){
-		this.actor.width = value;
-	}
-
-	get positionHeight () {
-		return this.actor.height;
-	}
-
-	set positionHeight (value){
-		this.actor.height = value;
-	}
-
-	get positionX () {
-		return this._x;
-	}
-
-	set positionX (value){
-		this._x = value;
+		this.actor.width = newWidth;
+		this.actor.height = newHeight;
+		this._y = newY;
 		this._setNotePosition();
+		
+		this.grabX = Math.floor(event.get_coords()[0]);
+		this.grabY = Math.floor(event.get_coords()[1]);
 	}
 
-	get positionY () {
-		return this._y;
-	}
-
-	set positionY (value){
-		this._y = value;
-		this._setNotePosition();
-	}
-
-	//--------------------
-	
-	_onMoveRelease (actor, event) {
+	_onMoveMotion (actor, event) {
+		if (!this._isMoving) { return; }
+		
 		let newX = Math.floor(event.get_coords()[0]) - (this.grabX - this._x);
 		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
-		Tweener.addTween(this, {
-			positionY: newY,
-			time: MOVE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._y = newY;
-				this._setNotePosition();
-			}
-		});
+		this._y = newY;
+		this._x = newX;
+		this._setNotePosition();
 		
-		Tweener.addTween(this, {
-			positionX: newX,
-			time: MOVE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._x = newX;
-				this._setNotePosition();
-			}
-		});
-		
-		this.onlySave();
+		this.grabX = Math.floor(event.get_coords()[0]);
+		this.grabY = Math.floor(event.get_coords()[1]);
 	}
+
+	//--------------------------------------------------------------------------
 
 	redraw () {
 		this.actor.raise_top();

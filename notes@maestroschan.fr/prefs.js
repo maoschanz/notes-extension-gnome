@@ -42,15 +42,14 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		let position_combobox = builder.get_object('position_combobox');
 		
-		position_combobox.append('special-layer', _("Above everything"));
 		position_combobox.append('on-background', _("On the background"));
-		position_combobox.append('above-all', _("Above all, without mask"));
+		position_combobox.append('above-all', _("Above everything"));
 	
 		position_combobox.active_id = SETTINGS.get_string('layout-position');
 		
-		position_combobox.connect("changed", (widget) => {
+		position_combobox.connect('changed', (widget) => {
 			SETTINGS.set_string('layout-position', widget.get_active_id());
-			if( (widget.get_active_id() == 'above-all') || (widget.get_active_id() == 'special-layer') ) {
+			if( (widget.get_active_id() == 'above-all') ) {
 				hide_switch.set_sensitive(false);
 			} else {
 				hide_switch.set_sensitive(true);
