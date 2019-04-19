@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 21:57+0200\n"
-"PO-Revision-Date: 2019-03-18 00:45+0300\n"
+"POT-Creation-Date: 2019-04-19 02:16+0200\n"
+"PO-Revision-Date: 2019-04-19 02:59+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: notes@maestroschan.fr/extension.js:91
 msgid "Show notes"
-msgstr ""
+msgstr "Notları göster"
 
 #: notes@maestroschan.fr/menus.js:66
 msgid "Custom color"
@@ -31,9 +31,9 @@ msgstr "Ayarlar"
 
 #: notes@maestroschan.fr/menus.js:88
 msgid "Font size"
-msgstr ""
+msgstr "Yazı boyutu"
 
-#: notes@maestroschan.fr/menus.js:242
+#: notes@maestroschan.fr/menus.js:237
 msgid "Select All"
 msgstr "Tümünü Seç"
 
@@ -67,19 +67,19 @@ msgstr "Not silinsin mi ?"
 
 #: notes@maestroschan.fr/noteBox.js:230
 msgid "Confirm"
-msgstr ""
+msgstr "Onayla"
 
 #: notes@maestroschan.fr/noteBox.js:256
 msgid "Type here…"
-msgstr "Notu buraya yaz…"
+msgstr "Notunu buraya yaz…"
 
 #: notes@maestroschan.fr/prefs.js:45
 msgid "On the background"
-msgstr "Arkaplanda hep açık"
+msgstr "Arka planda hep açık"
 
 #: notes@maestroschan.fr/prefs.js:46
 msgid "Above everything"
-msgstr "Herşeyin üstünde"
+msgstr "Her şeyin üstünde"
 
 #: notes@maestroschan.fr/prefs.js:146
 msgid "Report bugs or ideas"
@@ -87,19 +87,19 @@ msgstr "Hata raporla veya öneri gönder"
 
 #: notes@maestroschan.fr/prefs.ui:20
 msgid "Position of notes"
-msgstr ""
+msgstr "Notların konumu"
 
 #: notes@maestroschan.fr/prefs.ui:42
 msgid "\"On the background\" is incompatible with desktop icons."
-msgstr ""
+msgstr "\"Arka planda hep açık\" masaüstü simgeleriyle uyumlu değil."
 
 #: notes@maestroschan.fr/prefs.ui:58
 msgid "Automatic focus"
-msgstr ""
+msgstr "Otomatik odaklama"
 
 #: notes@maestroschan.fr/prefs.ui:91
 msgid "Use a keyboard shortcut"
-msgstr ""
+msgstr "Klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui:92
 msgid "Use a keyboard shortcut to toggle notes"
@@ -107,7 +107,7 @@ msgstr "Notları açmak için klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui:114
 msgid "Default value is <Super>n"
-msgstr ""
+msgstr "Öntanımlı değer şudur <Super>n"
 
 #: notes@maestroschan.fr/prefs.ui:137
 msgid "Hide the icon"
@@ -150,7 +150,7 @@ msgstr "<b>Not silme:</b> çöp kutusu simgesine tıklayın ve onay verin."
 
 #: notes@maestroschan.fr/prefs.ui:233
 msgid "Using the extension"
-msgstr "Eklenti kullanımı"
+msgstr "Eklentinin kullanımı"
 
 #: notes@maestroschan.fr/prefs.ui:249
 msgid "<b>Change color:</b> click on the menu button, and select a color."
@@ -161,12 +161,12 @@ msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
-"<b>Yazıtipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu \"+\" "
+"<b>Yazı tipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu \"+\" "
 "ve \"-\" düğmeleriyle artırın veya azaltın."
 
 #: notes@maestroschan.fr/prefs.ui:268
 msgid "Customizing notes"
-msgstr ""
+msgstr "Notların özelleştirilmesi"
 
 #: notes@maestroschan.fr/prefs.ui:282
 msgid ""
@@ -185,11 +185,11 @@ msgstr "Notların depolandığı dizini aç"
 #: notes@maestroschan.fr/prefs.ui:298
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
-msgstr ""
+msgstr "\"_state\" ile biten dosyalar notlarınızın rengini ve konumunu içerir"
 
 #: notes@maestroschan.fr/prefs.ui:308
 msgid "Files ending with \"_text\" contain the text written in your notes"
-msgstr ""
+msgstr "\"_text\" ile biten dosyalar notlarınızda yazılan metni içerir"
 
 #: notes@maestroschan.fr/prefs.ui:317
 msgid "Backup your notes"
@@ -227,15 +227,15 @@ msgstr "GNOME Kabuğu için masaüstü yapışkan notlar."
 
 #: notes@maestroschan.fr/prefs.ui:399
 msgid "Author:"
-msgstr "Yazar:"
+msgstr "Hazırlayan:"
 
 #: notes@maestroschan.fr/prefs.ui:414
 msgid "Translators:"
-msgstr ""
+msgstr "Çeviren:"
 
 #: notes@maestroschan.fr/prefs.ui:419
 msgid "translator-credits"
-msgstr "Serdar Sağlam <teknomobil@yandex.com>"
+msgstr "Serdar Sağlam"
 
 #: notes@maestroschan.fr/prefs.ui:437
 msgid "About"
@@ -255,35 +255,6 @@ msgstr "Hakkında"
 
 #~ msgid "Empty Overview"
 #~ msgstr "Boş genel bakış"
-
-#~ msgid "Above all, without mask"
-#~ msgstr "Herşeyin üstünde şeffaf"
-
-#~ msgid ""
-#~ "\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
-#~ "component.\n"
-#~ "\"Above all, without mask\" is discouraged, since it makes it harder to "
-#~ "resize or move your sticky notes."
-#~ msgstr ""
-#~ "\"Arkaplanda hep açık\" 'nautilus-desktop' bazen Ubuntu ile uyumsuz "
-#~ "eklenti veya bileşen içerebilir, çalışıyorsa sorun yoktur.\n"
-#~ "\n"
-#~ "\"Herşeyin üstünde şeffaf\" kullanımı bazen zor olabilir opaklık olmadığı "
-#~ "için yapışkan notlarınızı yeniden boyutlandırma ve taşıma zorlaşabilir."
-
-#~ msgid "Default value is"
-#~ msgstr "Öntanımlı değer"
-
-#~ msgid ""
-#~ "<i>Files ending with \"_state\" contain the color and position of your "
-#~ "notes</i>\n"
-#~ "\n"
-#~ "<i>Files ending with \"_text\" contain the text written in your notes</i>"
-#~ msgstr ""
-#~ "<i> \"_state\" İle biten dosyalar notlardaki renk ve konumunuzu içerir.</"
-#~ "i>\n"
-#~ "\n"
-#~ "<i> \"_text\" İle biten dosyalar notlardaki yazılı metni içerir.</i>"
 
 #~ msgid "Translator:"
 #~ msgstr "Çeviren:"

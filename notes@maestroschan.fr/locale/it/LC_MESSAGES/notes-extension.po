@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 21:57+0200\n"
+"POT-Creation-Date: 2019-04-19 02:16+0200\n"
 "PO-Revision-Date: 2018-11-07 14:42+0100\n"
 "Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
 "Language-Team: \n"
@@ -34,7 +34,7 @@ msgstr "Impostazioni"
 msgid "Font size"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js:242
+#: notes@maestroschan.fr/menus.js:237
 msgid "Select All"
 msgstr "Seleziona tutto"
 
