@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-04 17:20+0100\n"
-"PO-Revision-Date: 2019-03-18 00:45+0300\n"
+"POT-Creation-Date: 2019-04-18 21:57+0200\n"
+"PO-Revision-Date: 2019-04-19 02:59+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
 "Language: tr\n"
@@ -17,119 +17,110 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: extension.js:225
-msgid "New"
-msgstr "Yeni"
+#: notes@maestroschan.fr/extension.js:91
+msgid "Show notes"
+msgstr "Notları göster"
 
-#: extension.js:226
-msgid "Delete"
-msgstr "Sil"
-
-#: extension.js:228
-msgid "Note options"
-msgstr "Not seçenekleri"
-
-#: extension.js:239
-msgid "Resize"
-msgstr "Boyutlandır"
-
-#: extension.js:285 extension.js:305
-msgid "Back"
-msgstr "Geri"
-
-#: extension.js:290 extension.js:312
-msgid "OK"
-msgstr "Tamam"
-
-#: extension.js:310
-msgid "Delete this note?"
-msgstr "Not silinsin mi ?"
-
-#: extension.js:336
-msgid "Type here…"
-msgstr "Notu buraya yaz…"
-
-#: menus.js:74
+#: notes@maestroschan.fr/menus.js:66
 msgid "Custom color"
 msgstr "Özel renk"
 
-#: menus.js:253
-msgid "Select All"
-msgstr "Tümünü Seç"
-
-#: prefs.js:114
+#: notes@maestroschan.fr/menus.js:68 notes@maestroschan.fr/prefs.ui:160
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: prefs.js:116
-msgid "Display"
-msgstr "Görüntüle"
+#: notes@maestroschan.fr/menus.js:88
+msgid "Font size"
+msgstr "Yazı boyutu"
 
-#: prefs.js:117
-msgid "Keybinding"
-msgstr "Kısayol Tuşu"
+#: notes@maestroschan.fr/menus.js:242
+msgid "Select All"
+msgstr "Tümünü Seç"
 
-#: prefs.js:121
-msgid "Position of notes:"
-msgstr "Notların konumu:"
+#: notes@maestroschan.fr/noteBox.js:132
+msgid "New"
+msgstr "Yeni"
 
-#: prefs.js:130
-msgid "Above everything"
-msgstr "Herşeyin üstünde"
+#: notes@maestroschan.fr/noteBox.js:136
+msgid "Delete"
+msgstr "Sil"
 
-#: prefs.js:131
-msgid "On the background"
-msgstr "Arkaplanda hep açık"
+#: notes@maestroschan.fr/noteBox.js:140
+msgid "Note options"
+msgstr "Not seçenekleri"
 
-#: prefs.js:132
-msgid "Empty Overview"
-msgstr "Boş genel bakış"
+#: notes@maestroschan.fr/noteBox.js:152
+msgid "Resize"
+msgstr "Boyutlandır"
 
-#: prefs.js:133
-msgid "Above all, without mask"
-msgstr "Herşeyin üstünde şeffaf"
+#: notes@maestroschan.fr/noteBox.js:199 notes@maestroschan.fr/noteBox.js:221
+msgid "Back"
+msgstr "Geri"
 
-#: prefs.js:159
-msgid ""
-"\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
-"component.\n"
-"\"Above all, without mask\" is discouraged, since it makes it harder to "
-"resize or move your sticky notes."
-msgstr ""
-"\"Arkaplanda hep açık\" 'nautilus-desktop' bazen Ubuntu ile uyumsuz eklenti "
-"veya bileşen içerebilir, çalışıyorsa sorun yoktur.\n"
-"\n"
-"\"Herşeyin üstünde şeffaf\" kullanımı bazen zor olabilir opaklık olmadığı "
-"için yapışkan notlarınızı yeniden boyutlandırma ve taşıma zorlaşabilir."
-
-#: prefs.js:172
-msgid "Hide the icon"
-msgstr "Simgeyi gizle"
-
-#: prefs.js:199
-msgid "Default value is"
-msgstr "Öntanımlı değer"
-
-#: prefs.js:211
+#: notes@maestroschan.fr/noteBox.js:206 notes@maestroschan.fr/prefs.ui:125
 msgid "Apply"
 msgstr "Uygula"
 
-#: prefs.js:222
+#: notes@maestroschan.fr/noteBox.js:228
+msgid "Delete this note?"
+msgstr "Not silinsin mi ?"
+
+#: notes@maestroschan.fr/noteBox.js:230
+msgid "Confirm"
+msgstr "Onayla"
+
+#: notes@maestroschan.fr/noteBox.js:256
+msgid "Type here…"
+msgstr "Notunu buraya yaz…"
+
+#: notes@maestroschan.fr/prefs.js:45
+msgid "On the background"
+msgstr "Arka planda hep açık"
+
+#: notes@maestroschan.fr/prefs.js:46
+msgid "Above everything"
+msgstr "Her şeyin üstünde"
+
+#: notes@maestroschan.fr/prefs.js:146
+msgid "Report bugs or ideas"
+msgstr "Hata raporla veya öneri gönder"
+
+#: notes@maestroschan.fr/prefs.ui:20
+msgid "Position of notes"
+msgstr "Notların konumu"
+
+#: notes@maestroschan.fr/prefs.ui:42
+msgid "\"On the background\" is incompatible with desktop icons."
+msgstr "\"Arka planda hep açık\" masaüstü simgeleriyle uyumlu değil."
+
+#: notes@maestroschan.fr/prefs.ui:58
+msgid "Automatic focus"
+msgstr "Otomatik odaklama"
+
+#: notes@maestroschan.fr/prefs.ui:91
+msgid "Use a keyboard shortcut"
+msgstr "Klavye kısayolu kullan"
+
+#: notes@maestroschan.fr/prefs.ui:92
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Notları açmak için klavye kısayolu kullan"
 
-#: prefs.js:263
-msgid "Help"
-msgstr "Yardım"
+#: notes@maestroschan.fr/prefs.ui:114
+msgid "Default value is <Super>n"
+msgstr "Öntanımlı değer şudur <Super>n"
 
-#: prefs.js:276
+#: notes@maestroschan.fr/prefs.ui:137
+msgid "Hide the icon"
+msgstr "Simgeyi gizle"
+
+#: notes@maestroschan.fr/prefs.ui:190
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
 "<b>Tüm notları göster/gizle:</b> Gnome Shell üst çubuğundaki simgeye "
 "tıklayın."
 
-#: prefs.js:279
+#: notes@maestroschan.fr/prefs.ui:198
 msgid ""
 "<b>Create a note:</b> click on the \"+\" button at the left of a note "
 "header, it will create a new note, with the same color and the same font "
@@ -139,41 +130,45 @@ msgstr ""
 "tıklattığınız notla aynı renk ve aynı yazı tipi boyutunda yeni bir not "
 "oluşturur."
 
-#: prefs.js:284
+#: notes@maestroschan.fr/prefs.ui:209
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
 "<b>Not Taşıma:</b> çubuğun ortasındaki boşluğa basıp istediğiniz yere "
 "sürükleyin."
 
-#: prefs.js:287
+#: notes@maestroschan.fr/prefs.ui:217
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
 "<b>Boyutlandırma:</b> çubuğun en sağındaki boyutlandırma düğmesine basıp "
 "sürükleyin."
 
-#: prefs.js:290
+#: notes@maestroschan.fr/prefs.ui:225
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr "<b>Not silme:</b> çöp kutusu simgesine tıklayın ve onay verin."
+
+#: notes@maestroschan.fr/prefs.ui:233
+msgid "Using the extension"
+msgstr "Eklentinin kullanımı"
+
+#: notes@maestroschan.fr/prefs.ui:249
 msgid "<b>Change color:</b> click on the menu button, and select a color."
 msgstr "<b>Renk değiştirme:</b> menü düğmesine tıklayın ve bir renk seçin."
 
-#: prefs.js:293
+#: notes@maestroschan.fr/prefs.ui:260
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
-"<b>Yazıtipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu \"+\" "
+"<b>Yazı tipi boyutu:</b> menü düğmesine tıklayın ve yazı tipi boyutunu \"+\" "
 "ve \"-\" düğmeleriyle artırın veya azaltın."
 
-#: prefs.js:297
-msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
-msgstr "<b>Not silme:</b> çöp kutusu simgesine tıklayın ve onay verin."
+#: notes@maestroschan.fr/prefs.ui:268
+msgid "Customizing notes"
+msgstr "Notların özelleştirilmesi"
 
-#: prefs.js:318
-msgid "Using the extension"
-msgstr "Eklenti kullanımı"
-
-#: prefs.js:327
+#: notes@maestroschan.fr/prefs.ui:282
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
@@ -183,26 +178,24 @@ msgstr ""
 "yedeklenir) Gerekirse <b>notların bir kopyasını alabilirsiniz</b>, eklenen "
 "notlara aşağıdan ulaşabilirsiniz."
 
-#: prefs.js:334
-msgid ""
-"<i>Files ending with \"_state\" contain the color and position of your "
-"notes</i>\n"
-"\n"
-"<i>Files ending with \"_text\" contain the text written in your notes</i>"
-msgstr ""
-"<i> \"_state\" İle biten dosyalar notlardaki renk ve konumunuzu içerir.</i>\n"
-"\n"
-"<i> \"_text\" İle biten dosyalar notlardaki yazılı metni içerir.</i>"
-
-#: prefs.js:341
+#: notes@maestroschan.fr/prefs.ui:288
 msgid "Open the storage directory"
 msgstr "Notların depolandığı dizini aç"
 
-#: prefs.js:350
+#: notes@maestroschan.fr/prefs.ui:298
+msgid ""
+"Files ending with \"_state\" contain the color and position of your notes"
+msgstr "\"_state\" ile biten dosyalar notlarınızın rengini ve konumunu içerir"
+
+#: notes@maestroschan.fr/prefs.ui:308
+msgid "Files ending with \"_text\" contain the text written in your notes"
+msgstr "\"_text\" ile biten dosyalar notlarınızda yazılan metni içerir"
+
+#: notes@maestroschan.fr/prefs.ui:317
 msgid "Backup your notes"
 msgstr "Notlarınızı yedekleyin"
 
-#: prefs.js:359
+#: notes@maestroschan.fr/prefs.ui:331
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
@@ -212,38 +205,85 @@ msgstr ""
 "tıklayın \n"
 "(örnek: Eğer ikinci bir monitörde notlarınız varsa ve fişten çekmişseniz)."
 
-#: prefs.js:362
+#: notes@maestroschan.fr/prefs.ui:338
 msgid "Bring back all notes to the primary monitor"
 msgstr "Tüm notları birincil ana ekrana geri getir"
 
-#: prefs.js:368
+#: notes@maestroschan.fr/prefs.ui:344
 msgid "Lost some notes?"
 msgstr "Notlarını mı kaybettin?"
 
-#: prefs.js:372
-msgid "About"
-msgstr "Hakkında"
+#: notes@maestroschan.fr/prefs.ui:354
+msgid "Help"
+msgstr "Yardım"
 
-#: prefs.js:382
-msgid "Author:"
-msgstr "Yazar:"
-
-#: prefs.js:383 prefs.js:384
-msgid "translator-credits"
-msgstr "Serdar Sağlam <teknomobil@yandex.com>"
-
-#: prefs.js:384
-msgid "Translator:"
-msgstr "Çeviren:"
-
-#: prefs.js:404
-msgid "Report bugs or ideas"
-msgstr "Hata raporla veya öneri gönder"
-
-#: other-strings.js:1
+#: notes@maestroschan.fr/prefs.ui:368
 msgid "Notes"
 msgstr "Notlar"
 
-#: other-strings.js:2
+#: notes@maestroschan.fr/prefs.ui:380
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "GNOME Kabuğu için masaüstü yapışkan notlar."
+
+#: notes@maestroschan.fr/prefs.ui:399
+msgid "Author:"
+msgstr "Hazırlayan:"
+
+#: notes@maestroschan.fr/prefs.ui:414
+msgid "Translators:"
+msgstr "Çeviren:"
+
+#: notes@maestroschan.fr/prefs.ui:419
+msgid "translator-credits"
+msgstr "Serdar Sağlam"
+
+#: notes@maestroschan.fr/prefs.ui:437
+msgid "About"
+msgstr "Hakkında"
+
+#~ msgid "OK"
+#~ msgstr "Tamam"
+
+#~ msgid "Display"
+#~ msgstr "Görüntüle"
+
+#~ msgid "Keybinding"
+#~ msgstr "Kısayol Tuşu"
+
+#~ msgid "Position of notes:"
+#~ msgstr "Notların konumu:"
+
+#~ msgid "Empty Overview"
+#~ msgstr "Boş genel bakış"
+
+#~ msgid "Above all, without mask"
+#~ msgstr "Herşeyin üstünde şeffaf"
+
+#~ msgid ""
+#~ "\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
+#~ "component.\n"
+#~ "\"Above all, without mask\" is discouraged, since it makes it harder to "
+#~ "resize or move your sticky notes."
+#~ msgstr ""
+#~ "\"Arkaplanda hep açık\" 'nautilus-desktop' bazen Ubuntu ile uyumsuz "
+#~ "eklenti veya bileşen içerebilir, çalışıyorsa sorun yoktur.\n"
+#~ "\n"
+#~ "\"Herşeyin üstünde şeffaf\" kullanımı bazen zor olabilir opaklık olmadığı "
+#~ "için yapışkan notlarınızı yeniden boyutlandırma ve taşıma zorlaşabilir."
+
+#~ msgid "Default value is"
+#~ msgstr "Öntanımlı değer"
+
+#~ msgid ""
+#~ "<i>Files ending with \"_state\" contain the color and position of your "
+#~ "notes</i>\n"
+#~ "\n"
+#~ "<i>Files ending with \"_text\" contain the text written in your notes</i>"
+#~ msgstr ""
+#~ "<i> \"_state\" İle biten dosyalar notlardaki renk ve konumunuzu içerir.</"
+#~ "i>\n"
+#~ "\n"
+#~ "<i> \"_text\" İle biten dosyalar notlardaki yazılı metni içerir.</i>"
+
+#~ msgid "Translator:"
+#~ msgstr "Çeviren:"
