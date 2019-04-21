@@ -16,11 +16,7 @@ const _ = Gettext.gettext;
 
 class OptionsMenu {
 	constructor (source) {
-		let side = St.Side.LEFT;
-		if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL) {
-			side = St.Side.RIGHT;
-		}
-		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, side);
+		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, St.Side.LEFT);
 
 		// We want to keep the item hovered while the menu is up
 		this.super_menu.blockSourceEvents = true;
@@ -33,7 +29,7 @@ class OptionsMenu {
 				this.super_menu.close();
 			}
 		});
-		source.actor.connect('destroy', this.super_menu.destroy.bind(this));
+		source.actor.connect('destroy', this.super_menu.destroy.bind(this.super_menu));
 
 		Main.uiGroup.add_actor(this.super_menu.actor);
 	}
@@ -178,30 +174,48 @@ Signals.addSignalMethods(OptionsMenu.prototype);
 
 //--------------------
 
-var RoundMenuButton = class RoundMenuButton {
-	constructor (note, bouton) {
+var RoundButton = class RoundButton {
+	constructor (note, icon, accessibleName) {
 		this._note = note;
-		this.actor = bouton;
-		this.actor.connect('button-press-event', this._onButtonPress.bind(this));
-		this._menu = null;
-		this._menuManager = new PopupMenu.PopupMenuManager(this);
+		this.actor = new St.Button({
+			child: new St.Icon({
+				icon_name: icon,
+				icon_size: 16,
+				style_class: 'system-status-icon',
+				x_expand: true,
+				y_expand: true,
+				y_align: Clutter.ActorAlign.CENTER,
+			}),
+			accessible_name: accessibleName,
+			y_align: Clutter.ActorAlign.CENTER,
+			style_class: 'calendar-today calendar-day-base',
+			reactive: true,
+			can_focus: true,
+			track_hover: true,
+			y_expand: false,
+			y_fill: true,
+			style: 'margin: 0px;',
+		});
 	}
 
-	_onMenuPoppedDown () {
-		this.actor.sync_hover();
-		this.emit('menu-state-changed', false);
+	//----------------------- If the button has a menu -------------------------
+
+	addMenu () {
+		this._menu = null;
+		this._menuManager = new PopupMenu.PopupMenuManager(this); // uses this.actor
+		this.actor.connect('button-press-event', this.popupMenu.bind(this));
 	}
 
 	popupMenu () {
 		this.actor.fake_release();
 		if (!this._menu) {
 			this._menu = new OptionsMenu(this);
-			this._menu.connect('open-state-changed', (menu, isPoppedUp) => {
+			this._menu.super_menu.connect('open-state-changed', (menu, isPoppedUp) => {
 				if (!isPoppedUp) {
-					this._onMenuPoppedDown();
+					this.actor.sync_hover();
 				}
 			});
-			this._menuManager.addMenu(this._menu);
+			this._menuManager.addMenu(this._menu.super_menu);
 		}
 		this.emit('menu-state-changed', true);
 		this.actor.set_hover(true);
@@ -209,17 +223,12 @@ var RoundMenuButton = class RoundMenuButton {
 		this._menuManager.ignoreRelease();
 		return false;
 	}
-
-	_onButtonPress (actor, event) {
-		let button = event.get_button();
-		this.popupMenu();
-		return Clutter.EVENT_STOP;
-	}
 };
-Signals.addSignalMethods(RoundMenuButton.prototype);
+Signals.addSignalMethods(RoundButton.prototype);
 
 //------------------------------------------------
 
+/* Right-click menu in the entry */
 class NoteMenu {
 	constructor (entry, note) {
 		this.super_menu = new ShellEntry.EntryMenu(entry);
@@ -241,7 +250,7 @@ class NoteMenu {
 };
 
 /* From GNOME Shell code source */
-function addContextMenu(entry, note) {
+function addContextMenu (entry, note) {
 	if (entry.menu)
 		return;
 

@@ -5,7 +5,6 @@ const St = imports.gi.St;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const Main = imports.ui.main;
-const Tweener = imports.ui.tweener;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -26,6 +25,9 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 let SIGNAL_LAYOUT;
 let SIGNAL_BRING_BACK;
 let SIGNAL_ICON;
+
+const MIN_HEIGHT = 50;
+const MIN_WIDTH = 180;
 
 //------------------------------------------------------------------------------
 
@@ -55,7 +57,11 @@ var NoteBox = class NoteBox {
 	constructor (id, color, size) {
 		this.id = id;
 		this._fontSize = size;
-		this.customColor = color;
+		if (color.split(',').length == 3) {
+			this.customColor = color;
+		} else {
+			this.customColor = '255,255,0';
+		}
 		this.build();
 	}
 
@@ -69,12 +75,13 @@ var NoteBox = class NoteBox {
 	}
 
 	applyActorStyle () {
+		if (this.actor == null) { return; } //XXX shouldn't exist
 		var is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.7);';
+			temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
 		} else {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.4);';
+			temp = 'background-color: rgba(' + this.customColor + ', 0.6);';
 		}
 		if(this._fontColor != '') {
 			temp += 'color: ' + this._fontColor + ';';
@@ -91,30 +98,6 @@ var NoteBox = class NoteBox {
 			temp += 'font-size: ' + this._fontSize + 'px;';
 		}
 		this.noteEntry.style = temp;
-	}
-
-	_addButton (box, icon, accessibleName) {
-		let button = new St.Button({
-			child: new St.Icon({
-				icon_name: icon,
-				icon_size: 16,
-				style_class: 'system-status-icon',
-				x_expand: true,
-				y_expand: true,
-				y_align: Clutter.ActorAlign.CENTER,
-			}),
-			accessible_name: accessibleName,
-			y_align: Clutter.ActorAlign.CENTER,
-			style_class: 'calendar-today calendar-day-base',
-			reactive: true,
-			can_focus: true,
-			track_hover: true,
-			y_expand: false,
-			y_fill: true,
-			style: 'margin: 0px;',
-		});
-		box.add(button);
-		return button;
 	}
 
 	build () {
@@ -146,11 +129,17 @@ var NoteBox = class NoteBox {
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.buttons_box,'list-add-symbolic', _("New")).connect('clicked', this.createNote.bind(this));
-		this._addButton(this.buttons_box,'user-trash-symbolic', _("Delete")).connect('clicked', this.showDelete.bind(this));
+		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
+		btnNew.actor.connect('clicked', this.createNote.bind(this));
+		this.buttons_box.add(btnNew.actor);
 		
-		let optionsButton = this._addButton(this.buttons_box, 'view-more-symbolic', _("Note options"));
-		this.optionsMenuButton = new Menus.RoundMenuButton(this, optionsButton);
+		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
+		btnDelete.actor.connect('clicked', this.showDelete.bind(this));
+		this.buttons_box.add(btnDelete.actor);
+		
+		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
+		btnOptions.addMenu();
+		this.buttons_box.add(btnOptions.actor);
 
 		this.moveBox = new St.Button({
 			x_expand: true,
@@ -160,18 +149,19 @@ var NoteBox = class NoteBox {
 		})
 		this.buttons_box.add_actor(this.moveBox);
 
-		let ctrlButton = this._addButton(this.buttons_box,'view-restore-symbolic', _("Resize"));
+		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
+		this.buttons_box.add(ctrlButton.actor);
 		
-		this.moveBox.connect('button-press-event', this._onPress.bind(this));
-		this.moveBox.connect('button-release-event', this._onMoveRelease.bind(this));
+		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
+		this.moveBox.connect('motion-event', this._onMoveMotion.bind(this));
+		this.moveBox.connect('button-release-event', this._onRelease.bind(this));
 		
-		ctrlButton.connect('button-press-event', this._onPress.bind(this));
-		ctrlButton.connect('button-release-event', this._onResizeRelease.bind(this));
+		ctrlButton.actor.connect('button-press-event', this._onResizePress.bind(this));
+		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
+		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 		
-		/*
-		 * This is the interface for custom color. It is mainly useless. The whole box is hidden by
-		 * default, and will be shown instead of the regular header if the user needs it.
-		 */
+		// This is the interface for custom color. It is mainly useless. The whole box is hidden by
+		// default, and will be shown instead of the regular header if the user needs it.
 		this.color_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -206,12 +196,16 @@ var NoteBox = class NoteBox {
 		this.colorEntryV.style = 'background-color: #22BB33; color: #FFFFFF';
 		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
 		
-		this._addButton(this.color_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideColor.bind(this));
+		let btnBack1 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack1.actor.connect('clicked', this.hideColor.bind(this));
+		this.color_box.add(btnBack1.actor);
 
 		this.color_box.add_actor(this.colorEntryR);
 		this.color_box.add_actor(this.colorEntryV);
 		this.color_box.add_actor(this.colorEntryB);
-		this._addButton(this.color_box, 'object-select-symbolic', _("OK")).connect('clicked', this.applyColor.bind(this));
+		let btnApply = new Menus.RoundButton(this, 'object-select-symbolic', _("Apply"));
+		btnApply.actor.connect('clicked', this.applyColor.bind(this));
+		this.color_box.add(btnApply.actor);
 		
 		// This is the UI for deletion. The whole box is hidden by default, and will
 		// be shown instead of the regular header if the user needs it.
@@ -224,14 +218,18 @@ var NoteBox = class NoteBox {
 			style_class: 'boxStyle',
 		});
 		
-		this._addButton(this.delete_box, 'go-previous-symbolic', _("Back")).connect('clicked', this.hideDelete.bind(this));
+		let btnBack2 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack2.actor.connect('clicked', this.hideDelete.bind(this));
+		this.delete_box.add(btnBack2.actor);
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: _("Delete this note?")
 		}));
-		this._addButton(this.delete_box, 'user-trash-symbolic', _("OK")).connect('clicked', this.deleteNote.bind(this));
+		let btnConfirm = new Menus.RoundButton(this, 'user-trash-symbolic', _("Confirm"));
+		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
+		this.delete_box.add(btnConfirm.actor);
 		
 		//-------------
 		
@@ -294,6 +292,7 @@ var NoteBox = class NoteBox {
 	}
 
 	getKeyFocus() {
+		if (this.actor == null) { return; } //XXX shouldn't exist
 		if (this.entry_is_visible) {
 			this.noteEntry.grab_key_focus();
 		}
@@ -301,140 +300,87 @@ var NoteBox = class NoteBox {
 	}
 
 	load_in_the_right_actor () {
-		if(Extension.Z_POSITION == 'above-all') {
+		if (Extension.Z_POSITION == 'above-all') {
 			Main.layoutManager.addChrome(this.actor);
-		} else if (Extension.Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.add_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
 		}
 	}
 
 	remove_from_the_right_actor () {
-		if(Extension.Z_POSITION == 'above-all') {
+		if (Extension.Z_POSITION == 'above-all') {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
-		} else if (Extension.Z_POSITION == 'special-layer') {
-			Main.layoutManager.notesGroup.remove_actor(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.remove_actor(this.actor);
 		}
 	}
 
-	_onPress (actor, event) {
-		this.redraw();
+	//--------------------------------------------------------------------------
+
+	_onMovePress (actor, event) {
 		let mouseButton = event.get_button();
 		if (mouseButton == 3) {
 			this.entry_box.visible = !this.entry_box.visible;
 			this.entry_is_visible = this.entry_box.visible;
 		}
+		this.onPress(event);
+		this._isMoving = true;
+		this._isResizing = false;
+	}
+
+	_onResizePress (actor, event) {
+		this.onPress(event);
+		this._isResizing = true;
+		this._isMoving = false;
+	}
+
+	onPress (event) {
+		this.redraw();
 		this.grabX = Math.floor(event.get_coords()[0]);
 		this.grabY = Math.floor(event.get_coords()[1]);
 	}
 
-	_onResizeRelease (actor, event) {
-		//FIXME TODO minimaux ?
+	_onRelease (actor, event) {
+		this._isResizing = false;
+		this._isMoving = false;
+		this.onlySave();
+	}
+
+	_onResizeMotion (actor, event) {
+		if (!this._isResizing) { return; }
+		
 		let newWidth = Math.abs(this.actor.width + (Math.floor(event.get_coords()[0]) - this.grabX));
 		let newHeight = Math.abs(this._y + this.actor.height - Math.floor(event.get_coords()[1]) + (this.grabY - this._y));
 		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
-		Tweener.addTween(this, {
-			positionWidth: newWidth,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this.actor.width = newWidth;
-			}
-		});
+		newWidth = Math.max(newWidth, MIN_WIDTH);
+		newHeight = Math.max(newHeight, MIN_HEIGHT);
 		
-		Tweener.addTween(this, {
-			positionHeight: newHeight,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this.actor.height = newHeight;
-			}
-		});
-		
-		Tweener.addTween(this, {
-			positionY: newY,
-			time: RESIZE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._y = newY;
-				this._setNotePosition();
-			}
-		});
-		
-		this.onlySave();
-	}
-
-	//--------------------
-	
-	/* These getters and setters are here only for Tweener's animations */
-	
-	get positionWidth () {
-		return this.actor.width;
-	}
-
-	set positionWidth (value){
-		this.actor.width = value;
-	}
-
-	get positionHeight () {
-		return this.actor.height;
-	}
-
-	set positionHeight (value){
-		this.actor.height = value;
-	}
-
-	get positionX () {
-		return this._x;
-	}
-
-	set positionX (value){
-		this._x = value;
+		this.actor.width = newWidth;
+		this.actor.height = newHeight;
+		this._y = newY;
 		this._setNotePosition();
+		
+		this.grabX = Math.floor(event.get_coords()[0]);
+		this.grabY = Math.floor(event.get_coords()[1]);
 	}
 
-	get positionY () {
-		return this._y;
-	}
-
-	set positionY (value){
-		this._y = value;
-		this._setNotePosition();
-	}
-
-	//--------------------
-	
-	_onMoveRelease (actor, event) {
+	_onMoveMotion (actor, event) {
+		if (!this._isMoving) { return; }
+		
 		let newX = Math.floor(event.get_coords()[0]) - (this.grabX - this._x);
 		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
 		
-		Tweener.addTween(this, {
-			positionY: newY,
-			time: MOVE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._y = newY;
-				this._setNotePosition();
-			}
-		});
+		this._y = newY;
+		this._x = newX;
+		this._setNotePosition();
 		
-		Tweener.addTween(this, {
-			positionX: newX,
-			time: MOVE_ANIMATION_TIME,
-			transition: 'easeOutQuad',
-			onComplete: function () {
-				this._x = newX;
-				this._setNotePosition();
-			}
-		});
-		
-		this.onlySave();
+		this.grabX = Math.floor(event.get_coords()[0]);
+		this.grabY = Math.floor(event.get_coords()[1]);
 	}
+
+	//--------------------------------------------------------------------------
 
 	redraw () {
 		this.actor.raise_top();
@@ -681,8 +627,8 @@ var NoteBox = class NoteBox {
 	}
 
 	destroy () {
-//		this.actor.destroy_all_children(); // ??? XXX FIXME ?
-//		this.actor.destroy(); // ??? XXX FIXME ?
+		this.actor.destroy_all_children();
+		this.actor.destroy();
 		this.actor = null;
 	}
 
