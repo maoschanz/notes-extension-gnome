@@ -6,9 +6,10 @@ cd notes@maestroschan.fr
 
 glib-compile-schemas ./schemas
 
+zip ../notes@maestroschan.fr.zip *.ui
 zip ../notes@maestroschan.fr.zip *.js
-zip ../notes@maestroschan.fr.zip metadata.json
-zip ../notes@maestroschan.fr.zip stylesheet.css
+zip ../notes@maestroschan.fr.zip *.json
+zip ../notes@maestroschan.fr.zip *.css
 
 zip -r ../notes@maestroschan.fr.zip schemas
 zip -r ../notes@maestroschan.fr.zip locale
