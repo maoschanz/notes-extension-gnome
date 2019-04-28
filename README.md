@@ -2,7 +2,7 @@
 
 A GNOME Shell extension providing customizable sticky notes.
 
-![](./screenshots/about_picture.png)
+![](./notes@maestroschan.fr/screenshots/about_picture.png)
 
 ----
 
