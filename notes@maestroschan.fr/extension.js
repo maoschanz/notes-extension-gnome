@@ -1,3 +1,6 @@
+// notes@maestroschan.fr/extension.js
+// GPL v3
+// Copyright Romain F. T.
 
 const St = imports.gi.St;
 const Shell = imports.gi.Shell;
@@ -201,18 +204,6 @@ function bringToPrimaryMonitorOnly() {
 			n._setNotePosition();
 		}
 	});
-}
-
-function updateVisibility() {
-	if (Main.overview.viewSelector._activePage != Main.overview.viewSelector._workspacesPage) {
-		GLOBAL_BUTTON._onlyHideNotes();
-		return;
-	}
-	if (global.screen.get_workspace_by_index(global.screen.get_active_workspace_index()).list_windows() == '') {
-		GLOBAL_BUTTON._showNotes();
-	} else {
-		GLOBAL_BUTTON._onlyHideNotes();
-	}
 }
 
 function updateLayoutSetting() {

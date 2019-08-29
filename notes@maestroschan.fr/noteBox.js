@@ -1,4 +1,6 @@
-
+// notes@maestroschan.fr/noteBox.js
+// GPL v3
+// Copyright Romain F. T.
 
 const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
@@ -160,53 +162,6 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 		
-		// This is the interface for custom color. It is mainly useless. The whole box is hidden by
-		// default, and will be shown instead of the regular header if the user needs it.
-		this.color_box = new St.BoxLayout({
-			vertical: false,
-			visible: false,
-			reactive: true,
-			x_expand: true,
-			y_expand: false,
-			style_class: 'boxStyle',
-		});
-		
-		this.colorEntryR = new St.Entry({
-			name: 'colorEntryR',
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		this.colorEntryV = new St.Entry({
-			name: 'colorEntryV',
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		this.colorEntryB = new St.Entry({
-			name: 'colorEntryB',
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		this.colorEntryR.set_text(this.customColor.split(',')[0]);
-		this.colorEntryV.set_text(this.customColor.split(',')[1]);
-		this.colorEntryB.set_text(this.customColor.split(',')[2]);
-		this.colorEntryR.style = 'background-color: #BB3322; color: #FFFFFF';
-		this.colorEntryV.style = 'background-color: #22BB33; color: #FFFFFF';
-		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
-		
-		let btnBack1 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
-		btnBack1.actor.connect('clicked', this.hideColor.bind(this));
-		this.color_box.add(btnBack1.actor);
-
-		this.color_box.add_actor(this.colorEntryR);
-		this.color_box.add_actor(this.colorEntryV);
-		this.color_box.add_actor(this.colorEntryB);
-		let btnApply = new Menus.RoundButton(this, 'object-select-symbolic', _("Apply"));
-		btnApply.actor.connect('clicked', this.applyColor.bind(this));
-		this.color_box.add(btnApply.actor);
-		
 		// This is the UI for deletion. The whole box is hidden by default, and will
 		// be shown instead of the regular header if the user needs it.
 		this.delete_box = new St.BoxLayout({
@@ -235,7 +190,6 @@ var NoteBox = class NoteBox {
 		
 		this.actor.add_actor(this.buttons_box);
 		this.actor.add_actor(this.delete_box);
-		this.actor.add_actor(this.color_box);
 		
 		//-------------
 		
@@ -263,10 +217,7 @@ var NoteBox = class NoteBox {
 		clutterText.set_activatable(false); // we can press Enter
 		clutterText.set_line_wrap(true);
 		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
-		
-		this.applyNoteStyle();
-		this.applyColor();
-		
+
 		this.entry_box = new St.BoxLayout({
 			reactive: true,
 			x_expand: true,
@@ -286,12 +237,22 @@ var NoteBox = class NoteBox {
 		this._setNotePosition();
 		this.loadText();
 		Menus.addContextMenu(this.noteEntry, this);
+		this._initStyle();
 		
 		this.grabX = this._x + 100;
 		this.grabY = this._y + 10;
 	}
+	
+	_initStyle () {
+		let initialRGB_r = this.customColor.split(',')[0];
+		let initialRGB_g = this.customColor.split(',')[1];
+		let initialRGB_b = this.customColor.split(',')[2];
+		this.applyColor(initialRGB_r, initialRGB_g, initialRGB_b);
+		this.applyActorStyle();
+		this.applyNoteStyle();
+	}
 
-	getKeyFocus() {
+	getKeyFocus () {
 		if (this.actor == null) { return; } //XXX shouldn't exist
 		if (this.entry_is_visible) {
 			this.noteEntry.grab_key_focus();
@@ -399,18 +360,6 @@ var NoteBox = class NoteBox {
 		this.buttons_box.visible = true;
 	}
 
-	showColor () {
-		this.redraw();
-		this.buttons_box.visible = false;
-		this.color_box.visible = true;
-	}
-
-	hideColor () {
-		this.redraw();
-		this.color_box.visible = false;
-		this.buttons_box.visible = true;
-	}
-
 	blackFontColor () {
 		this._fontColor = '#000000';
 		this.applyActorStyle();
@@ -433,47 +382,15 @@ var NoteBox = class NoteBox {
 	// This weird crap applies the custom color from the 3 entries. It requires
 	// string manipulations since the color is set in a text file in the 'r,g,b'
 	// format. Also, the text coloration needs to be updated.
-	applyColor () {
-		let temp = '';
-		let total = 0;
-		if(Number(this.colorEntryR.get_text()) < 0) {
-			temp += '0,';
-			total += 0;
-			this.colorEntryR.set_text('0');
-		} else if(Number(this.colorEntryR.get_text()) > 255) {
-			temp += '255,';
-			total += 255;
-			this.colorEntryR.set_text('255');
-		} else {
-			temp += Number(this.colorEntryR.get_text()).toString() + ',';
-			total += Number(this.colorEntryR.get_text());
-		}
-		if(Number(this.colorEntryV.get_text()) < 0) {
-			temp += '0,';
-			total += 0;
-			this.colorEntryV.set_text('0');
-		} else if(Number(this.colorEntryV.get_text()) > 255) {
-			temp += '255,';
-			total += 255;
-			this.colorEntryV.set_text('255');
-		} else {
-			temp += Number(this.colorEntryV.get_text()).toString() + ',';
-			total += Number(this.colorEntryV.get_text());
-		}
-		if(Number(this.colorEntryB.get_text()) < 0) {
-			temp += '0';
-			total += 0;
-			this.colorEntryB.set_text('0');
-		} else if(Number(this.colorEntryB.get_text()) > 255) {
-			temp += '255';
-			total += 255;
-			this.colorEntryR.set_text('255');
-		} else {
-			temp += Number(this.colorEntryB.get_text()).toString();
-			total += Number(this.colorEntryB.get_text());
-		}
-		this.customColor = temp;
-		if (total > 250) {
+	applyColor (r, g, b) {
+		if (Number.isNaN(r)) { r = 255; }
+		if (Number.isNaN(g)) { g = 255; }
+		if (Number.isNaN(b)) { b = 255; }
+		r = Math.min(Math.max(0, r), 255);
+		g = Math.min(Math.max(0, g), 255);
+		b = Math.min(Math.max(0, b), 255);
+		this.customColor = r.toString() + ',' + g.toString() + ',' + b.toString();
+		if (r + g + b > 250) {
 			this.blackFontColor();
 		} else {
 			this.whiteFontColor();
@@ -483,41 +400,33 @@ var NoteBox = class NoteBox {
 	}
 
 	applyPresetColor (color) {
-		this.blackFontColor();
-		let temp;
 		switch(color) {
 			case 'red':
-				temp = '250,0,0';
-				this.whiteFontColor();
+				this.applyColor(250, 0, 0);
 				break;
 			case 'magenta':
-				temp = '255,0,255';
+				this.applyColor(255, 0, 255);
 				break;
 			case 'yellow':
-				temp = '255,255,0';
+				this.applyColor(255, 255, 0);
 				break;
 			case 'white':
-				temp = '255,255,255';
+				this.applyColor(255, 255, 255);
 				break;
 			case 'cyan':
-				temp = '0,255,255';
+				this.applyColor(0, 255, 255);
 				break;
 			case 'green':
-				temp = '0,255,0';
+				this.applyColor(0, 255, 0);
 				break;
 			case 'blue':
-				temp = '0,0,250';
-				this.whiteFontColor();
+				this.applyColor(0, 0, 250);
 				break;
 			case 'black':
 			default:
-				temp = '10,10,10';
-				this.whiteFontColor();
+				this.applyColor(10, 10, 10);
 				break;
 		}
-		this.customColor = temp;
-		this.applyNoteStyle();
-		this.applyActorStyle();
 	}
 
 	loadText () {

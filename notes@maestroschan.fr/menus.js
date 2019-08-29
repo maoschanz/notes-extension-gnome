@@ -1,3 +1,6 @@
+// notes@maestroschan.fr/menus.js
+// GPL v3
+// Copyright Romain F. T.
 
 const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
@@ -10,6 +13,7 @@ const Util = imports.misc.util;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
+const Extension = Me.imports.extension;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
@@ -35,7 +39,7 @@ class OptionsMenu {
 	}
 
 	_redisplay () {
-		this.super_menu.removeAll();
+		this.super_menu.removeAll(); //-----------------------------------------
 		
 		this.size_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
@@ -44,6 +48,11 @@ class OptionsMenu {
 			style_class: null,
 			can_focus: false
 		});
+		this.super_menu.addMenuItem(this.size_item);
+		this._buildSizeItem();
+		
+		this._appendSeparator(); //---------------------------------------------
+		
 		this.color1_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -51,6 +60,12 @@ class OptionsMenu {
 			style_class: null,
 			can_focus: false
 		});
+		this._addColorButton('red', 1);
+		this._addColorButton('green', 1);
+		this._addColorButton('blue', 1);
+		this._addColorButton('black', 1);
+		this.super_menu.addMenuItem(this.color1_item);
+		
 		this.color2_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -58,28 +73,78 @@ class OptionsMenu {
 			style_class: null,
 			can_focus: false
 		});
-		
-		this.super_menu.addMenuItem(this.size_item);
-		this._appendSeparator();
-		this.super_menu.addMenuItem(this.color1_item);
-		this.super_menu.addMenuItem(this.color2_item);
-		this._appendMenuItem( _("Custom color") ).connect('activate', this._onCustom.bind(this));
-		this._appendSeparator();
-		this._appendMenuItem( _("Settings") ).connect('activate', this._onSettings.bind(this));
-		
-		//----------------------------------------------------------------------
-		
-		this._addColorButton('red', 1);
-		this._addColorButton('green', 1);
-		this._addColorButton('blue', 1);
-		this._addColorButton('black', 1);
-		
 		this._addColorButton('cyan', 2);
 		this._addColorButton('magenta', 2);
 		this._addColorButton('yellow', 2);
 		this._addColorButton('white', 2);
+		this.super_menu.addMenuItem(this.color2_item);
 		
-		this._buildSizeItem();
+		let colorSubmenuItem = new PopupMenu.PopupSubMenuMenuItem(_("Custom color"));
+		this.super_menu.addMenuItem(colorSubmenuItem);
+		this._buildCustomColorMenu(colorSubmenuItem.menu);
+		
+		this._appendSeparator(); //---------------------------------------------
+		
+		this.super_menu.addAction(_("Settings"), this._onSettings);
+	}
+
+	_buildCustomColorMenu (colorSubmenu) {
+		let colorR_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		let colorG_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		let colorB_item = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+		
+		this.colorEntryR = new St.Entry({
+			can_focus: true,
+			track_hover: true,
+			x_expand: true
+		});
+		this.colorEntryG = new St.Entry({
+			can_focus: true,
+			track_hover: true,
+			x_expand: true
+		});
+		this.colorEntryB = new St.Entry({
+			can_focus: true,
+			track_hover: true,
+			x_expand: true
+		});
+		
+		let rgb = this._source._note.customColor;
+		this.colorEntryR.set_text(rgb.split(',')[0]);
+		this.colorEntryG.set_text(rgb.split(',')[1]);
+		this.colorEntryB.set_text(rgb.split(',')[2]);
+		this.colorEntryR.style = 'background-color: #BB3322; color: #FFFFFF';
+		this.colorEntryG.style = 'background-color: #22BB33; color: #FFFFFF';
+		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
+		colorR_item.actor.add(this.colorEntryR, { expand: true });
+		colorG_item.actor.add(this.colorEntryG, { expand: true });
+		colorB_item.actor.add(this.colorEntryB, { expand: true });
+		
+		colorSubmenu.addMenuItem(colorR_item);
+		colorSubmenu.addMenuItem(colorG_item);
+		colorSubmenu.addMenuItem(colorB_item);
+		
+		let applyMenuItem = new PopupMenu.PopupMenuItem(_("Apply"));
+		applyMenuItem.connect('activate', this._onApplyCustom.bind(this));
+		colorSubmenu.addMenuItem(applyMenuItem);
 	}
 
 	_buildSizeItem () {
@@ -139,18 +204,16 @@ class OptionsMenu {
 		this.super_menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 	}
 
-	_appendMenuItem (labelText) {
-		let item = new PopupMenu.PopupMenuItem(labelText);
-		this.super_menu.addMenuItem(item);
-		return item;
-	}
-
-	_onCustom () {
-		this._source._note.showColor();
+	_onApplyCustom () {
+		let r = Number(this.colorEntryR.get_text());
+		let g = Number(this.colorEntryG.get_text());
+		let b = Number(this.colorEntryB.get_text());
+		this._source._note.applyColor(r, g, b);
 	}
 
 	_onSettings () {
 		Util.spawn(['gnome-shell-extension-prefs', 'notes@maestroschan.fr']);
+		Extension.GLOBAL_BUTTON._hideNotes();
 	}
 
 	_onApply (color, button) {

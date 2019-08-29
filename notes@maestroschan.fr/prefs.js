@@ -1,3 +1,6 @@
+// notes@maestroschan.fr/prefs.js
+// GPL v3
+// Copyright Romain F. T.
 
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
@@ -113,8 +116,8 @@ const NotesSettingsWidget = new GObject.Class({
 		);
 		builder.get_object('image2').set_from_pixbuf(
 			GdkPixbuf.Pixbuf.new_from_file_at_size(
-			              Me.path + '/screenshots/help_picture_2.png', 383, 233)
-		); // TODO update this picture and write about "custom color"
+			              Me.path + '/screenshots/help_picture_2.png', 380, 300)
+		);
 		
 		let data_button = builder.get_object('backup_btn');
 		data_button.connect('clicked', (widget) => {
@@ -130,8 +133,12 @@ const NotesSettingsWidget = new GObject.Class({
 		
 		builder.get_object('about_icon').set_from_pixbuf(
 			GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path +
-			                         '/screenshots/about_picture.png', 326, 228)
+			                         '/screenshots/about_picture.png', 163, 114)
+//			                         '/screenshots/about_picture.png', 326, 228)
 		);
+		
+		let a_version = _("version:") + ' ' + Me.metadata.version.toString();
+		builder.get_object('label_version').set_label(a_version)
 		
 		let translation_credits = builder.get_object('translation_credits').get_label();
 		if (translation_credits == 'translator-credits') {
@@ -139,16 +146,14 @@ const NotesSettingsWidget = new GObject.Class({
 			builder.get_object('translation_credits').set_label('');
 		}
 		
-		let linkBox = builder.get_object('link_box'); // FIXME padding ???
-		let a_version = ' (v' + Me.metadata.version.toString() + ') ';
+		let linkBox = builder.get_object('link_box');
 		
-		let url_button = new Gtk.LinkButton({
+		let url_button1 = new Gtk.LinkButton({
 			label: _("Report bugs or ideas"),
 			uri: Me.metadata.url.toString()
 		});
 		
-		linkBox.pack_start(url_button, false, false, 0);
-		linkBox.pack_end(new Gtk.Label({ label: a_version, halign: Gtk.Align.START }), false, false, 0);
+		linkBox.pack_start(url_button1, false, false, 0);
 		
 		//----------------------------------------------------------------------
 		
