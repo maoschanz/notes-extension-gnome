@@ -2,11 +2,7 @@
 // GPL v3
 // Copyright Romain F. T.
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
-const GLib = imports.gi.GLib;
-const Gio = imports.gi.Gio;
-const Meta = imports.gi.Meta;
+const { St, Shell, GLib, Gio, Meta } = imports.gi;
 const PanelMenu = imports.ui.panelMenu;
 const Panel = imports.ui.panel;
 const Main = imports.ui.main;
@@ -75,6 +71,7 @@ function refreshArray () {
 	ALL_NOTES = null;
 	ALL_NOTES = temp;
 	
+	// FIXME that's so horrible wtf
 	let textfile = Gio.file_new_for_path(PATH + '/' + ALL_NOTES.length.toString() + '_text');
 	let statefile = Gio.file_new_for_path(PATH + '/' + ALL_NOTES.length.toString() + '_state');
 	textfile.delete(null);
@@ -96,15 +93,17 @@ class NotesButton {
 			icon_name: 'document-edit-symbolic',
 			style_class: 'system-status-icon'
 		});
-
-		this.super_btn.add_child(icon);
+		try {
+			this.super_btn.add_child(icon);
+			this.super_btn.connect('button-press-event', this.toggleState.bind(this));
+		} catch (e) {
+			this.super_btn.actor.add_child(icon);
+			this.super_btn.actor.connect('button-press-event', this.toggleState.bind(this));
+		}
 		this.update_icon_visibility();
 		
 		GLOBAL_ARE_VISIBLE = false;
-	
 		this.loadAllNotes();
-		
-		this.super_btn.connect('button-press-event', this.toggleState.bind(this));
 		
 		if(Convenience.getSettings().get_boolean('use-shortcut')) {
 			this.USE_SHORTCUT = true;
@@ -115,7 +114,12 @@ class NotesButton {
 	}
 
 	update_icon_visibility () {
-		this.super_btn.visible = !Convenience.getSettings().get_boolean('hide-icon');
+		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
+		try {
+			this.super_btn.visible = now_visible;
+		} catch (e) {
+			this.super_btn.actor.visible = now_visible;
+		}
 	}
 
 	toggleState () {
@@ -146,9 +150,13 @@ class NotesButton {
 	}
 
 	_createNote () {
-		//log('create note');
-		let nextId = ALL_NOTES.length;
-		ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
+		try {
+			let nextId = ALL_NOTES.length;
+			ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
+		} catch (e) {
+			// TODO notification?
+			log('failed to create note');
+		}
 	}
 
 	_showNotes () {
@@ -193,14 +201,15 @@ class NotesButton {
 	}
 };
 
-//-------------------------------------------------------
+//------------------------------------------------------------------------------
 
 function bringToPrimaryMonitorOnly() {
+	let outX;
+	let outY;
 	ALL_NOTES.forEach(function (n) {
-		if (
-			(n._x < 0 || n._x > Main.layoutManager.primaryMonitor.width-20) ||
-			(n._y < 0 || n._y > Main.layoutManager.primaryMonitor.height-20)
-		) {
+		outX = (n._x < 0 || n._x > Main.layoutManager.primaryMonitor.width - 20);
+		outY = (n._y < 0 || n._y > Main.layoutManager.primaryMonitor.height - 20);
+		if (outX || outY) {
 			[n._x, n._y] = n.computeRandomPosition();
 			n._setNotePosition();
 		}
@@ -219,7 +228,7 @@ function updateLayoutSetting() {
 	});
 }
 
-//-------------------------------------------------
+//------------------------------------------------------------------------------
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
@@ -239,7 +248,7 @@ function enable() {
 	SIGNAL_ICON = SETTINGS.connect('changed::hide-icon', GLOBAL_BUTTON.update_icon_visibility.bind(this));
 }
 
-//--------------------------------
+//------------------------------------------------------------------------------
 
 function disable() {
 	ALL_NOTES.forEach(function (n) {
