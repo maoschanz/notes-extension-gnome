@@ -23,7 +23,7 @@ const _ = Gettext.gettext;
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
-let GLOBAL_BUTTON;
+var GLOBAL_BUTTON;
 let GLOBAL_ARE_VISIBLE;
 let SETTINGS;
 var Z_POSITION;
@@ -92,18 +92,19 @@ function refreshArray () {
 class NotesButton {
 	constructor () {
 		this.super_btn = new PanelMenu.Button(0.0, _("Show notes"), false);
-		let box = new St.BoxLayout();
-		let icon = new St.Icon({ icon_name: 'document-edit-symbolic', style_class: 'system-status-icon'});
+		let icon = new St.Icon({
+			icon_name: 'document-edit-symbolic',
+			style_class: 'system-status-icon'
+		});
 
-		box.add(icon);
-		this.super_btn.actor.add_child(box);
+		this.super_btn.add_child(icon);
 		this.update_icon_visibility();
 		
 		GLOBAL_ARE_VISIBLE = false;
 	
 		this.loadAllNotes();
 		
-		this.super_btn.actor.connect('button-press-event', this.toggleState.bind(this));
+		this.super_btn.connect('button-press-event', this.toggleState.bind(this));
 		
 		if(Convenience.getSettings().get_boolean('use-shortcut')) {
 			this.USE_SHORTCUT = true;
@@ -114,8 +115,7 @@ class NotesButton {
 	}
 
 	update_icon_visibility () {
-		// XXX ??????? unexplained bug
-		this.super_btn.actor.visible = !Convenience.getSettings().get_boolean('hide-icon');
+		this.super_btn.visible = !Convenience.getSettings().get_boolean('hide-icon');
 	}
 
 	toggleState () {
@@ -146,6 +146,7 @@ class NotesButton {
 	}
 
 	_createNote () {
+		//log('create note');
 		let nextId = ALL_NOTES.length;
 		ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
 	}

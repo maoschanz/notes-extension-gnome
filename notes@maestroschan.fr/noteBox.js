@@ -7,6 +7,7 @@ const St = imports.gi.St;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const Main = imports.ui.main;
+const ShellEntry = imports.ui.shellEntry;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -17,9 +18,6 @@ const Extension = Me.imports.extension;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
-
-const MOVE_ANIMATION_TIME = 0.4;
-const RESIZE_ANIMATION_TIME = 0.2;
 
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
@@ -118,7 +116,10 @@ var NoteBox = class NoteBox {
 		
 		if (Extension.AUTO_FOCUS) {
 			this.actor.connect('enter-event', this.getKeyFocus.bind(this));
+	//	} else {
+	//		this.actor.connect('button-press-event', this.getKeyFocus.bind(this));
 		}
+//FIXME clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
 		
 		// This is the regular header, as described above.
@@ -142,7 +143,7 @@ var NoteBox = class NoteBox {
 		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
 		btnOptions.addMenu();
 		this.buttons_box.add(btnOptions.actor);
-
+		
 		this.moveBox = new St.Button({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
@@ -236,7 +237,7 @@ var NoteBox = class NoteBox {
 		this.load_in_the_right_actor();
 		this._setNotePosition();
 		this.loadText();
-		Menus.addContextMenu(this.noteEntry, this);
+		ShellEntry.addContextMenu(this.noteEntry);
 		this._initStyle();
 		
 		this.grabX = this._x + 100;

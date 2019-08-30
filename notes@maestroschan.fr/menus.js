@@ -265,7 +265,13 @@ var RoundButton = class RoundButton {
 
 	addMenu () {
 		this._menu = null;
-		this._menuManager = new PopupMenu.PopupMenuManager(this); // uses this.actor
+		try {
+			// before 3.33, the constructor uses this.actor
+			this._menuManager = new PopupMenu.PopupMenuManager(this);
+		} catch (e) {
+			// after 3.33, the constructor uses directly the parameter
+			this._menuManager = new PopupMenu.PopupMenuManager(this.actor);
+		}
 		this.actor.connect('button-press-event', this.popupMenu.bind(this));
 	}
 
@@ -289,54 +295,5 @@ var RoundButton = class RoundButton {
 };
 Signals.addSignalMethods(RoundButton.prototype);
 
-//------------------------------------------------
+//------------------------------------------------------------------------------
 
-/* Right-click menu in the entry */
-class NoteMenu {
-	constructor (entry, note) {
-		this.super_menu = new ShellEntry.EntryMenu(entry);
-		this._note = note;
-		let item;
-		item = new PopupMenu.PopupMenuItem(_("Select All"));
-		item.connect('activate', this._onSelectAll.bind(this));
-		this.super_menu.addMenuItem(item);
-		this._selectAllItem = item;
-	}
-
-	open () {
-		this.super_menu.open();
-	}
-
-	_onSelectAll () {
-		this.super_menu._entry.clutter_text.set_selection(0, this.super_menu._entry.clutter_text.length);
-	}
-};
-
-/* From GNOME Shell code source */
-function addContextMenu (entry, note) {
-	if (entry.menu)
-		return;
-
-	let wrapperClass = new NoteMenu(entry, note);
-	entry.menu = wrapperClass.super_menu;
-	entry._menuManager = new PopupMenu.PopupMenuManager({ actor: entry });
-	entry._menuManager.addMenu(entry.menu);
-
-	// Add an event handler to both the entry and its clutter_text; the former
-	// so padding is included in the clickable area, the latter because the
-	// event processing of ClutterText prevents event-bubbling.
-	entry.clutter_text.connect('button-press-event', (actor, event) => {
-		ShellEntry._onButtonPressEvent(actor, event, entry);
-	});
-	entry.connect('button-press-event', (actor, event) => {
-		ShellEntry._onButtonPressEvent(actor, event, entry);
-	});
-
-	entry.connect('popup-menu', actor => { ShellEntry._onPopup(actor, entry); });
-
-	entry.connect('destroy', () => {
-		entry.menu.destroy();
-		entry.menu = null;
-		entry._menuManager = null;
-	});
-}
