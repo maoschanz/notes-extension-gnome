@@ -2,8 +2,7 @@
 // GPL v3
 // Copyright Romain F. T.
 
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
+const { Clutter, St } = imports.gi;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 const ShellEntry = imports.ui.shellEntry;
@@ -235,7 +234,7 @@ class OptionsMenu {
 };
 Signals.addSignalMethods(OptionsMenu.prototype);
 
-//--------------------
+//------------------------------------------------------------------------------
 
 var RoundButton = class RoundButton {
 	constructor (note, icon, accessibleName) {

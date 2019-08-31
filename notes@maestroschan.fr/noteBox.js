@@ -2,10 +2,7 @@
 // GPL v3
 // Copyright Romain F. T.
 
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
-const GLib = imports.gi.GLib;
-const Gio = imports.gi.Gio;
+const { Clutter, St, GLib, Gio } = imports.gi;
 const Main = imports.ui.main;
 const ShellEntry = imports.ui.shellEntry;
 const GrabHelper = imports.ui.grabHelper;
@@ -41,18 +38,20 @@ function stringFromArray(data){
 }
 
 /*
- * This class stands for one note. The note's id corresponds to the name of files where its data
- * will be stored. The note's state is loaded and the note is built, then the note's text is loaded.
- * Almost all of the init process is done in the build() method. Then, the other methods are here
- * for managing note state through buttons:
- * - The 'create' button, which creates a note with the same color and font size, but with random
- * 	coordinates, an empty text, and an harcoded size.
- * - The 'delete' button, which delete the note and will call an exterior method. Requires validation.
+ * This class stands for one note. The note's id corresponds to the name of
+ * files where its data will be stored. The note's state is loaded and the note
+ * is built, then the note's text is loaded.
+ * Almost all of the init process is done in the build() method. Then, the other
+ * methods are here for managing note state through buttons:
+ * - The 'create' button, which creates a note with the same color and font
+ *   size, but with random coordinates, an empty text, and an harcoded size.
+ * - The 'delete' button, which delete the note and will call an exterior
+ *   method. Requires validation from the user.
  * - The 'options' button, showing a menu defined in menus.js
- * - The 'move' button, which isn't drawn as a button, but looks like an empty space. It emulates a
- * 	kind of wacky bootleg of drag-and-drop.
- * - The 'resize' button, which uses the same drag-and-drop emulation and resizes the note from its
- * 	upper-right corner.
+ * - The 'move' button, which isn't drawn as a button, but looks like an empty
+ *   space. It emulates a kind of wacky window dragging.
+ * - The 'resize' button, which uses the same dragging mecanism and resizes the
+ *   note from its upper-right corner.
  */
 var NoteBox = class NoteBox {
 	constructor (id, color, size) {
