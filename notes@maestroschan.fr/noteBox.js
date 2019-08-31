@@ -234,12 +234,11 @@ var NoteBox = class NoteBox {
 		//there is no text, making the entries unsuitable for use by normal
 		//humans. 
 //		if (Extension.AUTO_FOCUS) {
-			this.actor.connect('enter-event', this.getKeyFocus.bind(this));
-			this.actor.connect('leave-event', this.leaveKeyFocus.bind(this));
+			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
+			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
 //		} else {
 //			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
-//			this.actor.connect('button-press-event', this.getKeyFocus.bind(this));
-//			this.actor.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
+//			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
 //		}
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
 		
@@ -474,9 +473,10 @@ var NoteBox = class NoteBox {
 	}
 
 	/*
-	 * This tries to find a random [x,y] which doesn't overlap with an existing note's header
-	 * and which isn't out of the primary monitor. Of course, if there is notes everywhere,
-	 * it just abandons computation, and sets the note in a 100% random position.
+	 * This tries to find a random [x,y] which doesn't overlap with an existing
+	 * note's header and which isn't out of the primary monitor. Of course, if
+	 * there is notes everywhere, it just abandons computation, and sets the
+	 * note in a 100% random position.
 	 */
 	computeRandomPosition () {
 		let x;
@@ -487,7 +487,7 @@ var NoteBox = class NoteBox {
 		
 			let can = true;
 			Extension.ALL_NOTES.forEach(function (n) {
-				if( ( Math.abs(n._x - x) < 230) && ( Math.abs(n._y - y) < 100) ) {
+				if( (Math.abs(n._x - x) < 230) && (Math.abs(n._y - y) < 100) ) {
 					can = false;
 				}
 			});
@@ -502,6 +502,7 @@ var NoteBox = class NoteBox {
 	loadState () {
 		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
+			//If a _text file has no corresponding _state file
 			let defaultPosition = this.computeRandomPosition();
 			GLib.file_set_contents(
 				file2,
@@ -585,4 +586,5 @@ var NoteBox = class NoteBox {
 	}
 };
 
+//------------------------------------------------------------------------------
 

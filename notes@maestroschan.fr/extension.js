@@ -104,21 +104,15 @@ class NotesButton {
 		
 		GLOBAL_ARE_VISIBLE = false;
 		this.loadAllNotes();
-		
-		if(Convenience.getSettings().get_boolean('use-shortcut')) {
-			this.USE_SHORTCUT = true;
-			this._bindShortcut();
-		} else {
-			this.USE_SHORTCUT = false;
-		}
+		this._bindShortcut(Convenience.getSettings().get_boolean('use-shortcut'));
 	}
 
 	update_icon_visibility () {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
 		try {
-			this.super_btn.visible = now_visible;
-		} catch (e) {
 			this.super_btn.actor.visible = now_visible;
+		} catch (e) {
+			this.super_btn.visible = now_visible;
 		}
 	}
 
@@ -183,10 +177,11 @@ class NotesButton {
 		GLOBAL_ARE_VISIBLE = false;
 	}
 
-	_bindShortcut () {
-		var ModeType = Shell.hasOwnProperty('ActionMode') ?
-			Shell.ActionMode : Shell.KeyBindingMode;
-
+	_bindShortcut (useShortcut) {
+		this.USE_SHORTCUT = useShortcut;
+		if (!useShortcut) { return; }
+		
+		var ModeType = Shell.hasOwnProperty('ActionMode') ? Shell.ActionMode : Shell.KeyBindingMode;
 		Main.wm.addKeybinding(
 			'keyboard-shortcut',
 			Convenience.getSettings(),
@@ -245,7 +240,10 @@ function enable() {
 	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.super_btn, 0, 'right');
 
 	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', bringToPrimaryMonitorOnly.bind(this));
-	SIGNAL_ICON = SETTINGS.connect('changed::hide-icon', GLOBAL_BUTTON.update_icon_visibility.bind(this));
+	SIGNAL_ICON = SETTINGS.connect(
+		'changed::hide-icon',
+		GLOBAL_BUTTON.update_icon_visibility.bind(GLOBAL_BUTTON)
+	);
 }
 
 //------------------------------------------------------------------------------
