@@ -55,6 +55,7 @@
 						<property name="halign">end</property>
 						<property name="expand">False</property>
 						<property name="label" translatable="yes">Automatic focus</property>
+						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell devs fix the nonsensical behavior of their text entries.</property>
 					</object>
 					<packing>
 						<property name="left-attach">0</property>
@@ -63,8 +64,10 @@
 				</child>
 				<child>
 					<object class="GtkSwitch" id="focus_switch">
+						<property name="sensitive">False</property>
 						<property name="expand">False</property>
 						<property name="halign">start</property>
+						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell devs fix the nonsensical behavior of their text entries.</property>
 					</object>
 					<packing>
 						<property name="left-attach">1</property>

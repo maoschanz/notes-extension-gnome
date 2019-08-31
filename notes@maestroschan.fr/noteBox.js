@@ -8,6 +8,7 @@ const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const Main = imports.ui.main;
 const ShellEntry = imports.ui.shellEntry;
+const GrabHelper = imports.ui.grabHelper;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -114,14 +115,6 @@ var NoteBox = class NoteBox {
 		this.loadState();
 		this.applyActorStyle();
 		
-		if (Extension.AUTO_FOCUS) {
-			this.actor.connect('enter-event', this.getKeyFocus.bind(this));
-	//	} else {
-	//		this.actor.connect('button-press-event', this.getKeyFocus.bind(this));
-		}
-//FIXME clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
-		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
-		
 		// This is the regular header, as described above.
 		this.buttons_box = new St.BoxLayout({
 			vertical: false,
@@ -174,9 +167,9 @@ var NoteBox = class NoteBox {
 			style_class: 'boxStyle',
 		});
 		
-		let btnBack2 = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
-		btnBack2.actor.connect('clicked', this.hideDelete.bind(this));
-		this.delete_box.add(btnBack2.actor);
+		let btnBack = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack.actor.connect('clicked', this.hideDelete.bind(this));
+		this.delete_box.add(btnBack.actor);
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
@@ -187,23 +180,16 @@ var NoteBox = class NoteBox {
 		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
 		this.delete_box.add(btnConfirm.actor);
 		
-		//-------------
-		
-		this.actor.add_actor(this.buttons_box);
-		this.actor.add_actor(this.delete_box);
-		
-		//-------------
+		//----------------------------------------------------------------------
 		
 		this._scrollView = new St.ScrollView({
-			overlay_scrollbars: true, //if true, the scrollbar is inside the textfield, else it's outside
+			overlay_scrollbars: true,
+			// if true, the scrollbar is inside the textfield, else it's outside
 			x_expand: true,
 			y_expand: true,
 			x_fill: true,
 			y_fill: true
 		});
-//		this._scrollView.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC); //TODO ?
-		
-		this.actor.add_actor(this._scrollView);
 		
 		this.noteEntry = new St.Entry({
 			name: 'noteEntry',
@@ -231,6 +217,35 @@ var NoteBox = class NoteBox {
 		
 		//----------------------------------------------------------------------
 		
+		this.actor.add_actor(this.buttons_box);
+		this.actor.add_actor(this.delete_box);
+		this.actor.add_actor(this._scrollView);
+		
+		//----------------------------------------------------------------------
+		
+		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
+		//FIXME according to common sense, clicking in an entry should give it
+		//the keyboard focus, and it was how it worked before GS 3.33, but after
+		//3.33 there is an error if i don't manage the grab manually. The error:
+		//clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
+		//Managing the grab manually is only a very shitty workaround, since
+		//the auto_focus can work but the defaut behavior (focus the entry...
+		//when the user focus the entry?? common sense) can't work because the
+		//button-press-event signal is sent only when the user clicks where
+		//there is no text, making the entries unsuitable for use by normal
+		//humans. 
+//		if (Extension.AUTO_FOCUS) {
+			this.actor.connect('enter-event', this.getKeyFocus.bind(this));
+			this.actor.connect('leave-event', this.leaveKeyFocus.bind(this));
+//		} else {
+//			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
+//			this.actor.connect('button-press-event', this.getKeyFocus.bind(this));
+//			this.actor.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
+//		}
+		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
+		
+		//----------------------------------------------------------------------
+		
 		// Each note sets its own actor where it should be. This isn't a problem
 		// since the related setting isn't directly accessed, but is stored in
 		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
@@ -254,11 +269,15 @@ var NoteBox = class NoteBox {
 	}
 
 	getKeyFocus () {
-		if (this.actor == null) { return; } //XXX shouldn't exist
 		if (this.entry_is_visible) {
+			this._grabHelper.grab({ actor: this.noteEntry });
 			this.noteEntry.grab_key_focus();
 		}
 		this.redraw();
+	}
+	
+	leaveKeyFocus () {
+		this._grabHelper.ungrab({ actor: this.noteEntry });
 	}
 
 	load_in_the_right_actor () {
