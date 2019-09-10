@@ -2,12 +2,8 @@
 // GPL v3
 // Copyright Romain F. T.
 
-const GObject = imports.gi.GObject;
-const Gtk = imports.gi.Gtk;
+const{ GObject, Gtk, GdkPixbuf, GLib } = imports.gi;
 const Mainloop = imports.mainloop;
-const Gdk = imports.gi.Gdk;
-const GdkPixbuf = imports.gi.GdkPixbuf;
-const GLib = imports.gi.GLib;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;

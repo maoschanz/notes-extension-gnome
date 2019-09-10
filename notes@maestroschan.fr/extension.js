@@ -71,11 +71,11 @@ function refreshArray () {
 	ALL_NOTES = null;
 	ALL_NOTES = temp;
 	
-	// FIXME that's so horrible wtf
-	let textfile = Gio.file_new_for_path(PATH + '/' + ALL_NOTES.length.toString() + '_text');
-	let statefile = Gio.file_new_for_path(PATH + '/' + ALL_NOTES.length.toString() + '_state');
-	textfile.delete(null);
-	statefile.delete(null);
+	let theoricallyDeletedFilePath = PATH + '/' + ALL_NOTES.length.toString();
+	let textfile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_text');
+	let statefile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_state');
+	textfile.delete(null); // may not do anything
+	statefile.delete(null); // may not do anything
 }
 
 //------------------------------------------------------------------------------
@@ -199,15 +199,8 @@ class NotesButton {
 //------------------------------------------------------------------------------
 
 function bringToPrimaryMonitorOnly() {
-	let outX;
-	let outY;
 	ALL_NOTES.forEach(function (n) {
-		outX = (n._x < 0 || n._x > Main.layoutManager.primaryMonitor.width - 20);
-		outY = (n._y < 0 || n._y > Main.layoutManager.primaryMonitor.height - 20);
-		if (outX || outY) {
-			[n._x, n._y] = n.computeRandomPosition();
-			n._setNotePosition();
-		}
+		n.fixState();
 	});
 }
 

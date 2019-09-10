@@ -113,7 +113,82 @@ var NoteBox = class NoteBox {
 		this._fontColor = '';
 		this.loadState();
 		this.applyActorStyle();
+		this._buildHeaderbar();
 		
+		//----------------------------------------------------------------------
+		
+		this._scrollView = new St.ScrollView({
+			overlay_scrollbars: true,
+			// if true, the scrollbar is inside the textfield, else it's outside
+			x_expand: true,
+			y_expand: true,
+			x_fill: true,
+			y_fill: true
+		});
+		
+		this.noteEntry = new St.Entry({
+			name: 'noteEntry',
+			can_focus: true,
+			hint_text: _("Type here…"),
+			track_hover: true,
+			x_expand: true,
+			style_class: 'textfield',
+		});
+		let clutterText = this.noteEntry.get_clutter_text();
+		clutterText.set_single_line_mode(false);
+		clutterText.set_activatable(false); // we can press Enter
+		clutterText.set_line_wrap(true);
+		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
+
+		this.entry_box = new St.BoxLayout({
+			reactive: true,
+			x_expand: true,
+			y_expand: true,
+			visible: this.entry_is_visible,
+		});
+		
+		this.entry_box.add_actor(this.noteEntry);
+		this._scrollView.add_actor(this.entry_box);
+		this.actor.add_actor(this._scrollView);
+		
+		//----------------------------------------------------------------------
+		
+		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
+		//FIXME according to common sense, clicking in an entry should give it
+		//the keyboard focus, and it was how it worked before GS 3.33, but after
+		//3.33 there is an error if i don't manage the grab manually. The error:
+		//clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
+		//Managing the grab manually is only a very shitty workaround, since
+		//the auto_focus can work but the defaut behavior (focus the entry...
+		//when the user focus the entry?? common sense) can't work because the
+		//button-press-event signal is sent only when the user clicks where
+		//there is no text, making the entries unsuitable for use by normal
+		//humans.
+//		if (Extension.AUTO_FOCUS) {
+			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
+			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
+//		} else {
+//			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
+//			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
+//		}
+		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
+		
+		//----------------------------------------------------------------------
+		
+		// Each note sets its own actor where it should be. This isn't a problem
+		// since the related setting isn't directly accessed, but is stored in
+		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
+		this.load_in_the_right_actor();
+		this._setNotePosition();
+		this.loadText();
+		ShellEntry.addContextMenu(this.noteEntry);
+		this._initStyle();
+		
+		this.grabX = this._x + 100;
+		this.grabY = this._y + 10;
+	}
+
+	_buildHeaderbar () {
 		// This is the regular header, as described above.
 		this.buttons_box = new St.BoxLayout({
 			vertical: false,
@@ -179,84 +254,10 @@ var NoteBox = class NoteBox {
 		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
 		this.delete_box.add(btnConfirm.actor);
 		
-		//----------------------------------------------------------------------
-		
-		this._scrollView = new St.ScrollView({
-			overlay_scrollbars: true,
-			// if true, the scrollbar is inside the textfield, else it's outside
-			x_expand: true,
-			y_expand: true,
-			x_fill: true,
-			y_fill: true
-		});
-		
-		this.noteEntry = new St.Entry({
-			name: 'noteEntry',
-			can_focus: true,
-			hint_text: _("Type here…"),
-			track_hover: true,
-			x_expand: true,
-			style_class: 'textfield',
-		});
-		let clutterText = this.noteEntry.get_clutter_text();
-		clutterText.set_single_line_mode(false);
-		clutterText.set_activatable(false); // we can press Enter
-		clutterText.set_line_wrap(true);
-		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
-
-		this.entry_box = new St.BoxLayout({
-			reactive: true,
-			x_expand: true,
-			y_expand: true,
-			visible: this.entry_is_visible,
-		});
-		
-		this.entry_box.add_actor(this.noteEntry);
-		this._scrollView.add_actor(this.entry_box);
-		
-		//----------------------------------------------------------------------
-		
 		this.actor.add_actor(this.buttons_box);
 		this.actor.add_actor(this.delete_box);
-		this.actor.add_actor(this._scrollView);
-		
-		//----------------------------------------------------------------------
-		
-		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		//FIXME according to common sense, clicking in an entry should give it
-		//the keyboard focus, and it was how it worked before GS 3.33, but after
-		//3.33 there is an error if i don't manage the grab manually. The error:
-		//clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
-		//Managing the grab manually is only a very shitty workaround, since
-		//the auto_focus can work but the defaut behavior (focus the entry...
-		//when the user focus the entry?? common sense) can't work because the
-		//button-press-event signal is sent only when the user clicks where
-		//there is no text, making the entries unsuitable for use by normal
-		//humans. 
-//		if (Extension.AUTO_FOCUS) {
-			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
-			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
-//		} else {
-//			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
-//			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
-//		}
-		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
-		
-		//----------------------------------------------------------------------
-		
-		// Each note sets its own actor where it should be. This isn't a problem
-		// since the related setting isn't directly accessed, but is stored in
-		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
-		this.load_in_the_right_actor();
-		this._setNotePosition();
-		this.loadText();
-		ShellEntry.addContextMenu(this.noteEntry);
-		this._initStyle();
-		
-		this.grabX = this._x + 100;
-		this.grabY = this._y + 10;
 	}
-	
+
 	_initStyle () {
 		let initialRGB_r = this.customColor.split(',')[0];
 		let initialRGB_g = this.customColor.split(',')[1];
@@ -273,13 +274,14 @@ var NoteBox = class NoteBox {
 		}
 		this.redraw();
 	}
-	
+
 	leaveKeyFocus () {
 		this._grabHelper.ungrab({ actor: this.noteEntry });
 	}
 
 	load_in_the_right_actor () {
 		if (Extension.Z_POSITION == 'above-all') {
+			// FIXME maybe the focus issue is somewhere here
 			Main.layoutManager.addChrome(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
@@ -328,10 +330,15 @@ var NoteBox = class NoteBox {
 
 	_onResizeMotion (actor, event) {
 		if (!this._isResizing) { return; }
-		
-		let newWidth = Math.abs(this.actor.width + (Math.floor(event.get_coords()[0]) - this.grabX));
-		let newHeight = Math.abs(this._y + this.actor.height - Math.floor(event.get_coords()[1]) + (this.grabY - this._y));
-		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
+		let x = Math.floor(event.get_coords()[0]);
+		let y = Math.floor(event.get_coords()[1]);
+		this._resizeTo(x, y);
+	}
+
+	_resizeTo (event_x, event_y) {
+		let newWidth = Math.abs(this.actor.width + (event_x - this.grabX));
+		let newHeight = Math.abs(this._y + this.actor.height - event_y + (this.grabY - this._y));
+		let newY = event_y - (this.grabY - this._y);
 		
 		newWidth = Math.max(newWidth, MIN_WIDTH);
 		newHeight = Math.max(newHeight, MIN_HEIGHT);
@@ -341,22 +348,27 @@ var NoteBox = class NoteBox {
 		this._y = newY;
 		this._setNotePosition();
 		
-		this.grabX = Math.floor(event.get_coords()[0]);
-		this.grabY = Math.floor(event.get_coords()[1]);
+		this.grabX = event_x;
+		this.grabY = event_y;
 	}
 
 	_onMoveMotion (actor, event) {
 		if (!this._isMoving) { return; }
+		let x = Math.floor(event.get_coords()[0]);
+		let y = Math.floor(event.get_coords()[1]);
+		this._moveTo(x, y);
+	}
+
+	_moveTo (event_x, event_y) {
+		let newX = event_x - (this.grabX - this._x);
+		let newY = event_y - (this.grabY - this._y);
 		
-		let newX = Math.floor(event.get_coords()[0]) - (this.grabX - this._x);
-		let newY = Math.floor(event.get_coords()[1]) - (this.grabY - this._y);
-		
-		this._y = newY;
-		this._x = newX;
+		this._y = Math.floor(newY);
+		this._x = Math.floor(newX);
 		this._setNotePosition();
 		
-		this.grabX = Math.floor(event.get_coords()[0]);
-		this.grabY = Math.floor(event.get_coords()[1]);
+		this.grabX = event_x;
+		this.grabY = event_y;
 	}
 
 	//--------------------------------------------------------------------------
@@ -448,7 +460,7 @@ var NoteBox = class NoteBox {
 	}
 
 	loadText () {
-		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_text']);
+		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			GLib.file_set_contents(file2, '');
 		}
@@ -468,7 +480,7 @@ var NoteBox = class NoteBox {
 		if (noteText == null) {
 			noteText = '';
 		}
-		let file = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_text']);
+		let file = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
 		GLib.file_set_contents(file, noteText);
 	}
 
@@ -500,7 +512,7 @@ var NoteBox = class NoteBox {
 	}
 
 	loadState () {
-		let file2 = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
+		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			//If a _text file has no corresponding _state file
 			let defaultPosition = this.computeRandomPosition();
@@ -540,8 +552,23 @@ var NoteBox = class NoteBox {
 		noteState += this.entry_is_visible.toString() + ';';
 		
 		//log('saveState | ' + this.id.toString() + ' | ' + noteState);
-		let file = GLib.build_filenamev([PATH, '/' + this.id.toString() + '_state']);
+		let file = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
 		GLib.file_set_contents(file, noteState);
+	}
+
+	fixState () {
+		let outX = (this._x < 0 || this._x > Main.layoutManager.primaryMonitor.width - 20);
+		let outY = (this._y < 0 || this._y > Main.layoutManager.primaryMonitor.height - 20);
+		if (outX || outY) {
+			[this._x, this._y] = this.computeRandomPosition();
+			this._setNotePosition();
+		}
+		if (Number.isNaN(this._x)) { this._x = 10; }
+		if (Number.isNaN(this._y)) { this._y = 10; }
+		if (Number.isNaN(this.actor.width)) { this.actor.width = 250; }
+		if (Number.isNaN(this.actor.height)) { this.actor.height = 200; }
+		if (Number.isNaN(this._fontSize)) { this._fontSize = 10; }
+		this.saveState();
 	}
 
 	createNote () {
