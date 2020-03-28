@@ -198,26 +198,26 @@ var NoteBox = class NoteBox {
 			y_expand: false,
 			style_class: 'boxStyle',
 		});
-		
+
 		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
 		btnNew.actor.connect('clicked', this.createNote.bind(this));
 		this.buttons_box.add(btnNew.actor);
-		
+
 		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
 		btnDelete.actor.connect('clicked', this.showDelete.bind(this));
 		this.buttons_box.add(btnDelete.actor);
 		
+		this.moveBox = new St.Button({
+			x_expand: true,
+			x_align: St.TextAlign.CENTER,
+			y_align: St.TextAlign.CENTER,
+			// label: 'tigfctucffuyfyfiiyiyttle'
+		})
+		this.buttons_box.add_actor(this.moveBox);
+
 		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
 		btnOptions.addMenu();
 		this.buttons_box.add(btnOptions.actor);
-		
-		this.moveBox = new St.Button({
-			x_expand: true,
-			x_align: Clutter.ActorAlign.CENTER,
-			y_align: Clutter.ActorAlign.CENTER,
-			label: ''
-		})
-		this.buttons_box.add_actor(this.moveBox);
 
 		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
 		this.buttons_box.add(ctrlButton.actor);
@@ -229,9 +229,18 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('button-press-event', this._onResizePress.bind(this));
 		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
-		
-		// This is the UI for deletion. The whole box is hidden by default, and will
-		// be shown instead of the regular header if the user needs it.
+
+		this._addDeleteBox();
+		this._addEditTitleBox();
+	}
+
+	_addEditTitleBox () {
+		// TODO
+	}
+
+	_addDeleteBox () {
+		// This is the UI for deletion. The whole box is hidden by default, and
+		// will be shown instead of the regular header if the user needs it.
 		this.delete_box = new St.BoxLayout({
 			vertical: false,
 			visible: false,
@@ -240,7 +249,7 @@ var NoteBox = class NoteBox {
 			y_expand: false,
 			style_class: 'boxStyle',
 		});
-		
+
 		let btnBack = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
 		btnBack.actor.connect('clicked', this.hideDelete.bind(this));
 		this.delete_box.add(btnBack.actor);
@@ -253,7 +262,7 @@ var NoteBox = class NoteBox {
 		let btnConfirm = new Menus.RoundButton(this, 'user-trash-symbolic', _("Confirm"));
 		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
 		this.delete_box.add(btnConfirm.actor);
-		
+
 		this.actor.add_actor(this.buttons_box);
 		this.actor.add_actor(this.delete_box);
 	}
@@ -281,7 +290,6 @@ var NoteBox = class NoteBox {
 
 	load_in_the_right_actor () {
 		if (Extension.Z_POSITION == 'above-all') {
-			// FIXME maybe the focus issue is somewhere here
 			Main.layoutManager.addChrome(this.actor);
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);

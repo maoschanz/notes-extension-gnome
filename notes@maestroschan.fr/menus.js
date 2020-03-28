@@ -39,7 +39,12 @@ class OptionsMenu {
 
 	_redisplay () {
 		this.super_menu.removeAll(); //-----------------------------------------
-		
+
+		// this.super_menu.addAction(_("Edit title"), this._onEditTitle);
+		// this.super_menu.addAction(_("Delete"), this._onDelete);
+
+		// this._appendSeparator(); //---------------------------------------------
+
 		this.size_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -81,9 +86,9 @@ class OptionsMenu {
 		let colorSubmenuItem = new PopupMenu.PopupSubMenuMenuItem(_("Custom color"));
 		this.super_menu.addMenuItem(colorSubmenuItem);
 		this._buildCustomColorMenu(colorSubmenuItem.menu);
-		
+
 		this._appendSeparator(); //---------------------------------------------
-		
+
 		this.super_menu.addAction(_("Settings"), this._onSettings);
 	}
 
@@ -148,7 +153,7 @@ class OptionsMenu {
 
 	_buildSizeItem () {
 		let sizeLabel = new St.Label({
-			// Have to be a very short string
+			// Has to be a very short string
 			text: _("Font size"),
 			y_align: Clutter.ActorAlign.CENTER,
 		});
@@ -192,9 +197,9 @@ class OptionsMenu {
 			style: 'background-color: ' + color + ';',
 		});
 		if (line == 1) {
-			this.color1_item.actor.add( btn );
+			this.color1_item.actor.add(btn);
 		} else {
-			this.color2_item.actor.add( btn );
+			this.color2_item.actor.add(btn);
 		}
 		btn.connect('clicked', this._onApply.bind(this, color));
 	}
@@ -213,6 +218,14 @@ class OptionsMenu {
 	_onSettings () {
 		Util.spawn(['gnome-shell-extension-prefs', 'notes@maestroschan.fr']);
 		Extension.GLOBAL_BUTTON._hideNotes();
+	}
+
+	_onEditTitle () {
+		// TODO
+	}
+
+	_onDelete () {
+		// TODO
 	}
 
 	_onApply (color, button) {
@@ -288,7 +301,6 @@ var RoundButton = class RoundButton {
 		this.emit('menu-state-changed', true);
 		this.actor.set_hover(true);
 		this._menu.popup();
-		this._menuManager.ignoreRelease();
 		return false;
 	}
 };
