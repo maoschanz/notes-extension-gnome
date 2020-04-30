@@ -55,7 +55,7 @@
 						<property name="halign">end</property>
 						<property name="expand">False</property>
 						<property name="label" translatable="yes">Automatic focus</property>
-						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell devs fix the nonsensical behavior of their text entries with the version 3.34</property>
+						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
 					</object>
 					<packing>
 						<property name="left-attach">0</property>
@@ -67,7 +67,7 @@
 						<property name="sensitive">False</property>
 						<property name="expand">False</property>
 						<property name="halign">start</property>
-						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell devs fix the nonsensical behavior of their text entries with the version 3.34</property>
+						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
 					</object>
 					<packing>
 						<property name="left-attach">1</property>
@@ -315,7 +315,7 @@ s												<child>
 												<property name="halign">start</property>
 												<property name="wrap">True</property>
 												<property name="use-markup">True</property>
-												<property name="label">Automatic focus will stay enabled until GNOME Shell devs fix the nonsensical behavior of their text entries with the version 3.34</property>
+												<property name="label">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
 											</object>
 										</child>
 										<child>
