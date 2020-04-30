@@ -16,4 +16,16 @@ Or download & extract the ZIP, and run `./install.sh`
 
 Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`
 
+<!-- dans le menu : nouveau/supprimer//éditer le titre//... -->
+<!-- le bouton de grab aurait le titre en label, et clic-droit enroulerait -->
+
+<!-- 3.36 :
+
+le putain de focus
+rétrocompatibilité en sang
+déprécation de l'acteur de l'icône avec conditionnelle
+autres erreurs de merde ?
+
+    -->
+
 

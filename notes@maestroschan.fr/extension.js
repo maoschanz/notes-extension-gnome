@@ -93,7 +93,7 @@ class NotesButton {
 			icon_name: 'document-edit-symbolic',
 			style_class: 'system-status-icon'
 		});
-		try {
+		try { // TODO conditionnelle sur la version
 			this.super_btn.add_child(icon);
 			this.super_btn.connect('button-press-event', this.toggleState.bind(this));
 		} catch (e) {
@@ -109,10 +109,10 @@ class NotesButton {
 
 	update_icon_visibility () {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
-		try {
-			this.super_btn.actor.visible = now_visible;
-		} catch (e) {
+		try { // TODO conditionnelle sur la version
 			this.super_btn.visible = now_visible;
+		} catch (e) {
+			this.super_btn.actor.visible = now_visible;
 		}
 	}
 
@@ -148,8 +148,9 @@ class NotesButton {
 			let nextId = ALL_NOTES.length;
 			ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
 		} catch (e) {
-			// TODO notification?
-			log('failed to create note');
+			Main.notify(_("Notes extension: failed to create widgets for a note"));
+			log('failed to create note n°' + ALL_NOTES.length.toString());
+			log(e);
 		}
 	}
 
@@ -181,7 +182,9 @@ class NotesButton {
 		this.USE_SHORTCUT = useShortcut;
 		if (!useShortcut) { return; }
 		
-		var ModeType = Shell.hasOwnProperty('ActionMode') ? Shell.ActionMode : Shell.KeyBindingMode;
+		var ModeType = Shell.hasOwnProperty('ActionMode')
+			? Shell.ActionMode
+			: Shell.KeyBindingMode;
 		Main.wm.addKeybinding(
 			'keyboard-shortcut',
 			Convenience.getSettings(),
@@ -239,8 +242,6 @@ function enable() {
 	);
 }
 
-//------------------------------------------------------------------------------
-
 function disable() {
 	ALL_NOTES.forEach(function (n) {
 		n.onlySave();
@@ -257,4 +258,6 @@ function disable() {
 	
 	GLOBAL_BUTTON.destroy();
 }
+
+//------------------------------------------------------------------------------
 

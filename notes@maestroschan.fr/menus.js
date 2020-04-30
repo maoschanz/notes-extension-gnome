@@ -193,7 +193,7 @@ class OptionsMenu {
 
 	_addColorButton (color, line) {
 		let btn = new St.Button({
-			style_class: 'calendar-today calendar-day-base',
+			style_class: 'notesCircleButton',
 			style: 'background-color: ' + color + ';',
 		});
 		if (line == 1) {
@@ -263,13 +263,12 @@ var RoundButton = class RoundButton {
 			}),
 			accessible_name: accessibleName,
 			y_align: Clutter.ActorAlign.CENTER,
-			style_class: 'calendar-today calendar-day-base',
+			style_class: 'notesCircleButton notesHeaderboxButton',
 			reactive: true,
 			can_focus: true,
 			track_hover: true,
 			y_expand: false,
 			y_fill: true,
-			style: 'margin: 0px;',
 		});
 	}
 

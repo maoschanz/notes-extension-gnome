@@ -1,39 +1,50 @@
-.boxStyle
-{
+.boxStyle {
 	spacing: 10px;
 	margin: 5px;
 }
 
-.noteStyle
-{
+.noteStyle {
 	padding: 0px;
 	margin: 0px;
 }
 
-.noteStyle:hover
-{
-	padding: 0px;
-	margin: 0px;
+.noteStyle:hover {
 	box-shadow: 0px 0px 10px #000;
 }
 
-.textfield
-{
+.textField {
 	border-width: 0px;
 	border-radius: 0px;
 	box-shadow: none;
 }
 
-.textfield:hover
-{
-	border-width: 0px;
-	border-radius: 0px;
-}
-
-.notesBackground
-{
+.notesBackground {
 	background-gradient-start: rgba(0, 0, 0, 0.3);
 	background-gradient-end: rgba(0, 0, 0, 0.9);
 	background-gradient-direction: vertical;
+}
+
+.notesCircleButton {
+	border-width: 1px;
+	border-radius: 14px;
+	height: 28px;
+	width: 28px;
+	border-style: solid;
+}
+
+.notesHeaderboxButton {
+	border-style: solid;
+	border-color: grey; /*TODO set ça plutôþ en même temps que le texte*/
+}
+
+.notesCircleButton:hover, .notesCircleButton:active {
+	border-width: 2px;
+	border-radius: 10px;
+	height: 26px;
+	width: 26px;
+}
+
+.notesTitleButton {
+	text-align: center;
 }
 

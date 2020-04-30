@@ -3,7 +3,7 @@
 	<object class="GtkStack" id="prefs_stack">
 		<property name="transition-type">slide-left-right</property>
 
-	<!--"Settings" page-->
+		<!--"Settings" page-->
 		<child>
 			<object class="GtkGrid">
 				<property name="expand">True</property>
@@ -332,7 +332,6 @@ s												<child>
 										<property name="title" translatable="yes">The settings window</property>
 									</packing>
 								</child>
-								
 								
 								<child>
 									<object class="GtkBox">

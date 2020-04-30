@@ -109,14 +109,14 @@ var NoteBox = class NoteBox {
 			style_class: 'noteStyle',
 			track_hover: true,
 		});
-		
+
 		this._fontColor = '';
 		this.loadState();
 		this.applyActorStyle();
 		this._buildHeaderbar();
-		
+
 		//----------------------------------------------------------------------
-		
+
 		this._scrollView = new St.ScrollView({
 			overlay_scrollbars: true,
 			// if true, the scrollbar is inside the textfield, else it's outside
@@ -125,14 +125,14 @@ var NoteBox = class NoteBox {
 			x_fill: true,
 			y_fill: true
 		});
-		
+
 		this.noteEntry = new St.Entry({
 			name: 'noteEntry',
 			can_focus: true,
 			hint_text: _("Type here…"),
 			track_hover: true,
 			x_expand: true,
-			style_class: 'textfield',
+			style_class: 'textField',
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
 		clutterText.set_single_line_mode(false);
@@ -146,24 +146,25 @@ var NoteBox = class NoteBox {
 			y_expand: true,
 			visible: this.entry_is_visible,
 		});
-		
+
 		this.entry_box.add_actor(this.noteEntry);
 		this._scrollView.add_actor(this.entry_box);
 		this.actor.add_actor(this._scrollView);
-		
+
 		//----------------------------------------------------------------------
-		
+
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
 		//FIXME according to common sense, clicking in an entry should give it
 		//the keyboard focus, and it was how it worked before GS 3.33, but after
 		//3.33 there is an error if i don't manage the grab manually. The error:
 		//clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
 		//Managing the grab manually is only a very shitty workaround, since
-		//the auto_focus can work but the defaut behavior (focus the entry...
-		//when the user focus the entry?? common sense) can't work because the
-		//button-press-event signal is sent only when the user clicks where
-		//there is no text, making the entries unsuitable for use by normal
-		//humans.
+		//the auto_focus can work but the normal behavior (focus the entry...
+		//when the user focuses the entry?? fucking common sense) can't work
+		//because the button-press-event signal is sent only when the user
+		//clicks where there is no text, making the entries unsuitable for use
+		//by sane humans. St.FocusManager might be a thing (who tf wrote that
+		//shit without baking it into addChrome?)
 //		if (Extension.AUTO_FOCUS) {
 			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
@@ -172,9 +173,9 @@ var NoteBox = class NoteBox {
 //			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
 //		}
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
-		
+
 		//----------------------------------------------------------------------
-		
+
 		// Each note sets its own actor where it should be. This isn't a problem
 		// since the related setting isn't directly accessed, but is stored in
 		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
@@ -183,7 +184,7 @@ var NoteBox = class NoteBox {
 		this.loadText();
 		ShellEntry.addContextMenu(this.noteEntry);
 		this._initStyle();
-		
+
 		this.grabX = this._x + 100;
 		this.grabY = this._y + 10;
 	}
@@ -206,14 +207,15 @@ var NoteBox = class NoteBox {
 		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
 		btnDelete.actor.connect('clicked', this.showDelete.bind(this));
 		this.buttons_box.add(btnDelete.actor);
-		
+
 		this.moveBox = new St.Button({
 			x_expand: true,
-			x_align: St.TextAlign.CENTER,
-			y_align: St.TextAlign.CENTER,
-			// label: 'tigfctucffuyfyfiiyiyttle'
+			x_fill: true,
+			y_fill: true,
+			style_class: 'notesTitleButton',
+			// label: 'example title'
 		})
-		this.buttons_box.add_actor(this.moveBox);
+		this.buttons_box.add(this.moveBox, {x_expand: true});
 
 		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
 		btnOptions.addMenu();
@@ -382,7 +384,7 @@ var NoteBox = class NoteBox {
 	//--------------------------------------------------------------------------
 
 	redraw () {
-		this.actor.raise_top();
+		this.actor.get_parent().set_child_above_sibling(this.actor, null);
 		this.onlySave();
 	}
 
