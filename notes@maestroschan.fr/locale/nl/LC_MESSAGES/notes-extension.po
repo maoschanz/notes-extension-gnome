@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-29 19:44+0200\n"
+"POT-Creation-Date: 2020-05-08 19:15+0200\n"
 "PO-Revision-Date: 2019-04-21 12:27+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -18,75 +18,75 @@ msgstr ""
 "X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: notes@maestroschan.fr/extension.js:94
+#: notes@maestroschan.fr/extension.js:91
 msgid "Show notes"
 msgstr "Notities tonen"
 
-#: notes@maestroschan.fr/menus.js:82
+#: notes@maestroschan.fr/extension.js:151
+msgid "Notes extension: failed to create widgets for a note"
+msgstr ""
+
+#: notes@maestroschan.fr/menus.js:101
 msgid "Custom color"
 msgstr "Aangepaste kleur"
 
-#: notes@maestroschan.fr/menus.js:88 notes@maestroschan.fr/prefs.ui:158
+#: notes@maestroschan.fr/menus.js:107 notes@maestroschan.fr/prefs.ui:161
 msgid "Settings"
 msgstr "Instellingen"
 
-#: notes@maestroschan.fr/menus.js:145 notes@maestroschan.fr/prefs.ui:124
+#: notes@maestroschan.fr/menus.js:117 notes@maestroschan.fr/prefs.ui:127
 msgid "Apply"
 msgstr "Toepassen"
 
-#: notes@maestroschan.fr/menus.js:153
+#: notes@maestroschan.fr/menus.js:146
 msgid "Font size"
 msgstr "Grootte"
 
-#: notes@maestroschan.fr/menus.js:300
-msgid "Select All"
-msgstr "Alles selecteren"
-
-#: notes@maestroschan.fr/noteBox.js:134
-msgid "New"
-msgstr "Nieuw"
-
-#: notes@maestroschan.fr/noteBox.js:138
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: notes@maestroschan.fr/noteBox.js:142
-msgid "Note options"
-msgstr "Notitie-opties"
-
-#: notes@maestroschan.fr/noteBox.js:154
-msgid "Resize"
-msgstr "Grootte wijzigen"
-
-#: notes@maestroschan.fr/noteBox.js:176
-msgid "Back"
-msgstr "Terug"
-
-#: notes@maestroschan.fr/noteBox.js:183
-msgid "Delete this note?"
-msgstr "Wil je deze notitie verwijderen?"
-
-#: notes@maestroschan.fr/noteBox.js:185
-msgid "Confirm"
-msgstr "Bevestigen"
-
-#: notes@maestroschan.fr/noteBox.js:210
+#: notes@maestroschan.fr/noteBox.js:132
 msgid "Type here…"
 msgstr "Typ hier…"
 
-#: notes@maestroschan.fr/prefs.js:48
+#: notes@maestroschan.fr/noteBox.js:203
+msgid "New"
+msgstr "Nieuw"
+
+#: notes@maestroschan.fr/noteBox.js:207
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: notes@maestroschan.fr/noteBox.js:220
+msgid "Note options"
+msgstr "Notitie-opties"
+
+#: notes@maestroschan.fr/noteBox.js:224
+msgid "Resize"
+msgstr "Grootte wijzigen"
+
+#: notes@maestroschan.fr/noteBox.js:255
+msgid "Back"
+msgstr "Terug"
+
+#: notes@maestroschan.fr/noteBox.js:262
+msgid "Delete this note?"
+msgstr "Wil je deze notitie verwijderen?"
+
+#: notes@maestroschan.fr/noteBox.js:264
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: notes@maestroschan.fr/prefs.js:51
 msgid "On the background"
 msgstr "Op de achtergrond"
 
-#: notes@maestroschan.fr/prefs.js:49
+#: notes@maestroschan.fr/prefs.js:52
 msgid "Above everything"
 msgstr "Bovenop alles"
 
-#: notes@maestroschan.fr/prefs.js:140
+#: notes@maestroschan.fr/prefs.js:151
 msgid "version:"
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.js:152
+#: notes@maestroschan.fr/prefs.js:162
 msgid "Report bugs or ideas"
 msgstr "Meld bugs of deel ideeën"
 
@@ -102,30 +102,30 @@ msgstr "\"Op de achtergrond\" is niet compatibel met bureaubladpictogrammen."
 msgid "Automatic focus"
 msgstr "Automatisch focussen"
 
-#: notes@maestroschan.fr/prefs.ui:90
+#: notes@maestroschan.fr/prefs.ui:93
 msgid "Use a keyboard shortcut"
 msgstr "Sneltoets gebruiken"
 
-#: notes@maestroschan.fr/prefs.ui:91
+#: notes@maestroschan.fr/prefs.ui:94
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Sneltoets gebruiken om notities te tonen/verbergen"
 
-#: notes@maestroschan.fr/prefs.ui:113
+#: notes@maestroschan.fr/prefs.ui:116
 msgid "Default value is <Super>n"
 msgstr "De standaardwaarde is <Super>n"
 
-#: notes@maestroschan.fr/prefs.ui:136
+#: notes@maestroschan.fr/prefs.ui:139
 msgid "Hide the icon"
 msgstr "Pictogram verbergen"
 
-#: notes@maestroschan.fr/prefs.ui:187
+#: notes@maestroschan.fr/prefs.ui:190
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
 "<b>Toon/Verberg alle notities:</b> klik op het pictogram op de bovenste balk "
 "van GNOME Shell."
 
-#: notes@maestroschan.fr/prefs.ui:195
+#: notes@maestroschan.fr/prefs.ui:198
 msgid ""
 "<b>Create a note:</b> click on the \"+\" button at the left of a note "
 "header, it will create a new note, with the same color and the same font "
@@ -135,37 +135,37 @@ msgstr ""
 "creëert een nieuwe notitie met dezelfde kleur en lettergrootte als de "
 "notitie waarop je hebt geklikt."
 
-#: notes@maestroschan.fr/prefs.ui:206
+#: notes@maestroschan.fr/prefs.ui:209
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
 "<b>Verplaats een notitie:</b> versleep vanaf de lege ruimte in de notitiekop."
 
-#: notes@maestroschan.fr/prefs.ui:214
+#: notes@maestroschan.fr/prefs.ui:217
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
 "<b>Wijzig de grootte van een notitie:</b> versleep vanaf de knop 'Grootte "
 "wijzigen', rechts op de notitiekop."
 
-#: notes@maestroschan.fr/prefs.ui:222
+#: notes@maestroschan.fr/prefs.ui:225
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
 msgstr ""
 "<b>Verwijder een notitie:</b> klik op het prullenbakpictogram en bevestig."
 
-#: notes@maestroschan.fr/prefs.ui:228
+#: notes@maestroschan.fr/prefs.ui:231
 msgid "Using the extension"
 msgstr "De extensie gebruiken"
 
-#: notes@maestroschan.fr/prefs.ui:243
+#: notes@maestroschan.fr/prefs.ui:246
 msgid "<b>Change color:</b> click on the menu button, and select a color."
 msgstr "<b>Wijzig de kleur:</b> klik op de menuknop en kies een kleur."
 
-#: notes@maestroschan.fr/prefs.ui:251
+#: notes@maestroschan.fr/prefs.ui:254
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:262
+#: notes@maestroschan.fr/prefs.ui:265
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
@@ -173,43 +173,43 @@ msgstr ""
 "<b>Wijzig de lettergrootte:</b> klik op de menuknop en vergroot/verklein de "
 "letters middels de knoppen '+' en '-'."
 
-#: notes@maestroschan.fr/prefs.ui:270
+#: notes@maestroschan.fr/prefs.ui:273
 msgid ""
 "<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
 "settings dialog."
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:276
+#: notes@maestroschan.fr/prefs.ui:279
 msgid "Customizing notes"
 msgstr "Motities aanpassen"
 
-#: notes@maestroschan.fr/prefs.ui:291
+#: notes@maestroschan.fr/prefs.ui:294
 msgid "The dialog window you're reading provides several settings:"
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:299
+#: notes@maestroschan.fr/prefs.ui:302
 msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:307
+#: notes@maestroschan.fr/prefs.ui:310
 msgid ""
 "<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
 "the keyboard focus when you hover them with the mouse pointer."
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:315
+#: notes@maestroschan.fr/prefs.ui:326
 msgid ""
 "<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
 "is enabled, the icon in the top bar can be hidden."
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:321
+#: notes@maestroschan.fr/prefs.ui:332
 msgid "The settings window"
 msgstr ""
 
-#: notes@maestroschan.fr/prefs.ui:337
+#: notes@maestroschan.fr/prefs.ui:347
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
@@ -219,26 +219,26 @@ msgstr ""
 "verbergt). Als je een <b>reservekopie wilt van je notities</b>, dan kun je "
 "middels deze knop de bijbehorende map openen."
 
-#: notes@maestroschan.fr/prefs.ui:343
+#: notes@maestroschan.fr/prefs.ui:353
 msgid "Open the storage directory"
 msgstr "Opslagmap openen"
 
-#: notes@maestroschan.fr/prefs.ui:353
+#: notes@maestroschan.fr/prefs.ui:363
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
 msgstr ""
 "Bestandsnamen die eindigen op '_state' bevatten de kleur en positie van je "
 "notities"
 
-#: notes@maestroschan.fr/prefs.ui:363
+#: notes@maestroschan.fr/prefs.ui:373
 msgid "Files ending with \"_text\" contain the text written in your notes"
 msgstr "Bestanden die eindigen op '_text' bevatten de tekst van je notities"
 
-#: notes@maestroschan.fr/prefs.ui:372
+#: notes@maestroschan.fr/prefs.ui:382
 msgid "Backup your notes"
 msgstr "Notities back-uppen"
 
-#: notes@maestroschan.fr/prefs.ui:387
+#: notes@maestroschan.fr/prefs.ui:397
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
@@ -249,41 +249,44 @@ msgstr ""
 "(voorbeeld: je had notities op een secundair beeldscherm staan dat je "
 "vervolgens hebt afgekoppeld)."
 
-#: notes@maestroschan.fr/prefs.ui:394
+#: notes@maestroschan.fr/prefs.ui:404
 msgid "Bring back all notes to the primary monitor"
 msgstr "Alle notities terugzetten op primair beeldscherm"
 
-#: notes@maestroschan.fr/prefs.ui:400
+#: notes@maestroschan.fr/prefs.ui:410
 msgid "Lost some notes?"
 msgstr "Ontbreken er notities?"
 
-#: notes@maestroschan.fr/prefs.ui:411
+#: notes@maestroschan.fr/prefs.ui:421
 msgid "Help"
 msgstr "Hulp"
 
-#: notes@maestroschan.fr/prefs.ui:424
+#: notes@maestroschan.fr/prefs.ui:434
 msgid "Notes"
 msgstr "Notities"
 
-#: notes@maestroschan.fr/prefs.ui:433
+#: notes@maestroschan.fr/prefs.ui:443
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Plakbriefjes voor de GNOME Shell-werkomgeving."
 
-#: notes@maestroschan.fr/prefs.ui:458
+#: notes@maestroschan.fr/prefs.ui:468
 msgid "Author:"
 msgstr "Auteur:"
 
-#: notes@maestroschan.fr/prefs.ui:473
+#: notes@maestroschan.fr/prefs.ui:483
 msgid "Translators:"
 msgstr "Vertalers:"
 
-#: notes@maestroschan.fr/prefs.ui:478
+#: notes@maestroschan.fr/prefs.ui:488
 msgid "translator-credits"
 msgstr "Heimen Stoffels"
 
-#: notes@maestroschan.fr/prefs.ui:507
+#: notes@maestroschan.fr/prefs.ui:517
 msgid "About"
 msgstr "Over"
+
+#~ msgid "Select All"
+#~ msgstr "Alles selecteren"
 
 #~ msgid "OK"
 #~ msgstr "Oké"
