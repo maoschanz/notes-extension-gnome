@@ -17,6 +17,21 @@ const Extension = Me.imports.extension;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
+const PRESET_COLORS = {
+	'red': [200, 0, 0],
+	'green': [0, 150, 0],
+	'blue': [0, 0, 180],
+
+	'magenta': [255, 50, 255],
+	'yellow': [255, 255, 50],
+	'cyan': [0, 255, 255],
+
+	'white': [255, 255, 255],
+	'black': [50, 50, 50]
+};
+
+//------------------------------------------------------------------------------
+
 class OptionsMenu {
 	constructor (source) {
 		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, St.Side.LEFT);
@@ -54,9 +69,9 @@ class OptionsMenu {
 		});
 		this.super_menu.addMenuItem(this.size_item);
 		this._buildSizeItem();
-		
+
 		this._appendSeparator(); //---------------------------------------------
-		
+
 		this.color1_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -69,7 +84,7 @@ class OptionsMenu {
 		this._addColorButton('blue', 1);
 		this._addColorButton('black', 1);
 		this.super_menu.addMenuItem(this.color1_item);
-		
+
 		this.color2_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
 			activate: false,
@@ -93,71 +108,45 @@ class OptionsMenu {
 	}
 
 	_buildCustomColorMenu (colorSubmenu) {
-		let colorR_item = new PopupMenu.PopupBaseMenuItem({
-			reactive: false,
-			activate: false,
-			hover: false,
-			style_class: null,
-			can_focus: false
-		});
-		let colorG_item = new PopupMenu.PopupBaseMenuItem({
-			reactive: false,
-			activate: false,
-			hover: false,
-			style_class: null,
-			can_focus: false
-		});
-		let colorB_item = new PopupMenu.PopupBaseMenuItem({
-			reactive: false,
-			activate: false,
-			hover: false,
-			style_class: null,
-			can_focus: false
-		});
-		
-		this.colorEntryR = new St.Entry({
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		this.colorEntryG = new St.Entry({
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		this.colorEntryB = new St.Entry({
-			can_focus: true,
-			track_hover: true,
-			x_expand: true
-		});
-		
-		let rgb = this._source._note.customColor;
-		this.colorEntryR.set_text(rgb.split(',')[0]);
-		this.colorEntryG.set_text(rgb.split(',')[1]);
-		this.colorEntryB.set_text(rgb.split(',')[2]);
-		this.colorEntryR.style = 'background-color: #BB3322; color: #FFFFFF';
-		this.colorEntryG.style = 'background-color: #22BB33; color: #FFFFFF';
-		this.colorEntryB.style = 'background-color: #2233BB; color: #FFFFFF';
-		colorR_item.actor.add(this.colorEntryR, { expand: true });
-		colorG_item.actor.add(this.colorEntryG, { expand: true });
-		colorB_item.actor.add(this.colorEntryB, { expand: true });
-		
-		colorSubmenu.addMenuItem(colorR_item);
-		colorSubmenu.addMenuItem(colorG_item);
-		colorSubmenu.addMenuItem(colorB_item);
-		
+		this._customColorEntries = [];
+		let rgb = this._source._note.customColor.split(',');
+		this._addCustomColorEntry('#BB3322', rgb[0], colorSubmenu);
+		this._addCustomColorEntry('#22BB33', rgb[1], colorSubmenu);
+		this._addCustomColorEntry('#2233BB', rgb[2], colorSubmenu);
+
 		let applyMenuItem = new PopupMenu.PopupMenuItem(_("Apply"));
 		applyMenuItem.connect('activate', this._onApplyCustom.bind(this));
 		colorSubmenu.addMenuItem(applyMenuItem);
 	}
 
+	_addCustomColorEntry (bgColorCSS, textContent, colorSubmenu) {
+		let colorMenuItem = new PopupMenu.PopupBaseMenuItem({
+			reactive: false,
+			activate: false,
+			hover: false,
+			style_class: null,
+			can_focus: false
+		});
+
+		let colorEntry = new St.Entry({
+			can_focus: true,
+			track_hover: true,
+			x_expand: true
+		});
+		colorEntry.set_text(textContent);
+		colorEntry.style = 'background-color: ' + bgColorCSS + '; color: #FFFFFF';
+
+		colorMenuItem.actor.add(colorEntry, { expand: true });
+		this._customColorEntries.push(colorEntry);
+		colorSubmenu.addMenuItem(colorMenuItem);
+	}
+
 	_buildSizeItem () {
 		let sizeLabel = new St.Label({
-			// Has to be a very short string
 			text: _("Font size"),
 			y_align: Clutter.ActorAlign.CENTER,
 		});
-		
+
 		let bigger = new St.Button({
 			style_class: 'button',
 			style: 'margin: 0px; padding-left: 8px; padding-right: 8px;',
@@ -182,24 +171,27 @@ class OptionsMenu {
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
 		});
-		
+
 		smaller.connect('clicked', this._onSmaller.bind(this));
 		bigger.connect('clicked', this._onBigger.bind(this));
-		
+
 		this.size_item.actor.add( sizeLabel, { expand: true, x_fill: true } );
 		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
 		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
 	}
 
 	_addColorButton (color, line) {
+		let rgb = PRESET_COLORS[color];
 		let btn = new St.Button({
 			style_class: 'notesCircleButton',
-			style: 'background-color: ' + color + ';',
+			style: 'background-color: rgb(' + rgb[0] + ','
+			                                + rgb[1] + ','
+			                                + rgb[2] + ');',
 		});
 		if (line == 1) {
-			this.color1_item.actor.add(btn);
+			this.color1_item.actor.add(btn, { expand: true, x_fill: false });
 		} else {
-			this.color2_item.actor.add(btn);
+			this.color2_item.actor.add(btn, { expand: true, x_fill: false });
 		}
 		btn.connect('clicked', this._onApply.bind(this, color));
 	}
@@ -209,9 +201,9 @@ class OptionsMenu {
 	}
 
 	_onApplyCustom () {
-		let r = Number(this.colorEntryR.get_text());
-		let g = Number(this.colorEntryG.get_text());
-		let b = Number(this.colorEntryB.get_text());
+		let r = Number(this._customColorEntries[0].get_text());
+		let g = Number(this._customColorEntries[1].get_text());
+		let b = Number(this._customColorEntries[2].get_text());
 		this._source._note.applyColor(r, g, b);
 	}
 
@@ -229,7 +221,8 @@ class OptionsMenu {
 	}
 
 	_onApply (color, button) {
-		this._source._note.applyPresetColor(color);
+		let rgb = PRESET_COLORS[color];
+		this._source._note.applyColor(rgb[0], rgb[1], rgb[2]);
 	}
 
 	popup (activatingButton) {

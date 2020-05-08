@@ -30,11 +30,12 @@
 	height: 28px;
 	width: 28px;
 	border-style: solid;
+	border-color: black;
 }
 
 .notesHeaderboxButton {
 	border-style: solid;
-	border-color: grey; /*TODO set ça plutôþ en même temps que le texte*/
+	border-color: grey; /* TODO set ça plutôt en même temps que le texte */
 }
 
 .notesCircleButton:hover, .notesCircleButton:active {

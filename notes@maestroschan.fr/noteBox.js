@@ -154,17 +154,17 @@ var NoteBox = class NoteBox {
 		//----------------------------------------------------------------------
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		//FIXME according to common sense, clicking in an entry should give it
-		//the keyboard focus, and it was how it worked before GS 3.33, but after
-		//3.33 there is an error if i don't manage the grab manually. The error:
-		//clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
-		//Managing the grab manually is only a very shitty workaround, since
-		//the auto_focus can work but the normal behavior (focus the entry...
-		//when the user focuses the entry?? fucking common sense) can't work
-		//because the button-press-event signal is sent only when the user
-		//clicks where there is no text, making the entries unsuitable for use
-		//by sane humans. St.FocusManager might be a thing (who tf wrote that
-		//shit without baking it into addChrome?)
+		/* FIXME according to common sense, clicking in an entry should give it
+		the keyboard focus, and it was how it worked before GS 3.33, but after
+		3.33 there is an error if i don't manage the grab manually. The error:
+		clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
+		Managing the grab manually is only a very shitty workaround, since
+		the auto_focus can work but the normal behavior (focus the entry...
+		when the user focuses the entry?? fucking common sense) can't work
+		because the button-press-event signal is sent only when the user
+		clicks where there is no text, making the entries unsuitable for use
+		by sane humans. St.FocusManager might be a thing (who tf wrote that
+		shit without baking it into addChrome?) */
 //		if (Extension.AUTO_FOCUS) {
 			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
@@ -349,15 +349,15 @@ var NoteBox = class NoteBox {
 		let newWidth = Math.abs(this.actor.width + (event_x - this.grabX));
 		let newHeight = Math.abs(this._y + this.actor.height - event_y + (this.grabY - this._y));
 		let newY = event_y - (this.grabY - this._y);
-		
+
 		newWidth = Math.max(newWidth, MIN_WIDTH);
 		newHeight = Math.max(newHeight, MIN_HEIGHT);
-		
+
 		this.actor.width = newWidth;
 		this.actor.height = newHeight;
 		this._y = newY;
 		this._setNotePosition();
-		
+
 		this.grabX = event_x;
 		this.grabY = event_y;
 	}
@@ -372,11 +372,11 @@ var NoteBox = class NoteBox {
 	_moveTo (event_x, event_y) {
 		let newX = event_x - (this.grabX - this._x);
 		let newY = event_y - (this.grabY - this._y);
-		
+
 		this._y = Math.floor(newY);
 		this._x = Math.floor(newX);
 		this._setNotePosition();
-		
+
 		this.grabX = event_x;
 		this.grabY = event_y;
 	}
@@ -419,9 +419,11 @@ var NoteBox = class NoteBox {
 		}
 	}
 
-	// This weird crap applies the custom color from the 3 entries. It requires
-	// string manipulations since the color is set in a text file in the 'r,g,b'
-	// format. Also, the text coloration needs to be updated.
+	/*
+	 * This weird crap applies the color from the 3 entries. It requires string
+	 * manipulations since the color is set in a text file in an 'r,g,b' format.
+	 * Then, the text coloration and the CSS is updated.
+	 */
 	applyColor (r, g, b) {
 		if (Number.isNaN(r)) { r = 255; }
 		if (Number.isNaN(g)) { g = 255; }
@@ -439,49 +441,19 @@ var NoteBox = class NoteBox {
 		this.applyActorStyle();
 	}
 
-	applyPresetColor (color) {
-		switch(color) {
-			case 'red':
-				this.applyColor(250, 0, 0);
-				break;
-			case 'magenta':
-				this.applyColor(255, 0, 255);
-				break;
-			case 'yellow':
-				this.applyColor(255, 255, 0);
-				break;
-			case 'white':
-				this.applyColor(255, 255, 255);
-				break;
-			case 'cyan':
-				this.applyColor(0, 255, 255);
-				break;
-			case 'green':
-				this.applyColor(0, 255, 0);
-				break;
-			case 'blue':
-				this.applyColor(0, 0, 250);
-				break;
-			case 'black':
-			default:
-				this.applyColor(10, 10, 10);
-				break;
-		}
-	}
-
 	loadText () {
 		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			GLib.file_set_contents(file2, '');
 		}
-	
+
 		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_text');
 		let [result, contents] = file.load_contents(null);
 		if (!result) {
 			log('Could not read file: ' + PATH);
 		}
 		let content = stringFromArray(contents);
-		
+
 		this.noteEntry.set_text(content);
 	}
 
@@ -506,14 +478,14 @@ var NoteBox = class NoteBox {
 		for(var i = 0; i < 15; i++) {
 			x = Math.random() * (Main.layoutManager.primaryMonitor.width - 300);
 			y = Math.random() * (Main.layoutManager.primaryMonitor.height - 100);
-		
+
 			let can = true;
 			Extension.ALL_NOTES.forEach(function (n) {
 				if( (Math.abs(n._x - x) < 230) && (Math.abs(n._y - y) < 100) ) {
 					can = false;
 				}
 			});
-			
+
 			if (can) {
 				return [x, y];
 			}
@@ -524,7 +496,7 @@ var NoteBox = class NoteBox {
 	loadState () {
 		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
-			//If a _text file has no corresponding _state file
+			// If a _text file has no corresponding _state file
 			let defaultPosition = this.computeRandomPosition();
 			GLib.file_set_contents(
 				file2,
@@ -539,7 +511,7 @@ var NoteBox = class NoteBox {
 			log('Could not read file: ' + PATH);
 		}
 		let content = stringFromArray(contents);
-		
+
 		let state = content.split(';');
 		this._x = Number(state[0]);
 		this._y = Number(state[1]);
@@ -552,7 +524,6 @@ var NoteBox = class NoteBox {
 
 	saveState () {
 		let noteState = '';
-		
 		noteState += this._x.toString() + ';';
 		noteState += this._y.toString() + ';';
 		noteState += this.customColor.toString() + ';';
@@ -560,7 +531,7 @@ var NoteBox = class NoteBox {
 		noteState += this.actor.height.toString() + ';';
 		noteState += this._fontSize.toString() + ';';
 		noteState += this.entry_is_visible.toString() + ';';
-		
+
 		//log('saveState | ' + this.id.toString() + ' | ' + noteState);
 		let file = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
 		GLib.file_set_contents(file, noteState);
