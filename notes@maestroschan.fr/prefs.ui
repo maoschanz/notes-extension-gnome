@@ -1,166 +1,216 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="notes-extension">
-	<object class="GtkStack" id="prefs_stack">
-		<property name="transition-type">slide-left-right</property>
+  <object class="GtkStack" id="prefs_stack">
+    <property name="transition-type">slide-left-right</property>
 
-		<!--"Settings" page-->
-		<child>
-			<object class="GtkGrid">
-				<property name="expand">True</property>
-				<property name="row-spacing">12</property>
-				<property name="column-spacing">36</property>
-				<property name="halign">center</property>
-				<property name="margin">24</property>
+    <!-- "Settings" page -->
+    <child>
+      <object class="GtkGrid">
+        <property name="expand">True</property>
+        <property name="row-spacing">12</property>
+        <property name="column-spacing">36</property>
+        <property name="halign">center</property>
+        <property name="margin">24</property>
 
-				<child>
-					<object class="GtkLabel">
-						<property name="halign">end</property>
-						<property name="expand">False</property>
-						<property name="label" translatable="yes">Position of notes</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">0</property>
-					</packing>
-				</child>
-				<child>
-					<object class="GtkComboBoxText" id="position_combobox">
-						<property name="expand">False</property>
-					</object>
-					<packing>
-						<property name="left-attach">1</property>
-						<property name="top-attach">0</property>
-					</packing>
-				</child>
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">end</property>
+            <property name="expand">False</property>
+            <property name="label" translatable="yes">Position of notes</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
 
-				<child>
-					<object class="GtkLabel">
-						<property name="expand">False</property>
-						<property name="wrap">True</property>
-						<property name="halign">center</property>
-						<property name="label" translatable="yes">"On the background" is incompatible with desktop icons.</property>
-						<style>
-							<class name="dim-label"/>
-						</style>
-					</object>
-					<packing>
-						<property name="width">2</property>
-						<property name="left-attach">0</property>
-						<property name="top-attach">1</property>
-					</packing>
-				</child>
+        <child>
+          <object class="GtkRadioButton" id="radio1">
+            <property name="label">Above everything</property>
+            <property name="expand">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
 
-				<child>
-					<object class="GtkLabel">
-						<property name="halign">end</property>
-						<property name="expand">False</property>
-						<property name="label" translatable="yes">Automatic focus</property>
-						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">2</property>
-					</packing>
-				</child>
-				<child>
-					<object class="GtkSwitch" id="focus_switch">
-						<property name="sensitive">False</property>
-						<property name="expand">False</property>
-						<property name="halign">start</property>
-						<property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
-					</object>
-					<packing>
-						<property name="left-attach">1</property>
-						<property name="top-attach">2</property>
-					</packing>
-				</child>
-				
-				<child>
-					<object class="GtkSeparator">
-						<property name="expand">False</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">3</property>
-						<property name="width">2</property>
-					</packing>
-				</child>
+        <child>
+          <object class="GtkRadioButton" id="radio2">
+            <property name="label">On the background</property>
+            <property name="group">radio1</property>
+            <property name="expand">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="expand">False</property>
+            <property name="halign">end</property>
+            <property name="wrap">True</property>
+            <property name="label" translatable="yes">Incompatible with desktop icons</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
 
-				<child>
-					<object class="GtkLabel">
-						<property name="expand">False</property>
-						<property name="halign">end</property>
-						<property name="label" translatable="yes">Use a keyboard shortcut</property>
-						<property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">7</property>
-					</packing>
-				</child>
-				<child>
-					<object class="GtkSwitch" id="keybinding_switch">
-						<property name="expand">False</property>
-						<property name="halign">start</property>
-					</object>
-					<packing>
-						<property name="left-attach">1</property>
-						<property name="top-attach">7</property>
-					</packing>
-				</child>
+        <!-- <child> -->
+        <!--   <object class="GtkRadioButton" id="radio3"> -->
+        <!--     <property name="label">Cycle through 3 states</property> -->
+        <!--     <property name="group">radio1</property> -->
+        <!--     <property name="expand">False</property> -->
+        <!--   </object> -->
+        <!--   <packing> -->
+        <!--     <property name="left-attach">1</property> -->
+        <!--     <property name="top-attach">5</property> -->
+        <!--   </packing> -->
+        <!-- </child> -->
+        <!-- <child> -->
+        <!--   <object class="GtkLabel"> -->
+        <!--     <property name="expand">False</property> -->
+        <!--     <property name="wrap">True</property> -->
+        <!--     <property name="halign">end</property> -->
+        <!--     <property name="label" translatable="yes">Send to background, send to foreground, hide</property> -->
+        <!--     <style> -->
+        <!--       <class name="dim-label"/> -->
+        <!--     </style> -->
+        <!--   </object> -->
+        <!--   <packing> -->
+        <!--     <property name="left-attach">0</property> -->
+        <!--     <property name="top-attach">5</property> -->
+        <!--   </packing> -->
+        <!-- </child> -->
 
-				<child>
-					<object class="GtkEntry" id="keybinding_entry">
-						<property name="expand">False</property>
-						<property name="halign">end</property>
-						<property name="tooltip_text" translatable="yes">Default value is &lt;Super&gt;n</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">8</property>
-					</packing>
-				</child>
-				<child>
-					<object class="GtkButton" id="keybinding_button">
-						<property name="expand">False</property>
-						<property name="halign">start</property>
-						<property name="label" translatable="yes">Apply</property>
-					</object>
-					<packing>
-						<property name="left-attach">1</property>
-						<property name="top-attach">8</property>
-					</packing>
-				</child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="expand">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">10</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
 
-				<child>
-					<object class="GtkLabel">
-						<property name="halign">end</property>
-						<property name="expand">False</property>
-						<property name="label" translatable="yes">Hide the icon</property>
-					</object>
-					<packing>
-						<property name="left-attach">0</property>
-						<property name="top-attach">9</property>
-					</packing>
-				</child>
-				<child>
-					<object class="GtkSwitch" id="hide_switch">
-						<property name="expand">False</property>
-						<property name="halign">start</property>
-					</object>
-					<packing>
-						<property name="left-attach">1</property>
-						<property name="top-attach">9</property>
-					</packing>
-				</child>
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">end</property>
+            <property name="expand">False</property>
+            <property name="label" translatable="yes">Automatic focus</property>
+            <property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">11</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSwitch" id="focus_switch">
+            <property name="sensitive">False</property>
+            <property name="expand">False</property>
+            <property name="halign">start</property>
+            <property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">11</property>
+          </packing>
+        </child>
 
-			</object>
-			<packing>
-<!--				<property name="icon-name">preferences-other-symbolic</property>-->
-				<property name="name">settings_page</property>
-				<property name="title" translatable="yes">Settings</property>
-			</packing>
-		</child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="expand">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">15</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="expand">False</property>
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Use a keyboard shortcut</property>
+            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">17</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSwitch" id="keybinding_switch">
+            <property name="expand">False</property>
+            <property name="halign">start</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">17</property>
+          </packing>
+        </child>
+
+        <child>
+          <object class="GtkEntry" id="keybinding_entry">
+            <property name="expand">False</property>
+            <property name="halign">end</property>
+            <property name="tooltip_text" translatable="yes">Default value is &lt;Super&gt;n</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">18</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="keybinding_button">
+            <property name="expand">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Apply</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">18</property>
+          </packing>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">end</property>
+            <property name="expand">False</property>
+            <property name="label" translatable="yes">Hide the icon</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">19</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSwitch" id="hide_switch">
+            <property name="expand">False</property>
+            <property name="halign">start</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">19</property>
+          </packing>
+        </child>
+
+      </object>
+      <packing>
+        <!--<property name="icon-name">preferences-other-symbolic</property>-->
+        <property name="name">settings_page</property>
+        <property name="title" translatable="yes">Settings</property>
+      </packing>
+    </child>
 
 		<!--"Help" page-->
 		<child>
