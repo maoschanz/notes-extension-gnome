@@ -26,7 +26,7 @@
 
         <child>
           <object class="GtkRadioButton" id="radio1">
-            <property name="label">Above everything</property>
+            <property name="label" translatable="yes">Above everything</property>
             <property name="expand">False</property>
           </object>
           <packing>
@@ -37,7 +37,7 @@
 
         <child>
           <object class="GtkRadioButton" id="radio2">
-            <property name="label">On the background</property>
+            <property name="label" translatable="yes">On the background</property>
             <property name="group">radio1</property>
             <property name="expand">False</property>
           </object>
@@ -64,7 +64,7 @@
 
         <!-- <child> -->
         <!--   <object class="GtkRadioButton" id="radio3"> -->
-        <!--     <property name="label">Cycle through 3 states</property> -->
+        <!--     <property name="label" translatable="yes">Cycle through 3 states</property> -->
         <!--     <property name="group">radio1</property> -->
         <!--     <property name="expand">False</property> -->
         <!--   </object> -->
@@ -212,361 +212,370 @@
       </packing>
     </child>
 
-		<!--"Help" page-->
-		<child>
-			<object class="GtkBox">
-				<property name="expand">True</property>
-				<property name="orientation">horizontal</property>
-				<child>
-					<object class="GtkStackSidebar" id="sidebar">
-						<property name="stack">help_stack</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkScrolledWindow">
-						<child>
-							<object class="GtkStack" id="help_stack">
-								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="expand">True</property>
-										<property name="margin">15</property>
-										<property name="spacing">10</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Show/hide all notes:&lt;/b&gt; click on the icon in the GNOME Shell top bar.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Create a note:&lt;/b&gt; click on the "+" button at the left of a note header, it will create a new note, with the same color and the same font size as the note you clicked on.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkImage" id="image1"></object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Move a note:&lt;/b&gt; drag the blank space in the center of the note header.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Resize a note:&lt;/b&gt; drag the resize button at the right of the note header.</property>
-											</object>
-										</child>
-s												<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Delete a note:&lt;/b&gt; click on the wastebasket icon and confirm.</property>
-											</object>
-										</child>
-									</object>
-									<packing>
-										<property name="name">page0</property>
-										<property name="title" translatable="yes">Using the extension</property>
-									</packing>
-								</child>
-								
-								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="expand">True</property>
-										<property name="margin">15</property>
-										<property name="spacing">10</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Change color:&lt;/b&gt; click on the menu button, and select a color.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">The "Custom color" submenu allows you to select precisely a color.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkImage" id="image2"></object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Change font size:&lt;/b&gt; click on the menu button, and increase or decrease the font size with "+" and "-" buttons.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Advanced settings:&lt;/b&gt; click on the "Settings" menu item to access the settings dialog.</property>
-											</object>
-										</child>
-									</object>
-									<packing>
-										<property name="name">page1</property>
-										<property name="title" translatable="yes">Customizing notes</property>
-									</packing>
-								</child>
-								
-								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="expand">True</property>
-										<property name="margin">15</property>
-										<property name="spacing">10</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">The dialog window you're reading provides several settings:</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Position of notes:&lt;/b&gt; select whether you want the notes to be shown above the windows or underneath them.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Automatic focus:&lt;/b&gt; if this is enabled, the notes will automatically get the keyboard focus when you hover them with the mouse pointer.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="halign">start</property>
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">&lt;b&gt;Keyboard shortcut:&lt;/b&gt; hide/show notes with a keyboard shortcut. If this is enabled, the icon in the top bar can be hidden.</property>
-											</object>
-										</child>
-									</object>
-									<packing>
-										<property name="name">page2</property>
-										<property name="title" translatable="yes">The settings window</property>
-									</packing>
-								</child>
-								
-								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="expand">True</property>
-										<property name="margin">15</property>
-										<property name="spacing">10</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="halign">start</property>
-												<property name="label" translatable="yes">Your notes are saved to the disk on various occasions (mainly when you hide them). If you want to &lt;b&gt;get a copy of your notes&lt;/b&gt;, this button opens the folder where they are.</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkButton" id="backup_btn">
-												<property name="halign">center</property>
-												<property name="label" translatable="yes">Open the storage directory</property>
-												<style>
-													<class name="suggested-action"/>
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">Files ending with "_state" contain the color and position of your notes</property>
-												<style>
-													<class name="dim-label"/>
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="wrap">True</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">Files ending with "_text" contain the text written in your notes</property>
-												<style>
-													<class name="dim-label"/>
-												</style>
-											</object>
-										</child>
-									</object>
-									<packing>
-										<property name="name">page3</property>
-										<property name="title" translatable="yes">Backup your notes</property>
-									</packing>
-								</child>
-								
-								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="expand">True</property>
-										<property name="margin">15</property>
-										<property name="spacing">10</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="wrap">True</property>
-												<property name="halign">start</property>
-												<property name="use-markup">True</property>
-												<property name="label" translatable="yes">Click on this button if you accidentally moved a note out of your primary monitor
-(example: if you had notes on a secondary monitor and unplugged it).</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkButton" id="reset_btn">
-												<property name="halign">center</property>
-												<property name="label" translatable="yes">Bring back all notes to the primary monitor</property>
-											</object>
-										</child>
-									</object>
-									<packing>
-										<property name="name">page4</property>
-										<property name="title" translatable="yes">Lost some notes?</property>
-									</packing>
-								</child>
-							</object>
-						</child>
-					</object>
-				</child>
-			</object>
-			<packing>
-<!--				<property name="icon-name">help-faq-symbolic</property>-->
-				<property name="name">help_page</property>
-				<property name="title" translatable="yes">Help</property>
-			</packing>
-		</child>
+    <!-- "Help" page -->
+    <child>
+      <object class="GtkBox">
+        <property name="expand">True</property>
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkStackSidebar" id="sidebar">
+            <property name="stack">help_stack</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStack" id="help_stack">
 
-		<!--"About" page-->
-		<child>
-			<object class="GtkBox">
-				<property name="spacing">12</property>
-				<property name="margin">24</property>
-				<property name="orientation">vertical</property>
-				<child>
-					<object class="GtkLabel">
-						<property name="halign">center</property>
-						<property name="label" translatable="yes">Notes</property>
-						<attributes>
-							<attribute name="weight" value="bold"/>
-							<attribute name="scale" value="2"/>
-						</attributes>
-					</object>
-				</child>
-				<child>
-					<object class="GtkLabel">
-						<property name="label" translatable="yes">Sticky notes for the GNOME Shell desktop.</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkImage" id="about_icon"></object>
-				</child>
-				<child>
-					<object class="GtkLabel" id="label_version">
-						<property name="halign">center</property>
-						<property name="label"></property>
-					</object>
-				</child>
-				<!-- pack_end above this line -->
-				<child>
-					<object class="GtkBox">
-						<child>
-							<object class="GtkBox">
-								<property name="spacing">12</property>
-								<property name="valign">end</property>
-								<property name="orientation">vertical</property>
-								<child>
-									<object class="GtkBox">
-										<property name="spacing">12</property>
-										<child>
-											<object class="GtkLabel">
-												<property name="label" translatable="yes">Author:</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel">
-												<property name="label">Romain F. T.</property>
-											</object>
-										</child>
-									</object>
-								</child>
-								<child>
-									<object class="GtkBox">
-									<property name="spacing">12</property>
-										<child>
-											<object class="GtkLabel" id="translation_label">
-												<property name="label" translatable="yes">Translators:</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkLabel" id="translation_credits">
-												<property name="label" translatable="yes">translator-credits</property>
-											</object>
-										</child>
-									</object>
-								</child>
-							</object>
-							<packing>
-								<property name="pack-type">start</property>
-							</packing>
-						</child>
-						<child>
-							<object class="GtkBox" id="link_box">
-								<property name="spacing">12</property>
-								<property name="valign">end</property>
-								<property name="orientation">vertical</property>
-							</object>
-							<packing>
-								<property name="pack-type">end</property>
-							</packing>
-						</child>
-					</object>
-					<packing>
-						<property name="pack-type">end</property>
-					</packing>
-				</child>
-			</object>
-			<packing>
-<!--				<property name="icon-name">help-about-symbolic</property>-->
-				<property name="name">about_page</property>
-				<property name="title" translatable="yes">About</property>
-			</packing>
-		</child>
-	</object>
+            <child>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="expand">True</property>
+                    <property name="margin">15</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Show/hide all notes:&lt;/b&gt; click on the icon in the GNOME Shell top bar.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Create a note:&lt;/b&gt; click on the "+" button at the left of a note header, it will create a new note, with the same color and the same font size as the note you clicked on.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="image1"></object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Move a note:&lt;/b&gt; drag the blank space in the center of the note header.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Resize a note:&lt;/b&gt; drag the resize button at the right of the note header.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Delete a note:&lt;/b&gt; click on the wastebasket icon and confirm.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page0</property>
+                <property name="title" translatable="yes">Using the extension</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="expand">True</property>
+                    <property name="margin">15</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Change color:&lt;/b&gt; click on the menu button, and select a color.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">The "Custom color" submenu allows you to select precisely a color.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="image2"></object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Change font size:&lt;/b&gt; click on the menu button, and increase or decrease the font size with "+" and "-" buttons.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Advanced settings:&lt;/b&gt; click on the "Settings" menu item to access the settings dialog.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page1</property>
+                <property name="title" translatable="yes">Customizing notes</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="expand">True</property>
+                    <property name="margin">15</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">The dialog window you're reading provides several settings:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Position of notes:&lt;/b&gt; select whether you want the notes to be shown above the windows or underneath them.</property>
+                      </object>
+                    </child>
+                    <!-- <child> -->
+                    <!--   <object class="GtkLabel"> -->
+                    <!--     <property name="halign">start</property> -->
+                    <!--     <property name="wrap">True</property> -->
+                    <!--     <property name="use-markup">True</property> -->
+                    <!--     <property name="label" translatable="yes">&lt;b&gt;Automatic focus:&lt;/b&gt; if this is enabled, the notes will automatically get the keyboard focus when you hover them with the mouse pointer.</property> -->
+                    <!--   </object> -->
+                    <!-- </child> -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Keyboard shortcut:&lt;/b&gt; hide/show notes with a keyboard shortcut. If this is enabled, the icon in the top bar can be hidden.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page2</property>
+                <property name="title" translatable="yes">The settings window</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="expand">True</property>
+                    <property name="margin">15</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Your notes are saved to the disk on various occasions (mainly when you hide them). If you want to &lt;b&gt;get a copy of your notes&lt;/b&gt;, this button opens the folder where they are.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="backup_btn">
+                        <property name="halign">center</property>
+                        <property name="label" translatable="yes">Open the storage directory</property>
+                        <style>
+                          <class name="suggested-action"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Files ending with "_state" contain the color and position of your notes</property>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Files ending with "_text" contain the text written in your notes</property>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page3</property>
+                <property name="title" translatable="yes">Backup your notes</property>
+              </packing>
+            </child>
+
+            <child>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="expand">True</property>
+                    <property name="margin">15</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="wrap">True</property>
+                        <property name="halign">start</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Click on this button if you accidentally moved a note out of your primary monitor
+(example: if you had notes on a secondary monitor and unplugged it).</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="reset_btn">
+                        <property name="halign">center</property>
+                        <property name="label" translatable="yes">Bring back to the primary monitor</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page4</property>
+                <property name="title" translatable="yes">Lost some notes?</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <!--<property name="icon-name">help-faq-symbolic</property>-->
+        <property name="name">help_page</property>
+        <property name="title" translatable="yes">Help</property>
+      </packing>
+    </child>
+
+    <!-- "About" page -->
+    <child>
+      <object class="GtkBox">
+        <property name="spacing">12</property>
+        <property name="margin">24</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">center</property>
+            <property name="label" translatable="yes">Notes</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+              <attribute name="scale" value="2"/>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="yes">Sticky notes for the GNOME Shell desktop.</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="about_icon"></object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_version">
+            <property name="halign">center</property>
+            <property name="label"></property>
+          </object>
+        </child>
+        <!-- pack_end above this line -->
+        <child>
+          <object class="GtkBox">
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">12</property>
+                <property name="valign">end</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Author:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">Romain F. T.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                  <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkLabel" id="translation_label">
+                        <property name="label" translatable="yes">Translation:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="translation_credits">
+                        <property name="label" translatable="yes">translator-credits</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack-type">start</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="link_box">
+                <property name="spacing">12</property>
+                <property name="valign">end</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="icon-name">help-about-symbolic</property>
+        <property name="name">about_page</property>
+        <property name="title" translatable="yes">About</property>
+      </packing>
+    </child>
+  </object>
 </interface>
 

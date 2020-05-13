@@ -129,7 +129,8 @@ const NotesSettingsWidget = new GObject.Class({
 
 		let data_button = builder.get_object('backup_btn');
 		data_button.connect('clicked', (widget) => {
-			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
+			let datadir = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
+			GLib.spawn_command_line_async('xdg-open ' + datadir);
 		});
 
 		let reset_button = builder.get_object('reset_btn');

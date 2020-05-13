@@ -33,7 +33,7 @@ let SIGNAL_ICON;
 
 var ALL_NOTES;
 
-function init () {
+function init() {
 	Convenience.initTranslations();
 	try {
 		let a = Gio.file_new_for_path(PATH);
@@ -48,7 +48,7 @@ function init () {
 
 //------------------------------------------------------------------------------
 
-function saveAllNotes () {
+function saveAllNotes() {
 	ALL_NOTES.forEach(function (n) {
 		if(n.actor != null) {
 			n.saveState();
@@ -57,7 +57,7 @@ function saveAllNotes () {
 	});
 }
 
-function refreshArray () {
+function refreshArray() {
 	let temp = new Array();
 	ALL_NOTES.forEach(function (n) {
 		if (n.actor == null) {
@@ -87,7 +87,7 @@ function refreshArray () {
  * because it manages the loading.
  */
 class NotesButton {
-	constructor () {
+	constructor() {
 		this.super_btn = new PanelMenu.Button(0.0, _("Show notes"), false);
 		let icon = new St.Icon({
 			icon_name: 'document-edit-symbolic',
@@ -107,7 +107,7 @@ class NotesButton {
 		this._bindShortcut(Convenience.getSettings().get_boolean('use-shortcut'));
 	}
 
-	update_icon_visibility () {
+	update_icon_visibility() {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
 		try { // TODO conditionnelle sur la version
 			this.super_btn.visible = now_visible;
@@ -116,7 +116,7 @@ class NotesButton {
 		}
 	}
 
-	toggleState () {
+	toggleState() {
 		//log('toggleState');
 		if(ALL_NOTES.length == 0) {
 			this._createNote();
@@ -128,7 +128,7 @@ class NotesButton {
 		}
 	}
 
-	loadAllNotes () {
+	loadAllNotes() {
 		let i = 0;
 		let ended = false;
 		while(!ended) {
@@ -143,25 +143,25 @@ class NotesButton {
 		this._onlyHideNotes();
 	}
 
-	_createNote () {
+	_createNote() {
 		try {
 			let nextId = ALL_NOTES.length;
 			ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
 		} catch (e) {
-			Main.notify(_("Notes extension: failed to create widgets for a note"));
+			Main.notify(_("Notes extension error: failed to load a note"));
 			log('failed to create note n°' + ALL_NOTES.length.toString());
 			log(e);
 		}
 	}
 
-	_showNotes () {
+	_showNotes() {
 		GLOBAL_ARE_VISIBLE = true;
 		ALL_NOTES.forEach(function (n) {
 			n.show();
 		});
 	}
 
-	_hideNotes () {
+	_hideNotes() {
 		ALL_NOTES.forEach(function (n) {
 			n.onlyHide();
 		});
@@ -171,7 +171,7 @@ class NotesButton {
 		GLOBAL_ARE_VISIBLE = false;
 	}
 
-	_onlyHideNotes () {
+	_onlyHideNotes() {
 		ALL_NOTES.forEach(function (n) {
 			n.onlyHide();
 		});
@@ -194,7 +194,7 @@ class NotesButton {
 		);
 	}
 
-	destroy () {
+	destroy() {
 		this.super_btn.destroy();
 	}
 };
