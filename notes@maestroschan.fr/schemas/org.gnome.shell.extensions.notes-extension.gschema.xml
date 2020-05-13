@@ -1,35 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="notes-extension">
-	<schema id="org.gnome.shell.extensions.notes-extension" path="/org/gnome/shell/extensions/notes-extension/">
-    <key type="b" name="use-shortcut">
-      <default>true</default>
-      <summary>Keyboard shortcut</summary>
-      <description>If the keyboard shortcut should be active</description>
-    </key>
-    <key type="b" name="ugly-hack">
-      <default>true</default>
-      <summary>This has no actual meaning</summary>
-      <description>This setting is used to call an extension.js function from prefs.js</description>
-    </key>
-    <key type="b" name="hide-icon">
-      <default>false</default>
-      <summary>Hide the icon</summary>
-      <description>Should be true only if there is shortcut</description>
-    </key>
+  <schema id="org.gnome.shell.extensions.notes-extension"
+          path="/org/gnome/shell/extensions/notes-extension/">
+
     <key type="b" name="auto-focus">
       <default>false</default>
       <summary>Automatic focus</summary>
-      <description>If notes should automatically take the keyboard focus when hovered by the cursor</description>
+      <description>
+        If notes should automatically take the keyboard focus when hovered by
+        the cursor. Otherwise a click is needed. FIXME BROKEN SINCE GS 3.33
+      </description>
     </key>
     <key type="s" name="layout-position">
       <default>"above-all"</default>
       <summary>Layer on which the notes are displayed</summary>
-      <description>Possible values are "above-all" or "on-background"</description>
+      <description>
+        Possible values are "above-all", "on-background", or "cycle-layers".
+        The idea of "cycle-layers" is that clicking on the icon sends the notes
+        above all if they were on the background, and vice versa; notes are
+        hidden between the foreground and the background (3 states).
+      </description>
+    </key>
+
+    <key type="b" name="use-shortcut">
+      <default>true</default>
+      <summary>Keyboard shortcut</summary>
+      <description>If the keyboard shortcut should be active</description>
     </key>
     <key name="keyboard-shortcut" type="as">
       <default><![CDATA[['<Super>n','']]]></default>
       <summary>Keyboard shortcut</summary>
       <description>Keyboard shortcut which shows notes.</description>
     </key>
-	</schema>
+    <key type="b" name="hide-icon">
+      <default>false</default>
+      <summary>Hide the icon</summary>
+      <description>Should be true only if there is shortcut</description>
+    </key>
+
+    <!-- -->
+
+    <key type="b" name="ugly-hack">
+      <default>true</default>
+      <summary>This has no actual meaning</summary>
+      <description>
+        This setting is used to call an extension.js function from prefs.js
+      </description>
+    </key>
+
+  </schema>
 </schemalist>

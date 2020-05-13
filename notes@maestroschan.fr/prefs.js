@@ -46,20 +46,25 @@ const NotesSettingsWidget = new GObject.Class({
 
 	_buildSettingsPage (builder) {
 
-		let position_combobox = builder.get_object('position_combobox');
-
-		position_combobox.append('on-background', _("On the background"));
-		position_combobox.append('above-all', _("Above everything"));
-
-		position_combobox.active_id = SETTINGS.get_string('layout-position');
-		position_combobox.connect('changed', (widget) => {
-			SETTINGS.set_string('layout-position', widget.get_active_id());
-			if( (widget.get_active_id() == 'above-all') ) {
-				hide_switch.set_sensitive(false);
-			} else {
-				hide_switch.set_sensitive(true);
-			}
-		});
+		// Position of the notes (layer)
+		let radioBtn1 = builder.get_object('radio1');
+		let radioBtn2 = builder.get_object('radio2');
+		// let radioBtn3 = builder.get_object('radio3');
+		switch (SETTINGS.get_string('layout-position')) {
+			case 'above-all':
+				radioBtn1.set_active(true);
+			break;
+			case 'on-background':
+				radioBtn2.set_active(true);
+			break;
+			// case 'cycle-layers':
+			// 	radioBtn3.set_active(true);
+			// break;
+			default: break;
+		}
+		this._connectRadioBtn('above-all', radioBtn1);
+		this._connectRadioBtn('on-background', radioBtn2);
+		// this._connectRadioBtn('cycle-layers', radioBtn3);
 
 		//----------------------------------------------------------------------
 
@@ -71,9 +76,9 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//----------------------------------------------------------------------
 
-		let hide_switch = builder.get_object('hide_switch');
-		hide_switch.set_state(SETTINGS.get_boolean('hide-icon'));
-		hide_switch.connect('notify::active', (widget) => {
+		this._hide_switch = builder.get_object('hide_switch');
+		this._hide_switch.set_state(SETTINGS.get_boolean('hide-icon'));
+		this._hide_switch.connect('notify::active', (widget) => {
 			SETTINGS.set_boolean('hide-icon', widget.active);
 		});
 
@@ -97,24 +102,22 @@ const NotesSettingsWidget = new GObject.Class({
 		keybinding_switch.set_state(SETTINGS.get_boolean('use-shortcut'));
 
 		keybinding_switch.connect('notify::active', (widget) => {
-			if (widget.active) {
-				SETTINGS.set_boolean('use-shortcut', true);
-				keybinding_entry.sensitive = true;
-				keybinding_button.sensitive = true;
-				hide_switch.sensitive = true;
-			} else {
-				SETTINGS.set_boolean('use-shortcut', false);
-				keybinding_entry.sensitive = false;
-				keybinding_button.sensitive = false;
-				hide_switch.sensitive = false;
-			}
+			SETTINGS.set_boolean('use-shortcut', widget.active);
+			keybinding_entry.sensitive = widget.active;
+			keybinding_button.sensitive = widget.active;
+			this._hide_switch.sensitive = widget.active;
+		});
+	},
+
+	_connectRadioBtn(strId, widget) {
+		widget.connect('toggled', (widget) => {
+			SETTINGS.set_string('layout-position', strId);
 		});
 	},
 
 	//--------------------------------------------------------------------------
 
 	_buildHelpPage(builder) {
-
 		builder.get_object('image1').set_from_pixbuf(
 			GdkPixbuf.Pixbuf.new_from_file_at_size(
 			              Me.path + '/screenshots/help_picture_1.png', 265, 164)
@@ -123,12 +126,13 @@ const NotesSettingsWidget = new GObject.Class({
 			GdkPixbuf.Pixbuf.new_from_file_at_size(
 			              Me.path + '/screenshots/help_picture_2.png', 380, 300)
 		);
-		
+
 		let data_button = builder.get_object('backup_btn');
 		data_button.connect('clicked', (widget) => {
-			GLib.spawn_command_line_async('xdg-open .local/share/notes@maestroschan.fr');
+			let datadir = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
+			GLib.spawn_command_line_async('xdg-open ' + datadir);
 		});
-		
+
 		let reset_button = builder.get_object('reset_btn');
 		reset_button.connect('clicked', (widget) => {
 			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
@@ -141,11 +145,10 @@ const NotesSettingsWidget = new GObject.Class({
 	//--------------------------------------------------------------------------
 
 	_buildAboutPage(builder) {
-		
 		builder.get_object('about_icon').set_from_pixbuf(
 			GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path +
 			                         '/screenshots/about_picture.png', 163, 114)
-			//                         '/screenshots/about_picture.png', 326, 228)
+		//	                         '/screenshots/about_picture.png', 326, 228)
 		);
 
 		let a_version = _("version:") + ' ' + Me.metadata.version.toString();

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-08 19:15+0200\n"
+"POT-Creation-Date: 2020-05-13 19:23+0200\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -24,18 +24,18 @@ msgid "Show notes"
 msgstr "Prikaži bilješke"
 
 #: notes@maestroschan.fr/extension.js:151
-msgid "Notes extension: failed to create widgets for a note"
+msgid "Notes extension error: failed to load a note"
 msgstr ""
 
 #: notes@maestroschan.fr/menus.js:101
 msgid "Custom color"
 msgstr "Prilagođena boja"
 
-#: notes@maestroschan.fr/menus.js:107 notes@maestroschan.fr/prefs.ui:161
+#: notes@maestroschan.fr/menus.js:107 notes@maestroschan.fr/prefs.ui:211
 msgid "Settings"
 msgstr "Postavke"
 
-#: notes@maestroschan.fr/menus.js:117 notes@maestroschan.fr/prefs.ui:127
+#: notes@maestroschan.fr/menus.js:117 notes@maestroschan.fr/prefs.ui:177
 msgid "Apply"
 msgstr "Primijeni"
 
@@ -75,19 +75,11 @@ msgstr "Izbrisati ovu bilješku?"
 msgid "Confirm"
 msgstr "Potvrdi"
 
-#: notes@maestroschan.fr/prefs.js:51
-msgid "On the background"
-msgstr "Na pozadini"
-
-#: notes@maestroschan.fr/prefs.js:52
-msgid "Above everything"
-msgstr "Ispred svih"
-
-#: notes@maestroschan.fr/prefs.js:151
+#: notes@maestroschan.fr/prefs.js:154
 msgid "version:"
 msgstr "verzija:"
 
-#: notes@maestroschan.fr/prefs.js:162
+#: notes@maestroschan.fr/prefs.js:165
 msgid "Report bugs or ideas"
 msgstr "Prijavi greške ili ideje"
 
@@ -95,38 +87,47 @@ msgstr "Prijavi greške ili ideje"
 msgid "Position of notes"
 msgstr "Položaj bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:41
-msgid "\"On the background\" is incompatible with desktop icons."
+#: notes@maestroschan.fr/prefs.ui:29
+msgid "Above everything"
+msgstr "Ispred svih"
+
+#: notes@maestroschan.fr/prefs.ui:40
+msgid "On the background"
+msgstr "Na pozadini"
+
+#: notes@maestroschan.fr/prefs.ui:54
+#, fuzzy
+msgid "Incompatible with desktop icons"
 msgstr "„Na pozadini” nije kompatibilno s desktop ikonama."
 
-#: notes@maestroschan.fr/prefs.ui:57
+#: notes@maestroschan.fr/prefs.ui:107
 msgid "Automatic focus"
 msgstr "Automatski fokus"
 
-#: notes@maestroschan.fr/prefs.ui:93
+#: notes@maestroschan.fr/prefs.ui:143
 msgid "Use a keyboard shortcut"
 msgstr "Koristi prečac na tipkovnici"
 
-#: notes@maestroschan.fr/prefs.ui:94
+#: notes@maestroschan.fr/prefs.ui:144
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Koristi prečac na tipkovnici za uključivanje bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:116
+#: notes@maestroschan.fr/prefs.ui:166
 msgid "Default value is <Super>n"
 msgstr "Standardna vrijednost je <Super>n"
 
-#: notes@maestroschan.fr/prefs.ui:139
+#: notes@maestroschan.fr/prefs.ui:189
 msgid "Hide the icon"
 msgstr "Sakrij ikonu"
 
-#: notes@maestroschan.fr/prefs.ui:190
+#: notes@maestroschan.fr/prefs.ui:241
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
 "<b>Priakži/sakrij sve bilješke:</b> klikni na ikonu u gornjoj traci GNOME "
 "Shella."
 
-#: notes@maestroschan.fr/prefs.ui:198
+#: notes@maestroschan.fr/prefs.ui:249
 msgid ""
 "<b>Create a note:</b> click on the \"+\" button at the left of a note "
 "header, it will create a new note, with the same color and the same font "
@@ -136,37 +137,37 @@ msgstr ""
 "stvorit će se nova bilješka s istom bojom i fontom bilješke na kojoj si "
 "kliknuo/la."
 
-#: notes@maestroschan.fr/prefs.ui:209
+#: notes@maestroschan.fr/prefs.ui:260
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
 "<b>Premjesti bilješku:</b> klikni u prazni prostor u zaglavlju bilješke i "
 "povuci bilješku."
 
-#: notes@maestroschan.fr/prefs.ui:217
+#: notes@maestroschan.fr/prefs.ui:268
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
 "<b>Promijeni veličinu bilješke:</b> povuci gumb za mijenjanje veličine na "
 "desnoj strani zaglavlja bilješke."
 
-#: notes@maestroschan.fr/prefs.ui:225
+#: notes@maestroschan.fr/prefs.ui:276
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
 msgstr "<b>Izbriši bilješku:</b> klikni na gumb smeća i potvrdi."
 
-#: notes@maestroschan.fr/prefs.ui:231
+#: notes@maestroschan.fr/prefs.ui:284
 msgid "Using the extension"
 msgstr "Upotreba proširenja"
 
-#: notes@maestroschan.fr/prefs.ui:246
+#: notes@maestroschan.fr/prefs.ui:301
 msgid "<b>Change color:</b> click on the menu button, and select a color."
 msgstr "<b>Promijeni boju:</b> klikni na gumb izbornika i odaberi boju."
 
-#: notes@maestroschan.fr/prefs.ui:254
+#: notes@maestroschan.fr/prefs.ui:309
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
 msgstr "Podizbornik „Prilagođena boja” omogućuje biranje određene boje."
 
-#: notes@maestroschan.fr/prefs.ui:265
+#: notes@maestroschan.fr/prefs.ui:320
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
@@ -174,7 +175,7 @@ msgstr ""
 "<b>Promijeni veličinu fonta:</b> klikni na gumb izbornika i povećaj ili "
 "smanji veličinu fonta pomoću gumbova „+” i „-”."
 
-#: notes@maestroschan.fr/prefs.ui:273
+#: notes@maestroschan.fr/prefs.ui:328
 msgid ""
 "<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
 "settings dialog."
@@ -182,15 +183,15 @@ msgstr ""
 "<b>Napredne postavke:</b> klikni na „Postavke” u izborniku za pristup "
 "dijaloškom okviru postavki."
 
-#: notes@maestroschan.fr/prefs.ui:279
+#: notes@maestroschan.fr/prefs.ui:336
 msgid "Customizing notes"
 msgstr "Prilagođavanje bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:294
+#: notes@maestroschan.fr/prefs.ui:353
 msgid "The dialog window you're reading provides several settings:"
 msgstr "Ovaj dijaloški prozor pruža sljedeće postavke:"
 
-#: notes@maestroschan.fr/prefs.ui:302
+#: notes@maestroschan.fr/prefs.ui:361
 msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
@@ -198,15 +199,7 @@ msgstr ""
 "<b>Položaj bilježaka:</b> odluči, želiš li prikazati bilješke iznak ili "
 "ispod prozora."
 
-#: notes@maestroschan.fr/prefs.ui:310
-msgid ""
-"<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
-"the keyboard focus when you hover them with the mouse pointer."
-msgstr ""
-"<b>Automatski fokus:</b> ako je ativirano, bilješke će automatski biti "
-"fokusirane, kad prelaziš preko njih s mišem."
-
-#: notes@maestroschan.fr/prefs.ui:326
+#: notes@maestroschan.fr/prefs.ui:377
 msgid ""
 "<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
 "is enabled, the icon in the top bar can be hidden."
@@ -214,11 +207,11 @@ msgstr ""
 "<b>Prečac na tipkovnici:</b> prikaži/sakrij prečac na tipkovnici. Ako je "
 "aktivirano, ikona u gornjoj traci može se sakriti."
 
-#: notes@maestroschan.fr/prefs.ui:332
+#: notes@maestroschan.fr/prefs.ui:385
 msgid "The settings window"
 msgstr "Prozor postavki"
 
-#: notes@maestroschan.fr/prefs.ui:347
+#: notes@maestroschan.fr/prefs.ui:402
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
@@ -228,24 +221,24 @@ msgstr ""
 "sakriješ). Ako želiš <b>dobiti kopiju svojih bilješki</b>, ovaj gumb otvara "
 "mapu gdje se one nalaze."
 
-#: notes@maestroschan.fr/prefs.ui:353
+#: notes@maestroschan.fr/prefs.ui:408
 msgid "Open the storage directory"
 msgstr "Otvori mapu za spremanje"
 
-#: notes@maestroschan.fr/prefs.ui:363
+#: notes@maestroschan.fr/prefs.ui:418
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
 msgstr "Datoteke s nastavkom „_state” sadrže boju i položaj tvojih bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:373
+#: notes@maestroschan.fr/prefs.ui:428
 msgid "Files ending with \"_text\" contain the text written in your notes"
 msgstr "Datoteke s nastavkom „_text” sadrže tekst tvojih bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:382
+#: notes@maestroschan.fr/prefs.ui:439
 msgid "Backup your notes"
 msgstr "Izradi sigurnosnu kopiju tvojih bilježaka"
 
-#: notes@maestroschan.fr/prefs.ui:397
+#: notes@maestroschan.fr/prefs.ui:456
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
 "monitor\n"
@@ -255,41 +248,50 @@ msgstr ""
 "(primjer: ako si imao/la bilješke na sporednom monitoru kojeg si odspojio/"
 "la)."
 
-#: notes@maestroschan.fr/prefs.ui:404
-msgid "Bring back all notes to the primary monitor"
+#: notes@maestroschan.fr/prefs.ui:463
+#, fuzzy
+msgid "Bring back to the primary monitor"
 msgstr "Vrati sve bilješke na glavni monitor"
 
-#: notes@maestroschan.fr/prefs.ui:410
+#: notes@maestroschan.fr/prefs.ui:471
 msgid "Lost some notes?"
 msgstr "Neke bilješke su se izgubile?"
 
-#: notes@maestroschan.fr/prefs.ui:421
+#: notes@maestroschan.fr/prefs.ui:480
 msgid "Help"
 msgstr "Pomoć"
 
-#: notes@maestroschan.fr/prefs.ui:434
+#: notes@maestroschan.fr/prefs.ui:493
 msgid "Notes"
 msgstr "Bilješke"
 
-#: notes@maestroschan.fr/prefs.ui:443
+#: notes@maestroschan.fr/prefs.ui:502
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Bilješke za GNOME Shell desktop."
 
-#: notes@maestroschan.fr/prefs.ui:468
+#: notes@maestroschan.fr/prefs.ui:527
 msgid "Author:"
 msgstr "Autor:"
 
-#: notes@maestroschan.fr/prefs.ui:483
-msgid "Translators:"
+#: notes@maestroschan.fr/prefs.ui:542
+#, fuzzy
+msgid "Translation:"
 msgstr "Prevodioci:"
 
-#: notes@maestroschan.fr/prefs.ui:488
+#: notes@maestroschan.fr/prefs.ui:547
 msgid "translator-credits"
 msgstr "Milo Ivir <mail@milotype.de>, 2020."
 
-#: notes@maestroschan.fr/prefs.ui:517
+#: notes@maestroschan.fr/prefs.ui:576
 msgid "About"
 msgstr "Informacije"
+
+#~ msgid ""
+#~ "<b>Automatic focus:</b> if this is enabled, the notes will automatically "
+#~ "get the keyboard focus when you hover them with the mouse pointer."
+#~ msgstr ""
+#~ "<b>Automatski fokus:</b> ako je ativirano, bilješke će automatski biti "
+#~ "fokusirane, kad prelaziš preko njih s mišem."
 
 #~ msgid "Select All"
 #~ msgstr "Odaberi sve"
