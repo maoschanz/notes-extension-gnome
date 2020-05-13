@@ -3,8 +3,6 @@
 EXTENSION_ID="notes@maestroschan.fr"
 TRANSLATION_ID="notes-extension"
 
-#####
-
 if [ $# = 0 ]; then
 	echo "No parameter, exiting now."
 	echo ""
@@ -17,7 +15,7 @@ if [ $# = 0 ]; then
 	exit 1
 fi
 
-#####
+################################################################################
 
 function update_pot () {
 	echo "Generating .pot file..."
@@ -56,14 +54,12 @@ msgstr \"\"
 	update_lang $1
 }
 
-#####
+################################################################################
 
 IFS='
 '
 liste=`ls ./$EXTENSION_ID/locale/`
 prefix="./$EXTENSION_ID/locale"
-
-#####
 
 if [ $1 = "--all" ]; then
 	update_pot

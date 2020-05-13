@@ -106,7 +106,7 @@ var NoteBox = class NoteBox {
 			vertical: true,
 			min_height: 75,
 			min_width: 245,
-			style_class: 'noteStyle',
+			style_class: 'noteBoxStyle',
 			track_hover: true,
 		});
 
@@ -132,7 +132,7 @@ var NoteBox = class NoteBox {
 			hint_text: _("Type here…"),
 			track_hover: true,
 			x_expand: true,
-			style_class: 'textField',
+			style_class: 'notesTextField',
 		});
 		let clutterText = this.noteEntry.get_clutter_text();
 		clutterText.set_single_line_mode(false);
@@ -197,7 +197,7 @@ var NoteBox = class NoteBox {
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
-			style_class: 'boxStyle',
+			style_class: 'noteHeaderStyle',
 		});
 
 		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
@@ -223,11 +223,11 @@ var NoteBox = class NoteBox {
 
 		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
 		this.buttons_box.add(ctrlButton.actor);
-		
+
 		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
 		this.moveBox.connect('motion-event', this._onMoveMotion.bind(this));
 		this.moveBox.connect('button-release-event', this._onRelease.bind(this));
-		
+
 		ctrlButton.actor.connect('button-press-event', this._onResizePress.bind(this));
 		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
@@ -249,7 +249,7 @@ var NoteBox = class NoteBox {
 			reactive: true,
 			x_expand: true,
 			y_expand: false,
-			style_class: 'boxStyle',
+			style_class: 'noteHeaderStyle',
 		});
 
 		let btnBack = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
@@ -553,8 +553,8 @@ var NoteBox = class NoteBox {
 	}
 
 	createNote () {
-		let nextId = Extension.ALL_NOTES.length;
-		Extension.ALL_NOTES.push(new NoteBox(nextId, this.customColor, this._fontSize)); //FIXME
+		let nextId = Extension.ALL_NOTES.length; // XXX not very elegant...
+		Extension.ALL_NOTES.push(new NoteBox(nextId, this.customColor, this._fontSize));
 	}
 
 	deleteNote () {

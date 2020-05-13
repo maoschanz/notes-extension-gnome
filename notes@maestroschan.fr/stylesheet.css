@@ -1,18 +1,15 @@
-.boxStyle {
-	spacing: 10px;
-	margin: 5px;
-}
+/* Notes' "body" **************************************************************/
 
-.noteStyle {
+.noteBoxStyle {
 	padding: 0px;
 	margin: 0px;
 }
 
-.noteStyle:hover {
+.noteBoxStyle:hover {
 	box-shadow: 0px 0px 10px #000;
 }
 
-.textField {
+.notesTextField {
 	border-width: 0px;
 	border-radius: 0px;
 	box-shadow: none;
@@ -24,6 +21,17 @@
 	background-gradient-direction: vertical;
 }
 
+/* Notes' headers and the buttons in them *************************************/
+
+.noteHeaderStyle {
+	spacing: 10px;
+	margin: 5px;
+}
+
+.notesTitleButton {
+	text-align: center;
+}
+
 .notesCircleButton {
 	border-width: 1px;
 	border-radius: 14px;
@@ -33,9 +41,10 @@
 	border-color: black;
 }
 
+/* Intended to be used with notesCircleButton */
 .notesHeaderboxButton {
 	border-style: solid;
-	border-color: grey; /* TODO set ça plutôt en même temps que le texte */
+	border-color: grey; /* TODO should be the same as the note's text */
 }
 
 .notesCircleButton:hover, .notesCircleButton:active {
@@ -45,7 +54,4 @@
 	width: 26px;
 }
 
-.notesTitleButton {
-	text-align: center;
-}
 
