@@ -209,7 +209,7 @@ msgid ""
 "is enabled, the icon in the top bar can be hidden."
 msgstr ""
 "<b>Raccourci clavier :</b> afficher/masquer les notes avec un raccourci "
-"clavier. Si cece est activé , l'icône dans la barre supérieure peut être "
+"clavier. Si ceci est activé , l'icône dans la barre supérieure peut être "
 "cachée."
 
 #: notes@maestroschan.fr/prefs.ui:385

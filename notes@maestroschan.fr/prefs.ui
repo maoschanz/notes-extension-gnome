@@ -105,7 +105,6 @@
             <property name="halign">end</property>
             <property name="expand">False</property>
             <property name="label" translatable="yes">Automatic focus</property>
-            <property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -114,10 +113,8 @@
         </child>
         <child>
           <object class="GtkSwitch" id="focus_switch">
-            <property name="sensitive">False</property>
             <property name="expand">False</property>
             <property name="halign">start</property>
-            <property name="tooltip-text">Automatic focus will stay enabled until GNOME Shell text entries become compatible with common sense again</property>
           </object>
           <packing>
             <property name="left-attach">1</property>
@@ -361,14 +358,14 @@
                         <property name="label" translatable="yes">&lt;b&gt;Position of notes:&lt;/b&gt; select whether you want the notes to be shown above the windows or underneath them.</property>
                       </object>
                     </child>
-                    <!-- <child> -->
-                    <!--   <object class="GtkLabel"> -->
-                    <!--     <property name="halign">start</property> -->
-                    <!--     <property name="wrap">True</property> -->
-                    <!--     <property name="use-markup">True</property> -->
-                    <!--     <property name="label" translatable="yes">&lt;b&gt;Automatic focus:&lt;/b&gt; if this is enabled, the notes will automatically get the keyboard focus when you hover them with the mouse pointer.</property> -->
-                    <!--   </object> -->
-                    <!-- </child> -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Automatic focus:&lt;/b&gt; if this is enabled, the notes will automatically get the keyboard focus when you hover them with the mouse pointer.</property>
+                      </object>
+                    </child>
                     <child>
                       <object class="GtkLabel">
                         <property name="halign">start</property>

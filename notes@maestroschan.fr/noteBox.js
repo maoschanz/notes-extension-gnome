@@ -154,24 +154,13 @@ var NoteBox = class NoteBox {
 		//----------------------------------------------------------------------
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		/* FIXME according to common sense, clicking in an entry should give it
-		the keyboard focus, and it was how it worked before GS 3.33, but after
-		3.33 there is an error if i don't manage the grab manually. The error:
-		clutter_input_focus_set_input_panel_state: assertion 'clutter_input_focus_is_focused (focus)' failed
-		Managing the grab manually is only a very shitty workaround, since
-		the auto_focus can work but the normal behavior (focus the entry...
-		when the user focuses the entry?? fucking common sense) can't work
-		because the button-press-event signal is sent only when the user
-		clicks where there is no text, making the entries unsuitable for use
-		by sane humans. St.FocusManager might be a thing (who tf wrote that
-		shit without baking it into addChrome?) */
-//		if (Extension.AUTO_FOCUS) {
+		if (Extension.AUTO_FOCUS) {
 			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
-//		} else {
-//			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
-//			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
-//		}
+		} else {
+			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
+			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
+		}
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
 
 		//----------------------------------------------------------------------
@@ -182,7 +171,7 @@ var NoteBox = class NoteBox {
 		this.load_in_the_right_actor();
 		this._setNotePosition();
 		this.loadText();
-		ShellEntry.addContextMenu(this.noteEntry);
+		// ShellEntry.addContextMenu(this.noteEntry); // FIXME doesn't work
 		this._initStyle();
 
 		this.grabX = this._x + 100;
@@ -292,7 +281,9 @@ var NoteBox = class NoteBox {
 
 	load_in_the_right_actor () {
 		if (Extension.Z_POSITION == 'above-all') {
-			Main.layoutManager.addChrome(this.actor);
+			Main.layoutManager.addChrome(this.actor, {
+				affectsInputRegion: true
+			});
 		} else {
 			Main.layoutManager._backgroundGroup.add_actor(this.actor);
 		}

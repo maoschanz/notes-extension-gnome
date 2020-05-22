@@ -137,9 +137,6 @@ const NotesSettingsWidget = new GObject.Class({
 		reset_button.connect('clicked', (widget) => {
 			SETTINGS.set_boolean('ugly-hack', !SETTINGS.get_boolean('ugly-hack'));
 		});
-
-		// TODO revoir le ficher UI
-		// là la stack est dans une scrolledwindow c'est nul
 	},
 
 	//--------------------------------------------------------------------------

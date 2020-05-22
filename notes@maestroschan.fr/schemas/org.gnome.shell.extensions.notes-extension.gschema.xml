@@ -8,7 +8,7 @@
       <summary>Automatic focus</summary>
       <description>
         If notes should automatically take the keyboard focus when hovered by
-        the cursor. Otherwise a click is needed. FIXME BROKEN SINCE GS 3.33
+        the cursor. Otherwise a click is needed.
       </description>
     </key>
     <key type="s" name="layout-position">

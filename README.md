@@ -20,7 +20,6 @@ Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`
 
 <!-- 3.36 :
 
-le putain de focus
 rétrocompatibilité en sang
 déprécation de l'acteur de l'icône, avec conditionnelle
 autres erreurs de merde ?

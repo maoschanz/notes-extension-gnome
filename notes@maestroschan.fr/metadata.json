@@ -4,11 +4,10 @@
 	"gettext-domain": "notes-extension",
 	"name": "Notes",
 	"shell-version": [
-		"3.26",
-		"3.28",
 		"3.30",
 		"3.32",
-		"3.34"
+		"3.34",
+		"3.36"
 	],
 	"url": "https://github.com/maoschanz/notes-extension-gnome",
 	"uuid": "notes@maestroschan.fr",
