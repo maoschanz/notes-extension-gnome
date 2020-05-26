@@ -7,6 +7,10 @@ const PanelMenu = imports.ui.panelMenu;
 const Panel = imports.ui.panel;
 const Main = imports.ui.main;
 
+// Retrocompatibility
+const ShellVersion = imports.misc.config.PACKAGE_VERSION;
+var USE_ACTORS = parseInt(ShellVersion.split('.')[1]) < 33;
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -25,11 +29,7 @@ let SETTINGS;
 var Z_POSITION;
 var AUTO_FOCUS;
 
-let SIGNAL_LAYOUT;
-let SIGNAL_BRING_BACK;
-let SIGNAL_ICON;
-let SIGNAL_KBS1;
-let SIGNAL_KBS2;
+let SIGNALS = {};
 
 //------------------------------------------------------------------------------
 
@@ -50,6 +50,7 @@ function init() {
 
 //------------------------------------------------------------------------------
 
+// XXX not very O.-O. P.
 function saveAllNotes() {
 	ALL_NOTES.forEach(function (n) {
 		if(n.actor != null) {
@@ -59,6 +60,8 @@ function saveAllNotes() {
 	});
 }
 
+// XXX not very O.-O. P.
+// FIXME complete shit
 function refreshArray() {
 	let temp = new Array();
 	ALL_NOTES.forEach(function (n) {
@@ -95,12 +98,12 @@ class NotesButton {
 			icon_name: 'document-edit-symbolic',
 			style_class: 'system-status-icon'
 		});
-		try { // TODO conditionnelle sur la version
-			this.super_btn.add_child(icon);
-			this.super_btn.connect('button-press-event', this.toggleState.bind(this));
-		} catch (e) {
+		if(USE_ACTORS) {
 			this.super_btn.actor.add_child(icon);
 			this.super_btn.actor.connect('button-press-event', this.toggleState.bind(this));
+		} else {
+			this.super_btn.add_child(icon);
+			this.super_btn.connect('button-press-event', this.toggleState.bind(this));
 		}
 		this.update_icon_visibility();
 		
@@ -111,10 +114,10 @@ class NotesButton {
 
 	update_icon_visibility() {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
-		try { // TODO conditionnelle sur la version
-			this.super_btn.visible = now_visible;
-		} catch (e) {
+		if(USE_ACTORS) {
 			this.super_btn.actor.visible = now_visible;
+		} else {
+			this.super_btn.visible = now_visible;
 		}
 	}
 
@@ -207,6 +210,7 @@ class NotesButton {
 
 //------------------------------------------------------------------------------
 
+// XXX not very O.-O. P.
 function bringToPrimaryMonitorOnly() {
 	ALL_NOTES.forEach(function (n) {
 		n.fixState();
@@ -230,10 +234,6 @@ function updateLayoutSetting() {
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus');
-	SIGNAL_LAYOUT = SETTINGS.connect(
-		'changed::layout-position',
-		updateLayoutSetting.bind(this)
-	);
 	ALL_NOTES = new Array();
 
 	updateLayoutSetting()
@@ -244,19 +244,23 @@ function enable() {
 	//	- `right` is the box where we want GLOBAL_BUTTON to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.super_btn, 0, 'right');
 
-	SIGNAL_BRING_BACK = SETTINGS.connect(
+	SIGNALS['layout'] = SETTINGS.connect(
+		'changed::layout-position',
+		updateLayoutSetting.bind(this)
+	);
+	SIGNALS['bring-back'] = SETTINGS.connect(
 		'changed::ugly-hack',
 		bringToPrimaryMonitorOnly.bind(this)
 	);
-	SIGNAL_ICON = SETTINGS.connect(
+	SIGNALS['hide-icon'] = SETTINGS.connect(
 		'changed::hide-icon',
 		GLOBAL_BUTTON.update_icon_visibility.bind(GLOBAL_BUTTON)
 	);
-	SIGNAL_KBS1 = SETTINGS.connect(
+	SIGNALS['kb-shortcut-1'] = SETTINGS.connect(
 		'changed::use-shortcut',
 		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
 	);
-	SIGNAL_KBS2 = SETTINGS.connect(
+	SIGNALS['kb-shortcut-2'] = SETTINGS.connect(
 		'changed::notes-kb-shortcut',
 		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
 	);
@@ -272,11 +276,11 @@ function disable() {
 		Main.wm.removeKeybinding('notes-kb-shortcut');
 	}
 
-	SETTINGS.disconnect(SIGNAL_LAYOUT);
-	SETTINGS.disconnect(SIGNAL_BRING_BACK);
-	SETTINGS.disconnect(SIGNAL_ICON);
-	SETTINGS.disconnect(SIGNAL_KBS1);
-	SETTINGS.disconnect(SIGNAL_KBS2);
+	SETTINGS.disconnect(SIGNALS['layout']);
+	SETTINGS.disconnect(SIGNALS['bring-back']);
+	SETTINGS.disconnect(SIGNALS['hide-icon']);
+	SETTINGS.disconnect(SIGNALS['kb-shortcut-1']);
+	SETTINGS.disconnect(SIGNALS['kb-shortcut-2']);
 
 	GLOBAL_BUTTON.destroy();
 }

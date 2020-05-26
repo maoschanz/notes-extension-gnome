@@ -20,10 +20,6 @@ const _ = Gettext.gettext;
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
-let SIGNAL_LAYOUT;
-let SIGNAL_BRING_BACK;
-let SIGNAL_ICON;
-
 const MIN_HEIGHT = 50;
 const MIN_WIDTH = 180;
 
@@ -47,11 +43,11 @@ function stringFromArray(data){
  *   size, but with random coordinates, an empty text, and an harcoded size.
  * - The 'delete' button, which delete the note and will call an exterior
  *   method. Requires validation from the user.
+ * - The 'move' button, which isn't styled as a button but looks like an empty
+ *   space. It simulates a kind of wacky window dragging.
  * - The 'options' button, showing a menu defined in menus.js
- * - The 'move' button, which isn't drawn as a button, but looks like an empty
- *   space. It emulates a kind of wacky window dragging.
- * - The 'resize' button, which uses the same dragging mecanism and resizes the
- *   note from its upper-right corner.
+ * - The 'resize' button, which uses the same dragging mecanism as 'move', to
+ *   resize the note from its upper-right corner.
  */
 var NoteBox = class NoteBox {
 	constructor (id, color, size) {
