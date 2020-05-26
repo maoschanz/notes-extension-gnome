@@ -19,18 +19,18 @@ fi
 
 function update_pot () {
 	echo "Generating .pot file..."
-	xgettext --files-from=POTFILES.in --from-code=UTF-8 --output=$EXTENSION_ID/locale/$TRANSLATION_ID.pot
+	xgettext --files-from=POTFILES.in --from-code=UTF-8 --add-location=file --output=$EXTENSION_ID/locale/$TRANSLATION_ID.pot
 }
 
 function update_lang () {
 	echo "Updating translation for: $1"
-	msgmerge $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po $prefix/$TRANSLATION_ID.pot > $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.temp.po
-	mv $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.temp.po $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po
+	msgmerge --update --previous $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po $prefix/$TRANSLATION_ID.pot
 }
 
 function compile_lang () {
 	echo "Compiling translation for: $1"
 	msgfmt $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po -o $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.mo
+	rm -f "$prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po~"
 }
 
 function create_po () {
