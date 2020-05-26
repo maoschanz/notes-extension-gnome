@@ -84,20 +84,27 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//----------------------------------------------------------------------
 
+		// Text entry
 		let keybinding_entry = builder.get_object('keybinding_entry');
 		keybinding_entry.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
+		keybinding_entry.set_tooltip_text(
+			// Context: %s will be replaced with the default keyboard shortcut
+			_("Default value is %s").replace('%s', "<Super><Alt>n")
+		);
 
-		if (SETTINGS.get_strv('keyboard-shortcut') != '') {
-			keybinding_entry.text = SETTINGS.get_strv('keyboard-shortcut')[0];
+		if (SETTINGS.get_strv('notes-kb-shortcut') != '') {
+			keybinding_entry.text = SETTINGS.get_strv('notes-kb-shortcut')[0];
 		}
 
+		// "Apply" button
 		let keybinding_button = builder.get_object('keybinding_button');
 		keybinding_button.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
 
 		keybinding_button.connect('clicked', (widget) => {
-			SETTINGS.set_strv('keyboard-shortcut', [keybinding_entry.text]);
+			SETTINGS.set_strv('notes-kb-shortcut', [keybinding_entry.text]);
 		});
 
+		// "Enable shortcut" switch
 		let keybinding_switch = builder.get_object('keybinding_switch');
 		keybinding_switch.set_state(SETTINGS.get_boolean('use-shortcut'));
 
@@ -148,8 +155,8 @@ const NotesSettingsWidget = new GObject.Class({
 		//	                         '/screenshots/about_picture.png', 326, 228)
 		);
 
-		let a_version = _("version:") + ' ' + Me.metadata.version.toString();
-		builder.get_object('label_version').set_label(a_version)
+		let ext_version = _("Version %s").replace('%s', Me.metadata.version.toString());
+		builder.get_object('label_version').set_label(ext_version)
 
 		let translation_credits = builder.get_object('translation_credits').get_label();
 		if (translation_credits == 'translator-credits') {

@@ -20,9 +20,8 @@ Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`
 
 <!-- 3.36 :
 
-rétrocompatibilité en sang
-déprécation de l'acteur de l'icône, avec conditionnelle
-autres erreurs de merde ?
+rétrocompatibilité en sang (non osef)
+signaux dans un array associatif
 
 sa mère faut réécrire comment ça interagit avec le disque, là c'est hoooonteux
 

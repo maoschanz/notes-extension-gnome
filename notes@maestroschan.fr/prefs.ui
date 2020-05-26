@@ -160,7 +160,6 @@
           <object class="GtkEntry" id="keybinding_entry">
             <property name="expand">False</property>
             <property name="halign">end</property>
-            <property name="tooltip_text" translatable="yes">Default value is &lt;Super&gt;n</property>
           </object>
           <packing>
             <property name="left-attach">0</property>

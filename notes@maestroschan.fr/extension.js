@@ -28,6 +28,8 @@ var AUTO_FOCUS;
 let SIGNAL_LAYOUT;
 let SIGNAL_BRING_BACK;
 let SIGNAL_ICON;
+let SIGNAL_KBS1;
+let SIGNAL_KBS2;
 
 //------------------------------------------------------------------------------
 
@@ -104,7 +106,7 @@ class NotesButton {
 		
 		GLOBAL_ARE_VISIBLE = false;
 		this.loadAllNotes();
-		this._bindShortcut(Convenience.getSettings().get_boolean('use-shortcut'));
+		this._bindShortcut();
 	}
 
 	update_icon_visibility() {
@@ -117,7 +119,7 @@ class NotesButton {
 	}
 
 	toggleState() {
-		//log('toggleState');
+		// log('toggleState');
 		if(ALL_NOTES.length == 0) {
 			this._createNote();
 			this._showNotes();
@@ -178,18 +180,22 @@ class NotesButton {
 		GLOBAL_ARE_VISIBLE = false;
 	}
 
-	_bindShortcut (useShortcut) {
-		this.USE_SHORTCUT = useShortcut;
-		if (!useShortcut) { return; }
-		
-		var ModeType = Shell.hasOwnProperty('ActionMode')
-			? Shell.ActionMode
-			: Shell.KeyBindingMode;
+	updateShortcut () {
+		if(this.USE_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-kb-shortcut');
+		}
+		this._bindShortcut();
+	}
+
+	_bindShortcut () {
+		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
+		if (!this.USE_SHORTCUT) { return; }
+
 		Main.wm.addKeybinding(
-			'keyboard-shortcut',
+			'notes-kb-shortcut',
 			Convenience.getSettings(),
 			Meta.KeyBindingFlags.NONE,
-			ModeType.ALL,
+			Shell.ActionMode.ALL,
 			this.toggleState.bind(this)
 		);
 	}
@@ -211,9 +217,9 @@ function updateLayoutSetting() {
 	ALL_NOTES.forEach(function (n) {
 		n.remove_from_the_right_actor();
 	});
-	
+
 	Z_POSITION = SETTINGS.get_string('layout-position');
-	
+
 	ALL_NOTES.forEach(function (n) {
 		n.load_in_the_right_actor();
 	});
@@ -224,21 +230,35 @@ function updateLayoutSetting() {
 function enable() {
 	SETTINGS = Convenience.getSettings();
 	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus');
-	SIGNAL_LAYOUT = SETTINGS.connect('changed::layout-position', updateLayoutSetting.bind(this));
+	SIGNAL_LAYOUT = SETTINGS.connect(
+		'changed::layout-position',
+		updateLayoutSetting.bind(this)
+	);
 	ALL_NOTES = new Array();
-	
+
 	updateLayoutSetting()
-	
+
 	GLOBAL_BUTTON = new NotesButton();
 	//	about addToStatusArea :
 	//	- 0 is the position
 	//	- `right` is the box where we want GLOBAL_BUTTON to be displayed (left/center/right)
 	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.super_btn, 0, 'right');
 
-	SIGNAL_BRING_BACK = SETTINGS.connect('changed::ugly-hack', bringToPrimaryMonitorOnly.bind(this));
+	SIGNAL_BRING_BACK = SETTINGS.connect(
+		'changed::ugly-hack',
+		bringToPrimaryMonitorOnly.bind(this)
+	);
 	SIGNAL_ICON = SETTINGS.connect(
 		'changed::hide-icon',
 		GLOBAL_BUTTON.update_icon_visibility.bind(GLOBAL_BUTTON)
+	);
+	SIGNAL_KBS1 = SETTINGS.connect(
+		'changed::use-shortcut',
+		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
+	);
+	SIGNAL_KBS2 = SETTINGS.connect(
+		'changed::notes-kb-shortcut',
+		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
 	);
 }
 
@@ -247,15 +267,17 @@ function disable() {
 		n.onlySave();
 		n.destroy();
 	});
-	
+
 	if(GLOBAL_BUTTON.USE_SHORTCUT) {
-		Main.wm.removeKeybinding('keyboard-shortcut');
+		Main.wm.removeKeybinding('notes-kb-shortcut');
 	}
-	
+
 	SETTINGS.disconnect(SIGNAL_LAYOUT);
 	SETTINGS.disconnect(SIGNAL_BRING_BACK);
 	SETTINGS.disconnect(SIGNAL_ICON);
-	
+	SETTINGS.disconnect(SIGNAL_KBS1);
+	SETTINGS.disconnect(SIGNAL_KBS2);
+
 	GLOBAL_BUTTON.destroy();
 }
 

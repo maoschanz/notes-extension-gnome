@@ -23,14 +23,20 @@
     </key>
 
     <key type="b" name="use-shortcut">
-      <default>true</default>
+      <default>false</default>
       <summary>Keyboard shortcut</summary>
       <description>If the keyboard shortcut should be active</description>
     </key>
     <key name="keyboard-shortcut" type="as">
-      <default><![CDATA[['<Super>n','']]]></default>
+      <default><![CDATA[[]]]></default>
+      <summary>legacy</summary>
+      <!-- TODO -->
+      <description>should be deleted</description>
+    </key>
+    <key name="notes-kb-shortcut" type="as">
+      <default><![CDATA[['<Super><Alt>n','']]]></default>
       <summary>Keyboard shortcut</summary>
-      <description>Keyboard shortcut which shows notes.</description>
+      <description>Keyboard shortcut which shows or hides notes.</description>
     </key>
     <key type="b" name="hide-icon">
       <default>false</default>
