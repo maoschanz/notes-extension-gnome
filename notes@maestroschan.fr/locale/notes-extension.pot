@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:54+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,14 @@ msgstr ""
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
 msgstr ""
 
 #: notes@maestroschan.fr/menus.js
@@ -240,10 +248,6 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Help"
-msgstr ""
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui

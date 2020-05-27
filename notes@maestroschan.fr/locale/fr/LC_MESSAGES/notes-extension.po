@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:44+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: 2019-03-21 00:03+0100\n"
 "Last-Translator: Romain F. T. <rrroschan@gmail.com>\n"
 "Language-Team: French <none>\n"
@@ -26,6 +26,14 @@ msgstr "Montrer les notes"
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
 msgstr "Erreu de l'extension notes : échec de chargement d'une note"
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Notes"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr "Redémarrer l'extension pour appliquer les changements"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Custom color"
@@ -282,10 +290,6 @@ msgid "Help"
 msgstr "Aide"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
-msgstr "Notes"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Post-its pour le bureau GNOME Shell."
 
@@ -305,5 +309,3 @@ msgstr "Romain F. T."
 msgid "About"
 msgstr "À propos"
 
-#~ msgid "Keybinding"
-#~ msgstr "Raccourci clavier"

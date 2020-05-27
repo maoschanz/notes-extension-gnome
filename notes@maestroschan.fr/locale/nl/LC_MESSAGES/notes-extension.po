@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:34+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: 2020-05-24 17:16+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -25,6 +25,14 @@ msgstr "Notities tonen"
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
 msgstr "Uitbreidingsfout: kan notitie niet laden"
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Notities"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr ""
 
 #: notes@maestroschan.fr/menus.js
 msgid "Custom color"
@@ -273,10 +281,6 @@ msgid "Help"
 msgstr "Hulp"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
-msgstr "Notities"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Plakbriefjes voor de GNOME Shell-werkomgeving."
 
@@ -296,31 +300,3 @@ msgstr "Heimen Stoffels"
 msgid "About"
 msgstr "Over"
 
-#~ msgid "Select All"
-#~ msgstr "Alles selecteren"
-
-#~ msgid "OK"
-#~ msgstr "Oké"
-
-#~ msgid "Display"
-#~ msgstr "Weergave"
-
-#~ msgid "Keybinding"
-#~ msgstr "Sneltoets"
-
-#~ msgid "Empty Overview"
-#~ msgstr "Leeg overzicht"
-
-#~ msgid "Above all, without mask"
-#~ msgstr "Bovenop alles, zonder maskering"
-
-#~ msgid ""
-#~ "\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
-#~ "component.\n"
-#~ "\"Above all, without mask\" is discouraged, since it makes it harder to "
-#~ "resize or move your sticky notes."
-#~ msgstr ""
-#~ "'Op de achtergrond' is incompatibel met het Ubuntu-onderdeel 'nautilus-"
-#~ "desktop'.\n"
-#~ "'Bovenop alles, zonder maskering' wordt afgeraden, omdat de grootte "
-#~ "moeilijker te wijzigen is en notities moeilijker te verplaatsen zijn."

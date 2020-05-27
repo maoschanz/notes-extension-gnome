@@ -72,10 +72,11 @@ const NotesSettingsWidget = new GObject.Class({
 		focus_switch.set_state(SETTINGS.get_boolean('auto-focus'));
 		focus_switch.connect('notify::active', (widget) => {
 			SETTINGS.set_boolean('auto-focus', widget.active);
-		}); // TODO dynamically update the setting in extension.js
+		});
 
 		//----------------------------------------------------------------------
 
+		// The "hide icon" switch has to be build before the keybinding switch
 		this._hide_switch = builder.get_object('hide_switch');
 		this._hide_switch.set_state(SETTINGS.get_boolean('hide-icon'));
 		this._hide_switch.connect('notify::active', (widget) => {
@@ -157,6 +158,11 @@ const NotesSettingsWidget = new GObject.Class({
 
 		let ext_version = _("Version %s").replace('%s', Me.metadata.version.toString());
 		builder.get_object('label_version').set_label(ext_version)
+
+		// TODO why tf does that crash?
+		// let gs_versions = Me.metadata['shell-version'][0].toString().replace(',', ", ");
+		// let versions_str = _("Compatible with GNOME Shell %s").replace('%s', gs_versions);
+		// builder.get_object('label_gs_versions').set_label(versions_str)
 
 		let translation_credits = builder.get_object('translation_credits').get_label();
 		if (translation_credits == 'translator-credits') {

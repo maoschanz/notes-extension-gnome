@@ -507,6 +507,15 @@
             <property name="label"></property>
           </object>
         </child>
+        <child>
+          <object class="GtkLabel" id="label_gs_versions">
+            <property name="halign">center</property>
+            <property name="label"></property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
         <!-- pack_end above this line -->
         <child>
           <object class="GtkBox">

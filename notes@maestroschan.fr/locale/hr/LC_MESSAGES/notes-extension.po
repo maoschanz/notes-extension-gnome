@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:34+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -25,6 +25,14 @@ msgstr "Prikaži bilješke"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Bilješke"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
 msgstr ""
 
 #: notes@maestroschan.fr/menus.js
@@ -272,10 +280,6 @@ msgid "Help"
 msgstr "Pomoć"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
-msgstr "Bilješke"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Bilješke za GNOME Shell desktop."
 
@@ -296,5 +300,3 @@ msgstr "Milo Ivir <mail@milotype.de>, 2020."
 msgid "About"
 msgstr "Informacije"
 
-#~ msgid "Select All"
-#~ msgstr "Odaberi sve"

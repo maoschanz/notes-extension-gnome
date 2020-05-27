@@ -61,7 +61,7 @@ function saveAllNotes() {
 }
 
 // XXX not very O.-O. P.
-// FIXME complete shit
+// FIXME works but is complete shit
 function refreshArray() {
 	let temp = new Array();
 	ALL_NOTES.forEach(function (n) {
@@ -75,7 +75,7 @@ function refreshArray() {
 	});
 	ALL_NOTES = null;
 	ALL_NOTES = temp;
-	
+
 	let theoricallyDeletedFilePath = PATH + '/' + ALL_NOTES.length.toString();
 	let textfile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_text');
 	let statefile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_state');
@@ -91,22 +91,22 @@ function refreshArray() {
  * The button can be hidden by some user settings, but still needs to be built
  * because it manages the loading.
  */
-class NotesButton {
+class NotesManager {
 	constructor() {
-		this.super_btn = new PanelMenu.Button(0.0, _("Show notes"), false);
+		this.panel_button = new PanelMenu.Button(0.0, _("Show notes"), false);
 		let icon = new St.Icon({
 			icon_name: 'document-edit-symbolic',
 			style_class: 'system-status-icon'
 		});
 		if(USE_ACTORS) {
-			this.super_btn.actor.add_child(icon);
-			this.super_btn.actor.connect('button-press-event', this.toggleState.bind(this));
+			this.panel_button.actor.add_child(icon);
+			this.panel_button.actor.connect('button-press-event', this.toggleState.bind(this));
 		} else {
-			this.super_btn.add_child(icon);
-			this.super_btn.connect('button-press-event', this.toggleState.bind(this));
+			this.panel_button.add_child(icon);
+			this.panel_button.connect('button-press-event', this.toggleState.bind(this));
 		}
 		this.update_icon_visibility();
-		
+
 		GLOBAL_ARE_VISIBLE = false;
 		this.loadAllNotes();
 		this._bindShortcut();
@@ -115,9 +115,9 @@ class NotesButton {
 	update_icon_visibility() {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
 		if(USE_ACTORS) {
-			this.super_btn.actor.visible = now_visible;
+			this.panel_button.actor.visible = now_visible;
 		} else {
-			this.super_btn.visible = now_visible;
+			this.panel_button.visible = now_visible;
 		}
 	}
 
@@ -204,7 +204,7 @@ class NotesButton {
 	}
 
 	destroy() {
-		this.super_btn.destroy();
+		this.panel_button.destroy();
 	}
 };
 
@@ -238,11 +238,10 @@ function enable() {
 
 	updateLayoutSetting()
 
-	GLOBAL_BUTTON = new NotesButton();
-	//	about addToStatusArea :
-	//	- 0 is the position
-	//	- `right` is the box where we want GLOBAL_BUTTON to be displayed (left/center/right)
-	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.super_btn, 0, 'right');
+	GLOBAL_BUTTON = new NotesManager();
+	// about addToStatusArea : 0 is the position, `right` is the box where we
+	// want GLOBAL_BUTTON to be displayed (left/center/right)
+	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.panel_button, 0, 'right');
 
 	SIGNALS['layout'] = SETTINGS.connect(
 		'changed::layout-position',
@@ -263,6 +262,13 @@ function enable() {
 	SIGNALS['kb-shortcut-2'] = SETTINGS.connect(
 		'changed::notes-kb-shortcut',
 		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
+	);
+	SIGNALS['auto-focus'] = SETTINGS.connect(
+		'changed::auto-focus',
+		() => { Main.notify( // TODO not very user-friendly
+			_("Notes"),
+			_("Restart the extension to apply the changes")
+		); }
 	);
 }
 

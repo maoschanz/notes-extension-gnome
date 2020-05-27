@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:34+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: 2019-04-19 02:59+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
@@ -23,6 +23,14 @@ msgstr "Notları göster"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Notlar"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
 msgstr ""
 
 #: notes@maestroschan.fr/menus.js
@@ -262,10 +270,6 @@ msgid "Help"
 msgstr "Yardım"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
-msgstr "Notlar"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "GNOME Kabuğu için masaüstü yapışkan notlar."
 
@@ -286,23 +290,3 @@ msgstr "Serdar Sağlam"
 msgid "About"
 msgstr "Hakkında"
 
-#~ msgid "Translators:"
-#~ msgstr "Çeviren:"
-
-#~ msgid "Select All"
-#~ msgstr "Tümünü Seç"
-
-#~ msgid "OK"
-#~ msgstr "Tamam"
-
-#~ msgid "Display"
-#~ msgstr "Görüntüle"
-
-#~ msgid "Keybinding"
-#~ msgstr "Kısayol Tuşu"
-
-#~ msgid "Position of notes:"
-#~ msgstr "Notların konumu:"
-
-#~ msgid "Empty Overview"
-#~ msgstr "Boş genel bakış"

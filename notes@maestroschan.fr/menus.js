@@ -56,7 +56,6 @@ class OptionsMenu {
 		this.super_menu.removeAll(); //-----------------------------------------
 
 		// this.super_menu.addAction(_("Edit title"), this._onEditTitle);
-		// this.super_menu.addAction(_("Delete"), this._onDelete);
 
 		// this._appendSeparator(); //---------------------------------------------
 
@@ -97,7 +96,7 @@ class OptionsMenu {
 		this._addColorButton('yellow', 2);
 		this._addColorButton('white', 2);
 		this.super_menu.addMenuItem(this.color2_item);
-		
+
 		let colorSubmenuItem = new PopupMenu.PopupSubMenuMenuItem(_("Custom color"));
 		this.super_menu.addMenuItem(colorSubmenuItem);
 		this._buildCustomColorMenu(colorSubmenuItem.menu);
@@ -217,10 +216,6 @@ class OptionsMenu {
 	}
 
 	_onEditTitle () {
-		// TODO
-	}
-
-	_onDelete () {
 		// TODO
 	}
 

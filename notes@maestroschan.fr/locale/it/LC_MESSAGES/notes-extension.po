@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 11:34+0200\n"
+"POT-Creation-Date: 2020-05-27 20:47+0200\n"
 "PO-Revision-Date: 2018-11-07 14:42+0100\n"
 "Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
 "Language-Team: \n"
@@ -24,6 +24,14 @@ msgstr ""
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Note"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
 msgstr ""
 
 #: notes@maestroschan.fr/menus.js
@@ -264,10 +272,6 @@ msgid "Help"
 msgstr "Aiuto"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Notes"
-msgstr "Note"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Note adesive per l'interfaccia GNOME Shell."
 
@@ -287,61 +291,3 @@ msgstr ""
 msgid "About"
 msgstr "Informazioni"
 
-#~ msgid "Select All"
-#~ msgstr "Seleziona tutto"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Display"
-#~ msgstr "Visualizzazione"
-
-#~ msgid "Keybinding"
-#~ msgstr "Scorciatoie da tastiera"
-
-#~ msgid "Position of notes:"
-#~ msgstr "Posizione delle note:"
-
-#~ msgid "Empty Overview"
-#~ msgstr "Anteprima vuota"
-
-#~ msgid "Above all, without mask"
-#~ msgstr "Sulle finestre, senza trasparenza"
-
-#~ msgid ""
-#~ "\"On the background\" is incompatible with the 'nautilus-desktop' Ubuntu "
-#~ "component.\n"
-#~ "\"Above all, without mask\" is discouraged, since it makes it harder to "
-#~ "resize or move your sticky notes."
-#~ msgstr ""
-#~ "\"Sullo sfondo\" è incompatibile col componente Ubuntu 'nautilus-"
-#~ "desktop'.\n"
-#~ "\"Sulle finestre, senza trasparenza\" è sconsigliato, perché rende più "
-#~ "difficile ridimensionare e spostare le tue note."
-
-#~ msgid "Default value is"
-#~ msgstr "Il valore di default è"
-
-#~ msgid ""
-#~ "<i>Files ending with \"_state\" contain the color and position of your "
-#~ "notes</i>\n"
-#~ "\n"
-#~ "<i>Files ending with \"_text\" contain the text written in your notes</i>"
-#~ msgstr ""
-#~ "<i>I file che terminano in \"_state\" contengono il colore e la posizione "
-#~ "delle tue note</i>\n"
-#~ "\n"
-#~ "<i>I file che terminano in \"_text\" contengono il testo contenuto nelle "
-#~ "tue note</i>"
-
-#~ msgid "Always show notes"
-#~ msgstr "Mostra sempre le note"
-
-#~ msgid "Color"
-#~ msgstr "Colore"
-
-#~ msgid "Bigger font"
-#~ msgstr "Font più grande"
-
-#~ msgid "Smaller font"
-#~ msgstr "Font più piccolo"

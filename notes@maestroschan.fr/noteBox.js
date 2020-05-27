@@ -63,7 +63,7 @@ var NoteBox = class NoteBox {
 
 	_setNotePosition () {
 		let monitor = Main.layoutManager.primaryMonitor;
-		
+
 		this.actor.set_position(
 			monitor.x + Math.floor(this._x),
 			monitor.y + Math.floor(this._y)
@@ -72,7 +72,7 @@ var NoteBox = class NoteBox {
 
 	applyActorStyle () {
 		if (this.actor == null) { return; } //XXX shouldn't exist
-		var is_hovered = this.actor.hover;
+		let is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
 			temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
@@ -150,12 +150,13 @@ var NoteBox = class NoteBox {
 		//----------------------------------------------------------------------
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		if (Extension.AUTO_FOCUS) {
+		if (Extension.AUTO_FOCUS) { // TODO dynamically update this
 			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
 		} else {
 			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
-			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this)); //XXX
+			// this.noteEntry.connect('key-focus-in', this.redraw.bind(this)); XXX
+			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
 		}
 		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
 
@@ -217,6 +218,8 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 
+		this.actor.add_actor(this.buttons_box);
+
 		this._addDeleteBox();
 		this._addEditTitleBox();
 	}
@@ -250,7 +253,6 @@ var NoteBox = class NoteBox {
 		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
 		this.delete_box.add(btnConfirm.actor);
 
-		this.actor.add_actor(this.buttons_box);
 		this.actor.add_actor(this.delete_box);
 	}
 
@@ -407,9 +409,9 @@ var NoteBox = class NoteBox {
 	}
 
 	/*
-	 * This weird crap applies the color from the 3 entries. It requires string
-	 * manipulations since the color is set in a text file in an 'r,g,b' format.
-	 * Then, the text coloration and the CSS is updated.
+	 * This applies the color from the menu or the constructor. It requires some
+	 * string manipulations since the color is written in a text file in an
+	 * 'r,g,b' format. Then, the text coloration and the CSS is updated.
 	 */
 	applyColor (r, g, b) {
 		if (Number.isNaN(r)) { r = 255; }
