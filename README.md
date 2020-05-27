@@ -4,12 +4,26 @@ A GNOME Shell extension providing customizable sticky notes.
 
 ![](./notes@maestroschan.fr/screenshots/about_picture.png)
 
+The last version (18, released on the 28/05/2020) is compatible only with the
+following versions of GNOME Shell:
+
+- 3.30
+- 3.32
+- 3.34
+- 3.36
+
 ----
 
 ## Installation
 
-- From [here](https://extensions.gnome.org/extension/1357/notes/)
-- Or download & extract the ZIP, and run `./install.sh`
+### Recommended
+
+From [this website](https://extensions.gnome.org/extension/1357/notes/), or from
+the _GNOME Software_ app.
+
+### Not recommended (can have bugs, will not get updates)
+
+Download the files, run `./install.sh`, restart the session, enable the extension
 
 ## Storage
 
