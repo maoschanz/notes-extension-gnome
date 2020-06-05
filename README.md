@@ -33,8 +33,7 @@ Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`
 
 pas de raise correct quand on focus une note sans focus automatique
 
-utiliser le singleton "notesmanager" pour notebox.createNote, plutôt que de
-dépendre du putain d'array
+mettre le putain d'array en attribut du singleton "notesmanager"
 
 "éditer le titre" dans le menu
 le bouton de grab aurait le titre en label, et clic-droit enroulerait

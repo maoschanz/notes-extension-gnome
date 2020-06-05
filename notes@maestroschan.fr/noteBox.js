@@ -469,14 +469,7 @@ var NoteBox = class NoteBox {
 			x = Math.random() * (Main.layoutManager.primaryMonitor.width - 300);
 			y = Math.random() * (Main.layoutManager.primaryMonitor.height - 100);
 
-			let can = true;
-			Extension.ALL_NOTES.forEach(function (n) {
-				if( (Math.abs(n._x - x) < 230) && (Math.abs(n._y - y) < 100) ) {
-					can = false;
-				}
-			});
-
-			if (can) {
+			if (Extension.NOTES_MANAGER.areCoordsUsable(x, y)) {
 				return [x, y];
 			}
 		}
@@ -548,8 +541,7 @@ var NoteBox = class NoteBox {
 
 	deleteNote () {
 		this.destroy();
-		Extension.NOTES_MANAGER.refreshArray();
-		Extension.NOTES_MANAGER.saveAllNotes();
+		Extension.NOTES_MANAGER.postDelete();
 	}
 
 	destroy () {
