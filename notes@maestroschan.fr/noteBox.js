@@ -22,6 +22,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 
 const MIN_HEIGHT = 50;
 const MIN_WIDTH = 180;
+const DEFAULT_COLOR = '200,0,0';
 
 //------------------------------------------------------------------------------
 
@@ -50,13 +51,13 @@ function stringFromArray(data){
  *   resize the note from its upper-right corner.
  */
 var NoteBox = class NoteBox {
-	constructor (id, color, size) {
+	constructor (id, color, fontSize) {
 		this.id = id;
-		this._fontSize = size;
+		this._fontSize = fontSize;
 		if (color.split(',').length == 3) {
 			this.customColor = color;
 		} else {
-			this.customColor = '255,255,0';
+			this.customColor = DEFAULT_COLOR;
 		}
 		this.build();
 	}
@@ -71,7 +72,7 @@ var NoteBox = class NoteBox {
 	}
 
 	applyActorStyle () {
-		if (this.actor == null) { return; } //XXX shouldn't exist
+		if (this.actor == null) { return; } // XXX shouldn't exist?
 		let is_hovered = this.actor.hover;
 		let temp;
 		if (is_hovered) {
@@ -187,7 +188,7 @@ var NoteBox = class NoteBox {
 		});
 
 		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
-		btnNew.actor.connect('clicked', this.createNote.bind(this));
+		btnNew.actor.connect('clicked', this._createNote.bind(this));
 		this.buttons_box.add(btnNew.actor);
 
 		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
@@ -490,7 +491,7 @@ var NoteBox = class NoteBox {
 			GLib.file_set_contents(
 				file2,
 				defaultPosition[0].toString() + ';' + defaultPosition[1].toString()
-				+ ';' + this.customColor + ';250;200;' + this._fontSize + ';true;'
+				+ ';' + this.customColor + ';250;180;' + this._fontSize + ';true;'
 			);
 		}
 
@@ -541,15 +542,14 @@ var NoteBox = class NoteBox {
 		this.saveState();
 	}
 
-	createNote () {
-		let nextId = Extension.ALL_NOTES.length; // XXX not very elegant...
-		Extension.ALL_NOTES.push(new NoteBox(nextId, this.customColor, this._fontSize));
+	_createNote () {
+		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
 	}
 
 	deleteNote () {
 		this.destroy();
-		Extension.refreshArray();
-		Extension.saveAllNotes();
+		Extension.NOTES_MANAGER.refreshArray();
+		Extension.NOTES_MANAGER.saveAllNotes();
 	}
 
 	destroy () {

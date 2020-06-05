@@ -23,7 +23,7 @@ const _ = Gettext.gettext;
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
-var GLOBAL_BUTTON;
+var NOTES_MANAGER;
 let GLOBAL_ARE_VISIBLE;
 let SETTINGS;
 var Z_POSITION;
@@ -50,40 +50,6 @@ function init() {
 
 //------------------------------------------------------------------------------
 
-// XXX not very O.-O. P.
-function saveAllNotes() {
-	ALL_NOTES.forEach(function (n) {
-		if(n.actor != null) {
-			n.saveState();
-			n.saveText();
-		}
-	});
-}
-
-// XXX not very O.-O. P.
-// FIXME works but is complete shit
-function refreshArray() {
-	let temp = new Array();
-	ALL_NOTES.forEach(function (n) {
-		if (n.actor == null) {
-			//rien
-		} else {
-			let nextId = temp.length;
-			n.id = nextId;
-			temp.push(n);
-		}
-	});
-	ALL_NOTES = null;
-	ALL_NOTES = temp;
-
-	let theoricallyDeletedFilePath = PATH + '/' + ALL_NOTES.length.toString();
-	let textfile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_text');
-	let statefile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_state');
-	textfile.delete(null); // may not do anything
-	statefile.delete(null); // may not do anything
-}
-
-//------------------------------------------------------------------------------
 
 /*
  * This is the button in the top bar. It will trigger the showing/hiding of
@@ -107,10 +73,29 @@ class NotesManager {
 		}
 		this.update_icon_visibility();
 
+		// about addToStatusArea : 0 is the position, `right` is the box where
+		// we want the button to be displayed (left/center/right)
+		Main.panel.addToStatusArea('NotesButton', this.panel_button, 0, 'right');
+
 		GLOBAL_ARE_VISIBLE = false;
 		this.loadAllNotes();
 		this._bindShortcut();
 	}
+
+	destroy() {
+		ALL_NOTES.forEach(function (n) {
+			n.onlySave();
+			n.destroy();
+		});
+
+		if(this.USE_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-kb-shortcut');
+		}
+
+		this.panel_button.destroy();
+	}
+
+	//--------------------------------------------------------------------------
 
 	update_icon_visibility() {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
@@ -124,7 +109,7 @@ class NotesManager {
 	toggleState() {
 		// log('toggleState');
 		if(ALL_NOTES.length == 0) {
-			this._createNote();
+			this.createNote('', 16);
 			this._showNotes();
 		} else if (GLOBAL_ARE_VISIBLE) {
 			this._hideNotes();
@@ -133,13 +118,13 @@ class NotesManager {
 		}
 	}
 
-	loadAllNotes() {
+	loadAllNotes () {
 		let i = 0;
 		let ended = false;
 		while(!ended) {
 			let file2 = GLib.build_filenamev([PATH, '/' + i.toString() + '_state']);
 			if (GLib.file_test(file2, GLib.FileTest.EXISTS)) {
-				this._createNote();
+				this.createNote('', 16);
 			} else {
 				ended = true;
 			}
@@ -148,25 +133,25 @@ class NotesManager {
 		this._onlyHideNotes();
 	}
 
-	_createNote() {
+	createNote (colorAsString, fontSize) {
+		let nextId = ALL_NOTES.length;
 		try {
-			let nextId = ALL_NOTES.length;
-			ALL_NOTES.push(new NoteBox.NoteBox(nextId, '50,50,50', 16));
+			ALL_NOTES.push(new NoteBox.NoteBox(nextId, '', 16));
 		} catch (e) {
 			Main.notify(_("Notes extension error: failed to load a note"));
-			log('failed to create note n°' + ALL_NOTES.length.toString());
+			log('failed to create note n°' + nextId.toString());
 			log(e);
 		}
 	}
 
-	_showNotes() {
+	_showNotes () {
 		GLOBAL_ARE_VISIBLE = true;
 		ALL_NOTES.forEach(function (n) {
 			n.show();
 		});
 	}
 
-	_hideNotes() {
+	_hideNotes () {
 		ALL_NOTES.forEach(function (n) {
 			n.onlyHide();
 		});
@@ -176,12 +161,44 @@ class NotesManager {
 		GLOBAL_ARE_VISIBLE = false;
 	}
 
-	_onlyHideNotes() {
+	_onlyHideNotes () {
 		ALL_NOTES.forEach(function (n) {
 			n.onlyHide();
 		});
 		GLOBAL_ARE_VISIBLE = false;
 	}
+
+	saveAllNotes () {
+		ALL_NOTES.forEach(function (n) {
+			if(n.actor != null) {
+				n.saveState();
+				n.saveText();
+			}
+		});
+	}
+
+	refreshArray () {
+		let temp = new Array();
+		ALL_NOTES.forEach(function (n) {
+			if (n.actor == null) {
+				// nothing
+			} else {
+				let nextId = temp.length;
+				n.id = nextId;
+				temp.push(n);
+			}
+		});
+		ALL_NOTES = null;
+		ALL_NOTES = temp;
+
+		let theoricallyDeletedFilePath = PATH + '/' + ALL_NOTES.length.toString();
+		let textfile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_text');
+		let statefile = Gio.file_new_for_path(theoricallyDeletedFilePath + '_state');
+		textfile.delete(null); // may not do anything
+		statefile.delete(null); // may not do anything
+	}
+
+	//--------------------------------------------------------------------------
 
 	updateShortcut () {
 		if(this.USE_SHORTCUT) {
@@ -201,10 +218,6 @@ class NotesManager {
 			Shell.ActionMode.ALL,
 			this.toggleState.bind(this)
 		);
-	}
-
-	destroy() {
-		this.panel_button.destroy();
 	}
 };
 
@@ -238,10 +251,7 @@ function enable() {
 
 	updateLayoutSetting()
 
-	GLOBAL_BUTTON = new NotesManager();
-	// about addToStatusArea : 0 is the position, `right` is the box where we
-	// want GLOBAL_BUTTON to be displayed (left/center/right)
-	Main.panel.addToStatusArea('NotesButton', GLOBAL_BUTTON.panel_button, 0, 'right');
+	NOTES_MANAGER = new NotesManager();
 
 	SIGNALS['layout'] = SETTINGS.connect(
 		'changed::layout-position',
@@ -253,15 +263,15 @@ function enable() {
 	);
 	SIGNALS['hide-icon'] = SETTINGS.connect(
 		'changed::hide-icon',
-		GLOBAL_BUTTON.update_icon_visibility.bind(GLOBAL_BUTTON)
+		NOTES_MANAGER.update_icon_visibility.bind(NOTES_MANAGER)
 	);
 	SIGNALS['kb-shortcut-1'] = SETTINGS.connect(
 		'changed::use-shortcut',
-		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
+		NOTES_MANAGER.updateShortcut.bind(NOTES_MANAGER)
 	);
 	SIGNALS['kb-shortcut-2'] = SETTINGS.connect(
 		'changed::notes-kb-shortcut',
-		GLOBAL_BUTTON.updateShortcut.bind(GLOBAL_BUTTON)
+		NOTES_MANAGER.updateShortcut.bind(NOTES_MANAGER)
 	);
 	SIGNALS['auto-focus'] = SETTINGS.connect(
 		'changed::auto-focus',
@@ -273,22 +283,13 @@ function enable() {
 }
 
 function disable() {
-	ALL_NOTES.forEach(function (n) {
-		n.onlySave();
-		n.destroy();
-	});
-
-	if(GLOBAL_BUTTON.USE_SHORTCUT) {
-		Main.wm.removeKeybinding('notes-kb-shortcut');
-	}
-
 	SETTINGS.disconnect(SIGNALS['layout']);
 	SETTINGS.disconnect(SIGNALS['bring-back']);
 	SETTINGS.disconnect(SIGNALS['hide-icon']);
 	SETTINGS.disconnect(SIGNALS['kb-shortcut-1']);
 	SETTINGS.disconnect(SIGNALS['kb-shortcut-2']);
 
-	GLOBAL_BUTTON.destroy();
+	NOTES_MANAGER.destroy();
 }
 
 //------------------------------------------------------------------------------

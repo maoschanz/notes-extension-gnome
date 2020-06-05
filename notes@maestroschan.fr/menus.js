@@ -212,7 +212,7 @@ class OptionsMenu {
 		} else {
 			Util.spawn(['gnome-shell-extension-prefs', 'notes@maestroschan.fr']);
 		}
-		Extension.GLOBAL_BUTTON._hideNotes();
+		Extension.NOTES_MANAGER._hideNotes();
 	}
 
 	_onEditTitle () {
