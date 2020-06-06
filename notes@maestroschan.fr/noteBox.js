@@ -661,8 +661,9 @@ var NoteBox = class NoteBox {
 	//--------------------------------------------------------------------------
 
 	_deleteNoteObject () {
+		let noteId = this.id;
 		this.destroy();
-		Extension.NOTES_MANAGER.postDelete();
+		Extension.NOTES_MANAGER.postDelete(noteId);
 	}
 
 	destroy () {

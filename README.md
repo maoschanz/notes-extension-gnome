@@ -31,14 +31,15 @@ Notes are stored in files at `~/.local/share/notes@maestroschan.fr/*_text`
 
 <!-- TODO
 
-pas de raise correct quand on focus une note sans focus automatique
+faut réécrire comment ça interagit avec le disque
 
 mettre le putain d'array en attribut du singleton "notesmanager"
+
+pas de raise correct quand on focus une note sans focus automatique
 
 "éditer le titre" dans le menu
 le bouton de grab aurait le titre en label, et clic-droit enroulerait
 
-sa mère faut réécrire comment ça interagit avec le disque, là c'est hoooonteux
 
     -->
 

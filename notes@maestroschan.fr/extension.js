@@ -146,33 +146,17 @@ class NotesManager {
 	}
 
 	/*
-	 * When a NoteBox object deletes itself, it calls this horrible thing to
-	 * ensure the files go from 1 to (ALL_NOTES.length - 1) without any "gap" in
-	 * the numerotation.
+	 * When a NoteBox object deletes itself, it calls this method to ensure the
+	 * files go from 0 to (ALL_NOTES.length - 1) without any "gap" in the
+	 * numerotation.
 	 */
-	postDelete () {
-		// Rebuild a fresh ALL_NOTES array from the existing NoteBox objects
-		let temp = new Array();
-		ALL_NOTES.forEach(function (n) {
-			if (n.actor == null) {
-				// nothing
-			} else {
-				n.id = temp.length;
-				temp.push(n);
-			}
-		});
-		ALL_NOTES = null;
-		ALL_NOTES = temp;
-
-		// Delete the file with the biggest id (the other will be overwritten)
+	postDelete (deletedNoteId) {
+		let lastNote = ALL_NOTES.pop();
+		if (deletedNoteId < ALL_NOTES.length) {
+			ALL_NOTES[deletedNoteId] = lastNote;
+			lastNote.id = deletedNoteId;
+		}
 		this._deleteNoteFiles(ALL_NOTES.length);
-
-		// Save all notes from the ALL_NOTES array to the disk
-		ALL_NOTES.forEach(function (n) {
-			if(n.actor != null) {
-				n.onlySave();
-			}
-		});
 	}
 
 	/*
