@@ -20,18 +20,15 @@ const NoteBox = Me.imports.noteBox;
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
 
-// ~/.local/share/notes@maestroschan.fr
+//------------------------------------------------------------------------------
+
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
+// which is usually ~/.local/share/notes@maestroschan.fr
 
 var NOTES_MANAGER;
-let GLOBAL_ARE_VISIBLE;
 let SETTINGS;
 var Z_POSITION;
 var AUTO_FOCUS;
-
-//------------------------------------------------------------------------------
-
-var ALL_NOTES;
 
 function init() {
 	Convenience.initTranslations();
@@ -48,8 +45,7 @@ function init() {
 
 function enable() {
 	SETTINGS = Convenience.getSettings();
-	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus');
-	ALL_NOTES = new Array(); // TODO en attribut du manager
+	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus'); // XXX crado
 
 	NOTES_MANAGER = new NotesManager();
 }
@@ -94,8 +90,9 @@ class NotesManager {
 		Main.panel.addToStatusArea('NotesButton', this.panel_button, 0, 'right');
 
 		// Initialisation of the notes themselves
-		GLOBAL_ARE_VISIBLE = false; // XXX dégueu + cassé quand on update le layout
-		this._updateLayoutSetting(); // ALL_NOTES is empty but it inits Z_POSITION
+		this._allNotes = new Array();
+		this._notesAreVisible = false;
+		this._updateLayoutSetting(); // it inits Z_POSITION
 		this._loadAllNotes();
 
 		// Initialisation of the signals connections
@@ -120,7 +117,7 @@ class NotesManager {
 		let i = 0;
 		let ended = false;
 		while(!ended) {
-			let file2 = GLib.build_filenamev([PATH, '/' + i.toString() + '_state']);
+			let file2 = GLib.build_filenamev([PATH, i.toString() + '_state']);
 			if (GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 				this.createNote('', 16);
 			} else {
@@ -134,10 +131,10 @@ class NotesManager {
 	//--------------------------------------------------------------------------
 	// "Public" methods, accessed by the NoteBox objects -----------------------
 
-	createNote (colorAsString, fontSize) {
-		let nextId = ALL_NOTES.length;
+	createNote (colorString, fontSize) {
+		let nextId = this._allNotes.length;
 		try {
-			ALL_NOTES.push(new NoteBox.NoteBox(nextId, colorAsString, fontSize));
+			this._allNotes.push(new NoteBox.NoteBox(nextId, colorString, fontSize));
 		} catch (e) {
 			Main.notify(_("Notes extension error: failed to load a note"));
 			log('failed to create note n°' + nextId.toString());
@@ -147,16 +144,17 @@ class NotesManager {
 
 	/*
 	 * When a NoteBox object deletes itself, it calls this method to ensure the
-	 * files go from 0 to (ALL_NOTES.length - 1) without any "gap" in the
+	 * files go from 0 to (this._allNotes.length - 1) without any "gap" in the
 	 * numerotation.
 	 */
 	postDelete (deletedNoteId) {
-		let lastNote = ALL_NOTES.pop();
-		if (deletedNoteId < ALL_NOTES.length) {
-			ALL_NOTES[deletedNoteId] = lastNote;
+		let lastNote = this._allNotes.pop();
+		if (deletedNoteId < this._allNotes.length) {
+			this._allNotes[deletedNoteId] = lastNote;
 			lastNote.id = deletedNoteId;
+			this._allNotes[deletedNoteId].onlySave();
 		}
-		this._deleteNoteFiles(ALL_NOTES.length);
+		this._deleteNoteFiles(this._allNotes.length);
 	}
 
 	/*
@@ -167,7 +165,7 @@ class NotesManager {
 	 */
 	areCoordsUsable (x, y) {
 		let areaIsFree = true;
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			if( (Math.abs(n._x - x) < 230) && (Math.abs(n._y - y) < 100) ) {
 				areaIsFree = false;
 			}
@@ -179,10 +177,10 @@ class NotesManager {
 
 	_toggleState () {
 		// log('_toggleState');
-		if(ALL_NOTES.length == 0) {
+		if(this._allNotes.length == 0) {
 			this.createNote('', 16);
 			this._showNotes();
-		} else if (GLOBAL_ARE_VISIBLE) {
+		} else if (this._notesAreVisible) {
 			this._hideNotes();
 		} else {
 			this._showNotes();
@@ -190,24 +188,24 @@ class NotesManager {
 	}
 
 	_showNotes () {
-		GLOBAL_ARE_VISIBLE = true;
-		ALL_NOTES.forEach(function (n) {
+		this._notesAreVisible = true;
+		this._allNotes.forEach(function (n) {
 			n.show();
 		});
 	}
 
 	_hideNotes () {
 		this._onlyHideNotes();
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.onlySave();
 		});
 	}
 
 	_onlyHideNotes () {
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.onlyHide();
 		});
-		GLOBAL_ARE_VISIBLE = false;
+		this._notesAreVisible = false;
 	}
 
 	_deleteNoteFiles (id) {
@@ -222,29 +220,29 @@ class NotesManager {
 	// Watch the gsettings values and update the extension if they change ------
 
 	_connectAllSignals () {
-		this._SIGNALS = {};
+		this._settingsSignals = {};
 
-		this._SIGNALS['layout'] = SETTINGS.connect(
+		this._settingsSignals['layout'] = SETTINGS.connect(
 			'changed::layout-position',
 			this._updateLayoutSetting.bind(this)
 		);
-		this._SIGNALS['bring-back'] = SETTINGS.connect(
+		this._settingsSignals['bring-back'] = SETTINGS.connect(
 			'changed::ugly-hack',
 			this._bringToPrimaryMonitorOnly.bind(this)
 		);
-		this._SIGNALS['hide-icon'] = SETTINGS.connect(
+		this._settingsSignals['hide-icon'] = SETTINGS.connect(
 			'changed::hide-icon',
 			this._updateIconVisibility.bind(this)
 		);
-		this._SIGNALS['kb-shortcut-1'] = SETTINGS.connect(
+		this._settingsSignals['kb-shortcut-1'] = SETTINGS.connect(
 			'changed::use-shortcut',
 			this._updateShortcut.bind(this)
 		);
-		this._SIGNALS['kb-shortcut-2'] = SETTINGS.connect(
+		this._settingsSignals['kb-shortcut-2'] = SETTINGS.connect(
 			'changed::notes-kb-shortcut',
 			this._updateShortcut.bind(this)
 		);
-		this._SIGNALS['auto-focus'] = SETTINGS.connect(
+		this._settingsSignals['auto-focus'] = SETTINGS.connect(
 			'changed::auto-focus',
 			this._updateFocusSetting.bind(this)
 		);
@@ -275,33 +273,43 @@ class NotesManager {
 	}
 
 	_bringToPrimaryMonitorOnly () {
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.fixState();
 		});
 	}
 
+	/*
+	 * Remove all the notes from where they are, and add them to the layer that
+	 * is actually set by the user. Possible values for the layers can be
+	 * 'above-all', 'on-background' or 'cycle-layers'.
+	 */
 	_updateLayoutSetting () {
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.removeFromCorrectLayer();
 		});
 
 		Z_POSITION = SETTINGS.get_string('layout-position');
 
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.loadIntoCorrectLayer();
 		});
+
+		if(!this._notesAreVisible) {
+			this._onlyHideNotes();
+		}
 	}
 
 	//--------------------------------------------------------------------------
 
 	destroy() {
-		SETTINGS.disconnect(this._SIGNALS['layout']);
-		SETTINGS.disconnect(this._SIGNALS['bring-back']);
-		SETTINGS.disconnect(this._SIGNALS['hide-icon']);
-		SETTINGS.disconnect(this._SIGNALS['kb-shortcut-1']);
-		SETTINGS.disconnect(this._SIGNALS['kb-shortcut-2']);
+		SETTINGS.disconnect(this._settingsSignals['layout']);
+		SETTINGS.disconnect(this._settingsSignals['bring-back']);
+		SETTINGS.disconnect(this._settingsSignals['hide-icon']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-1']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-2']);
+		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
 
-		ALL_NOTES.forEach(function (n) {
+		this._allNotes.forEach(function (n) {
 			n.onlySave();
 			n.destroy();
 		});

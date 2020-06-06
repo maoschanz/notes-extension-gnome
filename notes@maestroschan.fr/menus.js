@@ -55,9 +55,9 @@ class NoteOptionsMenu {
 	_redisplay () {
 		this.super_menu.removeAll(); //-----------------------------------------
 
-		// this.super_menu.addAction(_("Edit title"), this._onEditTitle);
+	//	this.super_menu.addAction(_("Edit title"), this._onEditTitle);
 
-		// this._appendSeparator(); //---------------------------------------------
+	//	this._appendSeparator(); //---------------------------------------------
 
 		this.size_item = new PopupMenu.PopupBaseMenuItem({
 			reactive: false,
