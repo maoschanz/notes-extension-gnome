@@ -216,7 +216,7 @@ class NoteOptionsMenu {
 	}
 
 	_onEditTitle () {
-		// TODO
+		this._source._note.showEditTitle()
 	}
 
 	_onApply (color, button) {

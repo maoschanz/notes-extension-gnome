@@ -160,11 +160,19 @@ var NoteBox = class NoteBox {
 			style_class: 'noteHeaderStyle',
 		});
 
-		let btnNew = new Menus.NoteRoundButton(this, 'list-add-symbolic', _("New"));
+		let btnNew = new Menus.NoteRoundButton(
+			this,
+			'list-add-symbolic',
+			_("New")
+		);
 		btnNew.actor.connect('clicked', this._createNote.bind(this));
 		this.buttons_box.add(btnNew.actor);
 
-		let btnDelete = new Menus.NoteRoundButton(this, 'user-trash-symbolic', _("Delete"));
+		let btnDelete = new Menus.NoteRoundButton(
+			this,
+			'user-trash-symbolic',
+			_("Delete")
+		);
 		btnDelete.actor.connect('clicked', this._showDelete.bind(this));
 		this.buttons_box.add(btnDelete.actor);
 
@@ -177,11 +185,19 @@ var NoteBox = class NoteBox {
 		})
 		this.buttons_box.add(this.moveBox, {x_expand: true});
 
-		let btnOptions = new Menus.NoteRoundButton(this, 'view-more-symbolic', _("Note options"));
+		let btnOptions = new Menus.NoteRoundButton(
+			this,
+			'view-more-symbolic',
+			_("Note options")
+		);
 		btnOptions.addMenu();
 		this.buttons_box.add(btnOptions.actor);
 
-		let ctrlButton = new Menus.NoteRoundButton(this, 'view-restore-symbolic', _("Resize"));
+		let ctrlButton = new Menus.NoteRoundButton(
+			this,
+			'view-restore-symbolic',
+			_("Resize")
+		);
 		this.buttons_box.add(ctrlButton.actor);
 
 		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
@@ -195,11 +211,46 @@ var NoteBox = class NoteBox {
 		this.actor.add_actor(this.buttons_box);
 
 		this._addDeleteBox();
-		this._addEditTitleBox();
+		// this._addEditTitleBox(); // TODO later (maybe heavy for nothing?)
 	}
 
 	_addEditTitleBox () {
-		// TODO
+		// This is the UI for editing the title. The whole box is hidden by
+		// default, and will be shown instead of the regular header if the user
+		// needs it.
+		this.edit_title_box = new St.BoxLayout({
+			vertical: false,
+			visible: false,
+			reactive: true,
+			x_expand: true,
+			y_expand: false,
+			style_class: 'noteHeaderStyle',
+		});
+
+		let btnBack = new Menus.NoteRoundButton(
+			this,
+			'go-previous-symbolic',
+			_("Back")
+		);
+		btnBack.actor.connect('clicked', this._hideEditTitle.bind(this));
+		this.edit_title_box.add(btnBack.actor);
+
+		this.edit_title_box.add_actor(new St.Entry({
+			can_focus: true,
+			track_hover: true,
+			x_expand: true,
+			text: 'existing title'
+		}));
+
+		let btnConfirm = new Menus.NoteRoundButton(
+			this,
+			'user-trash-symbolic',
+			_("Confirm")
+		);
+		btnConfirm.actor.connect('clicked', this._applyTitleChange.bind(this));
+		this.edit_title_box.add(btnConfirm.actor);
+
+		this.actor.add_actor(this.edit_title_box);
 	}
 
 	_addDeleteBox () {
@@ -214,7 +265,11 @@ var NoteBox = class NoteBox {
 			style_class: 'noteHeaderStyle',
 		});
 
-		let btnBack = new Menus.NoteRoundButton(this, 'go-previous-symbolic', _("Back"));
+		let btnBack = new Menus.NoteRoundButton(
+			this,
+			'go-previous-symbolic',
+			_("Back")
+		);
 		btnBack.actor.connect('clicked', this._hideDelete.bind(this));
 		this.delete_box.add(btnBack.actor);
 
@@ -225,7 +280,11 @@ var NoteBox = class NoteBox {
 			text: _("Delete this note?")
 		}));
 
-		let btnConfirm = new Menus.NoteRoundButton(this, 'user-trash-symbolic', _("Confirm"));
+		let btnConfirm = new Menus.NoteRoundButton(
+			this,
+			'user-trash-symbolic',
+			_("Confirm")
+		);
 		btnConfirm.actor.connect('clicked', this._deleteNoteObject.bind(this));
 		this.delete_box.add(btnConfirm.actor);
 
@@ -305,6 +364,10 @@ var NoteBox = class NoteBox {
 
 	//--------------------------------------------------------------------------
 
+	_applyTitleChange () {
+		// TODO
+	}
+
 	_applyActorStyle () {
 		if (this.actor == null) { return; }
 		let is_hovered = this.actor.hover;
@@ -360,6 +423,19 @@ var NoteBox = class NoteBox {
 	_hideDelete () {
 		this._redraw();
 		this.delete_box.visible = false;
+		this.buttons_box.visible = true;
+	}
+
+	// XXX is public, shouldn't be listed here
+	showEditTitle () {
+		this._redraw();
+		this.buttons_box.visible = false;
+		this.edit_title_box.visible = true;
+	}
+
+	_hideEditTitle () {
+		this._redraw();
+		this.edit_title_box.visible = false;
 		this.buttons_box.visible = true;
 	}
 
