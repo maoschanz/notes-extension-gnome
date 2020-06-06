@@ -38,17 +38,9 @@ function stringFromArray(data){
  * This class stands for one note. The note's id corresponds to the name of
  * files where its data will be stored. The note's state is loaded and the note
  * is built, then the note's text is loaded.
- * Almost all of the init process is done in the build() method. Then, the other
- * methods are here for managing note state through buttons:
- * - The 'create' button, which creates a note with the same color and font
- *   size, but with random coordinates, an empty text, and an harcoded size.
- * - The 'delete' button, which delete the note and will call an exterior
- *   method. Requires validation from the user.
- * - The 'move' button, which isn't styled as a button but looks like an empty
- *   space. It simulates a kind of wacky window dragging.
- * - The 'options' button, showing a menu defined in menus.js
- * - The 'resize' button, which uses the same dragging mecanism as 'move', to
- *   resize the note from its upper-right corner.
+ * Almost all of the init process is done in the _buildNote() method. Then, the
+ * other methods are here for managing note state through buttons, or to
+ * interact with the NotesManager singleton.
  */
 var NoteBox = class NoteBox {
 	constructor (id, color, fontSize) {
@@ -59,45 +51,10 @@ var NoteBox = class NoteBox {
 		} else {
 			this.customColor = DEFAULT_COLOR;
 		}
-		this.build();
+		this._buildNote();
 	}
 
-	_setNotePosition () {
-		let monitor = Main.layoutManager.primaryMonitor;
-
-		this.actor.set_position(
-			monitor.x + Math.floor(this._x),
-			monitor.y + Math.floor(this._y)
-		);
-	}
-
-	applyActorStyle () {
-		if (this.actor == null) { return; } // XXX shouldn't exist?
-		let is_hovered = this.actor.hover;
-		let temp;
-		if (is_hovered) {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
-		} else {
-			temp = 'background-color: rgba(' + this.customColor + ', 0.6);';
-		}
-		if(this._fontColor != '') {
-			temp += 'color: ' + this._fontColor + ';';
-		}
-		this.actor.style = temp;
-	}
-
-	applyNoteStyle () {
-		let temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
-		if(this._fontColor != '') {
-			temp += 'color: ' + this._fontColor + ';';
-		}
-		if(this._fontSize != 0) {
-			temp += 'font-size: ' + this._fontSize + 'px;';
-		}
-		this.noteEntry.style = temp;
-	}
-
-	build () {
+	_buildNote () {
 		this.actor = new St.BoxLayout({
 			reactive: true,
 			vertical: true,
@@ -108,8 +65,10 @@ var NoteBox = class NoteBox {
 		});
 
 		this._fontColor = '';
-		this.loadState();
-		this.applyActorStyle();
+		this._loadState();
+		this._applyActorStyle();
+
+		// This actually builds all the possible headerbars
 		this._buildHeaderbar();
 
 		//----------------------------------------------------------------------
@@ -152,23 +111,23 @@ var NoteBox = class NoteBox {
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
 		if (Extension.AUTO_FOCUS) { // TODO dynamically update this
-			this.noteEntry.connect('enter-event', this.getKeyFocus.bind(this));
-			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
+			this.noteEntry.connect('enter-event', this._getKeyFocus.bind(this));
+			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		} else {
-			this.noteEntry.connect('button-press-event', this.getKeyFocus.bind(this));
-			// this.noteEntry.connect('key-focus-in', this.redraw.bind(this)); XXX
-			this.noteEntry.connect('leave-event', this.leaveKeyFocus.bind(this));
+			this.noteEntry.connect('button-press-event', this._getKeyFocus.bind(this));
+			// this.noteEntry.connect('key-focus-in', this._redraw.bind(this)); XXX
+			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		}
-		this.actor.connect('notify::hover', this.applyActorStyle.bind(this));
+		this.actor.connect('notify::hover', this._applyActorStyle.bind(this));
 
 		//----------------------------------------------------------------------
 
 		// Each note sets its own actor where it should be. This isn't a problem
 		// since the related setting isn't directly accessed, but is stored in
-		// 'Extension.Z_POSITION' instead, which prevent inconstistencies.
-		this.load_in_the_right_actor();
+		// 'Extension.Z_POSITION' instead, which prevent inconsistencies.
+		this.loadIntoCorrectLayer();
 		this._setNotePosition();
-		this.loadText();
+		this._loadText();
 		// ShellEntry.addContextMenu(this.noteEntry); // FIXME doesn't work
 		this._initStyle();
 
@@ -176,6 +135,20 @@ var NoteBox = class NoteBox {
 		this.grabY = this._y + 10;
 	}
 
+	/*
+	 * The headerbar contains the UI controls to manage the note:
+	 * - The 'new note' button creates a note with the same color and font size,
+	 *   but with random coordinates, an empty text, and an harcoded size.
+	 * - The 'delete' button asks the user to confirm if they really wants to
+	 *   delete the note (see `_addDeleteBox`), and if yes the object is
+	 *   destroyed a method from the NotesManager is called to delete the
+	 *   corresponding files.
+	 * - The 'move' button, which isn't styled as a button but looks like an
+	 *   empty space. It simulates a kind of wacky window dragging.
+	 * - The 'options' button, showing a menu defined in menus.js
+	 * - The 'resize' button, which uses the same dragging mecanism as 'move',
+	 *   to resize the note from its upper-right corner.
+	 */
 	_buildHeaderbar () {
 		// This is the regular header, as described above.
 		this.buttons_box = new St.BoxLayout({
@@ -187,12 +160,12 @@ var NoteBox = class NoteBox {
 			style_class: 'noteHeaderStyle',
 		});
 
-		let btnNew = new Menus.RoundButton(this, 'list-add-symbolic', _("New"));
+		let btnNew = new Menus.NoteRoundButton(this, 'list-add-symbolic', _("New"));
 		btnNew.actor.connect('clicked', this._createNote.bind(this));
 		this.buttons_box.add(btnNew.actor);
 
-		let btnDelete = new Menus.RoundButton(this, 'user-trash-symbolic', _("Delete"));
-		btnDelete.actor.connect('clicked', this.showDelete.bind(this));
+		let btnDelete = new Menus.NoteRoundButton(this, 'user-trash-symbolic', _("Delete"));
+		btnDelete.actor.connect('clicked', this._showDelete.bind(this));
 		this.buttons_box.add(btnDelete.actor);
 
 		this.moveBox = new St.Button({
@@ -204,11 +177,11 @@ var NoteBox = class NoteBox {
 		})
 		this.buttons_box.add(this.moveBox, {x_expand: true});
 
-		let btnOptions = new Menus.RoundButton(this, 'view-more-symbolic', _("Note options"));
+		let btnOptions = new Menus.NoteRoundButton(this, 'view-more-symbolic', _("Note options"));
 		btnOptions.addMenu();
 		this.buttons_box.add(btnOptions.actor);
 
-		let ctrlButton = new Menus.RoundButton(this, 'view-restore-symbolic', _("Resize"));
+		let ctrlButton = new Menus.NoteRoundButton(this, 'view-restore-symbolic', _("Resize"));
 		this.buttons_box.add(ctrlButton.actor);
 
 		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
@@ -241,17 +214,19 @@ var NoteBox = class NoteBox {
 			style_class: 'noteHeaderStyle',
 		});
 
-		let btnBack = new Menus.RoundButton(this, 'go-previous-symbolic', _("Back"));
-		btnBack.actor.connect('clicked', this.hideDelete.bind(this));
+		let btnBack = new Menus.NoteRoundButton(this, 'go-previous-symbolic', _("Back"));
+		btnBack.actor.connect('clicked', this._hideDelete.bind(this));
 		this.delete_box.add(btnBack.actor);
+
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
 			text: _("Delete this note?")
 		}));
-		let btnConfirm = new Menus.RoundButton(this, 'user-trash-symbolic', _("Confirm"));
-		btnConfirm.actor.connect('clicked', this.deleteNote.bind(this));
+
+		let btnConfirm = new Menus.NoteRoundButton(this, 'user-trash-symbolic', _("Confirm"));
+		btnConfirm.actor.connect('clicked', this._deleteNoteObject.bind(this));
 		this.delete_box.add(btnConfirm.actor);
 
 		this.actor.add_actor(this.delete_box);
@@ -262,23 +237,14 @@ var NoteBox = class NoteBox {
 		let initialRGB_g = this.customColor.split(',')[1];
 		let initialRGB_b = this.customColor.split(',')[2];
 		this.applyColor(initialRGB_r, initialRGB_g, initialRGB_b);
-		this.applyActorStyle();
-		this.applyNoteStyle();
+		this._applyActorStyle();
+		this._applyNoteStyle();
 	}
 
-	getKeyFocus () {
-		if (this.entry_is_visible) {
-			this._grabHelper.grab({ actor: this.noteEntry });
-			this.noteEntry.grab_key_focus();
-		}
-		this.redraw();
-	}
+	//--------------------------------------------------------------------------
+	// "Public" methods called by NotesManager ---------------------------------
 
-	leaveKeyFocus () {
-		this._grabHelper.ungrab({ actor: this.noteEntry });
-	}
-
-	load_in_the_right_actor () {
+	loadIntoCorrectLayer () {
 		if (Extension.Z_POSITION == 'above-all') {
 			Main.layoutManager.addChrome(this.actor, {
 				affectsInputRegion: true
@@ -288,7 +254,7 @@ var NoteBox = class NoteBox {
 		}
 	}
 
-	remove_from_the_right_actor () {
+	removeFromCorrectLayer () {
 		if (Extension.Z_POSITION == 'above-all') {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
@@ -297,7 +263,117 @@ var NoteBox = class NoteBox {
 		}
 	}
 
+	show () {
+		this.actor.visible = true;
+		if (Extension.Z_POSITION == 'above-all') {
+			Main.layoutManager.trackChrome(this.actor);
+		}
+	}
+
+	// XXX unused
+	// hide () {
+	// 	this.onlyHide();
+	// 	this.onlySave();
+	// }
+
+	onlyHide () {
+		this.actor.visible = false;
+		if (Extension.Z_POSITION == 'above-all') {
+			Main.layoutManager.untrackChrome(this.actor);
+		}
+	}
+
+	onlySave () {
+		this._saveState();
+		this._saveText();
+	}
+
+	fixState () {
+		let outX = (this._x < 0 || this._x > Main.layoutManager.primaryMonitor.width - 20);
+		let outY = (this._y < 0 || this._y > Main.layoutManager.primaryMonitor.height - 20);
+		if (outX || outY) {
+			[this._x, this._y] = this._computeRandomPosition();
+			this._setNotePosition();
+		}
+		if (Number.isNaN(this._x)) { this._x = 10; }
+		if (Number.isNaN(this._y)) { this._y = 10; }
+		if (Number.isNaN(this.actor.width)) { this.actor.width = 250; }
+		if (Number.isNaN(this.actor.height)) { this.actor.height = 200; }
+		if (Number.isNaN(this._fontSize)) { this._fontSize = 10; }
+		this._saveState();
+	}
+
 	//--------------------------------------------------------------------------
+
+	_applyActorStyle () {
+		if (this.actor == null) { return; }
+		let is_hovered = this.actor.hover;
+		let temp;
+		if (is_hovered) {
+			temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
+		} else {
+			temp = 'background-color: rgba(' + this.customColor + ', 0.6);';
+		}
+		if(this._fontColor != '') {
+			temp += 'color: ' + this._fontColor + ';';
+		}
+		this.actor.style = temp;
+	}
+
+	_applyNoteStyle () {
+		let temp = 'background-color: rgba(' + this.customColor + ', 0.8);';
+		if(this._fontColor != '') {
+			temp += 'color: ' + this._fontColor + ';';
+		}
+		if(this._fontSize != 0) {
+			temp += 'font-size: ' + this._fontSize + 'px;';
+		}
+		this.noteEntry.style = temp;
+	}
+
+	_getKeyFocus () {
+		if (this.entry_is_visible) {
+			this._grabHelper.grab({ actor: this.noteEntry });
+			this.noteEntry.grab_key_focus();
+		}
+		this._redraw();
+	}
+
+	_leaveKeyFocus () {
+		this._grabHelper.ungrab({ actor: this.noteEntry });
+	}
+
+	_redraw () {
+		this.actor.get_parent().set_child_above_sibling(this.actor, null);
+		this.onlySave(); // XXX maybe not
+	}
+
+	//--------------------------------------------------------------------------
+	// Show/hide the possible headerbars ---------------------------------------
+
+	_showDelete () {
+		this._redraw();
+		this.buttons_box.visible = false;
+		this.delete_box.visible = true;
+	}
+
+	_hideDelete () {
+		this._redraw();
+		this.delete_box.visible = false;
+		this.buttons_box.visible = true;
+	}
+
+	//--------------------------------------------------------------------------
+	// Sticky note's size and position -----------------------------------------
+
+	_setNotePosition () {
+		let monitor = Main.layoutManager.primaryMonitor;
+
+		this.actor.set_position(
+			monitor.x + Math.floor(this._x),
+			monitor.y + Math.floor(this._y)
+		);
+	}
 
 	_onMovePress (actor, event) {
 		let mouseButton = event.get_button();
@@ -305,19 +381,19 @@ var NoteBox = class NoteBox {
 			this.entry_box.visible = !this.entry_box.visible;
 			this.entry_is_visible = this.entry_box.visible;
 		}
-		this.onPress(event);
+		this._onPress(event);
 		this._isMoving = true;
 		this._isResizing = false;
 	}
 
 	_onResizePress (actor, event) {
-		this.onPress(event);
+		this._onPress(event);
 		this._isResizing = true;
 		this._isMoving = false;
 	}
 
-	onPress (event) {
-		this.redraw();
+	_onPress (event) {
+		this._redraw();
 		this.grabX = Math.floor(event.get_coords()[0]);
 		this.grabY = Math.floor(event.get_coords()[1]);
 	}
@@ -372,46 +448,18 @@ var NoteBox = class NoteBox {
 	}
 
 	//--------------------------------------------------------------------------
+	// "Public" methods called by the NoteOptionsMenu's code -----------------------
 
-	redraw () {
-		this.actor.get_parent().set_child_above_sibling(this.actor, null);
-		this.onlySave();
-	}
-
-	showDelete () {
-		this.redraw();
-		this.buttons_box.visible = false;
-		this.delete_box.visible = true;
-	}
-
-	hideDelete () {
-		this.redraw();
-		this.delete_box.visible = false;
-		this.buttons_box.visible = true;
-	}
-
-	blackFontColor () {
-		this._fontColor = '#000000';
-		this.applyActorStyle();
-		this.applyNoteStyle();
-	}
-
-	whiteFontColor () {
-		this._fontColor = '#ffffff';
-		this.applyActorStyle();
-		this.applyNoteStyle();
-	}
-
-	crementFontSize (delta) {
+	changeFontSize (delta) {
 		if (this._fontSize + delta > 1) {
 			this._fontSize += delta;
-			this.applyNoteStyle();
+			this._applyNoteStyle();
 		}
 	}
 
 	/*
 	 * This applies the color from the menu or the constructor. It requires some
-	 * string manipulations since the color is written in a text file in an
+	 * string manipulations since the color is written in the text file using an
 	 * 'r,g,b' format. Then, the text coloration and the CSS is updated.
 	 */
 	applyColor (r, g, b) {
@@ -423,15 +471,21 @@ var NoteBox = class NoteBox {
 		b = Math.min(Math.max(0, b), 255);
 		this.customColor = r.toString() + ',' + g.toString() + ',' + b.toString();
 		if (r + g + b > 250) {
-			this.blackFontColor();
+			this._fontColor = '#000000';
 		} else {
-			this.whiteFontColor();
+			this._fontColor = '#ffffff';
 		}
-		this.applyNoteStyle();
-		this.applyActorStyle();
+		this._applyNoteStyle();
+		this._applyActorStyle();
 	}
 
-	loadText () {
+	//--------------------------------------------------------------------------
+
+	_createNote () {
+		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
+	}
+
+	_loadText () {
 		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			GLib.file_set_contents(file2, '');
@@ -447,7 +501,7 @@ var NoteBox = class NoteBox {
 		this.noteEntry.set_text(content);
 	}
 
-	saveText () {
+	_saveText () {
 		let noteText = this.noteEntry.get_text();
 		if (noteText == null) {
 			noteText = '';
@@ -460,9 +514,9 @@ var NoteBox = class NoteBox {
 	 * This tries to find a random [x,y] which doesn't overlap with an existing
 	 * note's header and which isn't out of the primary monitor. Of course, if
 	 * there is notes everywhere, it just abandons computation, and sets the
-	 * note in a 100% random position.
+	 * note in a random position (within the monitor or course).
 	 */
-	computeRandomPosition () {
+	_computeRandomPosition () {
 		let x;
 		let y;
 		for(var i = 0; i < 15; i++) {
@@ -476,26 +530,34 @@ var NoteBox = class NoteBox {
 		return [x, y];
 	}
 
-	loadState () {
-		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
-		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
+	_createDefaultState (fileName) {
+		let defaultPosition = this._computeRandomPosition();
+		let defaultContent = defaultPosition[0].toString() + ';'
+		                   + defaultPosition[1].toString() + ';'
+		                   + this.customColor + ';250;180;'
+		                   + this._fontSize + ';true;'
+		GLib.file_set_contents(fileName, defaultContent);
+		return defaultContent;
+	}
+
+	_loadState () {
+		let fname = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
+		if (!GLib.file_test(fname, GLib.FileTest.EXISTS)) {
 			// If a _text file has no corresponding _state file
-			let defaultPosition = this.computeRandomPosition();
-			GLib.file_set_contents(
-				file2,
-				defaultPosition[0].toString() + ';' + defaultPosition[1].toString()
-				+ ';' + this.customColor + ';250;180;' + this._fontSize + ';true;'
-			);
+			this._createDefaultState(fname);
 		}
 
-		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_state');
+		let file = Gio.file_new_for_path(fname);
 		let [result, contents] = file.load_contents(null);
+		let stringContent;
 		if (!result) {
-			log('Could not read file: ' + PATH);
+			log("Could not read sticky note state file: " + fname);
+			stringContent = this._createDefaultState(fname);
+		} else {
+			stringContent = stringFromArray(contents);
 		}
-		let content = stringFromArray(contents);
 
-		let state = content.split(';');
+		let state = stringContent.split(';');
 		this._x = Number(state[0]);
 		this._y = Number(state[1]);
 		this.customColor = state[2];
@@ -505,7 +567,7 @@ var NoteBox = class NoteBox {
 		this.entry_is_visible = (state[6] == 'true');
 	}
 
-	saveState () {
+	_saveState () {
 		let noteState = '';
 		noteState += this._x.toString() + ';';
 		noteState += this._y.toString() + ';';
@@ -515,31 +577,14 @@ var NoteBox = class NoteBox {
 		noteState += this._fontSize.toString() + ';';
 		noteState += this.entry_is_visible.toString() + ';';
 
-		//log('saveState | ' + this.id.toString() + ' | ' + noteState);
+		//log('_saveState | ' + this.id.toString() + ' | ' + noteState);
 		let file = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
 		GLib.file_set_contents(file, noteState);
 	}
 
-	fixState () {
-		let outX = (this._x < 0 || this._x > Main.layoutManager.primaryMonitor.width - 20);
-		let outY = (this._y < 0 || this._y > Main.layoutManager.primaryMonitor.height - 20);
-		if (outX || outY) {
-			[this._x, this._y] = this.computeRandomPosition();
-			this._setNotePosition();
-		}
-		if (Number.isNaN(this._x)) { this._x = 10; }
-		if (Number.isNaN(this._y)) { this._y = 10; }
-		if (Number.isNaN(this.actor.width)) { this.actor.width = 250; }
-		if (Number.isNaN(this.actor.height)) { this.actor.height = 200; }
-		if (Number.isNaN(this._fontSize)) { this._fontSize = 10; }
-		this.saveState();
-	}
+	//--------------------------------------------------------------------------
 
-	_createNote () {
-		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
-	}
-
-	deleteNote () {
+	_deleteNoteObject () {
 		this.destroy();
 		Extension.NOTES_MANAGER.postDelete();
 	}
@@ -548,30 +593,6 @@ var NoteBox = class NoteBox {
 		this.actor.destroy_all_children();
 		this.actor.destroy();
 		this.actor = null;
-	}
-
-	show () {
-		this.actor.visible = true;
-		if (Extension.Z_POSITION == 'above-all') {
-			Main.layoutManager.trackChrome(this.actor);
-		}
-	}
-
-	hide () {
-		this.onlyHide();
-		this.onlySave();
-	}
-
-	onlyHide () {
-		this.actor.visible = false;
-		if (Extension.Z_POSITION == 'above-all') {
-			Main.layoutManager.untrackChrome(this.actor);
-		}
-	}
-
-	onlySave () {
-		this.saveState();
-		this.saveText();
 	}
 };
 

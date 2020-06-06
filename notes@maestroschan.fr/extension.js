@@ -170,8 +170,7 @@ class NotesManager {
 		// Save all notes from the ALL_NOTES array to the disk
 		ALL_NOTES.forEach(function (n) {
 			if(n.actor != null) {
-				n.saveState();
-				n.saveText();
+				n.onlySave();
 			}
 		});
 	}
@@ -214,13 +213,10 @@ class NotesManager {
 	}
 
 	_hideNotes () {
-		ALL_NOTES.forEach(function (n) {
-			n.onlyHide();
-		});
+		this._onlyHideNotes();
 		ALL_NOTES.forEach(function (n) {
 			n.onlySave();
 		});
-		GLOBAL_ARE_VISIBLE = false;
 	}
 
 	_onlyHideNotes () {
@@ -302,13 +298,13 @@ class NotesManager {
 
 	_updateLayoutSetting () {
 		ALL_NOTES.forEach(function (n) {
-			n.remove_from_the_right_actor();
+			n.removeFromCorrectLayer();
 		});
 
 		Z_POSITION = SETTINGS.get_string('layout-position');
 
 		ALL_NOTES.forEach(function (n) {
-			n.load_in_the_right_actor();
+			n.loadIntoCorrectLayer();
 		});
 	}
 

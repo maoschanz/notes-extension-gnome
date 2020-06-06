@@ -32,7 +32,7 @@ const PRESET_COLORS = {
 
 //------------------------------------------------------------------------------
 
-class OptionsMenu {
+class NoteOptionsMenu {
 	constructor (source) {
 		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, St.Side.LEFT);
 
@@ -230,18 +230,18 @@ class OptionsMenu {
 	}
 
 	_onBigger () {
-		this._source._note.crementFontSize(1);
+		this._source._note.changeFontSize(1);
 	}
 
 	_onSmaller () {
-		this._source._note.crementFontSize(-1);
+		this._source._note.changeFontSize(-1);
 	}
 };
-Signals.addSignalMethods(OptionsMenu.prototype);
+Signals.addSignalMethods(NoteOptionsMenu.prototype);
 
 //------------------------------------------------------------------------------
 
-var RoundButton = class RoundButton {
+var NoteRoundButton = class NoteRoundButton {
 	constructor (note, icon, accessibleName) {
 		this._note = note;
 		this.actor = new St.Button({
@@ -281,7 +281,7 @@ var RoundButton = class RoundButton {
 	popupMenu () {
 		this.actor.fake_release();
 		if (!this._menu) {
-			this._menu = new OptionsMenu(this);
+			this._menu = new NoteOptionsMenu(this);
 			this._menu.super_menu.connect('open-state-changed', (menu, isPoppedUp) => {
 				if (!isPoppedUp) {
 					this.actor.sync_hover();
@@ -295,7 +295,7 @@ var RoundButton = class RoundButton {
 		return false;
 	}
 };
-Signals.addSignalMethods(RoundButton.prototype);
+Signals.addSignalMethods(NoteRoundButton.prototype);
 
 //------------------------------------------------------------------------------
 
