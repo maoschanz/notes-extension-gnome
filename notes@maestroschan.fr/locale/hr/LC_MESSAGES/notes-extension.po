@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 20:47+0200\n"
+"POT-Creation-Date: 2020-06-06 23:55+0200\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -76,12 +76,12 @@ msgid "Back"
 msgstr "Natrag"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
-msgstr "Izbrisati ovu bilješku?"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
 msgstr "Potvrdi"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Izbrisati ovu bilješku?"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -89,9 +89,9 @@ msgid "Default value is %s"
 msgstr "Standardna vrijednost je %s"
 
 #: notes@maestroschan.fr/prefs.js
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Version %s"
-msgstr "verzija:"
+msgstr "Verzija %s"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Report bugs or ideas"
@@ -299,4 +299,3 @@ msgstr "Milo Ivir <mail@milotype.de>, 2020."
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Informacije"
-

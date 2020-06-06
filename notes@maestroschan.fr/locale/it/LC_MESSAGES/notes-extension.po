@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 20:47+0200\n"
+"POT-Creation-Date: 2020-06-06 23:55+0200\n"
 "PO-Revision-Date: 2018-11-07 14:42+0100\n"
 "Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
 "Language-Team: \n"
@@ -75,12 +75,12 @@ msgid "Back"
 msgstr "Indietro"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
-msgstr "Eliminare questa nota?"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
 msgstr ""
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Eliminare questa nota?"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -285,9 +285,8 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
-msgstr ""
+msgstr "Jimmy Scionti <jimmy.scionti@gmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Informazioni"
-
