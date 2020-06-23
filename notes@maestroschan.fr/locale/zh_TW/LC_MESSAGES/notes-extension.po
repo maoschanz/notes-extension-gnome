@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-27 23:45+0200\n"
+"PO-Revision-Date: 2020-06-23 17:24+0800\n"
+"Last-Translator: Nesquate <nesquate.100001@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Show notes"
+msgstr "顯示便箋"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Notes extension error: failed to load a note"
+msgstr "Notes 擴充套件錯誤 : 載入便箋失敗"
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr ""
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr "重新啟用擴充套件以套用變更"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Custom color"
+msgstr "自訂色彩"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+msgid "Settings"
+msgstr "設定"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+msgid "Apply"
+msgstr "套用"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Font size"
+msgstr "字型大小"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Type here…"
+msgstr "在這裡輸入 …"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "New"
+msgstr "新增"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete"
+msgstr "刪除"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Note options"
+msgstr "便箋選項"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Resize"
+msgstr "調整大小"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Back"
+msgstr "返回"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "刪除這個便箋 ?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Confirm"
+msgstr "確認"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Default value is %s"
+msgstr "預設值是 %s"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Version %s"
+msgstr "版本 %s"
+
+#: notes@maestroschan.fr/prefs.js
+msgid "Report bugs or ideas"
+msgstr "回報臭蟲或想法"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Position of notes"
+msgstr "便箋位置"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Above everything"
+msgstr "全部置頂"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "On the background"
+msgstr "置於背景"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Incompatible with desktop icons"
+msgstr "與 Desktop Icons 擴充套件不相容"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Automatic focus"
+msgstr "自動聚焦"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut"
+msgstr "使用鍵盤快捷鍵"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut to toggle notes"
+msgstr "使用鍵盤快捷鍵切換便箋"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Hide the icon"
+msgstr "隱藏圖示"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
+msgstr "<b>顯示 / 隱藏所有便箋 :</b> 點擊 GNOME Shell 上方狀態欄的圖示 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Create a note:</b> click on the \"+\" button at the left of a note "
+"header, it will create a new note, with the same color and the same font "
+"size as the note you clicked on."
+msgstr ""
+"<b>新增便箋 :</b> 按下便箋標頭左邊的 \" + \" 按鈕, 將會新增一個新的便箋, 顏色"
+"與字型大小與所點擊的便箋相同 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Move a note:</b> drag the blank space in the center of the note header."
+msgstr "<b>移動便箋 :</b> 在便箋標頭的中間空白處拖曳 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Resize a note:</b> drag the resize button at the right of the note header."
+msgstr "<b>調整便箋大小 :</b> 在便箋標頭右方的調整按鈕處拖曳 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr "<b>刪除便箋 :</b> 按下垃圾桶圖示以及確認 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Using the extension"
+msgstr "使用此擴充套件"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "<b>Change color:</b> click on the menu button, and select a color."
+msgstr "<b>變更色彩 :</b> 按下選單按鈕, 並選擇一個顏色 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The \"Custom color\" submenu allows you to select precisely a color."
+msgstr "\"自訂色彩\" 選項能讓你選擇精確的顏色 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Change font size:</b> click on the menu button, and increase or decrease "
+"the font size with \"+\" and \"-\" buttons."
+msgstr ""
+"<b>變更字型大小 :</b> 按下選單按鈕, 使用 \" + \" 和 \" - \"按鈕來增加或減少字"
+"型大小 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
+"settings dialog."
+msgstr "<b>進階設定 :</b> 按下 \"設定\" 選單項目以存取設定對話方框 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Customizing notes"
+msgstr "自訂便箋"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The dialog window you're reading provides several settings:"
+msgstr "您目前閱讀的對話方框視窗提供了以下設定 :"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Position of notes:</b> select whether you want the notes to be shown "
+"above the windows or underneath them."
+msgstr "<b>便箋位置 :</b> 選擇您想要讓便箋在視窗上或下方顯示 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
+"the keyboard focus when you hover them with the mouse pointer."
+msgstr ""
+"<b>自動聚焦 :</b> 如果這個選項啟用, 當您的滑鼠游標在便箋上排回時, 便箋將會自"
+"動得到鍵盤焦點 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
+"is enabled, the icon in the top bar can be hidden."
+msgstr ""
+"<b>鍵盤快捷鍵 :</b> 使用鍵盤快捷鍵來隱藏 / 顯示便箋 . 如果這個選項啟用, 在狀"
+"態列上的圖示會被隱藏 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The settings window"
+msgstr "設定視窗"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Your notes are saved to the disk on various occasions (mainly when you hide "
+"them). If you want to <b>get a copy of your notes</b>, this button opens the "
+"folder where they are."
+msgstr ""
+"您的便箋會依各種狀況被儲存在磁碟上 ( 主要是在您隱藏它們的時候 ) . 如果您想要 "
+"<b>取得您便箋的副本</b>, 這個按鈕會開啟它們所在的資料夾 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Open the storage directory"
+msgstr "開啟儲存目錄"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Files ending with \"_state\" contain the color and position of your notes"
+msgstr "檔名結尾帶 \"_state\" 的檔案包含了您的便箋的顏色以及位置"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Files ending with \"_text\" contain the text written in your notes"
+msgstr "檔名結尾帶 \"_text\" 的檔案包含了您的便箋的文字"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Backup your notes"
+msgstr "備份您的便箋"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor\n"
+"(example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+"如果您意外地將便箋移出您的主要螢幕, 按下這個按鈕\n"
+"( 例如 : 如果您有便箋在第二個螢幕上且該螢幕已拔除 ) ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Bring back to the primary monitor"
+msgstr "帶回主螢幕"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Lost some notes?"
+msgstr "有些便箋消失了 ?"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "幫助"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr "給 GNOME Shell 桌面環境的便箋 ."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Author:"
+msgstr "作者 :"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Translation:"
+msgstr "翻譯者 :"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "translator-credits"
+msgstr "Nesquate"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "About"
+msgstr "關於"
