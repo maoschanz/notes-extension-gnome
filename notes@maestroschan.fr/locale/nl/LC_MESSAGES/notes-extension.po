@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 20:47+0200\n"
-"PO-Revision-Date: 2020-05-24 17:16+0200\n"
+"POT-Creation-Date: 2020-05-27 23:45+0200\n"
+"PO-Revision-Date: 2020-07-31 20:07+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: notes@maestroschan.fr/extension.js
@@ -32,7 +32,7 @@ msgstr "Notities"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Restart the extension to apply the changes"
-msgstr ""
+msgstr "Herlaad de extensie om de wijzigingen toe te passen"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Custom color"
@@ -48,7 +48,7 @@ msgstr "Toepassen"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Font size"
-msgstr "Grootte"
+msgstr "Lettergrootte"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Type here…"
@@ -85,12 +85,12 @@ msgstr "Bevestigen"
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
-msgstr "De standaardwaarde is %n"
+msgstr "De standaardwaarde is %s"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Version %s"
-msgstr "Versie %n"
+msgstr "Versie %s"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Report bugs or ideas"
@@ -110,7 +110,7 @@ msgstr "Altijd op achtergrond"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Incompatible with desktop icons"
-msgstr "Niet compatibel i.c.m. bureaubladpictogrammen"
+msgstr "Niet te gebruiken i.c.m. bureaubladpictogrammen"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
@@ -156,8 +156,8 @@ msgstr ""
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
-"<b>Pas de grootte van een notitie aan:</b> begin met slepen vanaf de knop "
-"'Grootte aanpassen', rechts op de notitiekop."
+"<b>Pas de notitiegrootte aan:</b> begin met slepen vanaf de knop 'Grootte "
+"aanpassen', rechts op de notitiekop."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
@@ -183,7 +183,7 @@ msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
-"<b>Wijzig de lettergrootte:</b> klik op de menuknop en vergroot/verklein de "
+"<b>Pas de lettergrootte aan:</b> klik op de menuknop en vergroot/verklein de "
 "letters middels de knoppen '+' en '-'."
 
 #: notes@maestroschan.fr/prefs.ui
@@ -207,14 +207,16 @@ msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
 msgstr ""
-"<b>Notitiepositie:</b> kies waar je notities wilt tonen: boven of onder "
-"vensters."
+"<b>Notitiepositie:</b> geef aan of je notities boven of onder vensters wilt "
+"tonen."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
 "the keyboard focus when you hover them with the mouse pointer."
 msgstr ""
+"<b>Automatisch focussen:</b> schakel dit in om notities automatisch "
+"toetsenbordfocus te verschaffen als je over ze heen gaat met de muis."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -246,12 +248,11 @@ msgstr "Opslagmap openen"
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
 msgstr ""
-"Bestandsnamen die eindigen op '_state' bevatten de kleur en positie van je "
-"notities"
+"Bestandsnamen die eindigen op '_state' bevatten de notitiekleur en -positie"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Files ending with \"_text\" contain the text written in your notes"
-msgstr "Bestanden die eindigen op '_text' bevatten de tekst van je notities"
+msgstr "Bestanden die eindigen op '_text' bevatten de notitietekst"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Backup your notes"
@@ -299,4 +300,3 @@ msgstr "Heimen Stoffels"
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Over"
-
