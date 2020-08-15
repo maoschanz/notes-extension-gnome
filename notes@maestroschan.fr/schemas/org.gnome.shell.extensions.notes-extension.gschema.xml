@@ -11,6 +11,7 @@
         the cursor. Otherwise a click is needed.
       </description>
     </key>
+
     <key type="s" name="layout-position">
       <default>"above-all"</default>
       <summary>Layer on which the notes are displayed</summary>
@@ -19,6 +20,15 @@
         The idea of "cycle-layers" is that clicking on the icon sends the notes
         above all if they were on the background, and vice versa; notes are
         hidden between the foreground and the background (3 states).
+      </description>
+    </key>
+
+    <key type="as" name="first-note-rgb">
+      <default>['0.0', '0.0', '0.0']</default>
+      <summary>Color of the first note</summary>
+      <description>
+        The color for the very first note, all following note creations will use
+        the color of the parent note.
       </description>
     </key>
 
