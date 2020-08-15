@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 23:45+0200\n"
+"POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: 2020-06-23 17:24+0800\n"
 "Last-Translator: Nesquate <nesquate.100001@gmail.com>\n"
 "Language-Team: \n"
@@ -70,12 +70,12 @@ msgid "Back"
 msgstr "返回"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
-msgstr "刪除這個便箋 ?"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
 msgstr "確認"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "刪除這個便箋 ?"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -122,6 +122,16 @@ msgstr "使用鍵盤快捷鍵切換便箋"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "隱藏圖示"
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Custom color"
+msgid "First note's color"
+msgstr "自訂色彩"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""

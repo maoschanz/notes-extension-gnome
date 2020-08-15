@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 23:45+0200\n"
+"POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,11 +74,11 @@ msgid "Back"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
+msgid "Confirm"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
+msgid "Delete this note?"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
@@ -125,6 +125,14 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "First note's color"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui

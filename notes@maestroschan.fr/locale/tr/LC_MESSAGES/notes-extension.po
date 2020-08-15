@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 20:47+0200\n"
+"POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: 2019-04-19 02:59+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
@@ -74,12 +74,12 @@ msgid "Back"
 msgstr "Geri"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
-msgstr "Not silinsin mi ?"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
 msgstr "Onayla"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Not silinsin mi ?"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -127,6 +127,16 @@ msgstr "Notları açmak için klavye kısayolu kullan"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "Simgeyi gizle"
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Custom color"
+msgid "First note's color"
+msgstr "Özel renk"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -289,4 +299,3 @@ msgstr "Serdar Sağlam"
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Hakkında"
-

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 23:55+0200\n"
+"POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -129,6 +129,16 @@ msgstr "Koristi prečac na tipkovnici za uključivanje bilježaka"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "Sakrij ikonu"
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Custom color"
+msgid "First note's color"
+msgstr "Prilagođena boja"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""

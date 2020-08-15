@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 20:47+0200\n"
+"POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: 2019-03-21 00:03+0100\n"
 "Last-Translator: Romain F. T. <rrroschan@gmail.com>\n"
 "Language-Team: French <none>\n"
@@ -76,12 +76,12 @@ msgid "Back"
 msgstr "Retour"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Delete this note?"
-msgstr "Supprimer cette note?"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
 msgstr "Confirmer"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Supprimer cette note?"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -128,6 +128,15 @@ msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "Masquer l'icône"
+
+#: notes@maestroschan.fr/prefs.ui
+#| msgid "Custom color"
+msgid "First note's color"
+msgstr "Couleur de la première note"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr "Les notes créées par la suite prendront la couleur de leur parent"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""

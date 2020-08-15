@@ -23,6 +23,7 @@ Version 18 has been released the 28/05/2020
 
 ### Available languages
 
+- Chinese (traditional)
 - Croatian
 - English
 - Dutch
@@ -57,7 +58,8 @@ Data are stored on your disk: files are in `~/.local/share/notes@maestroschan.fr
 
 faut réécrire comment ça interagit avec le disque
 
-mettre le putain d'array en attribut du singleton "notesmanager"
+si pas de motion ni de release après 1000ms, bouger la note de force (et si
+besoin relâcher le bouton)
 
 pas de raise correct quand on focus une note sans focus automatique
 
