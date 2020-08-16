@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-15 17:57+0200\n"
 "PO-Revision-Date: 2018-11-07 14:42+0100\n"
-"Last-Translator: Jimmy Scionti <jimmy.scionti@gmail.com>\n"
+"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: notes@maestroschan.fr/extension.js
 msgid "Show notes"
-msgstr ""
+msgstr "Mostra note"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
-msgstr ""
+msgstr "Errore estensione di Notes: caricamento di una nota non riuscito"
 
 #: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
 msgid "Notes"
@@ -32,7 +32,7 @@ msgstr "Note"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Restart the extension to apply the changes"
-msgstr ""
+msgstr "Riavvia l'estensione per applicare le modifiche"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Custom color"
@@ -48,7 +48,7 @@ msgstr "Applica"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Font size"
-msgstr ""
+msgstr "Dimensione del font"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Type here…"
@@ -76,7 +76,7 @@ msgstr "Indietro"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Confirm"
-msgstr ""
+msgstr "Conferma"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
@@ -85,12 +85,12 @@ msgstr "Eliminare questa nota?"
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
-msgstr ""
+msgstr "Il valore predefinito è %s"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Version %s"
-msgstr ""
+msgstr "Versione %s"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Report bugs or ideas"
@@ -98,7 +98,7 @@ msgstr "Segnala errori o invia idee"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Position of notes"
-msgstr ""
+msgstr "Posizione delle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Above everything"
@@ -110,15 +110,15 @@ msgstr "Sullo sfondo"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Incompatible with desktop icons"
-msgstr ""
+msgstr "Incompatibile con le icone del desktop"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
-msgstr ""
+msgstr "Messa a fuoco automatica"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut"
-msgstr ""
+msgstr "Usa una scorciatoia da tastiera"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
@@ -130,14 +130,13 @@ msgid "Hide the icon"
 msgstr "Nascondi l'icona"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 #| msgid "Custom color"
 msgid "First note's color"
-msgstr "Colore personalizzato"
+msgstr "Colore della prima nota"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The notes created afterwards will use the color of their parent"
-msgstr ""
+msgstr "Le note create successivamente useranno il colore del loro genitore"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -185,7 +184,7 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
-msgstr ""
+msgstr "Il sottomenu \"Colore personalizzato\" consente di selezionare con precisione un colore"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -203,11 +202,11 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Customizing notes"
-msgstr ""
+msgstr "Personalizzazione delle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The dialog window you're reading provides several settings:"
-msgstr ""
+msgstr "La finestra di dialogo che stai leggendo fornisce diverse impostazioni:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -229,7 +228,7 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The settings window"
-msgstr ""
+msgstr "La finestra delle impostazioni"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -287,15 +286,15 @@ msgstr "Note adesive per l'interfaccia GNOME Shell."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Author:"
-msgstr ""
+msgstr "Autore:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Translation:"
-msgstr ""
+msgstr "Traduzione:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
-msgstr "Jimmy Scionti <jimmy.scionti@gmail.com>"
+msgstr "Jimmy Scionti <jimmy.scionti@gmail.com>,<albano_battistella@hotmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
