@@ -2,7 +2,7 @@
 // GPL v3
 // Copyright Romain F. T.
 
-const{ GObject, Gtk, GdkPixbuf, GLib } = imports.gi;
+const{ GObject, Gtk, Gdk, GdkPixbuf, GLib } = imports.gi;
 const Mainloop = imports.mainloop;
 
 const Gettext = imports.gettext.domain('notes-extension');
@@ -114,6 +114,27 @@ const NotesSettingsWidget = new GObject.Class({
 			keybinding_entry.sensitive = widget.active;
 			keybinding_button.sensitive = widget.active;
 			this._hide_switch.sensitive = widget.active;
+		});
+
+		//----------------------------------------------------------------------
+
+		// The default color of the very first note
+		color_btn = builder.get_object('default_rgb_btn');
+		let colorArray = SETTINGS.get_strv('first-note-rgb');
+		let rgba = new Gdk.RGBA();
+		rgba.red = parseFloat(colorArray[0]);
+		rgba.green = parseFloat(colorArray[1]);
+		rgba.blue = parseFloat(colorArray[2]);
+		rgba.alpha = 1.0;
+		color_btn.set_rgba(rgba);
+
+		color_btn.connect('color-set', (widget) => {
+			rgba = widget.get_rgba();
+			SETTINGS.set_strv('first-note-rgb', [
+				rgba.red.toString(),
+				rgba.green.toString(),
+				rgba.blue.toString()
+			]);
 		});
 	},
 

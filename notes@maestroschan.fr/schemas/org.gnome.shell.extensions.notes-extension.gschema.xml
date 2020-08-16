@@ -24,7 +24,7 @@
     </key>
 
     <key type="as" name="first-note-rgb">
-      <default>['0.0', '0.0', '0.0']</default>
+      <default>['0.8', '0.0', '0.0']</default>
       <summary>Color of the first note</summary>
       <description>
         The color for the very first note, all following note creations will use

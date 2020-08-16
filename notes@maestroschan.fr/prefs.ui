@@ -226,6 +226,7 @@
         <child>
           <object class="GtkColorButton" id="default_rgb_btn">
             <property name="expand">False</property>
+            <property name="use-alpha">False</property>
             <property name="halign">start</property>
           </object>
           <packing>
