@@ -35,22 +35,7 @@ function compile_lang () {
 
 function create_po () {
 	mkdir -p $prefix/$1/LC_MESSAGES
-	touch $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po
-	echo "msgid \"\"
-msgstr \"\"
-\"Project-Id-Version: \\n\"
-\"Report-Msgid-Bugs-To: \\n\"
-\"POT-Creation-Date: 2019-07-02 18:58+0200\\n\"
-\"PO-Revision-Date: 2017-02-05 16:47+0100\\n\"
-\"Last-Translator: \\n\"
-\"Language-Team: \\n\"
-\"Language: $1\\n\"
-\"MIME-Version: 1.0\\n\"
-\"Content-Type: text/plain; charset=UTF-8\\n\"
-\"Content-Transfer-Encoding: 8bit\\n\"
-\"X-Generator: \\n\"
-\"Plural-Forms: nplurals=2; plural=(n > 1);\\n\"
-" > $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po
+	msginit -i $prefix/$TRANSLATION_ID.pot --locale=el_GR -o $prefix/$1/LC_MESSAGES/$TRANSLATION_ID.po
 	update_lang $1
 }
 

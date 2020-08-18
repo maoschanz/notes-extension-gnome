@@ -119,7 +119,7 @@ const NotesSettingsWidget = new GObject.Class({
 		//----------------------------------------------------------------------
 
 		// The default color of the very first note
-		color_btn = builder.get_object('default_rgb_btn');
+		let color_btn = builder.get_object('default_rgb_btn');
 		let colorArray = SETTINGS.get_strv('first-note-rgb');
 		let rgba = new Gdk.RGBA();
 		rgba.red = parseFloat(colorArray[0]);

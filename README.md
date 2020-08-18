@@ -69,4 +69,11 @@ le bouton de grab aurait le titre en label, et clic-droit enroulerait
 
     -->
 
+<!-- useful commands to develop:
+
+```
+gjs /usr/share/gnome-shell/org.gnome.Shell.Extensions
+gnome-extensions prefs notes@maestroschan.fr
+```
+    -->
 
