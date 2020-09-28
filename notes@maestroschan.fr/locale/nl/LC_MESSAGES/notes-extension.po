@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-15 17:57+0200\n"
-"PO-Revision-Date: 2020-07-31 20:07+0200\n"
+"PO-Revision-Date: 2020-09-05 16:57+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: notes@maestroschan.fr/extension.js
@@ -129,14 +129,12 @@ msgid "Hide the icon"
 msgstr "Pictogram verbergen"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
-#| msgid "Custom color"
 msgid "First note's color"
-msgstr "Aangepaste kleur"
+msgstr "Kleur van eerste notitie"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The notes created afterwards will use the color of their parent"
-msgstr ""
+msgstr "De notities die hierop volgen gebruiken de kleur van de bovenliggende"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
