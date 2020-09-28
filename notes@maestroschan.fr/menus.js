@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/menus.js
 // GPL v3
-// Copyright Romain F. T.
+// Copyright 2018-2020 Romain F. T.
 
 const { Clutter, St } = imports.gi;
 const Main = imports.ui.main;
@@ -135,7 +135,7 @@ class NoteOptionsMenu {
 		colorEntry.set_text(textContent);
 		colorEntry.style = 'background-color: ' + bgColorCSS + '; color: #FFFFFF';
 
-		colorMenuItem.actor.add(colorEntry, { expand: true });
+		colorMenuItem.actor.add(colorEntry);
 		this._customColorEntries.push(colorEntry);
 		colorSubmenu.addMenuItem(colorMenuItem);
 	}
@@ -174,9 +174,9 @@ class NoteOptionsMenu {
 		smaller.connect('clicked', this._onSmaller.bind(this));
 		bigger.connect('clicked', this._onBigger.bind(this));
 
-		this.size_item.actor.add( sizeLabel, { expand: true, x_fill: true } );
-		this.size_item.actor.add( smaller, { expand: true, x_fill: false } );
-		this.size_item.actor.add( bigger, { expand: true, x_fill: false } );
+		this.size_item.actor.add(sizeLabel);
+		this.size_item.actor.add(smaller);
+		this.size_item.actor.add(bigger);
 	}
 
 	_addColorButton (color, line) {
@@ -188,9 +188,9 @@ class NoteOptionsMenu {
 			                                + rgb[2] + ');',
 		});
 		if (line == 1) {
-			this.color1_item.actor.add(btn, { expand: true, x_fill: false });
+			this.color1_item.actor.add(btn);
 		} else {
-			this.color2_item.actor.add(btn, { expand: true, x_fill: false });
+			this.color2_item.actor.add(btn);
 		}
 		btn.connect('clicked', this._onApply.bind(this, color));
 	}
@@ -260,7 +260,6 @@ var NoteRoundButton = class NoteRoundButton {
 			can_focus: true,
 			track_hover: true,
 			y_expand: false,
-			y_fill: true,
 		});
 	}
 

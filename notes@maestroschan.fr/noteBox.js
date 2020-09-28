@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/noteBox.js
 // GPL v3
-// Copyright Romain F. T.
+// Copyright 2018-2020 Romain F. T.
 
 const { Clutter, St, GLib, Gio } = imports.gi;
 const Main = imports.ui.main;
@@ -78,8 +78,6 @@ var NoteBox = class NoteBox {
 			// if true, the scrollbar is inside the textfield, else it's outside
 			x_expand: true,
 			y_expand: true,
-			x_fill: true,
-			y_fill: true
 		});
 
 		this.noteEntry = new St.Entry({
@@ -178,12 +176,10 @@ var NoteBox = class NoteBox {
 
 		this.moveBox = new St.Button({
 			x_expand: true,
-			x_fill: true,
-			y_fill: true,
 			style_class: 'notesTitleButton',
 			// label: 'example title'
-		})
-		this.buttons_box.add(this.moveBox, {x_expand: true});
+		});
+		this.buttons_box.add(this.moveBox);
 
 		let btnOptions = new Menus.NoteRoundButton(
 			this,

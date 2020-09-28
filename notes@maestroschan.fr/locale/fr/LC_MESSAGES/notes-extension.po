@@ -25,7 +25,7 @@ msgstr "Montrer les notes"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
-msgstr "Erreu de l'extension notes : échec de chargement d'une note"
+msgstr "Erreur de l'extension notes : échec de chargement d'une note"
 
 #: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
 msgid "Notes"
@@ -130,7 +130,6 @@ msgid "Hide the icon"
 msgstr "Masquer l'icône"
 
 #: notes@maestroschan.fr/prefs.ui
-#| msgid "Custom color"
 msgid "First note's color"
 msgstr "Couleur de la première note"
 
@@ -317,4 +316,3 @@ msgstr "Romain F. T."
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "À propos"
-
