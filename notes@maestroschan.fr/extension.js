@@ -93,7 +93,9 @@ class NotesManager {
 		this._allNotes = new Array();
 		this._notesAreVisible = false;
 		this._updateLayoutSetting(); // it inits Z_POSITION
-		this._loadAllNotes();
+
+		this._notesLoaded = false; // this will tell the toggleState method that
+		// notes need to be loaded first, thus doing the actual initilisation
 
 		// Initialisation of the signals connections
 		this._bindShortcut();
@@ -126,6 +128,7 @@ class NotesManager {
 			i++;
 		}
 		this._onlyHideNotes();
+		this._notesLoaded = true;
 	}
 
 	//--------------------------------------------------------------------------
@@ -176,6 +179,10 @@ class NotesManager {
 	//--------------------------------------------------------------------------
 
 	_toggleState () {
+		if(!this._notesLoaded) {
+			this._loadAllNotes();
+		}
+
 		// log('_toggleState');
 		if(this._allNotes.length == 0) {
 			this.createNote('', 16);
@@ -198,7 +205,7 @@ class NotesManager {
 		this._onlyHideNotes();
 		this._allNotes.forEach(function (n) {
 			n.onlySave();
-		});
+		}); // TODO delay that
 	}
 
 	_onlyHideNotes () {

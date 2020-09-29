@@ -453,18 +453,18 @@ var NoteBox = class NoteBox {
 			this.entry_box.visible = !this.entry_box.visible;
 			this.entry_is_visible = this.entry_box.visible;
 		}
-		this._onPress(event);
+		this._onPressCommon(event);
 		this._isMoving = true;
 		this._isResizing = false;
 	}
 
 	_onResizePress (actor, event) {
-		this._onPress(event);
+		this._onPressCommon(event);
 		this._isResizing = true;
 		this._isMoving = false;
 	}
 
-	_onPress (event) {
+	_onPressCommon (event) {
 		this._redraw();
 		this.grabX = Math.floor(event.get_coords()[0]);
 		this.grabY = Math.floor(event.get_coords()[1]);
@@ -520,7 +520,7 @@ var NoteBox = class NoteBox {
 	}
 
 	//--------------------------------------------------------------------------
-	// "Public" methods called by the NoteOptionsMenu's code -----------------------
+	// "Public" methods called by the NoteOptionsMenu's code -------------------
 
 	changeFontSize (delta) {
 		if (this._fontSize + delta > 1) {
