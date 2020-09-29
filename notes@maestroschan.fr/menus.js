@@ -135,7 +135,7 @@ class NoteOptionsMenu {
 		colorEntry.set_text(textContent);
 		colorEntry.style = 'background-color: ' + bgColorCSS + '; color: #FFFFFF';
 
-		colorMenuItem.actor.add(colorEntry);
+		colorMenuItem.actor.add_child(colorEntry);
 		this._customColorEntries.push(colorEntry);
 		colorSubmenu.addMenuItem(colorMenuItem);
 	}
@@ -143,6 +143,8 @@ class NoteOptionsMenu {
 	_buildSizeItem () {
 		let sizeLabel = new St.Label({
 			text: _("Font size"),
+			x_expand: true,
+			x_align: Clutter.ActorAlign.START,
 			y_align: Clutter.ActorAlign.CENTER,
 		});
 
@@ -155,6 +157,7 @@ class NoteOptionsMenu {
 				style_class: 'system-status-icon',
 				x_expand: true,
 				y_expand: true,
+				x_align: Clutter.ActorAlign.CENTER,
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
 		});
@@ -167,6 +170,7 @@ class NoteOptionsMenu {
 				style_class: 'system-status-icon',
 				x_expand: true,
 				y_expand: true,
+				x_align: Clutter.ActorAlign.CENTER,
 				y_align: Clutter.ActorAlign.CENTER,
 			}),
 		});
@@ -174,9 +178,9 @@ class NoteOptionsMenu {
 		smaller.connect('clicked', this._onSmaller.bind(this));
 		bigger.connect('clicked', this._onBigger.bind(this));
 
-		this.size_item.actor.add(sizeLabel);
-		this.size_item.actor.add(smaller);
-		this.size_item.actor.add(bigger);
+		this.size_item.actor.add_child(sizeLabel);
+		this.size_item.actor.add_child(smaller);
+		this.size_item.actor.add_child(bigger);
 	}
 
 	_addColorButton (color, line) {
@@ -186,11 +190,13 @@ class NoteOptionsMenu {
 			style: 'background-color: rgb(' + rgb[0] + ','
 			                                + rgb[1] + ','
 			                                + rgb[2] + ');',
+			x_expand: true,
+			x_align: Clutter.ActorAlign.CENTER,
 		});
 		if (line == 1) {
-			this.color1_item.actor.add(btn);
+			this.color1_item.actor.add_child(btn);
 		} else {
-			this.color2_item.actor.add(btn);
+			this.color2_item.actor.add_child(btn);
 		}
 		btn.connect('clicked', this._onApply.bind(this, color));
 	}

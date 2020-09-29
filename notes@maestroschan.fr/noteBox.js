@@ -164,7 +164,7 @@ var NoteBox = class NoteBox {
 			_("New")
 		);
 		btnNew.actor.connect('clicked', this._createNote.bind(this));
-		this.buttons_box.add(btnNew.actor);
+		this.buttons_box.add_child(btnNew.actor);
 
 		let btnDelete = new Menus.NoteRoundButton(
 			this,
@@ -172,14 +172,14 @@ var NoteBox = class NoteBox {
 			_("Delete")
 		);
 		btnDelete.actor.connect('clicked', this._showDelete.bind(this));
-		this.buttons_box.add(btnDelete.actor);
+		this.buttons_box.add_child(btnDelete.actor);
 
 		this.moveBox = new St.Button({
 			x_expand: true,
 			style_class: 'notesTitleButton',
 			// label: 'example title'
 		});
-		this.buttons_box.add(this.moveBox);
+		this.buttons_box.add_child(this.moveBox);
 
 		let btnOptions = new Menus.NoteRoundButton(
 			this,
@@ -187,14 +187,14 @@ var NoteBox = class NoteBox {
 			_("Note options")
 		);
 		btnOptions.addMenu();
-		this.buttons_box.add(btnOptions.actor);
+		this.buttons_box.add_child(btnOptions.actor);
 
 		let ctrlButton = new Menus.NoteRoundButton(
 			this,
 			'view-restore-symbolic',
 			_("Resize")
 		);
-		this.buttons_box.add(ctrlButton.actor);
+		this.buttons_box.add_child(ctrlButton.actor);
 
 		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
 		this.moveBox.connect('motion-event', this._onMoveMotion.bind(this));
@@ -229,7 +229,7 @@ var NoteBox = class NoteBox {
 			_("Back")
 		);
 		btnBack.actor.connect('clicked', this._hideEditTitle.bind(this));
-		this.edit_title_box.add(btnBack.actor);
+		this.edit_title_box.add_child(btnBack.actor);
 
 		this.edit_title_box.add_actor(new St.Entry({
 			can_focus: true,
@@ -244,7 +244,7 @@ var NoteBox = class NoteBox {
 			_("Confirm")
 		);
 		btnConfirm.actor.connect('clicked', this._applyTitleChange.bind(this));
-		this.edit_title_box.add(btnConfirm.actor);
+		this.edit_title_box.add_child(btnConfirm.actor);
 
 		this.actor.add_actor(this.edit_title_box);
 	}
@@ -267,7 +267,7 @@ var NoteBox = class NoteBox {
 			_("Back")
 		);
 		btnBack.actor.connect('clicked', this._hideDelete.bind(this));
-		this.delete_box.add(btnBack.actor);
+		this.delete_box.add_child(btnBack.actor);
 
 		this.delete_box.add_actor(new St.Label({
 			x_expand: true,
@@ -282,7 +282,7 @@ var NoteBox = class NoteBox {
 			_("Confirm")
 		);
 		btnConfirm.actor.connect('clicked', this._deleteNoteObject.bind(this));
-		this.delete_box.add(btnConfirm.actor);
+		this.delete_box.add_child(btnConfirm.actor);
 
 		this.actor.add_actor(this.delete_box);
 	}
