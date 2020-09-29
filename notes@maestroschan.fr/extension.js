@@ -155,7 +155,7 @@ class NotesManager {
 		if (deletedNoteId < this._allNotes.length) {
 			this._allNotes[deletedNoteId] = lastNote;
 			lastNote.id = deletedNoteId;
-			this._allNotes[deletedNoteId].onlySave();
+			this._allNotes[deletedNoteId].onlySave(true);
 		}
 		this._deleteNoteFiles(this._allNotes.length);
 	}
@@ -204,7 +204,7 @@ class NotesManager {
 	_hideNotes () {
 		this._onlyHideNotes();
 		this._allNotes.forEach(function (n) {
-			n.onlySave();
+			n.onlySave(false);
 		}); // TODO delay that
 	}
 
@@ -317,7 +317,7 @@ class NotesManager {
 		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
 
 		this._allNotes.forEach(function (n) {
-			n.onlySave();
+			n.onlySave(false);
 			n.destroy();
 		});
 

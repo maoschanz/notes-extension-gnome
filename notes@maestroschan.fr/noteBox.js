@@ -108,7 +108,7 @@ var NoteBox = class NoteBox {
 		//----------------------------------------------------------------------
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		if (Extension.AUTO_FOCUS) { // TODO dynamically update this
+		if (Extension.AUTO_FOCUS) { // TODO dynamically update this setting
 			this.noteEntry.connect('enter-event', this._getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		} else {
@@ -325,12 +325,6 @@ var NoteBox = class NoteBox {
 		}
 	}
 
-	// XXX unused
-	// hide () {
-	// 	this.onlyHide();
-	// 	this.onlySave();
-	// }
-
 	onlyHide () {
 		this.actor.visible = false;
 		if (Extension.Z_POSITION == 'above-all') {
@@ -338,8 +332,10 @@ var NoteBox = class NoteBox {
 		}
 	}
 
-	onlySave () {
-		this._saveState();
+	onlySave (withMetadata) {
+		if(withMetadata) {
+			this._saveState();
+		}
 		this._saveText();
 	}
 
@@ -362,6 +358,8 @@ var NoteBox = class NoteBox {
 
 	_applyTitleChange () {
 		// TODO
+		// ...
+		this.onlySave(true);
 	}
 
 	_applyActorStyle () {
@@ -404,7 +402,7 @@ var NoteBox = class NoteBox {
 
 	_redraw () {
 		this.actor.get_parent().set_child_above_sibling(this.actor, null);
-		this.onlySave(); // XXX maybe not
+		this.onlySave(true);
 	}
 
 	//--------------------------------------------------------------------------
@@ -470,12 +468,6 @@ var NoteBox = class NoteBox {
 		this.grabY = Math.floor(event.get_coords()[1]);
 	}
 
-	_onRelease (actor, event) {
-		this._isResizing = false;
-		this._isMoving = false;
-		this.onlySave();
-	}
-
 	_onResizeMotion (actor, event) {
 		if (!this._isResizing) { return; }
 		let x = Math.floor(event.get_coords()[0]);
@@ -519,6 +511,12 @@ var NoteBox = class NoteBox {
 		this.grabY = event_y;
 	}
 
+	_onRelease (actor, event) {
+		this._isResizing = false;
+		this._isMoving = false;
+		this.onlySave(true);
+	}
+
 	//--------------------------------------------------------------------------
 	// "Public" methods called by the NoteOptionsMenu's code -------------------
 
@@ -527,6 +525,7 @@ var NoteBox = class NoteBox {
 			this._fontSize += delta;
 			this._applyNoteStyle();
 		}
+		this.onlySave(true);
 	}
 
 	/*
@@ -535,9 +534,9 @@ var NoteBox = class NoteBox {
 	 * 'r,g,b' format. Then, the text coloration and the CSS is updated.
 	 */
 	applyColor (r, g, b) {
-		if (Number.isNaN(r)) { r = 255; }
-		if (Number.isNaN(g)) { g = 255; }
-		if (Number.isNaN(b)) { b = 255; }
+		if (Number.isNaN(r)) r = 255;
+		if (Number.isNaN(g)) g = 255;
+		if (Number.isNaN(b)) b = 255;
 		r = Math.min(Math.max(0, r), 255);
 		g = Math.min(Math.max(0, g), 255);
 		b = Math.min(Math.max(0, b), 255);
@@ -549,6 +548,7 @@ var NoteBox = class NoteBox {
 		}
 		this._applyNoteStyle();
 		this._applyActorStyle();
+		this.onlySave(true);
 	}
 
 	//--------------------------------------------------------------------------
