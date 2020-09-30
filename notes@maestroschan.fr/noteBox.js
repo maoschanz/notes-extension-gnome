@@ -291,7 +291,7 @@ var NoteBox = class NoteBox {
 		let initialRGB_r = this.customColor.split(',')[0];
 		let initialRGB_g = this.customColor.split(',')[1];
 		let initialRGB_b = this.customColor.split(',')[2];
-		this.applyColor(initialRGB_r, initialRGB_g, initialRGB_b);
+		this._applyColor(initialRGB_r, initialRGB_g, initialRGB_b);
 		this._applyActorStyle();
 		this._applyNoteStyle();
 	}
@@ -529,11 +529,27 @@ var NoteBox = class NoteBox {
 	}
 
 	/*
-	 * This applies the color from the menu or the constructor. It requires some
-	 * string manipulations since the color is written in the text file using an
-	 * 'r,g,b' format. Then, the text coloration and the CSS is updated.
+	 * This applies the color from the menu. Metadata is saved after applying
+	 * the new CSS.
 	 */
-	applyColor (r, g, b) {
+	applyColorAndSave (r, g, b) {
+		this._applyColor(r, g, b)
+		this.onlySave(true);
+	}
+
+	//--------------------------------------------------------------------------
+
+	_createNote () {
+		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
+	}
+
+	/*
+	 * This applies the color, from the menu (`applyColorAndSave`) or the
+	 * constructor (direct call). It requires some string manipulations since
+	 * the color is saved in the text file using an 'r,g,b' string format. Then,
+	 * the text coloration and the CSS is updated.
+	 */
+	_applyColor (r, g, b) {
 		if (Number.isNaN(r)) r = 255;
 		if (Number.isNaN(g)) g = 255;
 		if (Number.isNaN(b)) b = 255;
@@ -548,13 +564,6 @@ var NoteBox = class NoteBox {
 		}
 		this._applyNoteStyle();
 		this._applyActorStyle();
-		this.onlySave(true);
-	}
-
-	//--------------------------------------------------------------------------
-
-	_createNote () {
-		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
 	}
 
 	_loadText () {

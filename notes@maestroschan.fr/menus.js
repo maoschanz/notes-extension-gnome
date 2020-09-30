@@ -209,7 +209,7 @@ class NoteOptionsMenu {
 		let r = Number(this._customColorEntries[0].get_text());
 		let g = Number(this._customColorEntries[1].get_text());
 		let b = Number(this._customColorEntries[2].get_text());
-		this._source._note.applyColor(r, g, b);
+		this._source._note.applyColorAndSave(r, g, b);
 	}
 
 	_onSettings () {
@@ -227,7 +227,7 @@ class NoteOptionsMenu {
 
 	_onApply (color, button) {
 		let rgb = PRESET_COLORS[color];
-		this._source._note.applyColor(rgb[0], rgb[1], rgb[2]);
+		this._source._note.applyColorAndSave(rgb[0], rgb[1], rgb[2]);
 	}
 
 	popup (activatingButton) {
