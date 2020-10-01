@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-10-01 23:13+0200\n"
 "PO-Revision-Date: 2020-09-19 14:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
@@ -130,7 +130,6 @@ msgid "Hide the icon"
 msgstr "Nascondi l'icona"
 
 #: notes@maestroschan.fr/prefs.ui
-#| msgid "Custom color"
 msgid "First note's color"
 msgstr "Colore della prima nota"
 
@@ -159,7 +158,8 @@ msgstr ""
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
-"<b>Muovi una nota:</b> trascina lo spazio vuoto al centro dell'intestazione della nota."
+"<b>Muovi una nota:</b> trascina lo spazio vuoto al centro dell'intestazione "
+"della nota."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -183,7 +183,9 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
-msgstr "Il sottomenu \"Colore personalizzato\" consente di selezionare con precisione un colore"
+msgstr ""
+"Il sottomenu \"Colore personalizzato\" consente di selezionare con "
+"precisione un colore"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -198,8 +200,8 @@ msgid ""
 "<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
 "settings dialog."
 msgstr ""
-"<b>Impostazioni avanzate:</b> fai clic sulla voce di menu \"Impostazioni\" per accedere a "
-"finestra di dialogo delle impostazioni."
+"<b>Impostazioni avanzate:</b> fai clic sulla voce di menu \"Impostazioni\" "
+"per accedere a finestra di dialogo delle impostazioni."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Customizing notes"
@@ -207,31 +209,34 @@ msgstr "Personalizzazione delle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The dialog window you're reading provides several settings:"
-msgstr "La finestra di dialogo che stai leggendo fornisce diverse impostazioni:"
+msgstr ""
+"La finestra di dialogo che stai leggendo fornisce diverse impostazioni:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
 msgstr ""
-"<b> Posizione delle note:</b> seleziona se desideri che le note vengano visualizzate "
-"sopra le finestre o sotto di esse."
+"<b> Posizione delle note:</b> seleziona se desideri che le note vengano "
+"visualizzate sopra le finestre o sotto di esse."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
 "the keyboard focus when you hover them with the mouse pointer."
 msgstr ""
-"<b> Messa a fuoco automatica:</b> se abilitata, le note verranno automaticamente visualizzate "
-"nello stato attivo della tastiera quando si passa con il puntatore del mouse."
+"<b> Messa a fuoco automatica:</b> se abilitata, le note verranno "
+"automaticamente visualizzate nello stato attivo della tastiera quando si "
+"passa con il puntatore del mouse."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
 "is enabled, the icon in the top bar can be hidden."
 msgstr ""
-"<b> Scorciatoia da tastiera:</b> nascondi/mostra le note con una scorciatoia da tastiera. Se questo"
-"è abilitato, l'icona nella barra in alto può essere nascosta."
+"<b> Scorciatoia da tastiera:</b> nascondi/mostra le note con una scorciatoia "
+"da tastiera. Se questoè abilitato, l'icona nella barra in alto può essere "
+"nascosta."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The settings window"
@@ -255,11 +260,13 @@ msgstr "Apri la cartella di salvataggio"
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
 msgstr ""
-"I file che terminano con \" _ state \ "contengono il colore e la posizione delle note"
+"I file che terminano con \"_state\" contengono il colore e la posizione "
+"delle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Files ending with \"_text\" contain the text written in your notes"
-msgstr "I file che terminano con \ "_ text \" contengono il testo scritto nelle note"
+msgstr ""
+"I file che terminano con \"_text\" contengono il testo scritto nelle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Backup your notes"
@@ -302,7 +309,9 @@ msgstr "Traduzione:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
-msgstr "Jimmy Scionti <jimmy.scionti@gmail.com>,<albano_battistella@hotmail.com>"
+msgstr ""
+"Jimmy Scionti <jimmy.scionti@gmail.com>\n"
+"<albano_battistella@hotmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"

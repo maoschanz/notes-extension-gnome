@@ -8,18 +8,21 @@ A GNOME Shell extension providing customizable sticky notes.
 
 Version 18 has been released the 28/05/2020
 
-| GNOME Shell version | Extension version 18 | 17  | 15  | 14  |
-|---------------------|----------------------|-----|-----|-----|
-| **3.36**            | Yes                  |     |     |     |
-| **3.34**            | Yes                  |     |     |     |
-| **3.32**            | Yes                  | Yes |     |     |
-| **3.30**            | Yes                  | Yes | Yes | Yes |
-| **3.28**            |                      | Yes | Yes | Yes |
-| **3.26**            |                      | Yes | Yes | Yes |
-| **3.24**            |                      |     | Yes | Yes |
-| **3.22**            |                      |     | Yes | Yes |
-| **3.20**            |                      |     |     | Yes |
-| **3.18**            |                      |     |     | Yes |
+Version 19 has been released the 03/10/2020
+
+| GNOME Shell version | Extension version 19 | 18  | 17  | 15  | 14  |
+|---------------------|----------------------|-----|-----|-----|-----|
+| **3.38**            | Yes                  |     |     |     |     |
+| **3.36**            | Yes                  | Yes |     |     |     |
+| **3.34**            | ??                   | Yes |     |     |     |
+| **3.32**            | ??                   | Yes | Yes |     |     |
+| **3.30**            | ??                   | Yes | Yes | Yes | Yes |
+| **3.28**            |                      |     | Yes | Yes | Yes |
+| **3.26**            |                      |     | Yes | Yes | Yes |
+| **3.24**            |                      |     |     | Yes | Yes |
+| **3.22**            |                      |     |     | Yes | Yes |
+| **3.20**            |                      |     |     |     | Yes |
+| **3.18**            |                      |     |     |     | Yes |
 
 ### Available languages
 
@@ -55,8 +58,6 @@ Download the files, run `./install.sh`, restart the session, enable the extensio
 Data are stored on your disk: files are in `~/.local/share/notes@maestroschan.fr`
 
 <!-- TODO
-
-faut réécrire comment ça interagit avec le disque
 
 si pas de motion ni de release après 1000ms, bouger la note de force (et si
 besoin relâcher le bouton)

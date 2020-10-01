@@ -6,6 +6,7 @@ const { St, Shell, GLib, Gio, Meta } = imports.gi;
 const PanelMenu = imports.ui.panelMenu;
 const Panel = imports.ui.panel;
 const Main = imports.ui.main;
+const Mainloop = imports.mainloop;
 
 // Retrocompatibility
 const ShellVersion = imports.misc.config.PACKAGE_VERSION;
@@ -203,9 +204,14 @@ class NotesManager {
 
 	_hideNotes () {
 		this._onlyHideNotes();
-		this._allNotes.forEach(function (n) {
-			n.onlySave(false);
-		}); // TODO delay that
+		let timeout_id = Mainloop.timeout_add(10, () => {
+			// saving to the disk is slightly delayed to give the illusion that
+			// the extension doesn't freeze the system
+			this._allNotes.forEach(function (n) {
+				n.onlySave(false);
+			});
+			Mainloop.source_remove(timeout_id);
+		});
 	}
 
 	_onlyHideNotes () {
