@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Albano Battistella <hotmail.com@>, 2020.
+# Albano Battistella <albano_battistella@hotmail.com>, 2020.
 #
 msgid ""
 msgstr ""
@@ -283,9 +283,8 @@ msgstr ""
 "(esempio: se avevi delle note su uno schermo secondario che hai disconnesso)."
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 msgid "Bring back to the primary monitor"
-msgstr "Riporta tutte le note sullo schermo primario"
+msgstr "Torna al monitor principale"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Lost some notes?"
