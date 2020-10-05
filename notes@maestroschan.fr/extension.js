@@ -27,7 +27,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 // which is usually ~/.local/share/notes@maestroschan.fr
 
 var NOTES_MANAGER;
-let SETTINGS;
+var SETTINGS;
 var Z_POSITION;
 var AUTO_FOCUS;
 

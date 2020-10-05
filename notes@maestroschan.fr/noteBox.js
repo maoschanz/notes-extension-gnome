@@ -20,9 +20,8 @@ const _ = Gettext.gettext;
 // ~/.local/share/notes@maestroschan.fr
 const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
 
-const MIN_HEIGHT = 50;
-const MIN_WIDTH = 180;
-const DEFAULT_COLOR = '200,0,0';
+const MIN_HEIGHT = 75;
+const MIN_WIDTH = 200;
 
 //------------------------------------------------------------------------------
 
@@ -49,7 +48,11 @@ var NoteBox = class NoteBox {
 		if (color.split(',').length == 3) {
 			this.customColor = color;
 		} else {
-			this.customColor = DEFAULT_COLOR;
+			let c = Extension.SETTINGS.get_strv('first-note-rgb');
+			c[0] = c[0] * 255;
+			c[1] = c[1] * 255;
+			c[2] = c[2] * 255;
+			this.customColor = c.toString();
 		}
 		this._buildNote();
 	}
@@ -58,8 +61,8 @@ var NoteBox = class NoteBox {
 		this.actor = new St.BoxLayout({
 			reactive: true,
 			vertical: true,
-			min_height: 75,
-			min_width: 245,
+			min_height: MIN_HEIGHT,
+			min_width: MIN_WIDTH,
 			style_class: 'noteBoxStyle',
 			track_hover: true,
 		});
