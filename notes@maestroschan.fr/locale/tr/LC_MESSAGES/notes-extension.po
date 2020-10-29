@@ -5,17 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Notes\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-15 17:57+0200\n"
-"PO-Revision-Date: 2019-04-19 02:59+0300\n"
-"Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
-"Language-Team: Türkçe <teknomobil@yandex.com>\n"
+"PO-Revision-Date: 2020-10-29 16:50+0300\n"
+"Last-Translator: Muha Aliss <muhaaliss@pm.me>\n"
+"Language-Team: Türkçe\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Show notes"
@@ -23,7 +25,7 @@ msgstr "Notları göster"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Notes extension error: failed to load a note"
-msgstr ""
+msgstr "Notlar uzantısı hatası: not yüklenemedi"
 
 #: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
 msgid "Notes"
@@ -31,7 +33,7 @@ msgstr "Notlar"
 
 #: notes@maestroschan.fr/extension.js
 msgid "Restart the extension to apply the changes"
-msgstr ""
+msgstr "Değişiklikleri uygulamak için uzantıyı yeniden başlatın"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Custom color"
@@ -47,11 +49,11 @@ msgstr "Uygula"
 
 #: notes@maestroschan.fr/menus.js
 msgid "Font size"
-msgstr "Boyutu"
+msgstr "Yazı boyutu"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Type here…"
-msgstr "Notunu buraya yaz…"
+msgstr "Notunuzu buraya yazın…"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "New"
@@ -84,12 +86,12 @@ msgstr "Not silinsin mi ?"
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
-msgstr "Öntanımlı değer şudur %s"
+msgstr "Öntanımlı değer %s"
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Version %s"
-msgstr ""
+msgstr "Sürüm %s"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Report bugs or ideas"
@@ -105,12 +107,11 @@ msgstr "Her şeyin üstünde"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "On the background"
-msgstr "Arka planda hep açık"
+msgstr "Arka planda"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 msgid "Incompatible with desktop icons"
-msgstr "\"Arka planda hep açık\" masaüstü simgeleriyle uyumlu değil."
+msgstr "Masaüstü simgeleriyle uyumsuz"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
@@ -122,21 +123,19 @@ msgstr "Klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
-msgstr "Notları açmak için klavye kısayolu kullan"
+msgstr "Notları gösterip/gizlemek için klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "Simgeyi gizle"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
-#| msgid "Custom color"
 msgid "First note's color"
-msgstr "Özel renk"
+msgstr "İlk notun rengi"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The notes created afterwards will use the color of their parent"
-msgstr ""
+msgstr "Daha sonra oluşturulan notlar, ebeveynlerinin rengini kullanacaktır"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -184,6 +183,7 @@ msgstr "<b>Renk değiştirme:</b> menü düğmesine tıklayın ve bir renk seçi
 #: notes@maestroschan.fr/prefs.ui
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
 msgstr ""
+"\"Özel renk\" alt menüsü, tam olarak bir rengi seçmenize olanak sağlar."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -198,36 +198,44 @@ msgid ""
 "<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
 "settings dialog."
 msgstr ""
+"<b>Gelişmiş ayarlar:</b> ayarlar iletişim kutusuna erişmek için \"Ayarlar\" "
+"menü öğesine tıklayın."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Customizing notes"
-msgstr "Notların özelleştirilmesi"
+msgstr "Notları özelleştir"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The dialog window you're reading provides several settings:"
-msgstr ""
+msgstr "Okuduğunuz iletişim penceresi birkaç ayar sağlar:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
 msgstr ""
+"<b>Notların konumu:</b> notların pencerelerin üstünde mi yoksa altında mı "
+"gösterilmesini istediğinizi seçin."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
 "the keyboard focus when you hover them with the mouse pointer."
 msgstr ""
+"<b>Otomatik odak:</b> Bu etkinleştirilirse, notlar fare imleciyle üzerine "
+"geldiğinizde otomatik olarak klavye odağını alır."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
 "is enabled, the icon in the top bar can be hidden."
 msgstr ""
+"<b>Klavye kısayolu:</b> bir klavye kısayoluyla notları gizleyin/gösterin. Bu "
+"etkinleştirilirse, üst çubuktaki simge gizlenebilir."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The settings window"
-msgstr ""
+msgstr "Ayarlar penceresi"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -264,12 +272,12 @@ msgid ""
 msgstr ""
 "Birincil ekranınız dışında başka yerde not eklediyseniz bu düğmeye "
 "tıklayın \n"
-"(örnek: Eğer ikinci bir monitörde notlarınız varsa ve fişten çekmişseniz)."
+"(örnek: Eğer ikinci bir monitörde notlarınız varsa ve bağlantısını "
+"kestiyseniz)."
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 msgid "Bring back to the primary monitor"
-msgstr "Tüm notları birincil ana ekrana geri getir"
+msgstr "Birincil monitöre geri dön"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Lost some notes?"
@@ -288,13 +296,12 @@ msgid "Author:"
 msgstr "Hazırlayan:"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 msgid "Translation:"
-msgstr "Çeviren:"
+msgstr "Çeviri:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
-msgstr "Serdar Sağlam"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
