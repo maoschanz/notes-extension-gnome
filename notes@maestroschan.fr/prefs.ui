@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="notes-extension">
+
   <object class="GtkStack" id="prefs_stack">
     <property name="transition-type">slide-left-right</property>
 
@@ -157,10 +158,35 @@
         </child>
 
         <child>
-          <object class="GtkEntry" id="keybinding_entry">
-            <property name="expand">False</property>
-            <property name="halign">end</property>
-          </object>
+              <object class="GtkBox">
+                <property name="expand">False</property>
+                <property name="halign">end</property>
+                <child>
+                  <object class="GtkEntry" id="keybinding_entry" />
+                </child>
+                <child>
+                  <object class="GtkMenuButton">
+                    <property name="tooltip-text" translatable="yes">Help</property>
+                    <property name="popover">help-popover-1</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">2</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">help-faq-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style><class name="linked"/></style>
+              </object>
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">18</property>
@@ -617,5 +643,75 @@
       </packing>
     </child>
   </object>
+
+
+
+  <!-- ..................................................................... -->
+
+  <object class="GtkPopover" id="help-popover-1">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="spacing">12</property>
+        <property name="margin">12</property>
+        <property name="orientation">vertical</property>
+
+        <child>
+          <object class="GtkLinkButton">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">List of valid key names</property>
+            <property name="uri">https://raw.githubusercontent.com/GNOME/gtk/master/gdk/keynames.txt</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <!-- Context for translation: modifier keys are ctrl/shift/super/alt -->
+            <property name="label" translatable="yes">Modifier keys must be between chevrons</property>
+            <property name="max-width-chars">45</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel" id="default-kbs-help-1">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="label"></property>
+            <property name="max-width-chars">45</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="label" translatable="yes">Don't use a keyboard shortcut that already exists.</property>
+            <property name="max-width-chars">45</property>
+            <style><class name="dim-label"/></style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel" id="default-kbs-help-2">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="label"></property>
+            <style><class name="dim-label"/></style>
+            <property name="max-width-chars">45</property>
+          </object>
+        </child>
+
+      </object>
+    </child>
+  </object>
+
 </interface>
 

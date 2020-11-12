@@ -45,6 +45,7 @@ const NotesSettingsWidget = new GObject.Class({
 	//--------------------------------------------------------------------------
 
 	_buildSettingsPage (builder) {
+		let RELOAD_TEXT = _("Modifications will be effective after reloading the extension.");
 
 		// Position of the notes (layer)
 		let radioBtn1 = builder.get_object('radio1');
@@ -85,13 +86,17 @@ const NotesSettingsWidget = new GObject.Class({
 
 		//----------------------------------------------------------------------
 
+		// Context: %s will be replaced with the default keyboard shortcut
+		let default_kbs_label = _("Default value is %s");
+		default_kbs_label = default_kbs_label.replace('%s', "<Super><Alt>n");
+
 		// Text entry
 		let keybinding_entry = builder.get_object('keybinding_entry');
 		keybinding_entry.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
-		keybinding_entry.set_tooltip_text(
-			// Context: %s will be replaced with the default keyboard shortcut
-			_("Default value is %s").replace('%s', "<Super><Alt>n")
-		);
+		keybinding_entry.set_tooltip_text(default_kbs_label);
+
+		builder.get_object('default-kbs-help-1').set_label(default_kbs_label);
+		builder.get_object('default-kbs-help-2').set_label(RELOAD_TEXT);
 
 		if (SETTINGS.get_strv('notes-kb-shortcut') != '') {
 			keybinding_entry.text = SETTINGS.get_strv('notes-kb-shortcut')[0];
