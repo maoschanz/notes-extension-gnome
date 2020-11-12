@@ -49,7 +49,7 @@ class NoteOptionsMenu {
 		});
 		source.actor.connect('destroy', this.super_menu.destroy.bind(this.super_menu));
 
-		Main.uiGroup.add_actor(this.super_menu.actor);
+		Main.uiGroup.add_child(this.super_menu.actor);
 	}
 
 	_redisplay () {

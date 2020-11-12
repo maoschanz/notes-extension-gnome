@@ -97,16 +97,16 @@ var NoteBox = class NoteBox {
 		clutterText.set_line_wrap(true);
 		clutterText.set_line_wrap_mode(imports.gi.Pango.WrapMode.WORD_CHAR);
 
-		this.entry_box = new St.BoxLayout({
+		this._entryBox = new St.BoxLayout({
 			reactive: true,
 			x_expand: true,
 			y_expand: true,
 			visible: this.entry_is_visible,
 		});
 
-		this.entry_box.add_actor(this.noteEntry);
-		this._scrollView.add_actor(this.entry_box);
-		this.actor.add_actor(this._scrollView);
+		this._entryBox.add_child(this.noteEntry);
+		this._scrollView.add_actor(this._entryBox); // yes, actually add_actor
+		this.actor.add_child(this._scrollView);
 
 		//----------------------------------------------------------------------
 
@@ -116,7 +116,7 @@ var NoteBox = class NoteBox {
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		} else {
 			this.noteEntry.connect('button-press-event', this._getKeyFocus.bind(this));
-			// this.noteEntry.connect('key-focus-in', this._redraw.bind(this)); XXX
+			this.noteEntry.connect('key-focus-in', this._redraw.bind(this)); // FIXME doesn't work
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		}
 		this.actor.connect('notify::hover', this._applyActorStyle.bind(this));
@@ -152,7 +152,7 @@ var NoteBox = class NoteBox {
 	 */
 	_buildHeaderbar () {
 		// This is the regular header, as described above.
-		this.buttons_box = new St.BoxLayout({
+		this._buttonsBox = new St.BoxLayout({
 			vertical: false,
 			visible: true,
 			reactive: true,
@@ -167,7 +167,7 @@ var NoteBox = class NoteBox {
 			_("New")
 		);
 		btnNew.actor.connect('clicked', this._createNote.bind(this));
-		this.buttons_box.add_child(btnNew.actor);
+		this._buttonsBox.add_child(btnNew.actor);
 
 		let btnDelete = new Menus.NoteRoundButton(
 			this,
@@ -175,14 +175,14 @@ var NoteBox = class NoteBox {
 			_("Delete")
 		);
 		btnDelete.actor.connect('clicked', this._showDelete.bind(this));
-		this.buttons_box.add_child(btnDelete.actor);
+		this._buttonsBox.add_child(btnDelete.actor);
 
 		this.moveBox = new St.Button({
 			x_expand: true,
 			style_class: 'notesTitleButton',
 			// label: 'example title'
 		});
-		this.buttons_box.add_child(this.moveBox);
+		this._buttonsBox.add_child(this.moveBox);
 
 		let btnOptions = new Menus.NoteRoundButton(
 			this,
@@ -190,14 +190,14 @@ var NoteBox = class NoteBox {
 			_("Note options")
 		);
 		btnOptions.addMenu();
-		this.buttons_box.add_child(btnOptions.actor);
+		this._buttonsBox.add_child(btnOptions.actor);
 
 		let ctrlButton = new Menus.NoteRoundButton(
 			this,
 			'view-restore-symbolic',
 			_("Resize")
 		);
-		this.buttons_box.add_child(ctrlButton.actor);
+		this._buttonsBox.add_child(ctrlButton.actor);
 
 		this.moveBox.connect('button-press-event', this._onMovePress.bind(this));
 		this.moveBox.connect('motion-event', this._onMoveMotion.bind(this));
@@ -207,7 +207,7 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('motion-event', this._onResizeMotion.bind(this));
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 
-		this.actor.add_actor(this.buttons_box);
+		this.actor.add_child(this._buttonsBox);
 
 		this._addDeleteBox();
 		// this._addEditTitleBox(); // TODO later (maybe heavy for nothing?)
@@ -217,7 +217,7 @@ var NoteBox = class NoteBox {
 		// This is the UI for editing the title. The whole box is hidden by
 		// default, and will be shown instead of the regular header if the user
 		// needs it.
-		this.edit_title_box = new St.BoxLayout({
+		this._editTitleBox = new St.BoxLayout({
 			vertical: false,
 			visible: false,
 			reactive: true,
@@ -232,9 +232,9 @@ var NoteBox = class NoteBox {
 			_("Back")
 		);
 		btnBack.actor.connect('clicked', this._hideEditTitle.bind(this));
-		this.edit_title_box.add_child(btnBack.actor);
+		this._editTitleBox.add_child(btnBack.actor);
 
-		this.edit_title_box.add_actor(new St.Entry({
+		this._editTitleBox.add_child(new St.Entry({
 			can_focus: true,
 			track_hover: true,
 			x_expand: true,
@@ -247,9 +247,9 @@ var NoteBox = class NoteBox {
 			_("Confirm")
 		);
 		btnConfirm.actor.connect('clicked', this._applyTitleChange.bind(this));
-		this.edit_title_box.add_child(btnConfirm.actor);
+		this._editTitleBox.add_child(btnConfirm.actor);
 
-		this.actor.add_actor(this.edit_title_box);
+		this.actor.add_child(this._editTitleBox);
 	}
 
 	_addDeleteBox () {
@@ -272,7 +272,7 @@ var NoteBox = class NoteBox {
 		btnBack.actor.connect('clicked', this._hideDelete.bind(this));
 		this.delete_box.add_child(btnBack.actor);
 
-		this.delete_box.add_actor(new St.Label({
+		this.delete_box.add_child(new St.Label({
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 			y_align: Clutter.ActorAlign.CENTER,
@@ -287,7 +287,7 @@ var NoteBox = class NoteBox {
 		btnConfirm.actor.connect('clicked', this._deleteNoteObject.bind(this));
 		this.delete_box.add_child(btnConfirm.actor);
 
-		this.actor.add_actor(this.delete_box);
+		this.actor.add_child(this.delete_box);
 	}
 
 	_initStyle () {
@@ -308,7 +308,7 @@ var NoteBox = class NoteBox {
 				affectsInputRegion: true
 			});
 		} else {
-			Main.layoutManager._backgroundGroup.add_actor(this.actor);
+			Main.layoutManager._backgroundGroup.add_child(this.actor);
 		}
 	}
 
@@ -413,27 +413,27 @@ var NoteBox = class NoteBox {
 
 	_showDelete () {
 		this._redraw();
-		this.buttons_box.visible = false;
+		this._buttonsBox.visible = false;
 		this.delete_box.visible = true;
 	}
 
 	_hideDelete () {
 		this._redraw();
 		this.delete_box.visible = false;
-		this.buttons_box.visible = true;
+		this._buttonsBox.visible = true;
 	}
 
 	// XXX is public, shouldn't be listed here
 	showEditTitle () {
 		this._redraw();
-		this.buttons_box.visible = false;
-		this.edit_title_box.visible = true;
+		this._buttonsBox.visible = false;
+		this._editTitleBox.visible = true;
 	}
 
 	_hideEditTitle () {
 		this._redraw();
-		this.edit_title_box.visible = false;
-		this.buttons_box.visible = true;
+		this._editTitleBox.visible = false;
+		this._buttonsBox.visible = true;
 	}
 
 	//--------------------------------------------------------------------------
@@ -451,8 +451,8 @@ var NoteBox = class NoteBox {
 	_onMovePress (actor, event) {
 		let mouseButton = event.get_button();
 		if (mouseButton == 3) {
-			this.entry_box.visible = !this.entry_box.visible;
-			this.entry_is_visible = this.entry_box.visible;
+			this._entryBox.visible = !this._entryBox.visible;
+			this.entry_is_visible = this._entryBox.visible;
 		}
 		this._onPressCommon(event);
 		this._isMoving = true;
