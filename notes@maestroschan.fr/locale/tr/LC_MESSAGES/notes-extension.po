@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-10-29 17:42+0300\n"
 "Last-Translator: Muha Aliss <muhaaliss@pm.me>\n"
 "Language-Team: Türkçe\n"
@@ -84,6 +84,10 @@ msgid "Delete this note?"
 msgstr "Not silinsin mi ?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "Öntanımlı değer %s"
@@ -124,6 +128,10 @@ msgstr "Klavye kısayolu kullan"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Notları gösterip/gizlemek için klavye kısayolu kullan"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Yardım"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
@@ -284,10 +292,6 @@ msgid "Lost some notes?"
 msgstr "Notlarını mı kaybettin?"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "Yardım"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "GNOME Kabuğu için masaüstü yapışkan notlar."
 
@@ -308,3 +312,18 @@ msgstr ""
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Hakkında"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Notları gösterip/gizlemek için klavye kısayolu kullan"

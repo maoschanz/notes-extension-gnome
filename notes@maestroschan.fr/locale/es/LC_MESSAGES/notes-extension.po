@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-09-05 16:57+0200\n"
 "Last-Translator: Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -83,6 +83,10 @@ msgid "Delete this note?"
 msgstr "¿Quieres eliminar esta nota?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "El valor preestablecido es %s"
@@ -125,6 +129,10 @@ msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Usar un atajo de teclado para alternar notas"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Ayuda"
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
 msgstr "Ocultar icono"
 
@@ -140,8 +148,8 @@ msgstr "Las notas que se creen a continuación usarán el color de su precedente
 msgid ""
 "<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
 msgstr ""
-"<b>Mostrar/ocultar todas las notas:</b> haz clic en el icono en la barra superior de GNOME"
-"Shell."
+"<b>Mostrar/ocultar todas las notas:</b> haz clic en el icono en la barra "
+"superior de GNOMEShell."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -149,23 +157,23 @@ msgid ""
 "header, it will create a new note, with the same color and the same font "
 "size as the note you clicked on."
 msgstr ""
-"<b>Crea una nota:</b> haz clic en el botón \"+\" a la derecha de la barra superior "
-"de una nota. Se creará una nueva con el mismo color y el mismo tamaño "
-"de fuente al de la nota seleccionada."
+"<b>Crea una nota:</b> haz clic en el botón \"+\" a la derecha de la barra "
+"superior de una nota. Se creará una nueva con el mismo color y el mismo "
+"tamaño de fuente al de la nota seleccionada."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Move a note:</b> drag the blank space in the center of the note header."
 msgstr ""
-"<b>Mueve una nota:</b> pulsa y arrastra sobre el espacio vacío en la "
-"barra superior de la nota."
+"<b>Mueve una nota:</b> pulsa y arrastra sobre el espacio vacío en la barra "
+"superior de la nota."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Resize a note:</b> drag the resize button at the right of the note header."
 msgstr ""
-"<b>Modificar el tamaño de una nota:</b> pulsa y arrastra sobre el botón"
-"de modificar tamaño a la derecha de la barra superior."
+"<b>Modificar el tamaño de una nota:</b> pulsa y arrastra sobre el botónde "
+"modificar tamaño a la derecha de la barra superior."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
@@ -178,29 +186,30 @@ msgstr "Usando la extensión"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "<b>Change color:</b> click on the menu button, and select a color."
-msgstr "<b>Cambiar color</b> haz clic en el botón del menú y selecciona un color."
+msgstr ""
+"<b>Cambiar color</b> haz clic en el botón del menú y selecciona un color."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The \"Custom color\" submenu allows you to select precisely a color."
 msgstr ""
-"El submenú \"Personalizar color\" te permite seleccionar un color"
-"con precisión."
+"El submenú \"Personalizar color\" te permite seleccionar un colorcon "
+"precisión."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Change font size:</b> click on the menu button, and increase or decrease "
 "the font size with \"+\" and \"-\" buttons."
 msgstr ""
-"<b>Cambiar tamaño de fuente:</b> haz clic en el botón del menú y aumenta o disminuye "
-"el tamaño de fuente con los botones \"+\" y \"-\"."
+"<b>Cambiar tamaño de fuente:</b> haz clic en el botón del menú y aumenta o "
+"disminuye el tamaño de fuente con los botones \"+\" y \"-\"."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
 "settings dialog."
 msgstr ""
-"<b>Configuración avanzada:</b> haz clic en \"Configuración avanzada\" dentro del menú"
-"para acceder al cuadro de diálogo de la configuración."
+"<b>Configuración avanzada:</b> haz clic en \"Configuración avanzada\" dentro "
+"del menúpara acceder al cuadro de diálogo de la configuración."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Customizing notes"
@@ -208,31 +217,33 @@ msgstr "Personalizar las notas"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The dialog window you're reading provides several settings:"
-msgstr "El cuadro de diálogo que estás leyendo presenta diversas configuraciones:"
+msgstr ""
+"El cuadro de diálogo que estás leyendo presenta diversas configuraciones:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Position of notes:</b> select whether you want the notes to be shown "
 "above the windows or underneath them."
 msgstr ""
-"<b>Posición de las notas:</b> especifica si quieres que las notas se muestren"
-"por encima o debajo de las ventanas."
+"<b>Posición de las notas:</b> especifica si quieres que las notas se "
+"muestrenpor encima o debajo de las ventanas."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
 "the keyboard focus when you hover them with the mouse pointer."
 msgstr ""
-"<b>Focus automático:</b> si activas esta opción, las notas se activarán cuando "
-"pases por encima de ellas con el cursor y podrás escribir directamente. "
+"<b>Focus automático:</b> si activas esta opción, las notas se activarán "
+"cuando pases por encima de ellas con el cursor y podrás escribir "
+"directamente. "
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
 "is enabled, the icon in the top bar can be hidden."
 msgstr ""
-"<b>Atajo de teclado:</b> muestra/oculta notas con un atajo de teclado. Si activas "
-"esta opción, el icono en la barra superior puede ocultarse."
+"<b>Atajo de teclado:</b> muestra/oculta notas con un atajo de teclado. Si "
+"activas esta opción, el icono en la barra superior puede ocultarse."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "The settings window"
@@ -244,9 +255,9 @@ msgid ""
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
-"Tus notas se guardan en el disco en diferentes ocasiones (sobre todo cuando las "
-"ocultas). Si quieres<b>obtener una copia de tus notas</b>, este botón abre la "
-"carpeta donde se encuentran."
+"Tus notas se guardan en el disco en diferentes ocasiones (sobre todo cuando "
+"las ocultas). Si quieres<b>obtener una copia de tus notas</b>, este botón "
+"abre la carpeta donde se encuentran."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Open the storage directory"
@@ -256,11 +267,13 @@ msgstr "Abrir el directorio de almacenamiento"
 msgid ""
 "Files ending with \"_state\" contain the color and position of your notes"
 msgstr ""
-"Los archivos que acaban en \"_state\" contienen el color y la posición de tus notas"
+"Los archivos que acaban en \"_state\" contienen el color y la posición de "
+"tus notas"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Files ending with \"_text\" contain the text written in your notes"
-msgstr "Los archivos que acaban en \"_text\" contienen el texto escrito en tus notas "
+msgstr ""
+"Los archivos que acaban en \"_text\" contienen el texto escrito en tus notas "
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Backup your notes"
@@ -272,10 +285,9 @@ msgid ""
 "monitor\n"
 "(example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
-"Haz clic en este botón si has movido una nota de tu pantalla"
-"principal accidentalmente\n"
+"Haz clic en este botón si has movido una nota de tu pantallaprincipal "
+"accidentalmente\n"
 "(por ejemplo: si tenías notas en una segunda pantalla que has desconectado)."
-
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Bring back to the primary monitor"
@@ -284,10 +296,6 @@ msgstr "Devolver a la pantalla principal"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Lost some notes?"
 msgstr "¿Has perdido alguna nota?"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "Ayuda"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
@@ -308,3 +316,18 @@ msgstr "Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>"
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Acerca de"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Usar un atajo de teclado para alternar notas"

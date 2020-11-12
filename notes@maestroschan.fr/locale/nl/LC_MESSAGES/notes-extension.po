@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-09-05 16:57+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -83,6 +83,10 @@ msgid "Delete this note?"
 msgstr "Wil je deze notitie verwijderen?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "De standaardwaarde is %s"
@@ -123,6 +127,10 @@ msgstr "Sneltoets gebruiken"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Sneltoets gebruiken om notities te tonen/verbergen"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Hulp"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
@@ -286,10 +294,6 @@ msgid "Lost some notes?"
 msgstr "Ontbreken er notities?"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "Hulp"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Plakbriefjes voor de GNOME Shell-werkomgeving."
 
@@ -308,3 +312,18 @@ msgstr "Heimen Stoffels"
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Over"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Sneltoets gebruiken om notities te tonen/verbergen"

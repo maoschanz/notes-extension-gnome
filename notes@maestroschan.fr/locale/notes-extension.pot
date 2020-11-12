@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 02:32+0200\n"
+"POT-Creation-Date: 2020-11-12 01:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,6 +82,10 @@ msgid "Delete this note?"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr ""
@@ -121,6 +125,10 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
@@ -255,10 +263,6 @@ msgid "Lost some notes?"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr ""
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr ""
 
@@ -276,4 +280,17 @@ msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Don't use a keyboard shortcut that already exists."
 msgstr ""

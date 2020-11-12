@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -84,6 +84,10 @@ msgid "Delete this note?"
 msgstr "Izbrisati ovu bilješku?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "Standardna vrijednost je %s"
@@ -125,6 +129,10 @@ msgstr "Koristi prečac na tipkovnici"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "Koristi prečac na tipkovnici za uključivanje bilježaka"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Pomoć"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
@@ -286,10 +294,6 @@ msgid "Lost some notes?"
 msgstr "Neke bilješke su se izgubile?"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "Pomoć"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Bilješke za GNOME Shell desktop."
 
@@ -309,3 +313,18 @@ msgstr "Milo Ivir <mail@milotype.de>, 2020."
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Informacije"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Koristi prečac na tipkovnici za uključivanje bilježaka"

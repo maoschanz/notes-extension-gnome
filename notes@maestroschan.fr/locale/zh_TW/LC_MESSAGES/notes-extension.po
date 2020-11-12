@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-15 17:57+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-06-23 17:24+0800\n"
 "Last-Translator: Nesquate <nesquate.100001@gmail.com>\n"
 "Language-Team: \n"
@@ -78,6 +78,10 @@ msgid "Delete this note?"
 msgstr "刪除這個便箋 ?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "預設值是 %s"
@@ -118,6 +122,10 @@ msgstr "使用鍵盤快捷鍵"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr "使用鍵盤快捷鍵切換便箋"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "幫助"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
@@ -265,10 +273,6 @@ msgid "Lost some notes?"
 msgstr "有些便箋消失了 ?"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "幫助"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "給 GNOME Shell 桌面環境的便箋 ."
 
@@ -287,3 +291,18 @@ msgstr "Nesquate"
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "關於"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "使用鍵盤快捷鍵切換便箋"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-01 23:13+0200\n"
+"POT-Creation-Date: 2020-11-12 01:37+0100\n"
 "PO-Revision-Date: 2020-09-19 14:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
@@ -83,6 +83,10 @@ msgid "Delete this note?"
 msgstr "Eliminare questa nota?"
 
 #: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
 #, javascript-format
 msgid "Default value is %s"
 msgstr "Il valore predefinito è %s"
@@ -124,6 +128,10 @@ msgstr "Usa una scorciatoia da tastiera"
 msgid "Use a keyboard shortcut to toggle notes"
 msgstr ""
 "Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Aiuto"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Hide the icon"
@@ -291,10 +299,6 @@ msgid "Lost some notes?"
 msgstr "Hai perso delle note?"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Help"
-msgstr "Aiuto"
-
-#: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
 msgstr "Note adesive per l'interfaccia GNOME Shell."
 
@@ -315,3 +319,19 @@ msgstr ""
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Informazioni"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr ""
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr ""
+"Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
