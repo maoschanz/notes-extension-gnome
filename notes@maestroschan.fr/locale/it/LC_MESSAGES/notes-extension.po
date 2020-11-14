@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-12 01:37+0100\n"
-"PO-Revision-Date: 2020-09-19 14:42+0100\n"
+"PO-Revision-Date: 2020-11-14 14:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -84,7 +84,7 @@ msgstr "Eliminare questa nota?"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
-msgstr ""
+msgstr "Le modifiche diventeranno effettive dopo aver ricaricato l'estensione."
 
 #: notes@maestroschan.fr/prefs.js
 #, javascript-format
@@ -322,7 +322,7 @@ msgstr "Informazioni"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "List of valid key names"
-msgstr ""
+msgstr "Elenco di nomi di chiavi validi"
 
 #. Context for translation: modifier keys are ctrl/shift/super/alt
 #: notes@maestroschan.fr/prefs.ui
@@ -330,8 +330,7 @@ msgid "Modifier keys must be between chevrons"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 #| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Don't use a keyboard shortcut that already exists."
-msgstr ""
-"Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
+msgstr "Non utilizzare una scorciatoia da tastiera già esistente."
+
