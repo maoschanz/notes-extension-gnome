@@ -327,7 +327,7 @@ msgstr "Elenco di nomi di chiavi validi"
 #. Context for translation: modifier keys are ctrl/shift/super/alt
 #: notes@maestroschan.fr/prefs.ui
 msgid "Modifier keys must be between chevrons"
-msgstr ""
+msgstr "I tasti di modifica devono essere compresi tra chevrons"
 
 #: notes@maestroschan.fr/prefs.ui
 #| msgid "Use a keyboard shortcut to toggle notes"
