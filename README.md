@@ -68,11 +68,9 @@ https://old.reddit.com/r/gnome/comments/h08ysq/sticky_notes_extension_now_compat
 https://gitlab.gnome.org/justperfection.channel/gnome-shell-extension-samples/-/blob/master/samples/move-container@example.com/extension.js
 https://www.youtube.com/watch?v=2qVn6CjlDUQ
 
-fuck les headers alternatifs, faisons vraiment des dialogues ce sera plus simple
-
 (à revérifier) pas de raise correct quand on focus une note sans focus automatique
 
-"éditer le titre" dans le menu
+"éditer le titre" dans le menu :
 le bouton de grab aurait le titre en label, et clic-droit enroulerait
 
 

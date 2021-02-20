@@ -55,7 +55,7 @@ class NoteOptionsMenu {
 	_redisplay () {
 		this.super_menu.removeAll(); //-----------------------------------------
 
-	//	this.super_menu.addAction(_("Edit title"), this._onEditTitle);
+	//	this.super_menu.addAction(_("Edit title"), this._onEditTitle.bind(this));
 
 	//	this._appendSeparator(); //---------------------------------------------
 
@@ -222,7 +222,7 @@ class NoteOptionsMenu {
 	}
 
 	_onEditTitle () {
-		this._source._note.showEditTitle()
+		this._source._note.openEditTitleDialog();
 	}
 
 	_onApply (color, button) {

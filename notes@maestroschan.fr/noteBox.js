@@ -13,6 +13,7 @@ const Convenience = Me.imports.convenience;
 
 const Menus = Me.imports.menus;
 const Extension = Me.imports.extension;
+const Dialog = Me.imports.dialog;
 
 const Gettext = imports.gettext.domain('notes-extension');
 const _ = Gettext.gettext;
@@ -175,7 +176,7 @@ var NoteBox = class NoteBox {
 			'user-trash-symbolic',
 			_("Delete")
 		);
-		btnDelete.actor.connect('clicked', this._showDelete.bind(this));
+		btnDelete.actor.connect('clicked', this._openDeleteDialog.bind(this));
 		this._buttonsBox.add_child(btnDelete.actor);
 
 		this.moveBox = new St.Button({
@@ -209,86 +210,39 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 
 		this.actor.add_child(this._buttonsBox);
-
-		this._addDeleteBox();
-		// this._addEditTitleBox(); // TODO later (maybe heavy for nothing?)
 	}
 
-	_addEditTitleBox () {
-		// This is the UI for editing the title. The whole box is hidden by
-		// default, and will be shown instead of the regular header if the user
-		// needs it.
-		this._editTitleBox = new St.BoxLayout({
-			vertical: false,
-			visible: false,
-			reactive: true,
-			x_expand: true,
-			y_expand: false,
-			style_class: 'noteHeaderStyle',
+	_openDeleteDialog () {
+		let description_label = new St.Label({
+			style: 'padding-top: 16px;',
+			x_align: Clutter.ActorAlign.CENTER,
+			text: "todo texte tronqué de la note",
 		});
 
-		let btnBack = new Menus.NoteRoundButton(
-			this,
-			'go-previous-symbolic',
-			_("Back")
+		let dialog = new Dialog.CustomModalDialog(
+			_("Delete this note?"),
+			description_label,
+			_("Delete"),
+			this._deleteNoteObject.bind(this)
 		);
-		btnBack.actor.connect('clicked', this._hideEditTitle.bind(this));
-		this._editTitleBox.add_child(btnBack.actor);
+		dialog.open();
+	}
 
-		this._editTitleBox.add_child(new St.Entry({
+	openEditTitleDialog () {
+		let title_entry = new St.Entry({
 			can_focus: true,
 			track_hover: true,
 			x_expand: true,
-			text: 'existing title'
-		}));
-
-		let btnConfirm = new Menus.NoteRoundButton(
-			this,
-			'user-trash-symbolic',
-			_("Confirm")
-		);
-		btnConfirm.actor.connect('clicked', this._applyTitleChange.bind(this));
-		this._editTitleBox.add_child(btnConfirm.actor);
-
-		this.actor.add_child(this._editTitleBox);
-	}
-
-	_addDeleteBox () {
-		// This is the UI for deletion. The whole box is hidden by default, and
-		// will be shown instead of the regular header if the user needs it.
-		this.delete_box = new St.BoxLayout({
-			vertical: false,
-			visible: false,
-			reactive: true,
-			x_expand: true,
-			y_expand: false,
-			style_class: 'noteHeaderStyle',
+			text: "todo load existing title"
 		});
 
-		let btnBack = new Menus.NoteRoundButton(
-			this,
-			'go-previous-symbolic',
-			_("Back")
+		let dialog = new Dialog.CustomModalDialog(
+			_("Edit title"),
+			title_entry,
+			_("Apply"),
+			this._applyTitleChange.bind(this)
 		);
-		btnBack.actor.connect('clicked', this._hideDelete.bind(this));
-		this.delete_box.add_child(btnBack.actor);
-
-		this.delete_box.add_child(new St.Label({
-			x_expand: true,
-			x_align: Clutter.ActorAlign.CENTER,
-			y_align: Clutter.ActorAlign.CENTER,
-			text: _("Delete this note?")
-		}));
-
-		let btnConfirm = new Menus.NoteRoundButton(
-			this,
-			'user-trash-symbolic',
-			_("Confirm")
-		);
-		btnConfirm.actor.connect('clicked', this._deleteNoteObject.bind(this));
-		this.delete_box.add_child(btnConfirm.actor);
-
-		this.actor.add_child(this.delete_box);
+		dialog.open();
 	}
 
 	_initStyle () {
@@ -407,34 +361,6 @@ var NoteBox = class NoteBox {
 	_redraw () {
 		this.actor.get_parent().set_child_above_sibling(this.actor, null);
 		this.onlySave(true);
-	}
-
-	//--------------------------------------------------------------------------
-	// Show/hide the possible headerbars ---------------------------------------
-
-	_showDelete () {
-		this._redraw();
-		this._buttonsBox.visible = false;
-		this.delete_box.visible = true;
-	}
-
-	_hideDelete () {
-		this._redraw();
-		this.delete_box.visible = false;
-		this._buttonsBox.visible = true;
-	}
-
-	// XXX is public, shouldn't be listed here
-	showEditTitle () {
-		this._redraw();
-		this._buttonsBox.visible = false;
-		this._editTitleBox.visible = true;
-	}
-
-	_hideEditTitle () {
-		this._redraw();
-		this._editTitleBox.visible = false;
-		this._buttonsBox.visible = true;
 	}
 
 	//--------------------------------------------------------------------------
