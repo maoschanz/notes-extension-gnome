@@ -39,8 +39,9 @@ Version 20 has been released the 20/02/2021
 
 ### Recommended
 
-From [this website](https://extensions.gnome.org/extension/1357/notes/), or from
-the _GNOME Software_ app.
+It's recommended to install the extension from
+[this website](https://extensions.gnome.org/extension/1357/notes/), or from
+the _GNOME Software_ app if it still can.
 
 [<img alt="" height="100" src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true">](https://extensions.gnome.org/extension/1357/notes/)
 
@@ -49,7 +50,8 @@ the _GNOME Software_ app.
 **Installing unstable code from github means you can have bugs, and you will not
 get updates for the extensions**
 
-Download the files, run `./install.sh`, restart the session, enable the extension
+To install an unstable version, download the files, run `./install.sh`, restart
+the session, and enable the extension.
 
 ----
 

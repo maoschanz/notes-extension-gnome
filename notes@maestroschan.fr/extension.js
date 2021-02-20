@@ -8,10 +8,6 @@ const Panel = imports.ui.panel;
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 
-// Retrocompatibility
-const ShellVersion = imports.misc.config.PACKAGE_VERSION;
-var USE_ACTORS = parseInt(ShellVersion.split('.')[1]) < 33;
-
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -73,19 +69,11 @@ class NotesManager {
 			icon_name: 'document-edit-symbolic',
 			style_class: 'system-status-icon'
 		});
-		if(USE_ACTORS) {
-			this.panel_button.actor.add_child(icon);
-			this.panel_button.actor.connect(
-				'button-press-event',
-				this._toggleState.bind(this)
-			);
-		} else {
-			this.panel_button.add_child(icon);
-			this.panel_button.connect(
-				'button-press-event',
-				this._toggleState.bind(this)
-			);
-		}
+		this.panel_button.add_child(icon);
+		this.panel_button.connect(
+			'button-press-event',
+			this._toggleState.bind(this)
+		);
 		this._updateIconVisibility();
 		// `0` is the position within the chosen box (here, the `right` one)
 		Main.panel.addToStatusArea('NotesButton', this.panel_button, 0, 'right');
@@ -278,11 +266,7 @@ class NotesManager {
 
 	_updateIconVisibility () {
 		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
-		if(USE_ACTORS) {
-			this.panel_button.actor.visible = now_visible;
-		} else {
-			this.panel_button.visible = now_visible;
-		}
+		this.panel_button.visible = now_visible;
 	}
 
 	_bringToPrimaryMonitorOnly () {
