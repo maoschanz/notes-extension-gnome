@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-12 01:37+0100\n"
+"POT-Creation-Date: 2021-02-20 03:35+0100\n"
 "PO-Revision-Date: 2020-11-14 14:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
@@ -330,7 +330,5 @@ msgid "Modifier keys must be between chevrons"
 msgstr "I tasti di modifica devono essere compresi tra chevrons"
 
 #: notes@maestroschan.fr/prefs.ui
-#| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Non utilizzare una scorciatoia da tastiera già esistente."
-
