@@ -6,19 +6,19 @@ A GNOME Shell extension providing customizable sticky notes.
 
 ### Compatible versions
 
-Version 19 has been released the 06/10/2020
+Version 20 has been released the 20/02/2021
 
-| GNOME Shell version | Extension version 19 | 18  | 17  | 15  |
-|---------------------|----------------------|-----|-----|-----|
-| **3.38**            | Yes                  |     |     |     |
-| **3.36**            | Yes                  | Yes |     |     |
-| **3.34**            | ??                   | Yes |     |     |
-| **3.32**            | ??                   | Yes | Yes |     |
-| **3.30**            | ??                   | Yes | Yes | Yes |
-| **3.28**            |                      |     | Yes | Yes |
-| **3.26**            |                      |     | Yes | Yes |
-| **3.24**            |                      |     |     | Yes |
-| **3.22**            |                      |     |     | Yes |
+| GNOME Shell version | Extension version 20 | 19  | 18  | 17  | 15  |
+|---------------------|----------------------|-----|-----|-----|-----|
+| **3.38**            | Yes                  | Yes |     |     |     |
+| **3.36**            | Yes                  | Yes | Yes |     |     |
+| **3.34**            |                      | ??  | Yes |     |     |
+| **3.32**            |                      | ??  | Yes | Yes |     |
+| **3.30**            |                      | ??  | Yes | Yes | Yes |
+| **3.28**            |                      |     |     | Yes | Yes |
+| **3.26**            |                      |     |     | Yes | Yes |
+| **3.24**            |                      |     |     |     | Yes |
+| **3.22**            |                      |     |     |     | Yes |
 
 ### Available languages
 
@@ -30,7 +30,6 @@ Version 19 has been released the 06/10/2020
 | fr    | French        |
 | hr    | Croatian      |
 | nl    | Dutch         |
-| es    | Castillan     |
 | tr    | Turkish       |
 | zh_TW | Chinese (traditional)
 

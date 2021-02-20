@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/menus.js
 // GPL v3
-// Copyright 2018-2020 Romain F. T.
+// Copyright 2018-2021 Romain F. T.
 
 const { Clutter, St } = imports.gi;
 const Main = imports.ui.main;

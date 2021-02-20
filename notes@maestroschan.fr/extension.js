@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/extension.js
 // GPL v3
-// Copyright 2018-2020 Romain F. T.
+// Copyright 2018-2021 Romain F. T.
 
 const { St, Shell, GLib, Gio, Meta } = imports.gi;
 const PanelMenu = imports.ui.panelMenu;

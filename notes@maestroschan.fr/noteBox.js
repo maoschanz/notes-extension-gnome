@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/noteBox.js
 // GPL v3
-// Copyright 2018-2020 Romain F. T.
+// Copyright 2018-2021 Romain F. T.
 
 const { Clutter, St, GLib, Gio } = imports.gi;
 const Main = imports.ui.main;
@@ -81,6 +81,7 @@ var NoteBox = class NoteBox {
 			// if true, the scrollbar is inside the textfield, else it's outside
 			x_expand: true,
 			y_expand: true,
+			clip_to_allocation: true,
 		});
 
 		this.noteEntry = new St.Entry({

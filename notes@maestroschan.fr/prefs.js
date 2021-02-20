@@ -1,6 +1,6 @@
 // notes@maestroschan.fr/prefs.js
 // GPL v3
-// Copyright 2018-2020 Romain F. T.
+// Copyright 2018-2021 Romain F. T.
 
 const{ GObject, Gtk, Gdk, GdkPixbuf, GLib } = imports.gi;
 const Mainloop = imports.mainloop;
