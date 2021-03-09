@@ -92,32 +92,65 @@ const NotesSettingsWidget = new GObject.Class({
 
 		// Text entry
 		let keybinding_entry = builder.get_object('keybinding_entry');
-		keybinding_entry.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
+		keybinding_entry.set_sensitive(SETTINGS.get_boolean('use-visibility-shortcut'));
 		keybinding_entry.set_tooltip_text(default_kbs_label);
 
 		builder.get_object('default-kbs-help-1').set_label(default_kbs_label);
 		builder.get_object('default-kbs-help-2').set_label(RELOAD_TEXT);
 
-		if (SETTINGS.get_strv('notes-kb-shortcut') != '') {
-			keybinding_entry.text = SETTINGS.get_strv('notes-kb-shortcut')[0];
+		if (SETTINGS.get_strv('notes-visibility-kb-shortcut') != '') {
+			keybinding_entry.text = SETTINGS.get_strv('notes-visibility-kb-shortcut')[0];
 		}
 
 		// "Apply" button
 		let keybinding_button = builder.get_object('keybinding_button');
-		keybinding_button.set_sensitive(SETTINGS.get_boolean('use-shortcut'));
+		keybinding_button.set_sensitive(SETTINGS.get_boolean('use-visibility-shortcut'));
 
 		keybinding_button.connect('clicked', (widget) => {
-			SETTINGS.set_strv('notes-kb-shortcut', [keybinding_entry.text]);
+			SETTINGS.set_strv('notes-visibility-kb-shortcut', [keybinding_entry.text]);
 		});
 
 		// "Enable shortcut" switch
 		let keybinding_switch = builder.get_object('keybinding_switch');
-		keybinding_switch.set_state(SETTINGS.get_boolean('use-shortcut'));
+		keybinding_switch.set_state(SETTINGS.get_boolean('use-visibility-shortcut'));
 
 		keybinding_switch.connect('notify::active', (widget) => {
-			SETTINGS.set_boolean('use-shortcut', widget.active);
+			SETTINGS.set_boolean('use-visibility-shortcut', widget.active);
 			keybinding_entry.sensitive = widget.active;
 			keybinding_button.sensitive = widget.active;
+			this._hide_switch.sensitive = widget.active;
+		});
+
+
+		// Context: %s will be replaced with the default keyboard shortcut
+		let default_kbs_label2 = _("Default value is %s");
+		default_kbs_label2 = default_kbs_label2.replace('%s', "<Super><Alt>j");
+
+		// Text entry
+		let keybinding_entry2 = builder.get_object('keybinding_entry2');
+		keybinding_entry2.set_sensitive(SETTINGS.get_boolean('use-position-shortcut'));
+		keybinding_entry2.set_tooltip_text(default_kbs_label2);
+
+		if (SETTINGS.get_strv('notes-position-kb-shortcut') != '') {
+			keybinding_entry2.text = SETTINGS.get_strv('notes-position-kb-shortcut')[0];
+		}
+
+		// "Apply" button
+		let keybinding_button2 = builder.get_object('keybinding_button2');
+		keybinding_button2.set_sensitive(SETTINGS.get_boolean('use-position-shortcut'));
+
+		keybinding_button2.connect('clicked', (widget) => {
+			SETTINGS.set_strv('notes-position-kb-shortcut', [keybinding_entry2.text]);
+		});
+
+		// "Enable shortcut" switch
+		let keybinding_switch2 = builder.get_object('keybinding_switch2');
+		keybinding_switch2.set_state(SETTINGS.get_boolean('use-position-shortcut'));
+
+		keybinding_switch2.connect('notify::active', (widget) => {
+			SETTINGS.set_boolean('use-position-shortcut', widget.active);
+			keybinding_entry2.sensitive = widget.active;
+			keybinding_button2.sensitive = widget.active;
 			this._hide_switch.sensitive = widget.active;
 		});
 

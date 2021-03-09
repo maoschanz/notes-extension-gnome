@@ -32,12 +32,12 @@
       </description>
     </key>
 
-    <key type="b" name="use-shortcut">
+    <key type="b" name="use-visibility-shortcut">
       <default>false</default>
       <summary>Keyboard shortcut</summary>
       <description>If the keyboard shortcut should be active</description>
     </key>
-    <key name="notes-kb-shortcut" type="as">
+    <key name="notes-visibility-kb-shortcut" type="as">
       <default><![CDATA[['<Super><Alt>n','']]]></default>
       <summary>Keyboard shortcut value</summary>
       <description>Keyboard shortcut which shows or hides notes.</description>
@@ -46,6 +46,17 @@
       <default>false</default>
       <summary>Hide the icon</summary>
       <description>Should be true only if there is shortcut.</description>
+    </key>
+
+    <key type="b" name="use-position-shortcut">
+      <default>false</default>
+      <summary>Keyboard shortcut</summary>
+      <description>If the keyboard shortcut should be active</description>
+    </key>
+    <key name="notes-position-kb-shortcut" type="as">
+      <default><![CDATA[['<Super><Alt>j','']]]></default>
+      <summary>Keyboard shortcut value</summary>
+      <description>Keyboard shortcut which toggles position of notes.</description>
     </key>
 
     <!-- -->

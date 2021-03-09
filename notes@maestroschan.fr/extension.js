@@ -87,21 +87,35 @@ class NotesManager {
 		// notes need to be loaded first, thus doing the actual initilisation
 
 		// Initialisation of the signals connections
-		this._bindShortcut();
+		this._bindVisibilityShortcut();
+		this._bindPositionShortcut();
 		this._connectAllSignals();
 	}
 
-	_bindShortcut () {
-		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
-		if (!this.USE_SHORTCUT) { return; }
+	_bindVisibilityShortcut () {
+		this.USE_VISIBILITY_SHORTCUT = Convenience.getSettings().get_boolean('use-visibility-shortcut');
+		if (this.USE_VISIBILITY_SHORTCUT) { 
+			Main.wm.addKeybinding(
+				'notes-visibility-kb-shortcut',
+				Convenience.getSettings(),
+				Meta.KeyBindingFlags.NONE,
+				Shell.ActionMode.ALL,
+				this._toggleState.bind(this)
+			);
+		}
+	}
 
-		Main.wm.addKeybinding(
-			'notes-kb-shortcut',
-			Convenience.getSettings(),
-			Meta.KeyBindingFlags.NONE,
-			Shell.ActionMode.ALL,
-			this._toggleState.bind(this)
-		);
+	_bindPositionShortcut () {
+		this.USE_POSITION_SHORTCUT = Convenience.getSettings().get_boolean('use-position-shortcut');
+		if (this.USE_POSITION_SHORTCUT) { 
+			Main.wm.addKeybinding(
+				'notes-position-kb-shortcut',
+				Convenience.getSettings(),
+				Meta.KeyBindingFlags.NONE,
+				Shell.ActionMode.ALL,
+				this._togglePosition.bind(this)
+			);
+		}
 	}
 
 	_loadAllNotes () {
@@ -167,7 +181,19 @@ class NotesManager {
 
 	//--------------------------------------------------------------------------
 
+	_togglePosition () {
+		switch (SETTINGS.get_string('layout-position')) {
+			case 'above-all':
+				SETTINGS.set_string('layout-position', 'on-background');
+			break;
+			case 'on-background':
+				SETTINGS.set_string('layout-position', 'above-all');
+			break;
+		}
+	}
+
 	_toggleState () {
+		
 		if(!this._notesLoaded) {
 			this._loadAllNotes();
 		}
@@ -236,12 +262,20 @@ class NotesManager {
 			this._updateIconVisibility.bind(this)
 		);
 		this._settingsSignals['kb-shortcut-1'] = SETTINGS.connect(
-			'changed::use-shortcut',
-			this._updateShortcut.bind(this)
+			'changed::use-visibility-shortcut',
+			this._updateVisibilityShortcut.bind(this)
 		);
 		this._settingsSignals['kb-shortcut-2'] = SETTINGS.connect(
-			'changed::notes-kb-shortcut',
-			this._updateShortcut.bind(this)
+			'changed::notes-visibility-kb-shortcut',
+			this._updateVisibilityShortcut.bind(this)
+		);
+		this._settingsSignals['kb-shortcut-3'] = SETTINGS.connect(
+			'changed::use-position-shortcut',
+			this._updatePositionShortcut.bind(this)
+		);
+		this._settingsSignals['kb-shortcut-4'] = SETTINGS.connect(
+			'changed::notes-position-kb-shortcut',
+			this._updatePositionShortcut.bind(this)
 		);
 		this._settingsSignals['auto-focus'] = SETTINGS.connect(
 			'changed::auto-focus',
@@ -249,11 +283,18 @@ class NotesManager {
 		);
 	}
 
-	_updateShortcut () {
-		if(this.USE_SHORTCUT) {
-			Main.wm.removeKeybinding('notes-kb-shortcut');
+	_updateVisibilityShortcut () {
+		if(this.USE_VISIBILITY_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-visibility-kb-shortcut');
 		}
-		this._bindShortcut();
+		this._bindVisibilityShortcut();
+	}
+
+	_updatePositionShortcut () {
+		if(this.USE_POSITION_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-position-kb-shortcut');
+		}
+		this._bindPositionShortcut();
 	}
 
 	_updateFocusSetting () {
@@ -304,6 +345,8 @@ class NotesManager {
 		SETTINGS.disconnect(this._settingsSignals['hide-icon']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-1']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-2']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-3']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-4']);
 		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
 
 		this._allNotes.forEach(function (n) {
@@ -311,8 +354,11 @@ class NotesManager {
 			n.destroy();
 		});
 
-		if(this.USE_SHORTCUT) {
-			Main.wm.removeKeybinding('notes-kb-shortcut');
+		if(this.USE_VISIBILITY_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-visibility-kb-shortcut');
+		}
+		if(this.USE_POSITION_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-position-kb-shortcut');
 		}
 
 		this.panel_button.destroy();
