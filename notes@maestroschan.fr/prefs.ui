@@ -138,8 +138,8 @@
           <object class="GtkLabel">
             <property name="expand">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">Toggle notes position</property>
-            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes position (toggle between "Above everything" and "On the background")</property>
+            <property name="label" translatable="yes">Toggle notes layer</property>
+            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes layer (toggle between "Above everything" and "On the background")</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
