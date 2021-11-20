@@ -127,7 +127,7 @@ var NoteBox = class NoteBox {
 
 		// Each note sets its own actor where it should be. This isn't a problem
 		// since the related setting isn't directly accessed, but is stored in
-		// 'Extension.Z_POSITION' instead, which prevent inconsistencies.
+		// 'Extension.NOTES_MANAGER' instead, which prevents inconsistencies.
 		this.loadIntoCorrectLayer();
 		this._setNotePosition();
 		this._loadText();
@@ -266,7 +266,7 @@ var NoteBox = class NoteBox {
 	// "Public" methods called by NotesManager ---------------------------------
 
 	loadIntoCorrectLayer () {
-		if (Extension.Z_POSITION == 'above-all') {
+		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
 			Main.layoutManager.addChrome(this.actor, {
 				affectsInputRegion: true
 			});
@@ -276,7 +276,7 @@ var NoteBox = class NoteBox {
 	}
 
 	removeFromCorrectLayer () {
-		if (Extension.Z_POSITION == 'above-all') {
+		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
 		} else {
@@ -286,14 +286,14 @@ var NoteBox = class NoteBox {
 
 	show () {
 		this.actor.visible = true;
-		if (Extension.Z_POSITION == 'above-all') {
+		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
 			Main.layoutManager.trackChrome(this.actor);
 		}
 	}
 
 	onlyHide () {
 		this.actor.visible = false;
-		if (Extension.Z_POSITION == 'above-all') {
+		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
 			Main.layoutManager.untrackChrome(this.actor);
 		}
 	}

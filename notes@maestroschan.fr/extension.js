@@ -24,7 +24,7 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 
 var NOTES_MANAGER;
 var SETTINGS;
-var Z_POSITION;
+var LAYER_SETTING;
 var AUTO_FOCUS;
 
 function init() {
@@ -37,7 +37,7 @@ function init() {
 	} catch (e) {
 		log(e.message);
 	}
-	Z_POSITION = '';
+	LAYER_SETTING = '';
 }
 
 function enable() {
@@ -72,7 +72,7 @@ class NotesManager {
 		this.panel_button.add_child(icon);
 		this.panel_button.connect(
 			'button-press-event',
-			this._toggleState.bind(this)
+			this._onButtonPressed.bind(this)
 		);
 		this._updateIconVisibility();
 		// `0` is the position within the chosen box (here, the `right` one)
@@ -81,39 +81,25 @@ class NotesManager {
 		// Initialisation of the notes themselves
 		this._allNotes = new Array();
 		this._notesAreVisible = false;
-		this._updateLayoutSetting(); // it inits Z_POSITION
+		this._updateLayerSetting(); // it inits LAYER_SETTING
 
 		this._notesLoaded = false; // this will tell the toggleState method that
 		// notes need to be loaded first, thus doing the actual initialisation
 
 		// Initialisation of the signals connections
 		this._bindVisibilityShortcut();
-		this._bindLayerShortcut();
 		this._connectAllSignals();
 	}
 
 	_bindVisibilityShortcut () {
-		this.USE_VISIBILITY_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
-		if (this.USE_VISIBILITY_SHORTCUT) {
+		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
+		if (this.USE_SHORTCUT) {
 			Main.wm.addKeybinding(
 				'notes-kb-shortcut',
 				Convenience.getSettings(),
 				Meta.KeyBindingFlags.NONE,
 				Shell.ActionMode.ALL,
-				this._toggleState.bind(this)
-			);
-		}
-	}
-
-	_bindLayerShortcut () {
-		this.USE_LAYER_SHORTCUT = Convenience.getSettings().get_boolean('use-layer-shortcut');
-		if (this.USE_LAYER_SHORTCUT) { 
-			Main.wm.addKeybinding(
-				'notes-layer-kb-shortcut',
-				Convenience.getSettings(),
-				Meta.KeyBindingFlags.NONE,
-				Shell.ActionMode.ALL,
-				this._toggleLayer.bind(this)
+				this._onButtonPressed.bind(this)
 			);
 		}
 	}
@@ -179,31 +165,11 @@ class NotesManager {
 		return areaIsFree;
 	}
 
+	notesNeedChromeTracking () {
+		return this._layer_id == 'above-all';
+	}
+
 	//--------------------------------------------------------------------------
-
-	_toggleLayer () {
-		if(SETTINGS.get_string('layout-position') === 'above-all') {
-			SETTINGS.set_string('layout-position', 'on-background');
-		} else { // 'on-background':
-			SETTINGS.set_string('layout-position', 'above-all');
-		}
-	}
-
-	_toggleState () {
-		if(!this._notesLoaded) {
-			this._loadAllNotes();
-		}
-
-		// log('_toggleState');
-		if(this._allNotes.length == 0) {
-			this.createNote('', 16);
-			this._showNotes();
-		} else if (this._notesAreVisible) {
-			this._hideNotes();
-		} else {
-			this._showNotes();
-		}
-	}
 
 	_showNotes () {
 		this._notesAreVisible = true;
@@ -239,6 +205,48 @@ class NotesManager {
 		statefile.delete(null); // may not do anything
 	}
 
+	_onButtonPressed () {
+		if(!this._notesLoaded) {
+			this._loadAllNotes();
+		}
+		// log('_onButtonPressed');
+
+		let preventReshowing = false;
+		if(LAYER_SETTING === 'cycle-layers') {
+			this._allNotes.forEach(function (n) {
+				n.removeFromCorrectLayer();
+			});
+
+			// the notes' visibility will be inverted later
+			if(!this._notesAreVisible) {
+				this._layer_id = 'on-background';
+				this._notesAreVisible = false;
+			} else if(this._layer_id === 'on-background') {
+				this._layer_id = 'above-all';
+				this._notesAreVisible = false;
+				preventReshowing = true;
+			} else if(this._layer_id === 'above-all') {
+				this._layer_id = 'above-all';
+				this._notesAreVisible = true;
+			}
+
+			this._allNotes.forEach(function (n) {
+				n.loadIntoCorrectLayer();
+			});
+		}
+
+		if(this._allNotes.length == 0) {
+			this.createNote('', 16);
+			this._showNotes();
+		} else if (this._notesAreVisible) {
+			this._hideNotes();
+		} else if (preventReshowing) {
+			this._notesAreVisible = true;
+		} else {
+			this._showNotes();
+		}
+	}
+
 	//--------------------------------------------------------------------------
 	// Watch the gsettings values and update the extension if they change ------
 
@@ -247,7 +255,7 @@ class NotesManager {
 
 		this._settingsSignals['layout'] = SETTINGS.connect(
 			'changed::layout-position',
-			this._updateLayoutSetting.bind(this)
+			this._updateLayerSetting.bind(this)
 		);
 		this._settingsSignals['bring-back'] = SETTINGS.connect(
 			'changed::ugly-hack',
@@ -265,14 +273,6 @@ class NotesManager {
 			'changed::notes-kb-shortcut',
 			this._updateShortcut.bind(this)
 		);
-		this._settingsSignals['kb-shortcut-3'] = SETTINGS.connect(
-			'changed::use-layer-shortcut',
-			this._updateLayerShortcut.bind(this)
-		);
-		this._settingsSignals['kb-shortcut-4'] = SETTINGS.connect(
-			'changed::notes-layer-kb-shortcut',
-			this._updateLayerShortcut.bind(this)
-		);
 		this._settingsSignals['auto-focus'] = SETTINGS.connect(
 			'changed::auto-focus',
 			this._updateFocusSetting.bind(this)
@@ -280,17 +280,10 @@ class NotesManager {
 	}
 
 	_updateShortcut () {
-		if(this.USE_VISIBILITY_SHORTCUT) {
+		if(this.USE_SHORTCUT) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
 		this._bindVisibilityShortcut();
-	}
-
-	_updateLayerShortcut () {
-		if(this.USE_LAYER_SHORTCUT) {
-			Main.wm.removeKeybinding('notes-layer-kb-shortcut');
-		}
-		this._bindLayerShortcut();
 	}
 
 	_updateFocusSetting () {
@@ -317,12 +310,16 @@ class NotesManager {
 	 * is actually set by the user. Possible values for the layers can be
 	 * 'above-all', 'on-background' or 'cycle-layers'.
 	 */
-	_updateLayoutSetting () {
+	_updateLayerSetting () {
 		this._allNotes.forEach(function (n) {
 			n.removeFromCorrectLayer();
 		});
 
-		Z_POSITION = SETTINGS.get_string('layout-position');
+		LAYER_SETTING = SETTINGS.get_string('layout-position');
+		this._layer_id = (LAYER_SETTING == 'on-background')
+			? 'on-background'
+			: 'above-all'
+		;
 
 		this._allNotes.forEach(function (n) {
 			n.loadIntoCorrectLayer();
@@ -341,8 +338,6 @@ class NotesManager {
 		SETTINGS.disconnect(this._settingsSignals['hide-icon']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-1']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-2']);
-		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-3']);
-		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-4']);
 		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
 
 		this._allNotes.forEach(function (n) {
@@ -350,11 +345,8 @@ class NotesManager {
 			n.destroy();
 		});
 
-		if(this.USE_VISIBILITY_SHORTCUT) {
+		if(this.USE_SHORTCUT) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
-		}
-		if(this.USE_LAYER_SHORTCUT) {
-			Main.wm.removeKeybinding('notes-layer-kb-shortcut');
 		}
 
 		this.panel_button.destroy();

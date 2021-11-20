@@ -50,7 +50,7 @@ const NotesSettingsWidget = new GObject.Class({
 		// Position of the notes (layer)
 		let radioBtn1 = builder.get_object('radio1');
 		let radioBtn2 = builder.get_object('radio2');
-		// let radioBtn3 = builder.get_object('radio3');
+		let radioBtn3 = builder.get_object('radio3');
 		switch (SETTINGS.get_string('layout-position')) {
 			case 'above-all':
 				radioBtn1.set_active(true);
@@ -58,14 +58,14 @@ const NotesSettingsWidget = new GObject.Class({
 			case 'on-background':
 				radioBtn2.set_active(true);
 			break;
-			// case 'cycle-layers':
-			// 	radioBtn3.set_active(true);
-			// break;
+			case 'cycle-layers':
+				radioBtn3.set_active(true);
+			break;
 			default: break;
 		}
 		this._connectRadioBtn('above-all', radioBtn1);
 		this._connectRadioBtn('on-background', radioBtn2);
-		// this._connectRadioBtn('cycle-layers', radioBtn3);
+		this._connectRadioBtn('cycle-layers', radioBtn3);
 
 		//----------------------------------------------------------------------
 
@@ -118,38 +118,6 @@ const NotesSettingsWidget = new GObject.Class({
 			SETTINGS.set_boolean('use-shortcut', widget.active);
 			keybinding_entry.sensitive = widget.active;
 			keybinding_button.sensitive = widget.active;
-			this._hide_switch.sensitive = widget.active;
-		});
-
-		// Context: %s will be replaced with the default keyboard shortcut
-		let default_kbs_label2 = _("Default value is %s");
-		default_kbs_label2 = default_kbs_label2.replace('%s', "<Super><Alt>j");
-
-		// Text entry
-		let keybinding_entry2 = builder.get_object('keybinding_entry2');
-		keybinding_entry2.set_sensitive(SETTINGS.get_boolean('use-layer-shortcut'));
-		keybinding_entry2.set_tooltip_text(default_kbs_label2);
-
-		if (SETTINGS.get_strv('notes-layer-kb-shortcut') != '') {
-			keybinding_entry2.text = SETTINGS.get_strv('notes-layer-kb-shortcut')[0];
-		}
-
-		// "Apply" button
-		let keybinding_button2 = builder.get_object('keybinding_button2');
-		keybinding_button2.set_sensitive(SETTINGS.get_boolean('use-layer-shortcut'));
-
-		keybinding_button2.connect('clicked', (widget) => {
-			SETTINGS.set_strv('notes-layer-kb-shortcut', [keybinding_entry2.text]);
-		});
-
-		// "Enable shortcut" switch
-		let keybinding_switch2 = builder.get_object('keybinding_switch2');
-		keybinding_switch2.set_state(SETTINGS.get_boolean('use-layer-shortcut'));
-
-		keybinding_switch2.connect('notify::active', (widget) => {
-			SETTINGS.set_boolean('use-layer-shortcut', widget.active);
-			keybinding_entry2.sensitive = widget.active;
-			keybinding_button2.sensitive = widget.active;
 			this._hide_switch.sensitive = widget.active;
 		});
 
