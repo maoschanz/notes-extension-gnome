@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-12 01:37+0100\n"
+"POT-Creation-Date: 2021-11-20 12:52+0100\n"
 "PO-Revision-Date: 2019-03-21 00:03+0100\n"
 "Last-Translator: Romain F. T. <rrroschan@gmail.com>\n"
 "Language-Team: French <none>\n"
@@ -43,7 +43,8 @@ msgstr "Couleur personnalisée"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -72,16 +73,12 @@ msgid "Resize"
 msgstr "Redimensionner"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Back"
-msgstr "Retour"
-
-#: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
-msgstr "Confirmer"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
 msgstr "Supprimer cette note?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr "Éditer le titre"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
@@ -118,6 +115,14 @@ msgid "Incompatible with desktop icons"
 msgstr "Incompatible avec les icônes sur le bureau"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr "Alterner entre 3 états"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr "Au 1er plan, sur le bureau, masquer"
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
 msgstr "Focus automatique"
 
@@ -126,7 +131,7 @@ msgid "Use a keyboard shortcut"
 msgstr "Utiliser un raccourci clavier"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Use a keyboard shortcut to toggle notes"
+msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr "Utiliser un raccourci clavier pour afficher/masquer les notes"
 
 #: notes@maestroschan.fr/prefs.ui
@@ -333,3 +338,4 @@ msgstr "Les touches modificatrices doivent être entre chevrons"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Ne pas utiliser un raccourci clavier qui existe déjà."
+

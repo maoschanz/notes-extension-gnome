@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-20 03:35+0100\n"
+"POT-Creation-Date: 2021-11-20 12:52+0100\n"
 "PO-Revision-Date: 2020-11-14 14:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
@@ -42,7 +42,8 @@ msgstr "Colore personalizzato"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
 msgid "Apply"
 msgstr "Applica"
 
@@ -71,16 +72,12 @@ msgid "Resize"
 msgstr "Ridimensiona"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Back"
-msgstr "Indietro"
-
-#: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
-msgstr "Conferma"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
 msgstr "Eliminare questa nota?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
@@ -117,6 +114,14 @@ msgid "Incompatible with desktop icons"
 msgstr "Incompatibile con le icone del desktop"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
 msgstr "Messa a fuoco automatica"
 
@@ -125,7 +130,9 @@ msgid "Use a keyboard shortcut"
 msgstr "Usa una scorciatoia da tastiera"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Use a keyboard shortcut to toggle notes"
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr ""
 "Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
 
@@ -332,3 +339,9 @@ msgstr "I tasti di modifica devono essere compresi tra chevrons"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Non utilizzare una scorciatoia da tastiera già esistente."
+
+#~ msgid "Back"
+#~ msgstr "Indietro"
+
+#~ msgid "Confirm"
+#~ msgstr "Conferma"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-20 03:36+0100\n"
+"POT-Creation-Date: 2021-11-20 12:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,8 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
 msgid "Apply"
 msgstr ""
 
@@ -70,15 +71,11 @@ msgid "Resize"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Back"
-msgstr ""
-
-#: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
-msgstr ""
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
+msgstr ""
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
@@ -116,6 +113,14 @@ msgid "Incompatible with desktop icons"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
 msgstr ""
 
@@ -124,7 +129,7 @@ msgid "Use a keyboard shortcut"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Use a keyboard shortcut to toggle notes"
+msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui

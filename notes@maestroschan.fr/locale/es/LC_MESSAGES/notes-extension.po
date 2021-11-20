@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-12 01:37+0100\n"
+"POT-Creation-Date: 2021-11-20 12:52+0100\n"
 "PO-Revision-Date: 2020-09-05 16:57+0200\n"
 "Last-Translator: Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -42,7 +42,8 @@ msgstr "Personalizar color"
 msgid "Settings"
 msgstr "Configuración"
 
-#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
 msgid "Apply"
 msgstr "Aplicar"
 
@@ -71,16 +72,12 @@ msgid "Resize"
 msgstr "Modificar tamaño"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Back"
-msgstr "Atrás"
-
-#: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
-msgstr "Aceptar"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
 msgstr "¿Quieres eliminar esta nota?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
@@ -117,6 +114,14 @@ msgid "Incompatible with desktop icons"
 msgstr "Incompatible con los iconos del escritorio"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
 msgstr "Focus automático"
 
@@ -125,7 +130,9 @@ msgid "Use a keyboard shortcut"
 msgstr "Usar un atajo de teclado"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Use a keyboard shortcut to toggle notes"
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr "Usar un atajo de teclado para alternar notas"
 
 #: notes@maestroschan.fr/prefs.ui
@@ -331,3 +338,9 @@ msgstr ""
 #| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Usar un atajo de teclado para alternar notas"
+
+#~ msgid "Back"
+#~ msgstr "Atrás"
+
+#~ msgid "Confirm"
+#~ msgstr "Aceptar"

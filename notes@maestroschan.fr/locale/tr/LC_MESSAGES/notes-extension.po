@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-12 01:37+0100\n"
+"POT-Creation-Date: 2021-11-20 12:52+0100\n"
 "PO-Revision-Date: 2020-10-29 17:42+0300\n"
 "Last-Translator: Muha Aliss <muhaaliss@pm.me>\n"
 "Language-Team: Türkçe\n"
@@ -43,7 +43,8 @@ msgstr "Özel renk"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
 msgid "Apply"
 msgstr "Uygula"
 
@@ -72,16 +73,12 @@ msgid "Resize"
 msgstr "Boyutlandır"
 
 #: notes@maestroschan.fr/noteBox.js
-msgid "Back"
-msgstr "Geri"
-
-#: notes@maestroschan.fr/noteBox.js
-msgid "Confirm"
-msgstr "Onayla"
-
-#: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
 msgstr "Not silinsin mi ?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
@@ -118,6 +115,14 @@ msgid "Incompatible with desktop icons"
 msgstr "Masaüstü simgeleriyle uyumsuz"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
 msgstr "Otomatik odaklama"
 
@@ -126,7 +131,9 @@ msgid "Use a keyboard shortcut"
 msgstr "Klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Use a keyboard shortcut to toggle notes"
+#, fuzzy
+#| msgid "Use a keyboard shortcut to toggle notes"
+msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr "Notları gösterip/gizlemek için klavye kısayolu kullan"
 
 #: notes@maestroschan.fr/prefs.ui
@@ -327,3 +334,9 @@ msgstr ""
 #| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Notları gösterip/gizlemek için klavye kısayolu kullan"
+
+#~ msgid "Back"
+#~ msgstr "Geri"
+
+#~ msgid "Confirm"
+#~ msgstr "Onayla"
