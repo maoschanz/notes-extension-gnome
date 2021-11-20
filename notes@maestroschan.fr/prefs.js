@@ -121,7 +121,6 @@ const NotesSettingsWidget = new GObject.Class({
 			this._hide_switch.sensitive = widget.active;
 		});
 
-
 		// Context: %s will be replaced with the default keyboard shortcut
 		let default_kbs_label2 = _("Default value is %s");
 		default_kbs_label2 = default_kbs_label2.replace('%s', "<Super><Alt>j");

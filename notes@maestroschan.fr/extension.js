@@ -87,14 +87,14 @@ class NotesManager {
 		// notes need to be loaded first, thus doing the actual initilisation
 
 		// Initialisation of the signals connections
-		this._bindShortcut();
+		this._bindVisibilityShortcut();
 		this._bindLayerShortcut();
 		this._connectAllSignals();
 	}
 
-	_bindShortcut () {
-		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
-		if (this.USE_SHORTCUT) { 
+	_bindVisibilityShortcut () {
+		this.USE_VISIBILITY_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
+		if (this.USE_VISIBILITY_SHORTCUT) {
 			Main.wm.addKeybinding(
 				'notes-kb-shortcut',
 				Convenience.getSettings(),
@@ -182,18 +182,14 @@ class NotesManager {
 	//--------------------------------------------------------------------------
 
 	_toggleLayer () {
-		switch (SETTINGS.get_string('layout-position')) {
-			case 'above-all':
-				SETTINGS.set_string('layout-position', 'on-background');
-			break;
-			case 'on-background':
-				SETTINGS.set_string('layout-position', 'above-all');
-			break;
+		if(SETTINGS.get_string('layout-position') === 'above-all') {
+			SETTINGS.set_string('layout-position', 'on-background');
+		} else { // 'on-background':
+			SETTINGS.set_string('layout-position', 'above-all');
 		}
 	}
 
 	_toggleState () {
-		
 		if(!this._notesLoaded) {
 			this._loadAllNotes();
 		}
@@ -284,10 +280,10 @@ class NotesManager {
 	}
 
 	_updateShortcut () {
-		if(this.USE_SHORTCUT) {
+		if(this.USE_VISIBILITY_SHORTCUT) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
-		this._bindShortcut();
+		this._bindVisibilityShortcut();
 	}
 
 	_updateLayerShortcut () {
@@ -354,7 +350,7 @@ class NotesManager {
 			n.destroy();
 		});
 
-		if(this.USE_SHORTCUT) {
+		if(this.USE_VISIBILITY_SHORTCUT) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
 		if(this.USE_LAYER_SHORTCUT) {
