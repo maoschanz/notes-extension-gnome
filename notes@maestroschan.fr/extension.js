@@ -84,7 +84,7 @@ class NotesManager {
 		this._updateLayoutSetting(); // it inits Z_POSITION
 
 		this._notesLoaded = false; // this will tell the toggleState method that
-		// notes need to be loaded first, thus doing the actual initilisation
+		// notes need to be loaded first, thus doing the actual initialisation
 
 		// Initialisation of the signals connections
 		this._bindVisibilityShortcut();
