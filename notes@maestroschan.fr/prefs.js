@@ -121,6 +121,39 @@ const NotesSettingsWidget = new GObject.Class({
 			this._hide_switch.sensitive = widget.active;
 		});
 
+
+		// Context: %s will be replaced with the default keyboard shortcut
+		let default_kbs_label2 = _("Default value is %s");
+		default_kbs_label2 = default_kbs_label2.replace('%s', "<Super><Alt>j");
+
+		// Text entry
+		let keybinding_entry2 = builder.get_object('keybinding_entry2');
+		keybinding_entry2.set_sensitive(SETTINGS.get_boolean('use-layer-shortcut'));
+		keybinding_entry2.set_tooltip_text(default_kbs_label2);
+
+		if (SETTINGS.get_strv('notes-layer-kb-shortcut') != '') {
+			keybinding_entry2.text = SETTINGS.get_strv('notes-layer-kb-shortcut')[0];
+		}
+
+		// "Apply" button
+		let keybinding_button2 = builder.get_object('keybinding_button2');
+		keybinding_button2.set_sensitive(SETTINGS.get_boolean('use-layer-shortcut'));
+
+		keybinding_button2.connect('clicked', (widget) => {
+			SETTINGS.set_strv('notes-layer-kb-shortcut', [keybinding_entry2.text]);
+		});
+
+		// "Enable shortcut" switch
+		let keybinding_switch2 = builder.get_object('keybinding_switch2');
+		keybinding_switch2.set_state(SETTINGS.get_boolean('use-layer-shortcut'));
+
+		keybinding_switch2.connect('notify::active', (widget) => {
+			SETTINGS.set_boolean('use-layer-shortcut', widget.active);
+			keybinding_entry2.sensitive = widget.active;
+			keybinding_button2.sensitive = widget.active;
+			this._hide_switch.sensitive = widget.active;
+		});
+
 		//----------------------------------------------------------------------
 
 		// The default color of the very first note

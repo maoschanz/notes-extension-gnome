@@ -88,20 +88,34 @@ class NotesManager {
 
 		// Initialisation of the signals connections
 		this._bindShortcut();
+		this._bindLayerShortcut();
 		this._connectAllSignals();
 	}
 
 	_bindShortcut () {
 		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
-		if (!this.USE_SHORTCUT) { return; }
+		if (this.USE_SHORTCUT) { 
+			Main.wm.addKeybinding(
+				'notes-kb-shortcut',
+				Convenience.getSettings(),
+				Meta.KeyBindingFlags.NONE,
+				Shell.ActionMode.ALL,
+				this._toggleState.bind(this)
+			);
+		}
+	}
 
-		Main.wm.addKeybinding(
-			'notes-kb-shortcut',
-			Convenience.getSettings(),
-			Meta.KeyBindingFlags.NONE,
-			Shell.ActionMode.ALL,
-			this._toggleState.bind(this)
-		);
+	_bindLayerShortcut () {
+		this.USE_LAYER_SHORTCUT = Convenience.getSettings().get_boolean('use-layer-shortcut');
+		if (this.USE_LAYER_SHORTCUT) { 
+			Main.wm.addKeybinding(
+				'notes-layer-kb-shortcut',
+				Convenience.getSettings(),
+				Meta.KeyBindingFlags.NONE,
+				Shell.ActionMode.ALL,
+				this._toggleLayer.bind(this)
+			);
+		}
 	}
 
 	_loadAllNotes () {
@@ -167,7 +181,19 @@ class NotesManager {
 
 	//--------------------------------------------------------------------------
 
+	_toggleLayer () {
+		switch (SETTINGS.get_string('layout-position')) {
+			case 'above-all':
+				SETTINGS.set_string('layout-position', 'on-background');
+			break;
+			case 'on-background':
+				SETTINGS.set_string('layout-position', 'above-all');
+			break;
+		}
+	}
+
 	_toggleState () {
+		
 		if(!this._notesLoaded) {
 			this._loadAllNotes();
 		}
@@ -243,6 +269,14 @@ class NotesManager {
 			'changed::notes-kb-shortcut',
 			this._updateShortcut.bind(this)
 		);
+		this._settingsSignals['kb-shortcut-3'] = SETTINGS.connect(
+			'changed::use-layer-shortcut',
+			this._updateLayerShortcut.bind(this)
+		);
+		this._settingsSignals['kb-shortcut-4'] = SETTINGS.connect(
+			'changed::notes-layer-kb-shortcut',
+			this._updateLayerShortcut.bind(this)
+		);
 		this._settingsSignals['auto-focus'] = SETTINGS.connect(
 			'changed::auto-focus',
 			this._updateFocusSetting.bind(this)
@@ -254,6 +288,13 @@ class NotesManager {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
 		this._bindShortcut();
+	}
+
+	_updateLayerShortcut () {
+		if(this.USE_LAYER_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-layer-kb-shortcut');
+		}
+		this._bindLayerShortcut();
 	}
 
 	_updateFocusSetting () {
@@ -304,6 +345,8 @@ class NotesManager {
 		SETTINGS.disconnect(this._settingsSignals['hide-icon']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-1']);
 		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-2']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-3']);
+		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-4']);
 		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
 
 		this._allNotes.forEach(function (n) {
@@ -313,6 +356,9 @@ class NotesManager {
 
 		if(this.USE_SHORTCUT) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
+		}
+		if(this.USE_LAYER_SHORTCUT) {
+			Main.wm.removeKeybinding('notes-layer-kb-shortcut');
 		}
 
 		this.panel_button.destroy();

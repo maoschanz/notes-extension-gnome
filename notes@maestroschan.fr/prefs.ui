@@ -129,7 +129,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">15</property>
+            <property name="top-attach">14</property>
             <property name="width">2</property>
           </packing>
         </child>
@@ -138,25 +138,94 @@
           <object class="GtkLabel">
             <property name="expand">False</property>
             <property name="halign">end</property>
-            <property name="label" translatable="yes">Use a keyboard shortcut</property>
-            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes</property>
+            <property name="label" translatable="yes">Toggle notes layer</property>
+            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes layer (toggle between "Above everything" and "On the background")</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">15</property>
+          </packing>
+        </child>
+        <child>
+              <object class="GtkBox">
+                <property name="expand">False</property>
+                <property name="halign">end</property>
+                <child>
+                  <object class="GtkEntry" id="keybinding_entry2" />
+                </child>
+                <child>
+                  <object class="GtkMenuButton">
+                    <property name="tooltip-text" translatable="yes">Help</property>
+                    <property name="popover">help-popover-1</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">2</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">help-faq-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style><class name="linked"/></style>
+              </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">16</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="can_focus">False</property>
+            <property name="halign">fill</property>
+            <child>
+              <object class="GtkButton" id="keybinding_button2">
+                <property name="expand">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Apply</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+                <property name="pack_type">start</property>
+              </packing>
+            </child> 
+            <child>
+              <object class="GtkSwitch" id="keybinding_switch2">
+                <property name="expand">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+              <property name="left-attach">1</property>
+              <property name="top-attach">16</property>
+          </packing>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="expand">False</property>
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Toggle notes visibility</property>
+            <property name="tooltip_text" translatable="yes">Use a keyboard shortcut to toggle notes visibility (toggle between "Show" and "Hide")</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">17</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkSwitch" id="keybinding_switch">
-            <property name="expand">False</property>
-            <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">17</property>
-          </packing>
-        </child>
-
         <child>
               <object class="GtkBox">
                 <property name="expand">False</property>
@@ -193,17 +262,37 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="keybinding_button">
-            <property name="expand">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Apply</property>
+          <object class="GtkBox">
+            <property name="can_focus">False</property>
+            <property name="halign">fill</property>
+            <child>
+              <object class="GtkButton" id="keybinding_button">
+                <property name="expand">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Apply</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+                <property name="pack_type">start</property>
+              </packing>
+            </child> 
+            <child>
+              <object class="GtkSwitch" id="keybinding_switch">
+                <property name="expand">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
           </object>
           <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">18</property>
+              <property name="left-attach">1</property>
+              <property name="top-attach">18</property>
           </packing>
         </child>
-
         <child>
           <object class="GtkLabel">
             <property name="halign">end</property>

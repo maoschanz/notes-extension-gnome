@@ -48,6 +48,17 @@
       <description>Should be true only if there is shortcut.</description>
     </key>
 
+    <key type="b" name="use-layer-shortcut">
+      <default>false</default>
+      <summary>Keyboard shortcut</summary>
+      <description>If the keyboard shortcut should be active</description>
+    </key>
+    <key name="notes-layer-kb-shortcut" type="as">
+      <default><![CDATA[['<Super><Alt>j','']]]></default>
+      <summary>Keyboard shortcut value</summary>
+      <description>Keyboard shortcut which toggles layer of notes.</description>
+    </key>
+
     <!-- -->
 
     <key type="b" name="ugly-hack">
