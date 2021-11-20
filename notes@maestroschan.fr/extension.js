@@ -94,16 +94,16 @@ class NotesManager {
 		// notes need to be loaded first, thus doing the actual initialisation
 
 		// Initialisation of the signals connections
-		this._bindVisibilityShortcut();
+		this._bindKeyboardShortcut();
 		this._connectAllSignals();
 	}
 
-	_bindVisibilityShortcut () {
-		this.USE_SHORTCUT = ExtensionUtils.getSettings().get_boolean('use-shortcut');
-		if (this.USE_SHORTCUT) {
+	_bindKeyboardShortcut () {
+		this._useKeyboardShortcut = SETTINGS.get_boolean('use-shortcut');
+		if (this._useKeyboardShortcut) {
 			Main.wm.addKeybinding(
 				'notes-kb-shortcut',
-				ExtensionUtils.getSettings(),
+				SETTINGS,
 				Meta.KeyBindingFlags.NONE,
 				Shell.ActionMode.ALL,
 				this._onButtonPressed.bind(this)
@@ -173,7 +173,7 @@ class NotesManager {
 	}
 
 	notesNeedChromeTracking () {
-		return this._layer_id == 'above-all';
+		return this._layerId == 'above-all';
 	}
 
 	//--------------------------------------------------------------------------
@@ -188,6 +188,7 @@ class NotesManager {
 	_hideNotes () {
 		this._onlyHideNotes();
 		this._timeout_id = Mainloop.timeout_add(10, () => {
+			this._timeout_id = null;
 			// saving to the disk is slightly delayed to give the illusion that
 			// the extension doesn't freeze the system
 			this._allNotes.forEach(function (n) {
@@ -226,14 +227,14 @@ class NotesManager {
 
 			// the notes' visibility will be inverted later
 			if(!this._notesAreVisible) {
-				this._layer_id = 'on-background';
+				this._layerId = 'on-background';
 				this._notesAreVisible = false;
-			} else if(this._layer_id === 'on-background') {
-				this._layer_id = 'above-all';
+			} else if(this._layerId === 'on-background') {
+				this._layerId = 'above-all';
 				this._notesAreVisible = false;
 				preventReshowing = true;
-			} else if(this._layer_id === 'above-all') {
-				this._layer_id = 'above-all';
+			} else if(this._layerId === 'above-all') {
+				this._layerId = 'above-all';
 				this._notesAreVisible = true;
 			}
 
@@ -287,10 +288,10 @@ class NotesManager {
 	}
 
 	_updateShortcut () {
-		if(this.USE_SHORTCUT) {
+		if(this._useKeyboardShortcut) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
-		this._bindVisibilityShortcut();
+		this._bindKeyboardShortcut();
 	}
 
 	_updateFocusSetting () {
@@ -302,7 +303,7 @@ class NotesManager {
 	}
 
 	_updateIconVisibility () {
-		let now_visible = !ExtensionUtils.getSettings().get_boolean('hide-icon');
+		let now_visible = !SETTINGS.get_boolean('hide-icon');
 		this.panel_button.visible = now_visible;
 	}
 
@@ -323,7 +324,7 @@ class NotesManager {
 		});
 
 		LAYER_SETTING = SETTINGS.get_string('layout-position');
-		this._layer_id = (LAYER_SETTING == 'on-background')
+		this._layerId = (LAYER_SETTING == 'on-background')
 			? 'on-background'
 			: 'above-all'
 		;
@@ -352,15 +353,16 @@ class NotesManager {
 			n.destroy();
 		});
 
-		if(this.USE_SHORTCUT) {
+		if(this._useKeyboardShortcut) {
 			Main.wm.removeKeybinding('notes-kb-shortcut');
 		}
 
 		this.panel_button.destroy();
 
-		Mainloop.source_remove(this._timeout_id);
-		// "Source ID xxxx was not found when attempting to remove it" but ok
-		this._timeout_id = null;
+		if (this._timeout_id) {
+			Mainloop.source_remove(this._timeout_id);
+			this._timeout_id = null;
+		}
 	}
 };
 

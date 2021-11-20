@@ -6,7 +6,7 @@ A GNOME Shell extension providing customizable sticky notes.
 
 ### Compatible versions
 
-Version 20 has been released the 20/02/2021
+Version 22 has been released the 20/11/2021
 
 | GNOME Shell version | Extension version 22 | 20  | 19  | 18  | 17  |
 |---------------------|----------------------|-----|-----|-----|-----|
