@@ -9,7 +9,6 @@ const GrabHelper = imports.ui.grabHelper;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 
 const Menus = Me.imports.menus;
 const Extension = Me.imports.extension;
@@ -219,6 +218,9 @@ var NoteBox = class NoteBox {
 		if(lines.length > 10) {
 			noteText = lines[0] + "\n" + lines[1] + "\n" + lines[2] + "\n[...]\n";
 			noteText += lines[lines.length - 2] + "\n" + lines[lines.length - 1];
+		}
+		if(noteText === "") {
+			noteText = "[" + _("Empty note") + "]";
 		}
 
 		let description_label = new St.Label({

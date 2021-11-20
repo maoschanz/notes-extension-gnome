@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-20 12:53+0100\n"
+"POT-Creation-Date: 2021-11-20 15:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,10 @@ msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
+msgstr ""
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Empty note"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
