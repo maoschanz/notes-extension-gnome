@@ -10,7 +10,6 @@ const Mainloop = imports.mainloop;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 
 const NoteBox = Me.imports.noteBox;
 
@@ -28,7 +27,7 @@ var LAYER_SETTING;
 var AUTO_FOCUS;
 
 function init() {
-	Convenience.initTranslations();
+	ExtensionUtils.initTranslations();
 	try {
 		let a = Gio.file_new_for_path(PATH);
 		if (!a.query_exists(null)) {
@@ -41,7 +40,7 @@ function init() {
 }
 
 function enable() {
-	SETTINGS = Convenience.getSettings();
+	SETTINGS = ExtensionUtils.getSettings();
 	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus'); // XXX crado
 
 	NOTES_MANAGER = new NotesManager();
@@ -49,6 +48,14 @@ function enable() {
 
 function disable() {
 	NOTES_MANAGER.destroy();
+
+	if (NOTES_MANAGER) {
+		NOTES_MANAGER = null;
+	}
+
+	if (SETTINGS) {
+		SETTINGS = null;
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -92,11 +99,11 @@ class NotesManager {
 	}
 
 	_bindVisibilityShortcut () {
-		this.USE_SHORTCUT = Convenience.getSettings().get_boolean('use-shortcut');
+		this.USE_SHORTCUT = ExtensionUtils.getSettings().get_boolean('use-shortcut');
 		if (this.USE_SHORTCUT) {
 			Main.wm.addKeybinding(
 				'notes-kb-shortcut',
-				Convenience.getSettings(),
+				ExtensionUtils.getSettings(),
 				Meta.KeyBindingFlags.NONE,
 				Shell.ActionMode.ALL,
 				this._onButtonPressed.bind(this)
@@ -180,13 +187,13 @@ class NotesManager {
 
 	_hideNotes () {
 		this._onlyHideNotes();
-		let timeout_id = Mainloop.timeout_add(10, () => {
+		this._timeout_id = Mainloop.timeout_add(10, () => {
 			// saving to the disk is slightly delayed to give the illusion that
 			// the extension doesn't freeze the system
 			this._allNotes.forEach(function (n) {
 				n.onlySave(false);
 			});
-			Mainloop.source_remove(timeout_id);
+			return GLib.SOURCE_REMOVE;
 		});
 	}
 
@@ -295,7 +302,7 @@ class NotesManager {
 	}
 
 	_updateIconVisibility () {
-		let now_visible = !Convenience.getSettings().get_boolean('hide-icon');
+		let now_visible = !ExtensionUtils.getSettings().get_boolean('hide-icon');
 		this.panel_button.visible = now_visible;
 	}
 
@@ -350,6 +357,10 @@ class NotesManager {
 		}
 
 		this.panel_button.destroy();
+
+		Mainloop.source_remove(this._timeout_id);
+		// "Source ID xxxx was not found when attempting to remove it" but ok
+		this._timeout_id = null;
 	}
 };
 

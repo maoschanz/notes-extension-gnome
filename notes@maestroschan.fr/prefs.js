@@ -10,13 +10,12 @@ const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 
 function init() {
-	Convenience.initTranslations();
+	ExtensionUtils.initTranslations();
 }
 
-let SETTINGS = Convenience.getSettings();
+let SETTINGS = ExtensionUtils.getSettings();
 
 //------------------------------------------------------------------------------
 

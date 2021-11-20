@@ -15,4 +15,8 @@ zip -r ../notes@maestroschan.fr.zip schemas
 zip -r ../notes@maestroschan.fr.zip locale
 zip -r ../notes@maestroschan.fr.zip screenshots
 
+shopt -s globstar
+
+zip -d ../notes@maestroschan.fr.zip **/*.pot
+zip -d ../notes@maestroschan.fr.zip **/*.po
 
