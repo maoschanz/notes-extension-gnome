@@ -213,10 +213,18 @@ var NoteBox = class NoteBox {
 	}
 
 	_openDeleteDialog () {
+		let noteText = this.noteEntry.get_text();
+		// The text has to be truncated to avoid issues with long notes
+		let lines = noteText.split("\n")
+		if(lines.length > 10) {
+			noteText = lines[0] + "\n" + lines[1] + "\n" + lines[2] + "\n[...]\n";
+			noteText += lines[lines.length - 2] + "\n" + lines[lines.length - 1];
+		}
+
 		let description_label = new St.Label({
 			style: 'padding-top: 16px;',
 			x_align: Clutter.ActorAlign.CENTER,
-			text: "todo texte tronqué de la note",
+			text: noteText,
 		});
 
 		let dialog = new Dialog.CustomModalDialog(
@@ -229,7 +237,7 @@ var NoteBox = class NoteBox {
 	}
 
 	openEditTitleDialog () {
-		let title_entry = new St.Entry({
+		let titleEntry = new St.Entry({
 			can_focus: true,
 			track_hover: true,
 			x_expand: true,
@@ -238,7 +246,7 @@ var NoteBox = class NoteBox {
 
 		let dialog = new Dialog.CustomModalDialog(
 			_("Edit title"),
-			title_entry,
+			titleEntry,
 			_("Apply"),
 			this._applyTitleChange.bind(this)
 		);
@@ -290,7 +298,7 @@ var NoteBox = class NoteBox {
 		}
 	}
 
-	onlySave (withMetadata) {
+	onlySave (withMetadata=true) {
 		if(withMetadata) {
 			this._saveState();
 		}
@@ -317,7 +325,7 @@ var NoteBox = class NoteBox {
 	_applyTitleChange () {
 		// TODO
 		// ...
-		this.onlySave(true);
+		this.onlySave();
 	}
 
 	_applyActorStyle () {
@@ -360,7 +368,7 @@ var NoteBox = class NoteBox {
 
 	_redraw () {
 		this.actor.get_parent().set_child_above_sibling(this.actor, null);
-		this.onlySave(true);
+		this.onlySave();
 	}
 
 	//--------------------------------------------------------------------------
@@ -444,7 +452,7 @@ var NoteBox = class NoteBox {
 	_onRelease (actor, event) {
 		this._isResizing = false;
 		this._isMoving = false;
-		this.onlySave(true);
+		this.onlySave();
 	}
 
 	//--------------------------------------------------------------------------
@@ -455,7 +463,7 @@ var NoteBox = class NoteBox {
 			this._fontSize += delta;
 			this._applyNoteStyle();
 		}
-		this.onlySave(true);
+		this.onlySave();
 	}
 
 	/*
@@ -464,7 +472,7 @@ var NoteBox = class NoteBox {
 	 */
 	applyColorAndSave (r, g, b) {
 		this._applyColor(r, g, b)
-		this.onlySave(true);
+		this.onlySave();
 	}
 
 	//--------------------------------------------------------------------------

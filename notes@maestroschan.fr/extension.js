@@ -144,7 +144,7 @@ class NotesManager {
 		if (deletedNoteId < this._allNotes.length) {
 			this._allNotes[deletedNoteId] = lastNote;
 			lastNote.id = deletedNoteId;
-			this._allNotes[deletedNoteId].onlySave(true);
+			this._allNotes[deletedNoteId].onlySave();
 		}
 		this._deleteNoteFiles(this._allNotes.length);
 	}
