@@ -1,22 +1,24 @@
 #!/bin/bash
 
+EXT_ID=notes@maestroschan.fr
+
 ./update-and-compile-translations.sh --all
 
-cd notes@maestroschan.fr
+cd $EXT_ID
 
 glib-compile-schemas ./schemas
 
-zip ../notes@maestroschan.fr.zip *.ui
-zip ../notes@maestroschan.fr.zip *.js
-zip ../notes@maestroschan.fr.zip *.json
-zip ../notes@maestroschan.fr.zip *.css
+zip ../$EXT_ID.zip *.ui
+zip ../$EXT_ID.zip *.js
+zip ../$EXT_ID.zip *.json
+zip ../$EXT_ID.zip *.css
 
-zip -r ../notes@maestroschan.fr.zip schemas
-zip -r ../notes@maestroschan.fr.zip locale
-zip -r ../notes@maestroschan.fr.zip screenshots
+zip -r ../$EXT_ID.zip schemas
+zip -r ../$EXT_ID.zip locale
+zip -r ../$EXT_ID.zip screenshots
 
 shopt -s globstar
 
-zip -d ../notes@maestroschan.fr.zip **/*.pot
-zip -d ../notes@maestroschan.fr.zip **/*.po
+zip -d ../$EXT_ID.zip **/*.pot
+zip -d ../$EXT_ID.zip **/*.po
 
