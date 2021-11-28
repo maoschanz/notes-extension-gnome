@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-20 15:01+0100\n"
-"PO-Revision-Date: 2020-11-14 14:42+0100\n"
+"PO-Revision-Date: 2021-11-28 18:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -73,7 +73,7 @@ msgstr "Ridimensiona"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
-msgstr ""
+msgstr "Nota vuota"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
@@ -81,7 +81,7 @@ msgstr "Eliminare questa nota?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Edit title"
-msgstr ""
+msgstr "Modifica titolo"
 
 #: notes@maestroschan.fr/prefs.js
 msgid "Modifications will be effective after reloading the extension."
@@ -119,11 +119,11 @@ msgstr "Incompatibile con le icone del desktop"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Cycle through 3 states"
-msgstr ""
+msgstr "Passa attraverso 3 stati"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Send to background, send to foreground, hide"
-msgstr ""
+msgstr "Invia sullo sfondo, invia in primo piano, nascondi"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Automatic focus"
@@ -134,11 +134,10 @@ msgid "Use a keyboard shortcut"
 msgstr "Usa una scorciatoia da tastiera"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 #| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Use a keyboard shortcut to toggle notes visibility"
 msgstr ""
-"Utilizza una scorciatoia da tastiera per attivare o disattivare le note"
+"Usa una scorciatoia da tastiera per attivare o disattivare la visibilità delle note"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Help"
