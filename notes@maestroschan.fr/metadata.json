@@ -6,8 +6,6 @@
 	"shell-version": [
 		"41",
 		"40",
-		"3.36",
-		"3.38"
 	],
 	"url": "https://github.com/maoschanz/notes-extension-gnome",
 	"uuid": "notes@maestroschan.fr",
