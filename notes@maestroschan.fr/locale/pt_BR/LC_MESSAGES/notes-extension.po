@@ -1,0 +1,333 @@
+# Brazilian Portuguese translations for Sticky Notes Extension package.
+# Copyright (C) 2022 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Clóvis Fabrício Costa <github.nosklo@0sg.net>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-20 15:04+0100\n"
+"PO-Revision-Date: 2022-01-13 11:03-0300\n"
+"Last-Translator: Clóvis Fabrício Costa <github.nosklo@0sg.net>\n"
+"Language-Team: Brazillian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Show notes"
+msgstr "Mostrar notas"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Notes extension error: failed to load a note"
+msgstr "Erro na extensão: Falhou ao carregar nota"
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Notas"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr "Reiniciar a extensão para aplicar mudanças"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Custom color"
+msgstr "Cor customizada"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+msgid "Settings"
+msgstr "Configurações"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
+msgid "Apply"
+msgstr "Aplicar"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Font size"
+msgstr "Tamanho da fonte"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Type here…"
+msgstr "Digite aqui..."
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "New"
+msgstr "Nova"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete"
+msgstr "Deletar"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Note options"
+msgstr "Opções de nota"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Resize"
+msgstr "Redimensionar"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Empty note"
+msgstr "Nota vazia"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Deletar esta nota?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr "Editar título"
+
+#: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr "Modificações terão efeito após reiniciar a extensão."
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Default value is %s"
+msgstr "Valor padrão é %s"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Version %s"
+msgstr "Versão %s"
+
+#: notes@maestroschan.fr/prefs.js
+msgid "Report bugs or ideas"
+msgstr "Relatar bugs ou idéias"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Position of notes"
+msgstr "Posição das notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Above everything"
+msgstr "Acima de tudo"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "On the background"
+msgstr "No fundo"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Incompatible with desktop icons"
+msgstr "Incompatível com ícones da área de trabalho"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr "Ciclo por 3 estágios"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr "Enviar para fundo, enviar para frente, esconder"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Automatic focus"
+msgstr "Foco automático"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut"
+msgstr "Usar um atalho do teclado"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut to toggle notes visibility"
+msgstr "Usa um atalho do teclado para alternar a visibilidade das notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Ajuda"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Hide the icon"
+msgstr "Esconder o ícone"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "First note's color"
+msgstr "Cor da primeira nota"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr "As notas criadas posteriormente vão usar a cor de origem"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
+msgstr ""
+"<b>Mostrar/esconder todas notas:</b> clique no ícone na barra superior do "
+"GNOME Shell."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Create a note:</b> click on the \"+\" button at the left of a note "
+"header, it will create a new note, with the same color and the same font "
+"size as the note you clicked on."
+msgstr ""
+"<b>Criar uma nota:</b> clique no botão \"+\" à esquerda de um cabeçalho de "
+"nota, uma nova nota será criada, com a mesma cor e o mesmo tamanho de fonte "
+"que a nota que você clicou."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Move a note:</b> drag the blank space in the center of the note header."
+msgstr ""
+"<b>Mover uma nota</b> arraste o espaço em branco no meio do cabeçalho da "
+"nota."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Resize a note:</b> drag the resize button at the right of the note header."
+msgstr ""
+"<b>Redimensionar uma nota:</b> arraste o botão de redimensionamento à "
+"direita do cabeçalho de notas."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
+msgstr "<b>Deletar uma nota:</b> clique no botão de lixeira e confirme."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Using the extension"
+msgstr "Usando a extensão"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "<b>Change color:</b> click on the menu button, and select a color."
+msgstr "<b>Mudar cor:</b> clique no botão do menu, e escolha uma cor."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The \"Custom color\" submenu allows you to select precisely a color."
+msgstr ""
+"O submenu de \"Cor customizada\" permite escolher uma cor de forma precisa."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Change font size:</b> click on the menu button, and increase or decrease "
+"the font size with \"+\" and \"-\" buttons."
+msgstr ""
+"<b>Mudar tamanho da fonte</b> clique no botão de menu, e aumente ou reduza a "
+"fonte com os botões \"+\" e \"-\"."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
+"settings dialog."
+msgstr ""
+"<b>Configurações Avançadas:</b> clique no item \"Configurações\" no menu "
+"para acessar o diálogo de configurações."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Customizing notes"
+msgstr "Customizando notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The dialog window you're reading provides several settings:"
+msgstr "A janela de diálog que você está lendo fornece várias configurações:"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Position of notes:</b> select whether you want the notes to be shown "
+"above the windows or underneath them."
+msgstr ""
+"<b>Posição das notas:</b> selecione se você quer que as notas apareçam acima "
+"das janaelas ou abaixo delas."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
+"the keyboard focus when you hover them with the mouse pointer."
+msgstr ""
+"<b>Foco automatico:</b> se isto for habilitado, as notas automaticamente "
+"receberão o foco do teclado quando você colocar o mouse sobre elas."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
+"is enabled, the icon in the top bar can be hidden."
+msgstr ""
+"<b>Atalho de teclado:</b> esconda/exiba as notas com um atalho de teclado. "
+"Se isto estiver habilitado, o ícone no topo pode ser escondido."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The settings window"
+msgstr "Janela de configurações"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Your notes are saved to the disk on various occasions (mainly when you hide "
+"them). If you want to <b>get a copy of your notes</b>, this button opens the "
+"folder where they are."
+msgstr ""
+"Suas notas são salvas no disco em várias eventos (principalmente quando você "
+"as esconde). Se você quiser <b>salvar uma cópia das suas notas</b>, este "
+"botão abre a pasta onde eles estão."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Open the storage directory"
+msgstr "Abrir a pasta de armazenamento"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Files ending with \"_state\" contain the color and position of your notes"
+msgstr ""
+"Arquivos terminados com \"_strate\" contém a cor e a posição das suas notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Files ending with \"_text\" contain the text written in your notes"
+msgstr "Arquivos terminados com \"_text\" contém o texto escrito em suas notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Backup your notes"
+msgstr "Backup das notas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor\n"
+"(example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+"Clique neste botão se você moveu uma nota pra fora do seu monitor principal "
+"sem querer\n"
+"(ou seja: se você tinha notas em um monitor secundário e o desconectou)"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Bring back to the primary monitor"
+msgstr "Trazer de volta para o monitor primário"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Lost some notes?"
+msgstr "Perdeu algumas notas?"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr "Notas afixadas para o desktop do GNOME Shell."
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Author:"
+msgstr "Autor:"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Translation:"
+msgstr "Tradução:"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "translator-credits"
+msgstr "translator-credits"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "About"
+msgstr "Sobre"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr "Lista de nomes válidos para teclas"
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr "Modificadores precisam estar entre menor e maior"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Não use um atalho de teclado que já existe."
