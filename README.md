@@ -30,6 +30,7 @@ Version 22 has been released the 20/11/2021
 | fr    | French        |
 | hr    | Croatian      |
 | nl    | Dutch         |
+| pt_BR | Brazilian Portuguese |
 | tr    | Turkish       |
 | zh_TW | Chinese (traditional)
 
