@@ -28,12 +28,12 @@ const NotesSettingsWidget = new GObject.Class({
 		builder.add_from_file(Me.path+'/prefs.ui');
 		this.prefs_stack = builder.get_object('prefs_stack');
 
-		this.switcher = new Gtk.StackSwitcher({
+/*		this.switcher = new Gtk.StackSwitcher({
 			halign: Gtk.Align.CENTER,
 			visible: true,
 			stack: this.prefs_stack
 		});
-
+*/
 		this._buildSettingsPage(builder);
 		this._buildHelpPage(builder);
 		this._buildAboutPage(builder);
@@ -212,7 +212,7 @@ function buildPrefsWidget() {
 	let widget = new NotesSettingsWidget();
 	Mainloop.timeout_add(0, () => {
 		let headerBar = widget.prefs_stack.get_toplevel().get_titlebar();
-		headerBar.custom_title = widget.switcher;
+//		headerBar.custom_title = widget.switcher;
 		return false;
 	});
 	return widget.prefs_stack;

@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <interface domain="notes-extension">
-
-  <object class="GtkStack" id="prefs_stack">
-    <property name="transition-type">slide-left-right</property>
-
+  <object class="GtkNotebook" id="prefs_stack">
     <!-- "Settings" page -->
     <child>
       <object class="GtkGrid">
@@ -191,12 +188,7 @@
       <object class="GtkBox">
         <property name="orientation">horizontal</property>
         <child>
-          <object class="GtkStackSidebar" id="sidebar">
-            <property name="stack">help_stack</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkStack" id="help_stack">
+          <object class="GtkNotebook" id="help_stack">
             <child>
               <object class="GtkScrolledWindow">
                 <child>
@@ -439,8 +431,8 @@
         <property name="spacing">12</property>
         <property name="margin-bottom">24</property>
         <property name="margin-top">24</property>
-        <property name="margin-end">24</property>
-        <property name="margin-start">24</property>
+        <property name="margin-end">2</property>
+        <property name="margin-start">2</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel">
