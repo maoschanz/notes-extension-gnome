@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <interface domain="notes-extension">
 
   <object class="GtkStack" id="prefs_stack">
@@ -7,162 +7,112 @@
     <!-- "Settings" page -->
     <child>
       <object class="GtkGrid">
-        <property name="expand">True</property>
         <property name="row-spacing">12</property>
         <property name="column-spacing">36</property>
         <property name="halign">center</property>
-        <property name="margin">24</property>
-
+        <property name="margin-bottom">24</property>
+        <property name="margin-top">24</property>
+        <property name="margin-end">24</property>
+        <property name="margin-start">24</property>
         <child>
           <object class="GtkLabel">
             <property name="halign">end</property>
-            <property name="expand">False</property>
             <property name="label" translatable="yes">Position of notes</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">0</property>
-          </packing>
+          <layout><property name="row">0</property><property name="column">0</property><property name="column-span">2</property></layout>
+</object>
         </child>
 
         <child>
-          <object class="GtkRadioButton" id="radio1">
+          <object class="GtkToggleButton" id="radio1">
             <property name="label" translatable="yes">Above everything</property>
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">1</property>
-          </packing>
+          <layout><property name="row">1</property><property name="column">0</property></layout>
+</object>
         </child>
 
         <child>
-          <object class="GtkRadioButton" id="radio2">
+          <object class="GtkToggleButton" id="radio2">
             <property name="label" translatable="yes">On the background</property>
             <property name="group">radio1</property>
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">3</property>
-          </packing>
+          <layout><property name="row">2</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="expand">False</property>
             <property name="halign">end</property>
             <property name="wrap">True</property>
             <property name="label" translatable="yes">Incompatible with desktop icons</property>
             <style>
               <class name="dim-label"/>
             </style>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
-          </packing>
+          <layout><property name="row">2</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
-          <object class="GtkRadioButton" id="radio3">
+          <object class="GtkToggleButton" id="radio3">
             <property name="label" translatable="yes">Cycle through 3 states</property>
             <property name="group">radio1</property>
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">5</property>
-          </packing>
+          <layout><property name="row">3</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="expand">False</property>
             <property name="wrap">True</property>
             <property name="halign">end</property>
             <property name="label" translatable="yes">Send to background, send to foreground, hide</property>
             <style>
               <class name="dim-label"/>
             </style>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">5</property>
-          </packing>
+          <layout><property name="row">3</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkSeparator">
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">10</property>
-            <property name="width">2</property>
-          </packing>
+          <layout><property name="row">4</property><property name="column">0</property><property name="column-span">2</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkLabel">
             <property name="halign">end</property>
-            <property name="expand">False</property>
             <property name="label" translatable="yes">Automatic focus</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">11</property>
-          </packing>
+          <layout><property name="row">5</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkSwitch" id="focus_switch">
-            <property name="expand">False</property>
             <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">11</property>
-          </packing>
+          <layout><property name="row">5</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkSeparator">
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">15</property>
-            <property name="width">2</property>
-          </packing>
+          <layout><property name="row">6</property><property name="column">0</property><property name="column-span">2</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkLabel">
-            <property name="expand">False</property>
             <property name="halign">end</property>
             <property name="label" translatable="yes">Use a keyboard shortcut</property>
             <property name="tooltip-text" translatable="yes">Use a keyboard shortcut to toggle notes visibility</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">17</property>
-          </packing>
+          <layout><property name="row">7</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkSwitch" id="keybinding_switch">
-            <property name="expand">False</property>
             <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">17</property>
-          </packing>
+          <layout><property name="row">7</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkBox">
-            <property name="expand">False</property>
             <property name="halign">end</property>
             <child>
-              <object class="GtkEntry" id="keybinding_entry" />
+              <object class="GtkEntry" id="keybinding_entry"/>
             </child>
             <child>
               <object class="GtkMenuButton">
@@ -186,93 +136,59 @@
               </object>
             </child>
             <style><class name="linked"/></style>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">18</property>
-          </packing>
+          <layout><property name="row">8</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkButton" id="keybinding_button">
-            <property name="expand">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Apply</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">18</property>
-          </packing>
+          <layout><property name="row">8</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkLabel">
             <property name="halign">end</property>
-            <property name="expand">False</property>
             <property name="label" translatable="yes">Hide the icon</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">19</property>
-          </packing>
+          <layout><property name="row">9</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkSwitch" id="hide_switch">
-            <property name="expand">False</property>
             <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">19</property>
-          </packing>
+          <layout><property name="row">9</property><property name="column">1</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkSeparator">
-            <property name="expand">False</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">20</property>
-            <property name="width">2</property>
-          </packing>
+          <layout><property name="row">10</property><property name="column">0</property><property name="column-span">2</property></layout>
+</object>
         </child>
 
         <child>
           <object class="GtkLabel">
             <property name="halign">end</property>
-            <property name="expand">False</property>
             <property name="label" translatable="yes">First note's color</property>
             <property name="tooltip_text" translatable="yes">The notes created afterwards will use the color of their parent</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">22</property>
-          </packing>
+          <layout><property name="row">11</property><property name="column">0</property></layout>
+</object>
         </child>
         <child>
           <object class="GtkColorButton" id="default_rgb_btn">
-            <property name="expand">False</property>
             <property name="use-alpha">False</property>
             <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="left-attach">1</property>
-            <property name="top-attach">22</property>
-          </packing>
+          <layout><property name="row">11</property><property name="column">1</property></layout>
+</object>
         </child>
 
       </object>
-      <packing>
-        <!--<property name="icon-name">preferences-other-symbolic</property>-->
-        <property name="name">settings_page</property>
-        <property name="title" translatable="yes">Settings</property>
-      </packing>
     </child>
 
     <!-- "Help" page -->
     <child>
       <object class="GtkBox">
-        <property name="expand">True</property>
         <property name="orientation">horizontal</property>
         <child>
           <object class="GtkStackSidebar" id="sidebar">
@@ -281,14 +197,15 @@
         </child>
         <child>
           <object class="GtkStack" id="help_stack">
-
             <child>
               <object class="GtkScrolledWindow">
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="expand">True</property>
-                    <property name="margin">15</property>
+                    <property name="margin-bottom">15</property>
+                    <property name="margin-top">15</property>
+                    <property name="margin-end">15</property>
+                    <property name="margin-start">15</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel">
@@ -307,7 +224,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image1"></object>
+                      <object class="GtkImage" id="image1"/>
                     </child>
                     <child>
                       <object class="GtkLabel">
@@ -336,19 +253,16 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">page0</property>
-                <property name="title" translatable="yes">Using the extension</property>
-              </packing>
             </child>
-
             <child>
               <object class="GtkScrolledWindow">
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="expand">True</property>
-                    <property name="margin">15</property>
+                    <property name="margin-bottom">15</property>
+                    <property name="margin-top">15</property>
+                    <property name="margin-end">15</property>
+                    <property name="margin-start">15</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel">
@@ -367,7 +281,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image2"></object>
+                      <object class="GtkImage" id="image2"/>
                     </child>
                     <child>
                       <object class="GtkLabel">
@@ -388,19 +302,16 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">page1</property>
-                <property name="title" translatable="yes">Customizing notes</property>
-              </packing>
             </child>
-
             <child>
               <object class="GtkScrolledWindow">
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="expand">True</property>
-                    <property name="margin">15</property>
+                    <property name="margin-bottom">15</property>
+                    <property name="margin-top">15</property>
+                    <property name="margin-end">15</property>
+                    <property name="margin-start">15</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel">
@@ -437,19 +348,16 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">page2</property>
-                <property name="title" translatable="yes">The settings window</property>
-              </packing>
             </child>
-
             <child>
               <object class="GtkScrolledWindow">
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="expand">True</property>
-                    <property name="margin">15</property>
+                    <property name="margin-bottom">15</property>
+                    <property name="margin-top">15</property>
+                    <property name="margin-end">15</property>
+                    <property name="margin-start">15</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel">
@@ -491,19 +399,16 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">page3</property>
-                <property name="title" translatable="yes">Backup your notes</property>
-              </packing>
-            </child>
-
+              </child>
             <child>
               <object class="GtkScrolledWindow">
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="expand">True</property>
-                    <property name="margin">15</property>
+                    <property name="margin-bottom">15</property>
+                    <property name="margin-top">15</property>
+                    <property name="margin-end">15</property>
+                    <property name="margin-start">15</property>
                     <property name="spacing">10</property>
                     <child>
                       <object class="GtkLabel">
@@ -523,26 +428,19 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">page4</property>
-                <property name="title" translatable="yes">Lost some notes?</property>
-              </packing>
-            </child>
+              </child>
           </object>
         </child>
       </object>
-      <packing>
-        <!--<property name="icon-name">help-faq-symbolic</property>-->
-        <property name="name">help_page</property>
-        <property name="title" translatable="yes">Help</property>
-      </packing>
-    </child>
-
+      </child>
     <!-- "About" page -->
     <child>
       <object class="GtkBox">
         <property name="spacing">12</property>
-        <property name="margin">24</property>
+        <property name="margin-bottom">24</property>
+        <property name="margin-top">24</property>
+        <property name="margin-end">24</property>
+        <property name="margin-start">24</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel">
@@ -560,18 +458,18 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage" id="about_icon"></object>
+          <object class="GtkImage" id="about_icon"/>
         </child>
         <child>
           <object class="GtkLabel" id="label_version">
             <property name="halign">center</property>
-            <property name="label"></property>
+            <property name="label"/>
           </object>
         </child>
         <child>
           <object class="GtkLabel" id="label_gs_versions">
             <property name="halign">center</property>
-            <property name="label"></property>
+            <property name="label"/>
             <style>
               <class name="dim-label"/>
             </style>
@@ -616,9 +514,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="pack-type">start</property>
-              </packing>
             </child>
             <child>
               <object class="GtkBox" id="link_box">
@@ -626,21 +521,10 @@
                 <property name="valign">end</property>
                 <property name="orientation">vertical</property>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
         </child>
       </object>
-      <packing>
-        <property name="icon-name">help-about-symbolic</property>
-        <property name="name">about_page</property>
-        <property name="title" translatable="yes">About</property>
-      </packing>
     </child>
   </object>
 
@@ -653,7 +537,10 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="spacing">12</property>
-        <property name="margin">12</property>
+        <property name="margin-bottom">12</property>
+        <property name="margin-top">12</property>
+        <property name="margin-end">12</property>
+        <property name="margin-start">12</property>
         <property name="orientation">vertical</property>
 
         <child>
@@ -684,7 +571,7 @@
           <object class="GtkLabel" id="default-kbs-help-1">
             <property name="visible">True</property>
             <property name="halign">center</property>
-            <property name="label"></property>
+            <property name="label"/>
             <property name="max-width-chars">45</property>
           </object>
         </child>
@@ -703,7 +590,7 @@
           <object class="GtkLabel" id="default-kbs-help-2">
             <property name="visible">True</property>
             <property name="halign">center</property>
-            <property name="label"></property>
+            <property name="label"/>
             <style><class name="dim-label"/></style>
             <property name="max-width-chars">45</property>
           </object>
@@ -714,5 +601,3 @@
   </object>
 
 </interface>
-
-

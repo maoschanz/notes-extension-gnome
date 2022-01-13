@@ -38,7 +38,6 @@ const NotesSettingsWidget = new GObject.Class({
 		this._buildHelpPage(builder);
 		this._buildAboutPage(builder);
 
-		this.switcher.show_all();
 	},
 
 	//--------------------------------------------------------------------------
@@ -200,7 +199,7 @@ const NotesSettingsWidget = new GObject.Class({
 			label: _("Report bugs or ideas"),
 			uri: Me.metadata.url.toString()
 		});
-		linkBox.pack_start(url_button1, false, false, 0);
+		linkBox.append(url_button1)
 	}
 
 });
@@ -216,7 +215,6 @@ function buildPrefsWidget() {
 		headerBar.custom_title = widget.switcher;
 		return false;
 	});
-	widget.prefs_stack.show_all();
 	return widget.prefs_stack;
 }
 
