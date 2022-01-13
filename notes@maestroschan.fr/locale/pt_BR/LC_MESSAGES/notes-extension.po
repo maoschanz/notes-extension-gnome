@@ -313,7 +313,7 @@ msgstr "Tradução:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "Nosk Lo <traducao.nosklo@0sg.net>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "About"
