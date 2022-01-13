@@ -182,6 +182,11 @@
 
       </object>
     </child>
+    <child type="tab">
+      <object class="GtkLabel" id="notebook-tab-settings">
+         <property name="label" translatable="yes">Settings</property>
+      </object>
+    </child>
 
     <!-- "Help" page -->
     <child>
@@ -246,6 +251,11 @@
                 </child>
               </object>
             </child>
+            <child type="tab">
+              <object class="GtkLabel" id="notebook-tab-1">
+                <property name="label">1</property>
+              </object>
+            </child>
             <child>
               <object class="GtkScrolledWindow">
                 <child>
@@ -295,6 +305,11 @@
                 </child>
               </object>
             </child>
+            <child type="tab">
+              <object class="GtkLabel" id="notebook-tab-2">
+                <property name="label">2</property>
+              </object>
+            </child>
             <child>
               <object class="GtkScrolledWindow">
                 <child>
@@ -339,6 +354,11 @@
                     </child>
                   </object>
                 </child>
+              </object>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="notebook-tab-3">
+                <property name="label">3</property>
               </object>
             </child>
             <child>
@@ -391,7 +411,12 @@
                   </object>
                 </child>
               </object>
-              </child>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="notebook-tab-4">
+                <property name="label">4</property>
+              </object>
+            </child>
             <child>
               <object class="GtkScrolledWindow">
                 <child>
@@ -420,11 +445,21 @@
                   </object>
                 </child>
               </object>
-              </child>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="notebook-tab-5">
+                <property name="label">5</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
-      </child>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel" id="notebook-tab-help">
+         <property name="label" translatable="yes">Help</property>
+      </object>
+    </child>
     <!-- "About" page -->
     <child>
       <object class="GtkBox">
@@ -516,6 +551,11 @@
             </child>
           </object>
         </child>
+      </object>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel" id="notebook-tab-about">
+         <property name="label" translatable="yes">About</property>
       </object>
     </child>
   </object>
