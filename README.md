@@ -8,17 +8,16 @@ A GNOME Shell extension providing customizable sticky notes.
 
 Version 22 has been released the 20/11/2021
 
-| GNOME Shell version | Extension version 22 | 20  | 19  | 18  | 17  |
+| GNOME Shell version | Extension version 23 | 22  | 20  | 19  | 18  |
 |---------------------|----------------------|-----|-----|-----|-----|
-| **41**              | No                   |     |     |     |     |
-| **40**              | No                   |     |     |     |     |
-| **3.38**            | Yes                  | Yes | Yes |     |     |
-| **3.36**            | Yes                  | Yes | Yes | Yes |     |
-| **3.34**            |                      |     | ??  | Yes |     |
-| **3.32**            |                      |     | ??  | Yes | Yes |
-| **3.30**            |                      |     | ??  | Yes | Yes |
-| **3.28**            |                      |     |     |     | Yes |
-| **3.26**            |                      |     |     |     | Yes |
+| **42**              | Yes                  | No  |     |     |     |
+| **41**              | Yes                  | No  |     |     |     |
+| **40**              | ??                   | No  |     |     |     |
+| **3.38**            |                      | Yes | Yes | Yes |     |
+| **3.36**            |                      | Yes | Yes | Yes | Yes |
+| **3.34**            |                      |     |     | ??  | Yes |
+| **3.32**            |                      |     |     | ??  | Yes |
+| **3.30**            |                      |     |     | ??  | Yes |
 
 ### Available languages
 
