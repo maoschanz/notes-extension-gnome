@@ -142,8 +142,8 @@ var NoteBox = class NoteBox {
 	 * - The 'new note' button creates a note with the same color and font size,
 	 *   but with random coordinates, an empty text, and an harcoded size.
 	 * - The 'delete' button asks the user to confirm if they really wants to
-	 *   delete the note (see `_addDeleteBox`), and if yes the object is
-	 *   destroyed a method from the NotesManager is called to delete the
+	 *   delete the note (see `dialog.js`), and if yes the object is destroyed,
+	 *   and a method from the NotesManager is called to correctly delete the
 	 *   corresponding files.
 	 * - The 'move' button, which isn't styled as a button but looks like an
 	 *   empty space. It simulates a kind of wacky window dragging.
@@ -195,7 +195,7 @@ var NoteBox = class NoteBox {
 
 		let ctrlButton = new Menus.NoteRoundButton(
 			this,
-			'view-restore-symbolic',
+			'view-fullscreen-symbolic',
 			_("Resize")
 		);
 		this._buttonsBox.add_child(ctrlButton.actor);
