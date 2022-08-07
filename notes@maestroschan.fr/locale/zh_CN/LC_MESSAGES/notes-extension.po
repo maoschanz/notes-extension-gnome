@@ -3,6 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-07 16:26+0200\n"
 "PO-Revision-Date: 2022-04-27 10:41+0800\n"
 "Last-Translator: Aerowolf <aerowolf@tom.com>\n"
 "Language-Team: \n"
@@ -13,212 +14,221 @@ msgstr ""
 "X-Generator: Lokalize 19.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid ""
-"<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
-"settings dialog."
-msgstr "<b>高级设置:</b> 点击“设置”菜单可打开相应设置对话框。"
-
-msgid "Send to background, send to foreground, hide"
-msgstr "转到前台，转到后台，隐藏"
-
-msgid "Cycle through 3 states"
-msgstr "3种状态循环"
-
-msgid "First note's color"
-msgstr "首个便签的色彩"
-
-msgid ""
-"<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
-"the keyboard focus when you hover them with the mouse pointer."
-msgstr "<b>自动聚焦:</b> 如启用，当鼠标经过时，便签将自动获得输入焦点。"
-
-msgid "<b>Change color:</b> click on the menu button, and select a color."
-msgstr "<b>修改色彩:</b> 点击菜单按钮，选择色彩。"
-
-msgid ""
-"<b>Change font size:</b> click on the menu button, and increase or decrease "
-"the font size with \"+\" and \"-\" buttons."
-msgstr "<b>修改字体大小:</b> 点击菜单按钮，并使用“ + ”按钮增大或“ - ”按钮减小字体。"
-
-msgid ""
-"<b>Create a note:</b> click on the \"+\" button at the left of a note "
-"header, it will create a new note, with the same color and the same font "
-"size as the note you clicked on."
-msgstr ""
-"<b>创建便签:</b> 点击便签标题左侧的“+”按钮，可创建新便签。"
-"其色彩和字体大小与您点击的便签相同。"
-
-msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
-msgstr "<b>删除便签:</b> 点击垃圾筒图标并确认。"
-
-msgid ""
-"<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
-"is enabled, the icon in the top bar can be hidden."
-msgstr "<b>键盘快捷键:</b> 使用键盘快捷键显示或隐藏便签。如启用，顶栏图标可隐藏。"
-
-msgid ""
-"<b>Move a note:</b> drag the blank space in the center of the note header."
-msgstr "<b>移动便签:</b> 在便签标题的中间空白处拖拽。"
-
-msgid ""
-"<b>Position of notes:</b> select whether you want the notes to be shown "
-"above the windows or underneath them."
-msgstr "<b>便签位置:</b> 选择便签显示在窗口上方或下方。"
-
-msgid ""
-"<b>Resize a note:</b> drag the resize button at the right of the note header."
-msgstr "<b>调整便签大小:</b> 在便签标题右侧拖拽调整大小按钮。"
-
-msgid ""
-"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
-msgstr "<b>显示/隐藏所有便签:</b> 点击 GNOME Shell 顶栏上的图标。"
-
-msgid "About"
-msgstr "关于"
-
-msgid "List of valid key names"
-msgstr "可用按键的名称列表"
-
-msgid "Modifier keys must be between chevrons"
-msgstr "修改器按键必须位于V形之间"
-
-msgid "Don't use a keyboard shortcut that already exists."
-msgstr "请勿使用已经存在的键盘快捷键。"
-
-msgid "Modifications will be effective after reloading the extension."
-msgstr "修改将在扩展重新载入后生效。"
-
-msgid "Above everything"
-msgstr "置顶"
-
-msgid "Apply"
-msgstr "应用"
-
-msgid "Author:"
-msgstr "作者:"
-
-msgid "Automatic focus"
-msgstr "自动聚焦"
-
-msgid "Backup your notes"
-msgstr "备份便签"
-
-msgid "Bring back to the primary monitor"
-msgstr "带回主屏"
-
-msgid ""
-"Click on this button if you accidentally moved a note out of your primary "
-"monitor (example: if you had notes on a secondary monitor and unplugged it)."
-msgstr ""
-"如果意外将便签移出了主屏，请点击此按钮 (比如: 便签原在另一屏幕上，但该屏幕已被拔掉)。"
-
-msgid "Custom color"
-msgstr "自定义色彩"
-
-msgid "Customizing notes"
-msgstr "自定义便签"
-
-msgid "Default value is %s"
-msgstr "默认值是%s"
-
-msgid "Delete"
-msgstr "删除"
-
-msgid "Delete this note?"
-msgstr "删除此便签吗?"
-
-msgid ""
-"Files ending with \"_state\" contain the color and position of your notes"
-msgstr "文件名尾部带 \"_state\" 的文件包含合作色彩和位置"
-
-msgid "Files ending with \"_text\" contain the text written in your notes"
-msgstr "文件名尾部带 \"_text\" 的文件追念便签文字内容"
-
-msgid "Font size"
-msgstr "字体大小"
-
-msgid "Help"
-msgstr "帮助"
-
-msgid "Hide the icon"
-msgstr "隐藏图标"
-
-msgid "Incompatible with desktop icons"
-msgstr "与桌面图标不兼容"
-
-msgid "Lost some notes?"
-msgstr "便签丢失"
-
-msgid "New"
-msgstr "新建"
-
-msgid "Note options"
-msgstr "便签选项"
-
-msgid "Notes extension error: failed to load a note"
-msgstr "便签扩展错误 : 载入便签失败"
-
-msgid "On the background"
-msgstr "置于后台"
-
-msgid "Open the storage directory"
-msgstr "打开存储目录"
-
-msgid "Position of notes"
-msgstr "便签位置"
-
-msgid "Report bugs or ideas"
-msgstr "意见或建议"
-
-msgid "Resize"
-msgstr "调整大小"
-
-msgid "Restart the extension to apply the changes"
-msgstr "重启扩展并应用修改"
-
-msgid "Settings"
-msgstr "设置"
-
-msgid "[Empty note]"
-msgstr "[空白便签]"
-
+#: notes@maestroschan.fr/extension.js
 msgid "Show notes"
 msgstr "显示便签"
 
-msgid "Sticky notes for the GNOME Shell desktop."
-msgstr "GNOME Shell 桌面便签"
+#: notes@maestroschan.fr/extension.js
+msgid "Notes extension error: failed to load a note"
+msgstr "便签扩展错误 : 载入便签失败"
 
-msgid "The \"Custom color\" submenu allows you to select precisely a color."
-msgstr "在“自定义色彩”子菜单中可精确选择色彩。"
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr ""
 
-msgid "The dialog window you're reading provides several settings:"
-msgstr "当前对话窗口提供以下设置："
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr "重启扩展并应用修改"
 
-msgid "The settings window"
-msgstr "设置窗口"
+#: notes@maestroschan.fr/menus.js
+msgid "Custom color"
+msgstr "自定义色彩"
 
-msgid "Translation:"
-msgstr "翻译者:"
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+msgid "Settings"
+msgstr "设置"
 
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
+msgid "Apply"
+msgstr "应用"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Font size"
+msgstr "字体大小"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Type here…"
 msgstr "在此处输入…"
 
-msgid "Use a keyboard shortcut"
-msgstr "使用键盘快捷键"
+#: notes@maestroschan.fr/noteBox.js
+msgid "New"
+msgstr "新建"
 
-msgid "Using the extension"
-msgstr "使用扩展"
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete"
+msgstr "删除"
 
+#: notes@maestroschan.fr/noteBox.js
+msgid "Note options"
+msgstr "便签选项"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Resize"
+msgstr "调整大小"
+
+#: notes@maestroschan.fr/noteBox.js
+#, fuzzy
+#| msgid "[Empty note]"
+msgid "Empty note"
+msgstr "[空白便签]"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "删除此便签吗?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr "修改将在扩展重新载入后生效。"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Default value is %s"
+msgstr "默认值是%s"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
 msgid "Version %s"
 msgstr "版本 %s"
 
+#: notes@maestroschan.fr/prefs.ui
+msgid "Position of notes"
+msgstr "便签位置"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Above everything"
+msgstr "置顶"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "On the background"
+msgstr "置于后台"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Incompatible with desktop icons"
+msgstr "与桌面图标不兼容"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr "3种状态循环"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr "转到前台，转到后台，隐藏"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Automatic focus"
+msgstr "自动聚焦"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut"
+msgstr "使用键盘快捷键"
+
+#: notes@maestroschan.fr/prefs.ui
+#, fuzzy
+#| msgid "Don't use a keyboard shortcut that already exists."
+msgid "Use a keyboard shortcut to toggle notes visibility"
+msgstr "请勿使用已经存在的键盘快捷键。"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "帮助"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Hide the icon"
+msgstr "隐藏图标"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "First note's color"
+msgstr "首个便签的色彩"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
-"在各种情况下（主要是在隐藏便签时），便签都会保存到磁盘中。"
-"如果想要<b>获取便签副本</b>，点击此按钮将打开笔记所在文件夹。"
+"在各种情况下（主要是在隐藏便签时），便签都会保存到磁盘中。如果想要<b>获取便签"
+"副本</b>，点击此按钮将打开笔记所在文件夹。"
 
+#: notes@maestroschan.fr/prefs.ui
+msgid "Open the storage directory"
+msgstr "打开存储目录"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Files ending with \"_state\" contain the color and position of your notes"
+msgstr "文件名尾部带 \"_state\" 的文件包含合作色彩和位置"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Files ending with \"_text\" contain the text written in your notes"
+msgstr "文件名尾部带 \"_text\" 的文件追念便签文字内容"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Backup"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Explanations about how to use this extension can be found here:"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Online help manual"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+"如果意外将便签移出了主屏，请点击此按钮 (比如: 便签原在另一屏幕上，但该屏幕已"
+"被拔掉)。"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Bring back to the primary monitor"
+msgstr "带回主屏"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr "GNOME Shell 桌面便签"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Author:"
+msgstr "作者:"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Translation:"
+msgstr "翻译者:"
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
 msgstr "请见翻译光荣榜"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Report bugs or ideas"
+msgstr "意见或建议"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "About"
+msgstr "关于"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr "可用按键的名称列表"
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr "修改器按键必须位于V形之间"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "请勿使用已经存在的键盘快捷键。"
+

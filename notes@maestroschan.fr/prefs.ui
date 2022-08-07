@@ -375,11 +375,11 @@
           </object>
         </child>
       </object>
-        <!--<property name="icon-name">help-faq-symbolic</property>-->
     </child>
     <child type="tab">
       <object class="GtkLabel">
         <property name="label" translatable="yes">Help</property>
+        <!--<property name="icon-name">help-faq-symbolic</property>-->
         <layout>
           <property name="tab_fill">False</property>
         </layout>
@@ -475,8 +475,8 @@
     </child>
     <child type="tab">
       <object class="GtkLabel">
-        <!-- <property name="icon-name">help-about-symbolic</property> -->
         <property name="label" translatable="yes">About</property>
+        <!-- <property name="icon-name">help-about-symbolic</property> -->
         <layout>
           <property name="tab_fill">False</property>
         </layout>

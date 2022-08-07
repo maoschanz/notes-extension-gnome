@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-20 15:04+0100\n"
+"POT-Creation-Date: 2022-08-07 16:26+0200\n"
 "PO-Revision-Date: 2022-03-28 13:56+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -97,10 +97,6 @@ msgstr "De standaardwaarde is %s"
 msgid "Version %s"
 msgstr "Versie %s"
 
-#: notes@maestroschan.fr/prefs.js
-msgid "Report bugs or ideas"
-msgstr "Meld bugs of deel ideeën"
-
 #: notes@maestroschan.fr/prefs.ui
 msgid "Position of notes"
 msgstr "Notitiepositie"
@@ -155,108 +151,6 @@ msgstr "De notities die hierop volgen gebruiken de kleur van de bovenliggende"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
-"<b>Show/hide all notes:</b> click on the icon in the GNOME Shell top bar."
-msgstr ""
-"<b>Toon/Verberg alle notities:</b> klik op het pictogram op de bovenbalk van "
-"GNOME Shell."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Create a note:</b> click on the \"+\" button at the left of a note "
-"header, it will create a new note, with the same color and the same font "
-"size as the note you clicked on."
-msgstr ""
-"<b>Maak een notitie:</b> klik op de ‘+’-knop, links op de notitiekop. "
-"Hiermee maakt u een nieuwe notitie met dezelfde kleur en lettergrootte als "
-"de notitie waarop u hebt geklikt."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Move a note:</b> drag the blank space in the center of the note header."
-msgstr ""
-"<b>Verplaats een notitie:</b> begin met slepen vanaf de lege ruimte in de "
-"notitiekop."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Resize a note:</b> drag the resize button at the right of the note header."
-msgstr ""
-"<b>Pas de notitiegrootte aan:</b> begin met slepen vanaf de knop ‘Grootte "
-"aanpassen’, rechts op de notitiekop."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "<b>Delete a note:</b> click on the wastebasket icon and confirm."
-msgstr ""
-"<b>Verwijder een notitie:</b> klik op het prullenbakpictogram en bevestig."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "Using the extension"
-msgstr "Rondleiding"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "<b>Change color:</b> click on the menu button, and select a color."
-msgstr "<b>Wijzig de kleur:</b> klik op de menuknop en kies een kleur."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "The \"Custom color\" submenu allows you to select precisely a color."
-msgstr ""
-"In het onderliggende menu ‘Eigen kleur kiezen’ kunt u een eigen kleur te "
-"kiezen."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Change font size:</b> click on the menu button, and increase or decrease "
-"the font size with \"+\" and \"-\" buttons."
-msgstr ""
-"<b>Pas de tekstgrootte aan:</b> klik op de menuknop en vergroot/verklein de "
-"letters met de knoppen ‘+’ en ‘-’."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Advanced settings:</b> click on the \"Settings\" menu item to access the "
-"settings dialog."
-msgstr ""
-"<b>Geavanceerde voorkeuren:</b> klik op ‘Voorkeuren’ in het menu om de "
-"instellingen te openen."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "Customizing notes"
-msgstr "Notities aanpassen"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "The dialog window you're reading provides several settings:"
-msgstr "Het getoonde venster bevat verschillende instellingen:"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Position of notes:</b> select whether you want the notes to be shown "
-"above the windows or underneath them."
-msgstr ""
-"<b>Notitiepositie:</b> geef aan of u notities boven of onder vensters wilt "
-"tonen."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Automatic focus:</b> if this is enabled, the notes will automatically get "
-"the keyboard focus when you hover them with the mouse pointer."
-msgstr ""
-"<b>Automatisch focussen:</b> schakel dit in om notities automatisch "
-"toetsenbordfocus te verschaffen als u over ze heen gaat met de muis."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
-"<b>Keyboard shortcut:</b> hide/show notes with a keyboard shortcut. If this "
-"is enabled, the icon in the top bar can be hidden."
-msgstr ""
-"<b>Sneltoets:</b> toon of verberg notities met een sneltoets. Als u dit "
-"inschakelt, dan wordt het pictogram op de bovenbalk verborgen."
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "The settings window"
-msgstr "Het voorkeurenvenster"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid ""
 "Your notes are saved to the disk on various occasions (mainly when you hide "
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
@@ -280,8 +174,18 @@ msgid "Files ending with \"_text\" contain the text written in your notes"
 msgstr "Bestanden die eindigen op ‘_text’ bevatten de notitietekst"
 
 #: notes@maestroschan.fr/prefs.ui
-msgid "Backup your notes"
-msgstr "Notities back-uppen"
+#, fuzzy
+#| msgid "Back"
+msgid "Backup"
+msgstr "Terug"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Explanations about how to use this extension can be found here:"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Online help manual"
+msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
@@ -289,16 +193,12 @@ msgid ""
 "monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 "Klik op deze knop als u per ongeluk een notitie hebt verplaatst buiten uw "
-"primaire beeldscherm (voorbeeld: u had notities op een secundair beeldscherm staan dat u "
-"vervolgens hebt afgekoppeld)."
+"primaire beeldscherm (voorbeeld: u had notities op een secundair beeldscherm "
+"staan dat u vervolgens hebt afgekoppeld)."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Bring back to the primary monitor"
 msgstr "Terugzetten op primair beeldscherm"
-
-#: notes@maestroschan.fr/prefs.ui
-msgid "Lost some notes?"
-msgstr "Ontbreken er notities?"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Sticky notes for the GNOME Shell desktop."
@@ -317,6 +217,10 @@ msgid "translator-credits"
 msgstr "Heimen Stoffels <vistausss@fastmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
+msgid "Report bugs or ideas"
+msgstr "Meld bugs of deel ideeën"
+
+#: notes@maestroschan.fr/prefs.ui
 msgid "About"
 msgstr "Over"
 
@@ -333,8 +237,3 @@ msgstr "Sneltoetsen dienen tussen chevrons te worden geplaatst"
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Deze sneltoets is al in gebruik."
 
-#~ msgid "Back"
-#~ msgstr "Terug"
-
-#~ msgid "Confirm"
-#~ msgstr "Bevestigen"
