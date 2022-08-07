@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
+# ITALIAN TRANSLATION FOR NOTES-EXTENSION-GNOME.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Albano Battistella <albano_battistella@hotmail.com>, 2020.
+# Albano Battistella <albano_battistella@hotmail.com>, 2020,2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-07 16:26+0200\n"
-"PO-Revision-Date: 2021-11-28 18:42+0100\n"
+"PO-Revision-Date: 2022-08-07 20:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -178,18 +178,17 @@ msgstr ""
 "I file che terminano con \"_text\" contengono il testo scritto nelle note"
 
 #: notes@maestroschan.fr/prefs.ui
-#, fuzzy
 #| msgid "Back"
 msgid "Backup"
-msgstr "Indietro"
+msgstr "Backup"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Explanations about how to use this extension can be found here:"
-msgstr ""
+msgstr "Spiegazioni su come utilizzare questa estensione possono essere trovate qui:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Online help manual"
-msgstr ""
+msgstr "Manuale di aiuto in linea"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
