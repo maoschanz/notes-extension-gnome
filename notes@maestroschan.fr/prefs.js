@@ -28,17 +28,9 @@ const NotesSettingsWidget = new GObject.Class({
 		builder.add_from_file(Me.path+'/prefs.ui');
 		this.prefs_stack = builder.get_object('prefs_stack');
 
-		this.switcher = new Gtk.StackSwitcher({
-			halign: Gtk.Align.CENTER,
-			visible: true,
-			stack: this.prefs_stack
-		});
-
 		this._buildSettingsPage(builder);
 		this._buildHelpPage(builder);
 		this._buildAboutPage(builder);
-
-		this.switcher.show_all();
 	},
 
 	//--------------------------------------------------------------------------
@@ -151,14 +143,9 @@ const NotesSettingsWidget = new GObject.Class({
 	//--------------------------------------------------------------------------
 
 	_buildHelpPage(builder) {
-		builder.get_object('image1').set_from_pixbuf(
-			GdkPixbuf.Pixbuf.new_from_file_at_size(
-			              Me.path + '/screenshots/help_picture_1.png', 265, 164)
-		);
-		builder.get_object('image2').set_from_pixbuf(
-			GdkPixbuf.Pixbuf.new_from_file_at_size(
-			              Me.path + '/screenshots/help_picture_2.png', 380, 300)
-		);
+		let help_url = Me.metadata.url.toString();
+		help_url += "/blob/master/user-help/README.md";
+		builder.get_object('help_btn').set_uri(help_url);
 
 		let data_button = builder.get_object('backup_btn');
 		data_button.connect('clicked', (widget) => {
@@ -195,12 +182,8 @@ const NotesSettingsWidget = new GObject.Class({
 			builder.get_object('translation_credits').set_label('');
 		}
 
-		let linkBox = builder.get_object('link_box');
-		let url_button1 = new Gtk.LinkButton({
-			label: _("Report bugs or ideas"),
-			uri: Me.metadata.url.toString()
-		});
-		linkBox.pack_start(url_button1, false, false, 0);
+		let ext_report_url = Me.metadata.url.toString();
+		builder.get_object('report_link_button').set_uri(ext_report_url);
 	}
 
 });
@@ -211,12 +194,6 @@ const NotesSettingsWidget = new GObject.Class({
 // time he user try to access the settings' window
 function buildPrefsWidget() {
 	let widget = new NotesSettingsWidget();
-	Mainloop.timeout_add(0, () => {
-		let headerBar = widget.prefs_stack.get_toplevel().get_titlebar();
-		headerBar.custom_title = widget.switcher;
-		return false;
-	});
-	widget.prefs_stack.show_all();
 	return widget.prefs_stack;
 }
 

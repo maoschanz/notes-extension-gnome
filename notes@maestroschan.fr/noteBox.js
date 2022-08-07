@@ -117,7 +117,7 @@ var NoteBox = class NoteBox {
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		} else {
 			this.noteEntry.connect('button-press-event', this._getKeyFocus.bind(this));
-			this.noteEntry.connect('key-focus-in', this._redraw.bind(this)); // FIXME doesn't work
+			// this.noteEntry.connect('key-focus-in', this._redraw.bind(this)); // FIXME doesn't work
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		}
 		this.actor.connect('notify::hover', this._applyActorStyle.bind(this));
