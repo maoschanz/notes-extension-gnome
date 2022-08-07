@@ -108,11 +108,9 @@ msgstr "带回主屏"
 
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
-"如果意外将便签移出了主屏，请点击此按钮\n"
-"(比如: 便签原在另一屏幕上，但该屏幕已被拔掉)。"
+"如果意外将便签移出了主屏，请点击此按钮 (比如: 便签原在另一屏幕上，但该屏幕已被拔掉)。"
 
 msgid "Custom color"
 msgstr "自定义色彩"

@@ -28,7 +28,7 @@ The "Custom color" submenu allows you to select precisely a color.
 
 ## The settings window
 
-The settings dialog window you're reading provides several options:
+The settings dialog window provides several options:
 
 **Position of notes:** select whether you want the notes to be shown above the windows or underneath them.
 

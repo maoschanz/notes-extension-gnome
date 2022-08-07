@@ -243,8 +243,7 @@ msgstr ""
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 
 #: notes@maestroschan.fr/prefs.ui

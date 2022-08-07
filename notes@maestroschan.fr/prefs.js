@@ -164,17 +164,11 @@ const NotesSettingsWidget = new GObject.Class({
 	_buildAboutPage(builder) {
 		builder.get_object('about_icon').set_from_pixbuf(
 			GdkPixbuf.Pixbuf.new_from_file_at_size(Me.path +
-			                         '/screenshots/about_picture.png', 163, 114)
-		//	                         '/screenshots/about_picture.png', 326, 228)
+		                             '/screenshots/about_picture.png', 163, 114)
 		);
 
 		let ext_version = _("Version %s").replace('%s', Me.metadata.version.toString());
 		builder.get_object('label_version').set_label(ext_version)
-
-		// TODO why tf does that crash?
-		// let gs_versions = Me.metadata['shell-version'][0].toString().replace(',', ", ");
-		// let versions_str = _("Compatible with GNOME Shell %s").replace('%s', gs_versions);
-		// builder.get_object('label_gs_versions').set_label(versions_str)
 
 		let translation_credits = builder.get_object('translation_credits').get_label();
 		if (translation_credits == 'translator-credits') {

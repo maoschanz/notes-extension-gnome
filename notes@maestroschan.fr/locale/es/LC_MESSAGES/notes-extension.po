@@ -293,12 +293,10 @@ msgstr "Hacer una copia de seguridad de tus notas"
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 "Haz clic en este botón si has movido una nota de tu pantallaprincipal "
-"accidentalmente\n"
-"(por ejemplo: si tenías notas en una segunda pantalla que has desconectado)."
+"accidentalmente (por ejemplo: si tenías notas en una segunda pantalla que has desconectado)."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Bring back to the primary monitor"

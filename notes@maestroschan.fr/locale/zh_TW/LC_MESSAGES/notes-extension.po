@@ -269,11 +269,9 @@ msgstr "備份您的便箋"
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
-"如果您意外地將便箋移出您的主要螢幕, 按下這個按鈕\n"
-"( 例如 : 如果您有便箋在第二個螢幕上且該螢幕已拔除 ) ."
+"如果您意外地將便箋移出您的主要螢幕, 按下這個按鈕 ( 例如 : 如果您有便箋在第二個螢幕上且該螢幕已拔除 ) ."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Bring back to the primary monitor"

@@ -288,11 +288,9 @@ msgstr "Izradi sigurnosnu kopiju tvojih bilježaka"
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
-"Klikni ovaj gumb, ako si slučajno premjestio/la bilješku s glavnog monitora\n"
-"(primjer: ako si imao/la bilješke na sporednom monitoru kojeg si odspojio/"
+"Klikni ovaj gumb, ako si slučajno premjestio/la bilješku s glavnog monitora (primjer: ako si imao/la bilješke na sporednom monitoru kojeg si odspojio/"
 "la)."
 
 #: notes@maestroschan.fr/prefs.ui

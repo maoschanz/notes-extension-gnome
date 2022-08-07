@@ -294,12 +294,10 @@ msgstr "Sauvegarder vos notes"
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 "Cliquez sur ce bouton si vous avez accidentellement déplacé une note hors de "
-"votre écran principal\n"
-"(exemple : si vous aviez des notes sur un écran secondaire maintenant "
+"votre écran principal (exemple : si vous aviez des notes sur un écran secondaire maintenant "
 "débranché)."
 
 #: notes@maestroschan.fr/prefs.ui

@@ -284,12 +284,10 @@ msgstr "Backup das notas"
 #: notes@maestroschan.fr/prefs.ui
 msgid ""
 "Click on this button if you accidentally moved a note out of your primary "
-"monitor\n"
-"(example: if you had notes on a secondary monitor and unplugged it)."
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
 msgstr ""
 "Clique neste botão se você moveu uma nota pra fora do seu monitor principal "
-"sem querer\n"
-"(ou seja: se você tinha notas em um monitor secundário e o desconectou)"
+"sem querer (ou seja: se você tinha notas em um monitor secundário e o desconectou)"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Bring back to the primary monitor"
