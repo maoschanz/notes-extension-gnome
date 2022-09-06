@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>, 2020.
+# David Astillero Pérez <dastillero@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-07 16:26+0200\n"
-"PO-Revision-Date: 2022-09-06 16:30+0200\n"
+"PO-Revision-Date: 2022-09-06 17:25+0200\n"
 "Last-Translator: David Astillero Pérez <dastillero@gmail.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -133,7 +134,7 @@ msgstr "Usar un atajo de teclado"
 #, fuzzy
 #| msgid "Use a keyboard shortcut to toggle notes"
 msgid "Use a keyboard shortcut to toggle notes visibility"
-msgstr "Usar un atajo de teclado para alternar notas"
+msgstr "Usar un atajo de teclado para cambiar la visibilidad de las notas"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Help"
@@ -157,8 +158,8 @@ msgid ""
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
-"Tus notas se guardan en el disco en diferentes ocasiones (sobre todo cuando "
-"las ocultas). Si quieres<b>obtener una copia de tus notas</b>, este botón "
+"Tus notas se guardan en el disco en diferentes ocasiones (principalmente cuando "
+"las ocultas). Si quieres <b>obtener una copia de tus notas</b>, este botón "
 "abre la carpeta donde se encuentran."
 
 #: notes@maestroschan.fr/prefs.ui
@@ -181,7 +182,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Back"
 msgid "Backup"
-msgstr "Copia de seuridad"
+msgstr "Copia de seguridad"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Explanations about how to use this extension can be found here:"
@@ -220,7 +221,7 @@ msgstr "Traducción:"
 msgid "translator-credits"
 msgstr ""
 "Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>"
-"David Astillero Pérez <datillero@gmail.com>"
+"  David Astillero Pérez <datillero@gmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Report bugs or ideas"
