@@ -1,0 +1,228 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-07 16:28+0200\n"
+"PO-Revision-Date: 2023-02-08 21:07+0100\n"
+"Last-Translator: Quentin PAGÈS\n"
+"Language-Team: \n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Show notes"
+msgstr "Afichar las nòtas"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Notes extension error: failed to load a note"
+msgstr "Error de Notes extensions : cargament impossible de la nòta"
+
+#: notes@maestroschan.fr/extension.js notes@maestroschan.fr/prefs.ui
+msgid "Notes"
+msgstr "Nòtas"
+
+#: notes@maestroschan.fr/extension.js
+msgid "Restart the extension to apply the changes"
+msgstr "Reaviar l’extension per aplicar las modificacions"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Custom color"
+msgstr "Color personalizada"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/prefs.ui
+msgid "Settings"
+msgstr "Paramètres"
+
+#: notes@maestroschan.fr/menus.js notes@maestroschan.fr/noteBox.js
+#: notes@maestroschan.fr/prefs.ui
+msgid "Apply"
+msgstr "Aplicar"
+
+#: notes@maestroschan.fr/menus.js
+msgid "Font size"
+msgstr "Talha de la polissa"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Type here…"
+msgstr "Picatz aquí…"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "New"
+msgstr "Novèl"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete"
+msgstr "Suprimir"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Note options"
+msgstr "Opcions de nòta"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Resize"
+msgstr "Redimensionar"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Empty note"
+msgstr "Nòta voida"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Delete this note?"
+msgstr "Suprimir aquesta nòta ?"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Edit title"
+msgstr "Modificar lo títol"
+
+#: notes@maestroschan.fr/prefs.js
+msgid "Modifications will be effective after reloading the extension."
+msgstr "Las modificacions seràn efectivas aprèp lo recargament de l'extension."
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Default value is %s"
+msgstr "La valor per defaut es %s"
+
+#: notes@maestroschan.fr/prefs.js
+#, javascript-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Position of notes"
+msgstr "Posicion de las nòtas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Above everything"
+msgstr "Al dessús de tot"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "On the background"
+msgstr "Pel fons"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Incompatible with desktop icons"
+msgstr "Incompatible amb las icònas de burèu"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Cycle through 3 states"
+msgstr "Boclar amb 3 estats"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Send to background, send to foreground, hide"
+msgstr "Enviar al rèireplan, enviar al primièr plan, amagar"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Automatic focus"
+msgstr "Fòcus automatic"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut"
+msgstr "Utilizar un acorchi de clavièr"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Use a keyboard shortcut to toggle notes visibility"
+msgstr "Acorchi de clavièr per alternar la visibilitat de las nòtas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Help"
+msgstr "Ajuda"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Hide the icon"
+msgstr "Amagar l'icòna"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "First note's color"
+msgstr "Color la primièra nòta"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "The notes created afterwards will use the color of their parent"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Your notes are saved to the disk on various occasions (mainly when you hide "
+"them). If you want to <b>get a copy of your notes</b>, this button opens the "
+"folder where they are."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Open the storage directory"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Files ending with \"_state\" contain the color and position of your notes"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Files ending with \"_text\" contain the text written in your notes"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Backup"
+msgstr "Salvagardar"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Explanations about how to use this extension can be found here:"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Online help manual"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid ""
+"Click on this button if you accidentally moved a note out of your primary "
+"monitor (example: if you had notes on a secondary monitor and unplugged it)."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Bring back to the primary monitor"
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Sticky notes for the GNOME Shell desktop."
+msgstr ""
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Author:"
+msgstr "Autor :"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Translation:"
+msgstr "Traduccion :"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "translator-credits"
+msgstr "Quentin PAGÈS"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Report bugs or ideas"
+msgstr "Senhalar las anomalias o idèas"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "About"
+msgstr "A prepaus"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "List of valid key names"
+msgstr "Lista dels noms claus valids"
+
+#. Context for translation: modifier keys are ctrl/shift/super/alt
+#: notes@maestroschan.fr/prefs.ui
+msgid "Modifier keys must be between chevrons"
+msgstr "Las claus de modificacions devon èsser entre croquets"
+
+#: notes@maestroschan.fr/prefs.ui
+msgid "Don't use a keyboard shortcut that already exists."
+msgstr "Utilizetz pas un acorchi de clavièr qu'existís ja."
