@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2019-03-21 00:03+0100\n"
 "Last-Translator: Romain F. T. <rrroschan@gmail.com>\n"
 "Language-Team: French <none>\n"
@@ -61,6 +61,10 @@ msgid "New"
 msgstr "Nouveau"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Copie"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -71,6 +75,10 @@ msgstr "Options de la note"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "Redimensionner"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "Copier cette note?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"

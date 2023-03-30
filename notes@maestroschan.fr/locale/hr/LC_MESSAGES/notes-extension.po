@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: notes-extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2020-01-24 23:57+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -61,6 +61,10 @@ msgid "New"
 msgstr "Nova"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Kopirati"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -71,6 +75,10 @@ msgstr "Opcije za bilješke"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "Promijeni veličinu"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "Kopirati ovu bilješku?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
