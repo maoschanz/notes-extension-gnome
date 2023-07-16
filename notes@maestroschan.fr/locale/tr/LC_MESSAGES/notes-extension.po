@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2020-10-29 17:42+0300\n"
 "Last-Translator: Muha Aliss <muhaaliss@pm.me>\n"
 "Language-Team: Türkçe\n"
@@ -61,6 +61,10 @@ msgid "New"
 msgstr "Yeni"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Kopyalamak"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Sil"
 
@@ -73,12 +77,16 @@ msgid "Resize"
 msgstr "Boyutlandır"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "Qeyd kopyalansın?"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
-msgstr "Not silinsin mi ?"
+msgstr "Not silinsin mi?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Edit title"

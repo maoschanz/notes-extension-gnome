@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2020-06-23 17:24+0800\n"
 "Last-Translator: Nesquate <nesquate.100001@gmail.com>\n"
 "Language-Team: \n"
@@ -55,6 +55,10 @@ msgid "New"
 msgstr "新增"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "复制"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "刪除"
 
@@ -67,12 +71,16 @@ msgid "Resize"
 msgstr "調整大小"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "複製此註釋？"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
 msgstr ""
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Delete this note?"
-msgstr "刪除這個便箋 ?"
+msgstr "刪除這個便箋?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Edit title"
@@ -232,4 +240,3 @@ msgstr ""
 #: notes@maestroschan.fr/prefs.ui
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr ""
-

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2022-01-13 11:03-0300\n"
 "Last-Translator: Clóvis Fabrício Costa <github.nosklo@0sg.net>\n"
 "Language-Team: Brazillian Portuguese\n"
@@ -60,6 +60,10 @@ msgid "New"
 msgstr "Nova"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Copiar"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Deletar"
 
@@ -70,6 +74,10 @@ msgstr "Opções de nota"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "Redimensionar"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "Copiar esta nota?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
@@ -234,4 +242,3 @@ msgstr "Modificadores precisam estar entre menor e maior"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "Não use um atalho de teclado que já existe."
-

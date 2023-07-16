@@ -23,6 +23,9 @@ const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroscha
 const MIN_HEIGHT = 75;
 const MIN_WIDTH = 200;
 
+const Clipboard = St.Clipboard.get_default();
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+
 //------------------------------------------------------------------------------
 
 function stringFromArray(data){
@@ -170,6 +173,14 @@ var NoteBox = class NoteBox {
 		btnNew.actor.connect('clicked', this._createNote.bind(this));
 		this._buttonsBox.add_child(btnNew.actor);
 
+		let btnCopy = new Menus.NoteRoundButton(
+			this,
+			'edit-copy',
+			_("Copy")
+		);
+		btnCopy.actor.connect('clicked', this._copyNote.bind(this));
+		 this._buttonsBox.add_child(btnCopy.actor);
+
 		let btnDelete = new Menus.NoteRoundButton(
 			this,
 			'user-trash-symbolic',
@@ -209,6 +220,24 @@ var NoteBox = class NoteBox {
 		ctrlButton.actor.connect('button-release-event', this._onRelease.bind(this));
 
 		this.actor.add_child(this._buttonsBox);
+	}
+
+	_copyNote() {
+		let noteText = this.noteEntry.get_text();
+
+		let description_label = new St.Label({
+			style: 'padding-top: 16px;',
+			x_align: Clutter.ActorAlign.CENTER,
+			text: noteText,
+		});
+
+		let dialog = new Dialog.CustomModalDialog(
+			_("Copy this note?"),
+			description_label,
+			_("Copy"),
+			Clipboard.set_text(CLIPBOARD_TYPE, noteText)
+		);
+		dialog.open();
 	}
 
 	_openDeleteDialog () {

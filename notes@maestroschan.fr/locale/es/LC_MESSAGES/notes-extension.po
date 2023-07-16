@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2022-09-06 17:25+0200\n"
 "Last-Translator: David Astillero Pérez <dastillero@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -61,6 +61,10 @@ msgid "New"
 msgstr "Nueva"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Copiar"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -71,6 +75,10 @@ msgstr "Opciones de nota"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "Modificar tamaño"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "¿Quieres copiar esta nota?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
@@ -158,9 +166,9 @@ msgid ""
 "them). If you want to <b>get a copy of your notes</b>, this button opens the "
 "folder where they are."
 msgstr ""
-"Tus notas se guardan en el disco en diferentes ocasiones (principalmente cuando "
-"las ocultas). Si quieres <b>obtener una copia de tus notas</b>, este botón "
-"abre la carpeta donde se encuentran."
+"Tus notas se guardan en el disco en diferentes ocasiones (principalmente "
+"cuando las ocultas). Si quieres <b>obtener una copia de tus notas</b>, este "
+"botón abre la carpeta donde se encuentran."
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Open the storage directory"
@@ -220,8 +228,8 @@ msgstr "Traducción:"
 #: notes@maestroschan.fr/prefs.ui
 msgid "translator-credits"
 msgstr ""
-"Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>"
-"  David Astillero Pérez <datillero@gmail.com>"
+"Carmen Ortega Mateos <ortegamateos.carmen@gmail.com>  David Astillero Pérez "
+"<datillero@gmail.com>"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Report bugs or ideas"

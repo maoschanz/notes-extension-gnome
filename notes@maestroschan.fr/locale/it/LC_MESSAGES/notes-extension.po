@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2022-08-07 20:42+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: \n"
@@ -60,6 +60,10 @@ msgid "New"
 msgstr "Nuova"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "Copia"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "Elimina"
 
@@ -70,6 +74,10 @@ msgstr "Opzioni note"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "Ridimensiona"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "Copiare questa nota?"
 
 #: notes@maestroschan.fr/noteBox.js
 msgid "Empty note"
@@ -178,13 +186,13 @@ msgstr ""
 "I file che terminano con \"_text\" contengono il testo scritto nelle note"
 
 #: notes@maestroschan.fr/prefs.ui
-#| msgid "Back"
 msgid "Backup"
 msgstr "Backup"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Explanations about how to use this extension can be found here:"
-msgstr "Spiegazioni su come utilizzare questa estensione possono essere trovate qui:"
+msgstr ""
+"Spiegazioni su come utilizzare questa estensione possono essere trovate qui:"
 
 #: notes@maestroschan.fr/prefs.ui
 msgid "Online help manual"

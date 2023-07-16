@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 16:26+0200\n"
+"POT-Creation-Date: 2023-03-30 07:45-0300\n"
 "PO-Revision-Date: 2022-04-27 10:41+0800\n"
 "Last-Translator: Aerowolf <aerowolf@tom.com>\n"
 "Language-Team: \n"
@@ -56,6 +56,10 @@ msgid "New"
 msgstr "新建"
 
 #: notes@maestroschan.fr/noteBox.js
+msgid "Copy"
+msgstr "复制"
+
+#: notes@maestroschan.fr/noteBox.js
 msgid "Delete"
 msgstr "删除"
 
@@ -66,6 +70,10 @@ msgstr "便签选项"
 #: notes@maestroschan.fr/noteBox.js
 msgid "Resize"
 msgstr "调整大小"
+
+#: notes@maestroschan.fr/noteBox.js
+msgid "Copy this note?"
+msgstr "复制此注释？"
 
 #: notes@maestroschan.fr/noteBox.js
 #, fuzzy
@@ -231,4 +239,3 @@ msgstr "修改器按键必须位于V形之间"
 #: notes@maestroschan.fr/prefs.ui
 msgid "Don't use a keyboard shortcut that already exists."
 msgstr "请勿使用已经存在的键盘快捷键。"
-
