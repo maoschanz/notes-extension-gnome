@@ -2,19 +2,14 @@
 // GPL v3
 // Copyright 2018-2021 Romain F. T.
 
-const { Clutter, St } = imports.gi;
-const Main = imports.ui.main;
-const PopupMenu = imports.ui.popupMenu;
-const ShellEntry = imports.ui.shellEntry;
-const Signals = imports.signals;
-const Util = imports.misc.util;
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Extension = Me.imports.extension;
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Gettext = imports.gettext.domain('notes-extension');
-const _ = Gettext.gettext;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 const PRESET_COLORS = {
 	'red': [200, 0, 0],
@@ -31,8 +26,13 @@ const PRESET_COLORS = {
 
 //------------------------------------------------------------------------------
 
-class NoteOptionsMenu {
+class NoteOptionsMenu extends Signals.EventEmitter {
 	constructor (source) {
+		super ();
+
+		this._extension = source._extension;
+		console.log(this._extension.path);
+
 		this.super_menu = new PopupMenu.PopupMenu(source.actor, 0.2, St.Side.LEFT);
 
 		// We want to keep the item hovered while the menu is up
@@ -102,7 +102,7 @@ class NoteOptionsMenu {
 
 		this._appendSeparator(); //---------------------------------------------
 
-		this.super_menu.addAction(_("Settings"), this._onSettings);
+		this.super_menu.addAction(_("Settings"), this._onSettings.bind(this));
 	}
 
 	_buildCustomColorMenu (colorSubmenu) {
@@ -187,8 +187,8 @@ class NoteOptionsMenu {
 		let btn = new St.Button({
 			style_class: 'notesCircleButton',
 			style: 'background-color: rgb(' + rgb[0] + ','
-			                                + rgb[1] + ','
-			                                + rgb[2] + ');',
+							+ rgb[1] + ','
+							+ rgb[2] + ');',
 			x_expand: true,
 			x_align: Clutter.ActorAlign.CENTER,
 		});
@@ -212,12 +212,9 @@ class NoteOptionsMenu {
 	}
 
 	_onSettings () {
-		if (typeof ExtensionUtils.openPrefs === 'function') {
-			ExtensionUtils.openPrefs();
-		} else {
-			Util.spawn(['gnome-shell-extension-prefs', 'notes@maestroschan.fr']);
-		}
-		Extension.NOTES_MANAGER._hideNotes();
+		console.log(this._extension.path);
+		this._extension.openPreferences();
+		this._extension.notesManager._hideNotes();
 	}
 
 	_onEditTitle () {
@@ -242,12 +239,15 @@ class NoteOptionsMenu {
 		this._source._note.changeFontSize(-1);
 	}
 };
-Signals.addSignalMethods(NoteOptionsMenu.prototype);
 
 //------------------------------------------------------------------------------
 
-var NoteRoundButton = class NoteRoundButton {
+export const NoteRoundButton = class NoteRoundButton extends Signals.EventEmitter {
 	constructor (note, icon, accessibleName) {
+		super ();
+
+		this._extension = note._extension;
+
 		this._note = note;
 		this.actor = new St.Button({
 			child: new St.Icon({
@@ -272,13 +272,7 @@ var NoteRoundButton = class NoteRoundButton {
 
 	addMenu () {
 		this._menu = null;
-		try {
-			// before 3.33, the constructor uses this.actor
-			this._menuManager = new PopupMenu.PopupMenuManager(this);
-		} catch (e) {
-			// after 3.33, the constructor uses directly the parameter
-			this._menuManager = new PopupMenu.PopupMenuManager(this.actor);
-		}
+		this._menuManager = new PopupMenu.PopupMenuManager(this.actor);
 		this.actor.connect('button-press-event', this.popupMenu.bind(this));
 	}
 
@@ -299,7 +293,5 @@ var NoteRoundButton = class NoteRoundButton {
 		return false;
 	}
 };
-Signals.addSignalMethods(NoteRoundButton.prototype);
 
 //------------------------------------------------------------------------------
-

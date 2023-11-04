@@ -2,23 +2,19 @@
 // GPL v3
 // Copyright 2018-2021 Romain F. T.
 
-const { Clutter, St, GLib, Gio } = imports.gi;
-const Main = imports.ui.main;
-const ShellEntry = imports.ui.shellEntry;
-const GrabHelper = imports.ui.grabHelper;
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Menus = Me.imports.menus;
-const Extension = Me.imports.extension;
-const Dialog = Me.imports.dialog;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+// import * as ShellEntry from 'resource:///org/gnome/shell/ui/shellEntry.js';
+import * as GrabHelper from 'resource:///org/gnome/shell/ui/grabHelper.js';
 
-const Gettext = imports.gettext.domain('notes-extension');
-const _ = Gettext.gettext;
-
-// ~/.local/share/notes@maestroschan.fr
-const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
+import * as Menus from './menus.js';
+import * as Dialog from './dialog.js';
 
 const MIN_HEIGHT = 75;
 const MIN_WIDTH = 200;
@@ -27,7 +23,8 @@ const MIN_WIDTH = 200;
 
 function stringFromArray(data){
 	if (data instanceof Uint8Array) {
-		return imports.byteArray.toString(data);
+		let decoder = new TextDecoder('utf-8');
+		return decoder.decode(data);
 	} else {
 		return data.toString();
 	}
@@ -41,14 +38,20 @@ function stringFromArray(data){
  * other methods are here for managing note state through buttons, or to
  * interact with the NotesManager singleton.
  */
-var NoteBox = class NoteBox {
-	constructor (id, color, fontSize) {
+export const NoteBox = class NoteBox {
+	constructor (id, color, fontSize, extension) {
+		this._extension = extension;
+		this._settings = extension.getSettings();
+		this._dataPath = extension._dataPath;
+		this._notesManager = extension._notesManager;
+		this._autoFocus = extension._autoFocus;
+
 		this.id = id;
 		this._fontSize = fontSize;
 		if (color.split(',').length == 3) {
 			this.customColor = color;
 		} else {
-			let c = Extension.SETTINGS.get_strv('first-note-rgb');
+			let c = this._settings.get_strv('first-note-rgb');
 			c[0] = c[0] * 255;
 			c[1] = c[1] * 255;
 			c[2] = c[2] * 255;
@@ -112,7 +115,7 @@ var NoteBox = class NoteBox {
 		//----------------------------------------------------------------------
 
 		this._grabHelper = new GrabHelper.GrabHelper(this.noteEntry)
-		if (Extension.AUTO_FOCUS) { // TODO dynamically update this setting
+		if (this._autoFocus) { // TODO dynamically update this setting
 			this.noteEntry.connect('enter-event', this._getKeyFocus.bind(this));
 			this.noteEntry.connect('leave-event', this._leaveKeyFocus.bind(this));
 		} else {
@@ -268,7 +271,7 @@ var NoteBox = class NoteBox {
 	// "Public" methods called by NotesManager ---------------------------------
 
 	loadIntoCorrectLayer () {
-		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
+		if (this._notesManager.notesNeedChromeTracking()) {
 			Main.layoutManager.addChrome(this.actor, {
 				affectsInputRegion: true
 			});
@@ -278,7 +281,7 @@ var NoteBox = class NoteBox {
 	}
 
 	removeFromCorrectLayer () {
-		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
+		if (this._notesManager.notesNeedChromeTracking()) {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
 		} else {
@@ -288,14 +291,14 @@ var NoteBox = class NoteBox {
 
 	show () {
 		this.actor.visible = true;
-		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
+		if (this._notesManager.notesNeedChromeTracking()) {
 			Main.layoutManager.trackChrome(this.actor);
 		}
 	}
 
 	onlyHide () {
 		this.actor.visible = false;
-		if (Extension.NOTES_MANAGER.notesNeedChromeTracking()) {
+		if (this._notesManager.notesNeedChromeTracking()) {
 			Main.layoutManager.untrackChrome(this.actor);
 		}
 	}
@@ -480,7 +483,7 @@ var NoteBox = class NoteBox {
 	//--------------------------------------------------------------------------
 
 	_createNote () {
-		Extension.NOTES_MANAGER.createNote(this.customColor, this._fontSize);
+		this._notesManager.createNote(this.customColor, this._fontSize);
 	}
 
 	/*
@@ -507,15 +510,15 @@ var NoteBox = class NoteBox {
 	}
 
 	_loadText () {
-		let file2 = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
+		let file2 = GLib.build_filenamev([this._dataPath, this.id.toString() + '_text']);
 		if (!GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 			GLib.file_set_contents(file2, '');
 		}
 
-		let file = Gio.file_new_for_path(PATH + '/' + this.id.toString() + '_text');
+		let file = Gio.file_new_for_path(this._dataPath + '/' + this.id.toString() + '_text');
 		let [result, contents] = file.load_contents(null);
 		if (!result) {
-			log('Could not read file: ' + PATH);
+			log('Could not read file: ' + this._dataPath);
 		}
 		let content = stringFromArray(contents);
 
@@ -527,7 +530,7 @@ var NoteBox = class NoteBox {
 		if (noteText == null) {
 			noteText = '';
 		}
-		let file = GLib.build_filenamev([PATH, this.id.toString() + '_text']);
+		let file = GLib.build_filenamev([this._dataPath, this.id.toString() + '_text']);
 		GLib.file_set_contents(file, noteText);
 	}
 
@@ -544,7 +547,7 @@ var NoteBox = class NoteBox {
 			x = Math.random() * (Main.layoutManager.primaryMonitor.width - 300);
 			y = Math.random() * (Main.layoutManager.primaryMonitor.height - 100);
 
-			if (Extension.NOTES_MANAGER.areCoordsUsable(x, y)) {
+			if (this._notesManager.areCoordsUsable(x, y)) {
 				return [x, y];
 			}
 		}
@@ -562,7 +565,7 @@ var NoteBox = class NoteBox {
 	}
 
 	_loadState () {
-		let fname = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
+		let fname = GLib.build_filenamev([this._dataPath, this.id.toString() + '_state']);
 		if (!GLib.file_test(fname, GLib.FileTest.EXISTS)) {
 			// If a _text file has no corresponding _state file
 			this._createDefaultState(fname);
@@ -599,7 +602,7 @@ var NoteBox = class NoteBox {
 		noteState += this.entry_is_visible.toString() + ';';
 
 		//log('_saveState | ' + this.id.toString() + ' | ' + noteState);
-		let file = GLib.build_filenamev([PATH, this.id.toString() + '_state']);
+		let file = GLib.build_filenamev([this._dataPath, this.id.toString() + '_state']);
 		GLib.file_set_contents(file, noteState);
 	}
 
@@ -608,7 +611,7 @@ var NoteBox = class NoteBox {
 	_deleteNoteObject () {
 		let noteId = this.id;
 		this.destroy();
-		Extension.NOTES_MANAGER.postDelete(noteId);
+		this._notesManager.postDelete(noteId);
 	}
 
 	destroy () {
@@ -619,4 +622,3 @@ var NoteBox = class NoteBox {
 };
 
 //------------------------------------------------------------------------------
-
