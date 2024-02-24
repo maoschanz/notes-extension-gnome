@@ -321,7 +321,7 @@ class NotesManager {
 		});
 
 		this._layerSetting = this._settings.get_string('layout-position');
-		this._layerId = (this._layerSettings == 'on-background')
+		this._layerId = (this._layerSetting == 'on-background')
 			? 'on-background'
 			: 'above-all'
 		;
