@@ -2,59 +2,51 @@
 // GPL v3
 // Copyright 2018-2021 Romain F. T.
 
-const { St, Shell, GLib, Gio, Meta } = imports.gi;
-const PanelMenu = imports.ui.panelMenu;
-const Panel = imports.ui.panel;
-const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
+import St from 'gi://St';
+import Shell from 'gi://Shell';
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
+import Meta from 'gi://Meta';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const NoteBox = Me.imports.noteBox;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 
-const Gettext = imports.gettext.domain('notes-extension');
-const _ = Gettext.gettext;
+import * as NoteBox from './noteBox.js';
 
 //------------------------------------------------------------------------------
 
-const PATH = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
-// which is usually ~/.local/share/notes@maestroschan.fr
+export default class NotesExtension extends Extension {
+	enable() {
+		this._layerSetting = '';
+		this._settings = this.getSettings();
+		this._autoFocus = this._settings.get_boolean('auto-focus'); // XXX crado
+		this._dataPath = GLib.build_pathv('/', [GLib.get_user_data_dir(), 'notes@maestroschan.fr']);
+		// which is usually ~/.local/share/notes@maestroschan.fr
 
-var NOTES_MANAGER;
-var SETTINGS;
-var LAYER_SETTING;
-var AUTO_FOCUS;
-
-function init() {
-	ExtensionUtils.initTranslations();
-	try {
-		let a = Gio.file_new_for_path(PATH);
-		if (!a.query_exists(null)) {
-			a.make_directory(null);
+		try {
+			let a = Gio.file_new_for_path(this._dataPath);
+			if (!a.query_exists(null)) {
+				a.make_directory(null);
+			}
+		} catch (e) {
+			log(e.message);
 		}
-	} catch (e) {
-		log(e.message);
-	}
-	LAYER_SETTING = '';
-}
 
-function enable() {
-	SETTINGS = ExtensionUtils.getSettings();
-	AUTO_FOCUS = SETTINGS.get_boolean('auto-focus'); // XXX crado
-
-	NOTES_MANAGER = new NotesManager();
-}
-
-function disable() {
-	NOTES_MANAGER.destroy();
-
-	if (NOTES_MANAGER) {
-		NOTES_MANAGER = null;
+		this._notesManager = new NotesManager(this);
 	}
 
-	if (SETTINGS) {
-		SETTINGS = null;
+	disable() {
+		this._notesManager.destroy();
+
+		if (this._notesManager) {
+			this._notesManager = null;
+		}
+
+		if (this._settings) {
+			this._settings = null;
+		}
 	}
 }
 
@@ -69,7 +61,12 @@ function disable() {
  * new one.
  */
 class NotesManager {
-	constructor() {
+	constructor(extension) {
+		this._extension = extension;
+		this._settings = extension.getSettings();
+		this._layerSetting = extension._layerSetting;
+		this._dataPath = extension._dataPath;
+
 		// Initialisation of the button in the top panel
 		this.panel_button = new PanelMenu.Button(0.0, _("Show notes"), false);
 		let icon = new St.Icon({
@@ -99,11 +96,11 @@ class NotesManager {
 	}
 
 	_bindKeyboardShortcut () {
-		this._useKeyboardShortcut = SETTINGS.get_boolean('use-shortcut');
+		this._useKeyboardShortcut = this._settings.get_boolean('use-shortcut');
 		if (this._useKeyboardShortcut) {
 			Main.wm.addKeybinding(
 				'notes-kb-shortcut',
-				SETTINGS,
+				this._settings,
 				Meta.KeyBindingFlags.NONE,
 				Shell.ActionMode.ALL,
 				this._onButtonPressed.bind(this)
@@ -115,7 +112,7 @@ class NotesManager {
 		let i = 0;
 		let ended = false;
 		while(!ended) {
-			let file2 = GLib.build_filenamev([PATH, i.toString() + '_state']);
+			let file2 = GLib.build_filenamev([this._dataPath, i.toString() + '_state']);
 			if (GLib.file_test(file2, GLib.FileTest.EXISTS)) {
 				this.createNote('', 16);
 			} else {
@@ -133,7 +130,7 @@ class NotesManager {
 	createNote (colorString, fontSize) {
 		let nextId = this._allNotes.length;
 		try {
-			this._allNotes.push(new NoteBox.NoteBox(nextId, colorString, fontSize));
+			this._allNotes.push(new NoteBox.NoteBox(nextId, colorString, fontSize, this._extension));
 		} catch (e) {
 			Main.notify(_("Notes extension error: failed to load a note"));
 			log('failed to create note n°' + nextId.toString());
@@ -187,7 +184,7 @@ class NotesManager {
 
 	_hideNotes () {
 		this._onlyHideNotes();
-		this._timeout_id = Mainloop.timeout_add(10, () => {
+		this._timeout_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 10, () => {
 			this._timeout_id = null;
 			// saving to the disk is slightly delayed to give the illusion that
 			// the extension doesn't freeze the system
@@ -206,7 +203,7 @@ class NotesManager {
 	}
 
 	_deleteNoteFiles (id) {
-		let filePathBeginning = PATH + '/' + id.toString();
+		let filePathBeginning = this._dataPath + '/' + id.toString();
 		let textfile = Gio.file_new_for_path(filePathBeginning + '_text');
 		let statefile = Gio.file_new_for_path(filePathBeginning + '_state');
 		textfile.delete(null); // may not do anything
@@ -220,7 +217,7 @@ class NotesManager {
 		// log('_onButtonPressed');
 
 		let preventReshowing = false;
-		if(LAYER_SETTING === 'cycle-layers') {
+		if(this._layerSetting === 'cycle-layers') {
 			this._allNotes.forEach(function (n) {
 				n.removeFromCorrectLayer();
 			});
@@ -261,27 +258,27 @@ class NotesManager {
 	_connectAllSignals () {
 		this._settingsSignals = {};
 
-		this._settingsSignals['layout'] = SETTINGS.connect(
+		this._settingsSignals['layout'] = this._settings.connect(
 			'changed::layout-position',
 			this._updateLayerSetting.bind(this)
 		);
-		this._settingsSignals['bring-back'] = SETTINGS.connect(
+		this._settingsSignals['bring-back'] = this._settings.connect(
 			'changed::ugly-hack',
 			this._bringToPrimaryMonitorOnly.bind(this)
 		);
-		this._settingsSignals['hide-icon'] = SETTINGS.connect(
+		this._settingsSignals['hide-icon'] = this._settings.connect(
 			'changed::hide-icon',
 			this._updateIconVisibility.bind(this)
 		);
-		this._settingsSignals['kb-shortcut-1'] = SETTINGS.connect(
+		this._settingsSignals['kb-shortcut-1'] = this._settings.connect(
 			'changed::use-shortcut',
 			this._updateShortcut.bind(this)
 		);
-		this._settingsSignals['kb-shortcut-2'] = SETTINGS.connect(
+		this._settingsSignals['kb-shortcut-2'] = this._settings.connect(
 			'changed::notes-kb-shortcut',
 			this._updateShortcut.bind(this)
 		);
-		this._settingsSignals['auto-focus'] = SETTINGS.connect(
+		this._settingsSignals['auto-focus'] = this._settings.connect(
 			'changed::auto-focus',
 			this._updateFocusSetting.bind(this)
 		);
@@ -303,7 +300,7 @@ class NotesManager {
 	}
 
 	_updateIconVisibility () {
-		let now_visible = !SETTINGS.get_boolean('hide-icon');
+		let now_visible = !this._settings.get_boolean('hide-icon');
 		this.panel_button.visible = now_visible;
 	}
 
@@ -323,8 +320,8 @@ class NotesManager {
 			n.removeFromCorrectLayer();
 		});
 
-		LAYER_SETTING = SETTINGS.get_string('layout-position');
-		this._layerId = (LAYER_SETTING == 'on-background')
+		this._layerSetting = this._settings.get_string('layout-position');
+		this._layerId = (this._layerSetting == 'on-background')
 			? 'on-background'
 			: 'above-all'
 		;
@@ -341,12 +338,12 @@ class NotesManager {
 	//--------------------------------------------------------------------------
 
 	destroy() {
-		SETTINGS.disconnect(this._settingsSignals['layout']);
-		SETTINGS.disconnect(this._settingsSignals['bring-back']);
-		SETTINGS.disconnect(this._settingsSignals['hide-icon']);
-		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-1']);
-		SETTINGS.disconnect(this._settingsSignals['kb-shortcut-2']);
-		SETTINGS.disconnect(this._settingsSignals['auto-focus']);
+		this._settings.disconnect(this._settingsSignals['layout']);
+		this._settings.disconnect(this._settingsSignals['bring-back']);
+		this._settings.disconnect(this._settingsSignals['hide-icon']);
+		this._settings.disconnect(this._settingsSignals['kb-shortcut-1']);
+		this._settings.disconnect(this._settingsSignals['kb-shortcut-2']);
+		this._settings.disconnect(this._settingsSignals['auto-focus']);
 
 		this._allNotes.forEach(function (n) {
 			n.onlySave(false);
@@ -360,11 +357,10 @@ class NotesManager {
 		this.panel_button.destroy();
 
 		if (this._timeout_id) {
-			Mainloop.source_remove(this._timeout_id);
+			GLib.source_remove(this._timeout_id);
 			this._timeout_id = null;
 		}
 	}
 };
 
 //------------------------------------------------------------------------------
-
