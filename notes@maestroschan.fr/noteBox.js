@@ -109,7 +109,13 @@ export const NoteBox = class NoteBox {
 		});
 
 		this._entryBox.add_child(this.noteEntry);
-		this._scrollView.add_actor(this._entryBox); // yes, actually add_actor
+
+		// For compatibility with GS 45 where add_child don't work
+		if (this._scrollView.add_actor === undefined) {
+			this._scrollView.add_child(this._entryBox);
+		} else {
+			this._scrollView.add_actor(this._entryBox);
+		}
 		this.actor.add_child(this._scrollView);
 
 		//----------------------------------------------------------------------
@@ -285,7 +291,7 @@ export const NoteBox = class NoteBox {
 //			Main.layoutManager.untrackChrome(this.actor);
 			Main.layoutManager.removeChrome(this.actor);
 		} else {
-			Main.layoutManager._backgroundGroup.remove_actor(this.actor);
+			Main.layoutManager._backgroundGroup.remove_child(this.actor);
 		}
 	}
 
